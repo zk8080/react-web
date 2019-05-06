@@ -15,7 +15,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
+        State.getUserList()
     }
 
     componentWillReceiveProps(nextProps) {

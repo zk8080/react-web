@@ -40,6 +40,7 @@ class Index extends Component {
     onLogin = () => {
         this.props.appStore.setIsAuthority(true)
         // console.log( this.props, 'this.props' )
+        // window.appHistory.push('/')
         this.props.history.push('/')
     }
 

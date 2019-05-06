@@ -4,13 +4,14 @@ import './index.less';
 import App from './container/App';
 import * as serviceWorker from './serviceWorker';
 import {
-    BrowserRouter as Router,
+    Router,
     Route,
     Switch,
     Redirect
 } from 'react-router-dom'
 import {Provider} from 'mobx-react';
 import '@deploy/axios';
+import './mock/mock.js';
 import appStore from '@deploy/store';
 import loadComponent from '@deploy/router/loadable';
 import { createBrowserHistory } from 'history';
