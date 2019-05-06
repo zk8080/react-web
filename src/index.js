@@ -3,8 +3,47 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import App from './container/App';
 import * as serviceWorker from './serviceWorker';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
+} from 'react-router-dom'
+import {Provider} from 'mobx-react';
+import '@deploy/axios';
+import appStore from '@deploy/store';
+import loadComponent from '@deploy/router/loadable';
+import { createBrowserHistory } from 'history';
+ 
+const history = createBrowserHistory();
+const Store = {appStore};
+//全局路由跳转对象
+window.appHistory = history;
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//登录页面
+const Login = loadComponent(() => import('@container/login/index.component'));
+
+const ProvideRoute = ({component: Component, ...rest}) => {
+    return <Route
+            {...rest}
+            render = {props => {
+                return appStore.isAuthority ?  <Component {...props}/> : <Redirect to={{pathname: '/login'}}/>          
+            }}
+        />
+}
+
+const Index = () => {
+    return <Provider {...Store}>
+        <Router history={history}>
+            <Switch>
+                <Route path='/login' component={Login}/>
+                <ProvideRoute path='/' component={App}/>
+            </Switch>
+        </Router>
+    </Provider>
+}
+
+ReactDOM.render(<Index />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

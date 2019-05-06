@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import {observer} from 'mobx-react';
-import State from './index.state';
+import './index.less';
 import {Button} from 'antd';
+import {observer, inject} from 'mobx-react'
 
+@inject('appStore')
 @observer
 class Index extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+
+        }
     }
 
     componentWillMount() {
@@ -22,10 +25,6 @@ class Index extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-
-    }
-
     componentWillUpdate(nextProps, nextState) {
 
     }
@@ -37,21 +36,21 @@ class Index extends Component {
     componentWillUnmount() {
 
     }
-    addCount = () => {
-        State.setCount(1)
+
+    onLogin = () => {
+        this.props.appStore.setIsAuthority(true)
+        // console.log( this.props, 'this.props' )
+        this.props.history.push('/')
     }
-    delCount = () =>{
-        State.remCount(1)
-    }
+
     render() {
         return (
-            <div>
-                {State.count}
-                <Button 
-                    onClick={this.addCount}
-                >每次加一</Button>
-                <Button onClick={this.delCount}>
-                    每次减一
+            <div className='login'>
+                登陆页
+                <Button
+                    onClick={this.onLogin}
+                >
+                    点击登录
                 </Button>
             </div>
         )

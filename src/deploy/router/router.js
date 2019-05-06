@@ -7,6 +7,10 @@ import {
 //路由按需加载
 import loadComponent from './loadable';
 
+/**
+ * webpackChunkName: webpack按需加在打包时的chunk名字
+ */
+
 //首页demo组件
 const Home = loadComponent(() => import(/* webpackChunkName: "home" */ '@container/home/index.component'));
 

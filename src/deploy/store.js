@@ -8,6 +8,11 @@ class Store {
     @action setGlobalData = (obj = {}) => {
         this.globalData = obj;
     }
+
+    @observable isAuthority = false;
+    @action setIsAuthority = (bol = false) => {
+        this.isAuthority = bol;
+    }
 }
 
 export default new Store();
