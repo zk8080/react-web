@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state={}
+        this.state={
+            count: 0
+        }
     }
 
     componentWillMount() {
@@ -11,36 +13,51 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
+        // setTimeout(() => {
+        //     this.setState({
+        //         count: 1
+        //     })
+        //     console.log(this.state.count)
+        // }, 0)
+        new Promise(resolve => {
+            resolve()
+        })
+        .then(res => {
+            this.setState({
+                count: 1
+            })
+            console.log(this.state.count, 'then');
+            
+        })
+        // document.querySelector('button').addEventListener('click', this.onClick, false)
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
+    componentDidUpdate(){
+        
     }
 
     componentWillUnmount() {
 
     }
 
+    onClick = () => {
+        this.setState({
+            count: 1
+        })
+        console.log(this.state.count)
+    }
+
+
+
     render() {
         return (
             <div>
-                Home
+                <button>
+                    测试
+                </button>
             </div>
         )
     }
-}
-
-Index.propTypes = {
-
 }
 
 export default Index
