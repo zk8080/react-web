@@ -1,5 +1,11 @@
 const menuData = [
     {
+        title: '首页',
+        key: '00',
+        icon: 'home',
+        url: '/home'
+    },
+    {
         title: '用户管理',
         key: '01',
         icon: 'user',

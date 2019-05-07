@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {observer} from 'mobx-react';
 import State from './index.state';
-import {Button} from 'antd';
+import {Table} from 'antd';
+import {colums} from './index.data';
+import './index.less';
 
 @observer
 class Index extends Component {
@@ -22,10 +24,6 @@ class Index extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-
-    }
-
     componentWillUpdate(nextProps, nextState) {
 
     }
@@ -37,22 +35,15 @@ class Index extends Component {
     componentWillUnmount() {
 
     }
-    addCount = () => {
-        State.setCount(1)
-    }
-    delCount = () =>{
-        State.remCount(1)
-    }
     render() {
         return (
-            <div>
-                {State.count}
-                <Button 
-                    onClick={this.addCount}
-                >每次加一</Button>
-                <Button onClick={this.delCount}>
-                    每次减一
-                </Button>
+            <div className='user-box'>
+                <Table
+                    columns={colums}
+                    dataSource={State.tableList}
+                    rowKey={(record, index) => record.id}
+                    scroll={{x: 500,y: 500}}
+                />
             </div>
         )
     }

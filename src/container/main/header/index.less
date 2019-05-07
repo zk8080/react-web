@@ -1,10 +1,9 @@
 .header{
     height: 60px;
-    // background-color: blue;
     display: flex;
-    // justify-content: center;
     align-items:  center;
     box-shadow: 0 2px 8px #f0f1f2;
+    flex-shrink: 0;
     .title{
         width: 200px;
         display: flex;
@@ -15,5 +14,11 @@
     }
     .header-menu{
         flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 20px;
+        .logout{
+            cursor: pointer;
+        }
     }
 }

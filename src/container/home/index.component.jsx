@@ -18,10 +18,6 @@ class Index extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-
-    }
-
     componentWillUpdate(nextProps, nextState) {
 
     }

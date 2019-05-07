@@ -39,15 +39,12 @@ class Index extends Component {
 
     onLogin = () => {
         this.props.appStore.setIsAuthority(true)
-        // console.log( this.props, 'this.props' )
-        // window.appHistory.push('/')
         this.props.history.push('/')
     }
 
     render() {
         return (
             <div className='login'>
-                登陆页
                 <Button
                     onClick={this.onLogin}
                 >

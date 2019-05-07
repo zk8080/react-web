@@ -2,7 +2,8 @@
 import React from 'react';
 import {
     Route,
-    Switch
+    Switch,
+    Redirect
 } from 'react-router-dom';
 //路由按需加载
 import loadComponent from './loadable';
@@ -27,11 +28,12 @@ const NoMatch = loadComponent(() => import(/* webpackChunkName: "404" */ '@conta
 
 const Index = () => (
     <Switch>
-        <Route path='/home' component={Home}/>
-        <Route path='/user/list' component={UserList}/>
-        <Route path='/user/add' component={AddUser}/>
-        <Route path='/article/list' component={ArticleList}/>
-        <Route path='/article/add' component={AddArticle}/>
+        <Route path='/' exact render={() => <Redirect to='/home'/>}/>
+        <Route path='/home' exact strict component={Home}/>
+        <Route path='/user/list' exact strict component={UserList}/>
+        <Route path='/user/add' exact strict component={AddUser}/>
+        <Route path='/article/list' exact strict component={ArticleList}/>
+        <Route path='/article/add' exact strict component={AddArticle}/>
         <Route component={NoMatch}/>
     </Switch>    
 );

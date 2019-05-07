@@ -11,7 +11,7 @@ class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            openKeys: ['01-01']
+            openKeys: ['']
         }
     }
 
@@ -30,9 +30,14 @@ class Index extends Component {
 
     renderMenu = (arr) => {
         return arr.map( item => {
-            return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
+            if( item.children ){
+                return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
                     {item.children && this.renderChildMenu(item.children)}
                 </SubMenu>
+            }else{
+                return <Menu.Item key={item.key}><Link to={item.url}>{item.title}</Link></Menu.Item>
+            }
+            
         })
     }
 
@@ -60,6 +65,7 @@ class Index extends Component {
                 mode="inline"
                 openKeys={this.state.openKeys}
                 onOpenChange={this.onOpenChange}
+                defaultSelectedKeys={['00']}
                 className='silder'
             >
                 {

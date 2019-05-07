@@ -5,10 +5,11 @@ var Random = Mock.Random;
 
 Mock.mock('/api/userlist', {
     data: {
-        'userList|1-10': [
+        'userList|10-50': [
             {
+                'id|+1': 1, 
                 'name': () => Random.cname(),
-                'intro': () => Random.cparagraph(10,20)
+                'remark': () => Random.cparagraph(1,3)
             }
         ]
     },
