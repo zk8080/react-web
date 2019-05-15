@@ -1,60 +1,43 @@
 import React, { Component } from 'react';
+import Child from './components/child.component';
 
 class Index extends Component {
     constructor(props) {
         super(props);
+        console.log('constructor---Parent');
         this.state={
             count: 0
         }
     }
 
     componentWillMount() {
-
+        console.log('componentWillMount---Parent');
     }
 
     componentDidMount() {
-        // setTimeout(() => {
-        //     this.setState({
-        //         count: 1
-        //     })
-        //     console.log(this.state.count)
-        // }, 0)
-        new Promise(resolve => {
-            resolve()
-        })
-        .then(res => {
-            this.setState({
-                count: 1
-            })
-            console.log(this.state.count, 'then');
-            
-        })
-        // document.querySelector('button').addEventListener('click', this.onClick, false)
-    }
-
-    componentDidUpdate(){
-        
-    }
-
-    componentWillUnmount() {
-
-    }
-
-    onClick = () => {
+        console.log('componentDidMount---Parent');
         this.setState({
             count: 1
         })
-        console.log(this.state.count)
+    }
+    
+    componentWillUpdate(){
+        console.log('componentWillUpdate---Parent')
     }
 
+    componentDidUpdate(){
+        console.log('componentDidUpdate---Parent');
+    }
 
+    componentWillUnmount() {
+        console.log('componentWillUnmount---Parent')
+    }
 
     render() {
+        console.log('render---Parent');
         return (
             <div>
-                <button>
-                    测试
-                </button>
+                <Child />
             </div>
         )
     }
