@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './index.less';
-import {Button} from 'antd';
+import {Form} from 'antd';
 import {observer, inject} from 'mobx-react'
+import LoginModal from './loginModal/index.component';
 
 @inject('appStore')
 @observer
@@ -19,6 +20,15 @@ class Index extends Component {
 
     componentDidMount() {
         console.log('login-didMount')
+        // eslint-disable-next-line no-undef
+        Particles.init({
+            selector: '.background',
+            minDistance: 10,
+            speed: 1,
+            maxParticles: 130,
+            sizeVariations: 5,
+            color: '#fff'
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,23 +47,31 @@ class Index extends Component {
 
     }
 
-    onLogin = () => {
-        this.props.appStore.setIsAuthority(true)
-        this.props.history.replace('/')
+    onLogin = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                this.props.appStore.setIsAuthority(true)
+                this.props.history.replace('/')
+            }
+        });
+        
     }
 
     render() {
         return (
             <div className='login'>
-                <Button
-                    onClick={this.onLogin}
-                >
-                    点击登录
-                </Button>
+                <Form onSubmit={this.onLogin}>
+                    <LoginModal
+                        form={this.props.form}
+                        submitLogin={this.onLogin}
+                    />
+                </Form>
+                <canvas className="background"></canvas>
             </div>
         )
     }
 }
 
 
-export default Index
+export default Form.create()(Index)
