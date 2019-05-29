@@ -1,5 +1,32 @@
 .silder{
-    width: 200px;
     // background-color: red;
     // display: flex;
+    .ant-menu{
+        height: 100%;
+        .first-menu{
+            >span{
+                display: flex;
+                align-items: center;
+                >span{
+                    flex: 1;
+                    
+                }
+            }
+            a{
+                display: flex;
+                color: rgba(0, 0, 0, 0.65);
+                &:hover{
+                    color: #1890ff;
+                }
+            }
+            &.ant-menu-item-selected{
+                a{
+                    color: #1890ff;
+                }
+            }
+        }
+    }
+}
+.collapsed{
+    width: 200px;
 }

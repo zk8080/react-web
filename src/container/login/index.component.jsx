@@ -14,11 +14,11 @@ class Index extends Component {
     }
 
     componentWillMount() {
-
+        console.log('login-willMount')
     }
 
     componentDidMount() {
-
+        console.log('login-didMount')
     }
 
     componentWillReceiveProps(nextProps) {
@@ -26,11 +26,11 @@ class Index extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-
+        console.log('login-WillUpdate')
     }
 
     componentDidUpdate(prevProps, prevState) {
-
+        console.log('login-DidUpdate')
     }
 
     componentWillUnmount() {
@@ -39,7 +39,7 @@ class Index extends Component {
 
     onLogin = () => {
         this.props.appStore.setIsAuthority(true)
-        this.props.history.push('/')
+        this.props.history.replace('/')
     }
 
     render() {

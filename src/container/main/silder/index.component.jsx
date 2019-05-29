@@ -3,10 +3,12 @@ import './index.less';
 import { Menu, Icon } from 'antd';
 import {Link} from 'react-router-dom';
 import MenuData from './index.data';
+import {inject, observer} from 'mobx-react';
 
 const SubMenu = Menu.SubMenu;
 
-
+@inject('appStore')
+@observer
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -35,7 +37,19 @@ class Index extends Component {
                     {item.children && this.renderChildMenu(item.children)}
                 </SubMenu>
             }else{
-                return <Menu.Item key={item.key}><Link to={item.url}>{item.title}</Link></Menu.Item>
+                return <Menu.Item 
+                    key={item.key}
+                    className='first-menu'
+                >
+                    <span>
+                        <Icon
+                            type='home'
+                        />
+                        <span>
+                            <Link to={item.url}>{item.title}</Link>
+                        </span>
+                    </span>
+                </Menu.Item>
             }
             
         })
@@ -60,18 +74,24 @@ class Index extends Component {
     }
 
     render() {
+        const {appStore} = this.props;
         return (
-            <Menu
-                mode="inline"
-                openKeys={this.state.openKeys}
-                onOpenChange={this.onOpenChange}
-                defaultSelectedKeys={['00']}
-                className='silder'
+            <div
+                className={!appStore.collapsed ? 'silder collapsed' : 'silder'}
             >
-                {
-                    this.renderMenu(MenuData)
-                }
-            </Menu>
+                <Menu
+                    mode="inline"
+                    openKeys={this.state.openKeys}
+                    onOpenChange={this.onOpenChange}
+                    defaultSelectedKeys={['00']}
+                    inlineCollapsed={this.props.appStore.collapsed}
+                >
+                    {
+                        this.renderMenu(MenuData)
+                    }
+                </Menu>
+            </div>
+            
         )
     }
 }
