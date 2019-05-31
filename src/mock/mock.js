@@ -1,4 +1,4 @@
-let Mock = require('mockjs');
+const Mock = require('mockjs');
 
 var Random = Mock.Random;
 
@@ -8,8 +8,11 @@ Mock.mock('/api/userlist', {
         'userList|10-50': [
             {
                 'id|+1': 1, 
-                'name': () => Random.cname(),
-                'remark': () => Random.cparagraph(1,3)
+                'merchant': () => Random.ctitle(6, 10),
+                'brand': () => Random.ctitle(3, 5),
+                'productName': () => Random.ctitle(5, 9),
+                'size': () => Random.csentence(2),
+                'remark': () => Random.cparagraph(2)
             }
         ]
     },

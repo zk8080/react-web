@@ -1,44 +1,44 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Index extends Component {
     constructor(props) {
-        super(props)
-        console.log('constructor---Child')
-        this.state = {}
+        super(props);
+        console.log('constructor---Child');
+        this.state = {};
     }
 
     componentWillMount() {
-        console.log('componentWillMount---Child')
+        console.log('componentWillMount---Child');
     }
 
     componentDidMount() {
-        console.log('componentDidMount---Child')
+        console.log('componentDidMount---Child');
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('componentWillReceiveProps---Child')
+        console.log('componentWillReceiveProps---Child');
     }
 
     componentWillUpdate(nextProps, nextState) {
-        console.log('componentWillUpdate---Child')
+        console.log('componentWillUpdate---Child');
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('componentDidUpdate---Child')
+        console.log('componentDidUpdate---Child');
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount---Child')
+        console.log('componentWillUnmount---Child');
     }
 
     render() {
-        console.log('render---Child')
+        console.log('render---Child');
         return (
             <div>
                 Child
             </div>
-        )
+        );
     }
 }
 
-export default Index
+export default Index;

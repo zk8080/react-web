@@ -5,10 +5,10 @@ const FormItem = Form.Item;
 
 class Index extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
 
-        }
+        };
     }
 
     componentWillMount() {
@@ -46,7 +46,7 @@ class Index extends Component {
                             <Input
                                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder="用户名"
-                                />,
+                            />,
                         )}
                     </FormItem>
                     <FormItem>
@@ -74,9 +74,9 @@ class Index extends Component {
                     </span>     
                 </div>
             </div>
-        )
+        );
     }
 }
 
 
-export default Index
+export default Index;

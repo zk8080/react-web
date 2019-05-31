@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
 
-        }
+        };
     }
 
     componentWillMount() {
@@ -41,9 +41,9 @@ class Index extends Component {
             <div>
                 文章列表
             </div>
-        )
+        );
     }
 }
 
 
-export default Index
+export default Index;

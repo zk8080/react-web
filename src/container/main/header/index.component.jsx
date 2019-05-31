@@ -8,7 +8,7 @@ import { Menu, Dropdown, Icon, Button } from 'antd';
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {};
     }
 
     componentWillMount() {
@@ -24,18 +24,18 @@ class Index extends Component {
     }
 
     logout = () => {
-        this.props.appStore.setIsAuthority(false)
-        window.appHistory.push('/')
+        this.props.appStore.setIsAuthority(false);
+        window.appHistory.push('/');
     }
 
     menu = () => {
         return <Menu onClick={this.logout}>
-          <Menu.Item key="1">安全退出</Menu.Item>
-        </Menu>
+            <Menu.Item key="1">安全退出</Menu.Item>
+        </Menu>;
     }
 
     render() {
-        let {appStore} = this.props;
+        const {appStore} = this.props;
         return (
             <div className='header'>
                 {
@@ -63,12 +63,12 @@ class Index extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
 Index.propTypes = {
 
-}
+};
 
 export default Index;

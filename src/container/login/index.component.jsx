@@ -1,25 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './index.less';
 import {Form} from 'antd';
-import {observer, inject} from 'mobx-react'
+import {observer, inject} from 'mobx-react';
 import LoginModal from './loginModal/index.component';
 
 @inject('appStore')
 @observer
 class Index extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
 
-        }
+        };
     }
 
     componentWillMount() {
-        console.log('login-willMount')
+        console.log('login-willMount');
     }
 
     componentDidMount() {
-        console.log('login-didMount')
+        console.log('login-didMount');
         // eslint-disable-next-line no-undef
         Particles.init({
             selector: '.background',
@@ -36,11 +36,11 @@ class Index extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        console.log('login-WillUpdate')
+        console.log('login-WillUpdate');
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('login-DidUpdate')
+        console.log('login-DidUpdate');
     }
 
     componentWillUnmount() {
@@ -51,8 +51,8 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.appStore.setIsAuthority(true)
-                this.props.history.replace('/')
+                this.props.appStore.setIsAuthority(true);
+                this.props.history.replace('/');
             }
         });
         
@@ -69,9 +69,9 @@ class Index extends Component {
                 </Form>
                 <canvas className="background"></canvas>
             </div>
-        )
+        );
     }
 }
 
 
-export default Form.create()(Index)
+export default Form.create()(Index);

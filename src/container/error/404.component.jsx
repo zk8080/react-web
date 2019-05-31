@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class Index extends Component {
     render() {
@@ -6,6 +6,6 @@ export default class Index extends Component {
             <div>
                 404
             </div>
-        )
+        );
     }
 }

@@ -8,7 +8,7 @@ import {
     Route,
     Switch,
     Redirect
-} from 'react-router-dom'
+} from 'react-router-dom';
 import {Provider} from 'mobx-react';
 import '@deploy/axios';
 import './mock/mock.js';
@@ -26,12 +26,12 @@ const Login = loadComponent(() => import('@container/login/index.component'));
 
 const ProvideRoute = ({component: Component, ...rest}) => {
     return <Route
-            {...rest}
-            render = {props => {
-                return appStore.isAuthority ?  <Component {...props}/> : <Redirect to={{pathname: '/login'}}/>          
-            }}
-        />
-}
+        {...rest}
+        render = {props => {
+            return appStore.isAuthority ?  <Component {...props}/> : <Redirect to={{pathname: '/login'}}/>;          
+        }}
+    />;
+};
 
 const Index = () => {
     return <Provider {...Store}>
@@ -41,8 +41,8 @@ const Index = () => {
                 <ProvideRoute path='/' component={App}/>
             </Switch>
         </Router>
-    </Provider>
-}
+    </Provider>;
+};
 
 ReactDOM.render(<Index />, document.getElementById('root'));
 

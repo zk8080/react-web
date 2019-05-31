@@ -8,14 +8,14 @@ class Service {
             axios.get(userListUrl, {
                 params: req
             })
-            .then(res => {
-                resolve(res)
-            })
-            .catch(e => {
-                reject(e)
-                console.log(e)
-            })
-        })
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
     }
 }
 

@@ -12,14 +12,14 @@ class State {
 
     // 获取用户列表
     @action getUserList = async () => {
-        const res = await Service.getUserList({})
+        const res = await Service.getUserList({});
         console.log(res, 'res');
         try{
             if(res.data.ret === 0){
-                let {userList} = res.data.data;
+                const {userList} = res.data.data;
                 this.setTableList(userList);
             }else{
-                message.error(res.data.msg)
+                message.error(res.data.msg);
             }
         }
         catch(e){

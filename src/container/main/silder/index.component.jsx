@@ -11,13 +11,13 @@ const SubMenu = Menu.SubMenu;
 @observer
 class Index extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            openKeys: ['']
-        }
+            openKeys: ['01']
+        };
     }
 
-    rootSubmenuKeys = ['01', '02']
+    rootSubmenuKeys = ['01', '02', '03', '04', '05', '06']
 
     onOpenChange = (openKeys) => {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
@@ -35,7 +35,7 @@ class Index extends Component {
             if( item.children ){
                 return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
                     {item.children && this.renderChildMenu(item.children)}
-                </SubMenu>
+                </SubMenu>;
             }else{
                 return <Menu.Item 
                     key={item.key}
@@ -49,16 +49,16 @@ class Index extends Component {
                             <Link to={item.url}>{item.title}</Link>
                         </span>
                     </span>
-                </Menu.Item>
+                </Menu.Item>;
             }
             
-        })
+        });
     }
 
     renderChildMenu = (arr) => {
         return arr.map( item => {
-            return <Menu.Item key={item.key}><Link to={item.url}>{item.title}</Link></Menu.Item>
-        } )
+            return <Menu.Item key={item.key}><Link to={item.url}>{item.title}</Link></Menu.Item>;
+        } );
     }
 
     componentWillMount() {
@@ -81,9 +81,10 @@ class Index extends Component {
             >
                 <Menu
                     mode="inline"
+                    theme="dark"
                     openKeys={this.state.openKeys}
                     onOpenChange={this.onOpenChange}
-                    defaultSelectedKeys={['00']}
+                    defaultSelectedKeys={['01-01']}
                     inlineCollapsed={this.props.appStore.collapsed}
                 >
                     {
@@ -92,8 +93,8 @@ class Index extends Component {
                 </Menu>
             </div>
             
-        )
+        );
     }
 }
 
-export default Index
+export default Index;

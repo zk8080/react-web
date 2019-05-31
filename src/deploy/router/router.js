@@ -28,7 +28,7 @@ const NoMatch = loadComponent(() => import(/* webpackChunkName: "404" */ '@conta
 
 const Index = () => (
     <Switch>
-        <Route path='/' exact render={() => <Redirect to='/home'/>}/>
+        <Route path='/' exact render={() => <Redirect to='/user/list'/>}/>
         <Route path='/home' exact strict component={Home}/>
         <Route path='/user/list' exact strict component={UserList}/>
         <Route path='/user/add' exact strict component={AddUser}/>

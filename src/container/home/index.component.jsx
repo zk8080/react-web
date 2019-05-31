@@ -7,7 +7,7 @@ class Index extends Component {
         console.log('constructor---Parent');
         this.state={
             count: 0
-        }
+        };
     }
 
     componentWillMount() {
@@ -26,7 +26,7 @@ class Index extends Component {
     }
     
     componentWillUpdate(){
-        console.log('componentWillUpdate---Parent')
+        console.log('componentWillUpdate---Parent');
     }
 
     componentDidUpdate(){
@@ -34,7 +34,7 @@ class Index extends Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount---Parent')
+        console.log('componentWillUnmount---Parent');
     }
 
     push = () => {
@@ -60,8 +60,8 @@ class Index extends Component {
                     onClick={this.push}
                 >点击</button> */}
             </div>
-        )
+        );
     }
 }
 
-export default Index
+export default Index;
