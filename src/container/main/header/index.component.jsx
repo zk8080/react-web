@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.less';
 import { inject, observer } from 'mobx-react';
-import { Menu, Dropdown, Icon, Button } from 'antd';
+import { Menu, Dropdown, Icon } from 'antd';
 
 @inject('appStore')
 @observer
@@ -51,9 +51,9 @@ class Index extends Component {
                 }
                 
                 <div className='header-menu'>
-                    <Button onClick={appStore.setCollapsed}>
+                    {/* <Button onClick={appStore.setCollapsed}>
                         <Icon type={appStore.collapsed ? 'menu-unfold' : 'menu-fold'} />
-                    </Button>
+                    </Button> */}
                     <div className='logout'>
                         <Dropdown overlay={this.menu}>
                             <span className="ant-dropdown-link">

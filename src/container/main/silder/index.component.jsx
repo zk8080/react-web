@@ -81,7 +81,7 @@ class Index extends Component {
             >
                 <Menu
                     mode="inline"
-                    theme="dark"
+                    // theme="dark"
                     openKeys={this.state.openKeys}
                     onOpenChange={this.onOpenChange}
                     defaultSelectedKeys={['01-01']}
