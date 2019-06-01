@@ -1,6 +1,12 @@
 {
 	"compilerOptions": {
-		"experimentalDecorators": true,
-		"allowJs": true
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "paths": {
+            "@pubComs/*": ["src/pubComponents/"],
+            "@container/*": ["src/container/"],
+            "@deploy/*": ["src/deploy/"]
+        }
 	}
 }

@@ -7,42 +7,42 @@ const menuData = [
             {
                 title: '商品档案',
                 key: '01-01',
-                url: '/user/list'
+                url: '/product/list'
             },
             {
                 title: '客户档案',
                 key: '01-02',
-                url: '/user/add'
+                url: '/customer/list'
             },
             {
                 title: '耗材关系设置',
                 key: '01-03',
-                url: '/user/list'
+                url: '/user/1'
             },
             {
                 title: '仓库档案',
                 key: '01-04',
-                url: '/user/add'
+                url: '/user/2'
             },
             {
                 title: '库位关系设置',
                 key: '01-05',
-                url: '/user/list'
+                url: '/user/3'
             },
             {
                 title: '上架策略',
                 key: '01-06',
-                url: '/user/add'
+                url: '/user/4'
             },
             {
                 title: '补货策略',
                 key: '01-07',
-                url: '/user/list'
+                url: '/user/5'
             },
             {
                 title: '拣货策略',
                 key: '01-08',
-                url: '/user/add'
+                url: '/user/6'
             },
         ]
     },
@@ -54,17 +54,17 @@ const menuData = [
             {
                 title: '采购通知',
                 key: '02-01',
-                url: '/article/list'
+                url: '/article/1'
             },
             {
                 title: '收货',
                 key: '02-02',
-                url: '/article/add'
+                url: '/article/2'
             },
             {
                 title: '上架',
                 key: '02-03',
-                url: '/article/add'
+                url: '/article/3'
             }
         ]
     },
@@ -76,37 +76,37 @@ const menuData = [
             {
                 title: '发货订单',
                 key: '03-01',
-                url: '/article/list'
+                url: '/article/4'
             },
             {
                 title: '拣货单生成',
                 key: '03-02',
-                url: '/article/add'
+                url: '/article/5'
             },
             {
                 title: 'B2B',
                 key: '03-03',
-                url: '/article/add'
+                url: '/article/6'
             },
             {
                 title: '拣货',
                 key: '03-04',
-                url: '/article/add'
+                url: '/article/7'
             },
             {
                 title: '打包',
                 key: '03-05',
-                url: '/article/add'
+                url: '/article/8'
             },
             {
                 title: '称重',
                 key: '03-06',
-                url: '/article/add'
+                url: '/article/9'
             },
             {
                 title: '信息跟踪',
                 key: '03-07',
-                url: '/article/add'
+                url: '/article/10'
             }
         ]
     },
@@ -118,22 +118,22 @@ const menuData = [
             {
                 title: '盘点',
                 key: '04-01',
-                url: '/article/list'
+                url: '/article/11'
             },
             {
                 title: '冻结/解冻',
                 key: '04-02',
-                url: '/article/add'
+                url: '/article/12'
             },
             {
                 title: '补货',
                 key: '04-03',
-                url: '/article/add'
+                url: '/article/13'
             },
             {
                 title: '退货',
                 key: '04-04',
-                url: '/article/add'
+                url: '/article/14'
             }
         ]
     },
@@ -145,22 +145,22 @@ const menuData = [
             {
                 title: '入库报表',
                 key: '05-01',
-                url: '/article/list'
+                url: '/article/15'
             },
             {
                 title: '出库报表',
                 key: '05-02',
-                url: '/article/add'
+                url: '/article/16'
             },
             {
                 title: '库存报表',
                 key: '05-03',
-                url: '/article/add'
+                url: '/article/17'
             },
             {
                 title: '库位使用报表',
                 key: '05-04',
-                url: '/article/add'
+                url: '/article/18'
             }
         ]
     },
@@ -172,12 +172,12 @@ const menuData = [
             {
                 title: '费率设置',
                 key: '06-01',
-                url: '/article/list'
+                url: '/article/19'
             },
             {
                 title: '费率结算',
                 key: '06-02',
-                url: '/article/add'
+                url: '/article/20'
             }
         ]
     }

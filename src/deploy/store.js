@@ -10,7 +10,7 @@ class Store {
     }
 
     //登录验证
-    @observable isAuthority = false;
+    @observable isAuthority = true;
     @action setIsAuthority = (bol = false) => {
         this.isAuthority = bol;
     }

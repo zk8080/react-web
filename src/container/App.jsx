@@ -3,8 +3,7 @@ import './App.less';
 import Silder from './main/silder/index.component';
 import Header from './main/header/index.component';
 import RouterComponent from '@deploy/router/router';
-
-
+import Bread from './main/breadcrumb/index.component';
 
 function App() {
     return (
@@ -13,6 +12,7 @@ function App() {
             <div className='container'>
                 <Silder></Silder>
                 <div className='main'>
+                    <Bread></Bread>
                     <RouterComponent></RouterComponent>
                 </div>
             </div>
