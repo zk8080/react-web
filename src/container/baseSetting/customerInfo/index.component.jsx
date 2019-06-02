@@ -8,7 +8,6 @@ import { toJS } from 'mobx';
 import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 
-
 @Form.create()
 @observer
 class Index extends Component {
