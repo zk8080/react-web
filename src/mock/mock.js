@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 
 var Random = Mock.Random;
 
-
+// 商品档案
 Mock.mock('/api/product/list', {
     data: {
         'productList|10-50': [
@@ -20,6 +20,7 @@ Mock.mock('/api/product/list', {
     msg: '查询成功！'
 });
 
+// 客户档案
 Mock.mock('/api/customer/list', {
     data: {
         'customerList|10-50': [
@@ -30,6 +31,31 @@ Mock.mock('/api/customer/list', {
                 'address': () => Random.county(true),
                 'contact': () => Random.cname(),
                 'contactPhone': () => Random.natural(11)
+            }
+        ]
+    },
+    ret: 0,
+    msg: '查询成功！'
+});
+
+// 采购通知
+Mock.mock('/api/purchaseNotice/list', {
+    data: {
+        'data|10-50': [
+            {
+                'id|+1': 1, 
+                'num': () => Random.natural(8),
+                'merchant': () => Random.ctitle(6, 10),
+                'productName': () => Random.ctitle(5, 9),
+                'model': () => Random.csentence(3),
+                'size': () => Random.csentence(2),
+                'barCode': () => Random.natural(14),
+                'volume': () => Random.natural(2, 3),
+                'weight': () => Random.natural(2, 3),
+                'purchaseNum': () => Random.natural(2, 3),
+                'purchaseDate': () => Random.date('yyyy-MM-dd'),
+                'arrivalDate': () => Random.date('yyyy-MM-dd'),
+                'remark': () => Random.cparagraph(0, 2)
             }
         ]
     },

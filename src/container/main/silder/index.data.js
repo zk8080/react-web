@@ -54,7 +54,7 @@ const menuData = [
             {
                 title: '采购通知',
                 key: '02-01',
-                url: '/article/1'
+                url: '/inboundManagement/purchaseNotice'
             },
             {
                 title: '收货',

@@ -83,7 +83,10 @@ class Index extends Component {
                 const childArr = element.children;
                 for (let j = 0; j < childArr.length; j++) {
                     if( childArr[j].url === pathname ){
-                        return childArr[j].key;
+                        return {
+                            selectedKeys: childArr[j].key,
+                            openKeys: element.key
+                        };
                     }
                 }
             }   
@@ -91,10 +94,14 @@ class Index extends Component {
     }
 
     componentWillMount() {
-        const curStateKey = this.getCurSelectKeys();
-        this.setState({
-            selectedKeys: [curStateKey]
-        });
+        const keyObj = this.getCurSelectKeys();
+        if(keyObj){
+            this.setState({
+                selectedKeys: [keyObj.selectedKeys],
+                openKeys: [keyObj.openKeys]
+            });
+        }
+        
     }
 
     componentDidMount() {
@@ -102,10 +109,11 @@ class Index extends Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        const curStateKey = this.getCurSelectKeys();
-        if( prevState.selectedKeys[0] !== curStateKey ){
+        const keyObj = this.getCurSelectKeys();
+        if( prevState.selectedKeys[0] !== keyObj.selectedKeys ){
             this.setState({
-                selectedKeys: [curStateKey]
+                selectedKeys: [keyObj.selectedKeys],
+                openKeys: [keyObj.openKeys]
             });
         }
     }
