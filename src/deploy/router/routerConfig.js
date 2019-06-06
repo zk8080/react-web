@@ -11,6 +11,11 @@ const CustomerList = loadComponent(() => import(/* webpackChunkName: "customerLi
 
 // 入库管理
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
+const Receipt = loadComponent(() => import(/* webpackChunkName: "Receipt" */ '@container/inboundManagement/receipt/index.component'));
+const Shelf = loadComponent(() => import(/* webpackChunkName: "Shelf" */ '@container/inboundManagement/shelf/index.component'));
+
+// 出库管理
+const DeliveryOrder = loadComponent(() => import(/* webpackChunkName: "DeliveryOrder" */ '@container/outboundManagement/deliveryOrder/index.component'));
 
 const routers = [
     {
@@ -30,6 +35,24 @@ const routers = [
         exact: true,
         component: PurchaseNotice,
         breadcrumbName: '采购通知'
+    },
+    {
+        path: '/inboundManagement/receipt',
+        exact: true,
+        component: Receipt,
+        breadcrumbName: '收货'
+    },
+    {
+        path: '/inboundManagement/shelf',
+        exact: true,
+        component: Shelf,
+        breadcrumbName: '上架'
+    },
+    {
+        path: '/outboundManagement/deliveryOrder',
+        exact: true,
+        component: DeliveryOrder,
+        breadcrumbName: '发货订单'
     }
 ];
 

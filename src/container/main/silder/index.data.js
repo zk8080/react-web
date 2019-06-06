@@ -59,12 +59,12 @@ const menuData = [
             {
                 title: '收货',
                 key: '02-02',
-                url: '/article/2'
+                url: '/inboundManagement/receipt'
             },
             {
                 title: '上架',
                 key: '02-03',
-                url: '/article/3'
+                url: '/inboundManagement/shelf'
             }
         ]
     },
@@ -76,7 +76,7 @@ const menuData = [
             {
                 title: '发货订单',
                 key: '03-01',
-                url: '/article/4'
+                url: '/outboundManagement/deliveryOrder'
             },
             {
                 title: '拣货单生成',
