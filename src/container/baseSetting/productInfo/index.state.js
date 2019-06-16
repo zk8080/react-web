@@ -23,6 +23,17 @@ class State {
             console.log(e);
         }
     }
+
+    // 表单编辑数据
+    @observable editForm = {};
+    @action setEditForm = (obj = {}) => {
+        this.editForm = obj;
+    }
+ 
+    // 新增保存
+    @action saveData = (obj) => {
+        console.log(obj, '-----obj-----');
+    }
 }
 
 export default new State();

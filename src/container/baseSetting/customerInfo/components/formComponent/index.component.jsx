@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
-import './index.less';
 const FormItem = Form.Item;
 
 class Index extends Component {

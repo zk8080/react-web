@@ -56,7 +56,8 @@ const colums = [
     },
     {
         title: '备注',
-        dataIndex: 'remark'
+        dataIndex: 'remark',
+        width: 200
     }
     
 ];

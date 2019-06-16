@@ -50,7 +50,7 @@ class Index extends Component {
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
-                    scroll={{x: 2000}}
+                    // scroll={{x: 2000}}
                 />
             </div>
         );

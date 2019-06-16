@@ -15,7 +15,8 @@ import './mock/mock.js';
 import appStore from '@deploy/store';
 import loadComponent from '@deploy/router/loadable';
 import { createBrowserHistory } from 'history';
- 
+import {session} from '@utils/index'; 
+
 const history = createBrowserHistory();
 const Store = {appStore};
 //全局路由跳转对象
@@ -23,6 +24,7 @@ window.appHistory = history;
 
 //登录页面
 const Login = loadComponent(() => import('@container/login/index.component'));
+appStore.setIsAuthority(session.getItem('isAuthority').login);
 
 const ProvideRoute = ({component: Component, ...rest}) => {
     return <Route

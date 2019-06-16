@@ -29,21 +29,26 @@ const menuData = [
                 key: '01-05',
                 url: '/user/3'
             },
-            {
-                title: '上架策略',
+            {   
+                title: '上传快递单号',
                 key: '01-06',
                 url: '/user/4'
-            },
-            {
-                title: '补货策略',
-                key: '01-07',
-                url: '/user/5'
-            },
-            {
-                title: '拣货策略',
-                key: '01-08',
-                url: '/user/6'
-            },
+            }
+            // {
+            //     title: '上架策略',
+            //     key: '01-06',
+            //     url: '/user/4'
+            // },
+            // {
+            //     title: '补货策略',
+            //     key: '01-07',
+            //     url: '/user/5'
+            // },
+            // {
+            //     title: '拣货策略',
+            //     key: '01-08',
+            //     url: '/user/6'
+            // },
         ]
     },
     {
@@ -92,11 +97,6 @@ const menuData = [
                 title: '拣货',
                 key: '03-04',
                 url: '/article/7'
-            },
-            {
-                title: '打包',
-                key: '03-05',
-                url: '/article/8'
             },
             {
                 title: '称重',

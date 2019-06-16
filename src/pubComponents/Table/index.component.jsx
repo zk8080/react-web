@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Table} from 'antd';
 import './index.less';
-import {getScrollY} from './utils';
+import {getScrollY, getScrollX} from './utils';
 
 
 class Index extends Component {
@@ -18,8 +18,10 @@ class Index extends Component {
 
     componentDidMount() {
         const scrollY = getScrollY();
+        const scrollX = getScrollX(this.props.columns);
         this.setState({
-            scrollY
+            scrollY,
+            scrollX
         });
     }
 
@@ -45,7 +47,8 @@ class Index extends Component {
                 className='cur-table'
                 bordered
                 {...this.props}
-                scroll={{...this.props.scroll, ...{y: this.state.scrollY}}}
+                // scroll={{...this.props.scroll, ...{y: this.state.scrollY}}}
+                scroll={{x: this.state.scrollX, y: this.state.scrollY}}
             />
         );
     }

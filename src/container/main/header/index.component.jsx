@@ -25,6 +25,7 @@ class Index extends Component {
 
     logout = () => {
         this.props.appStore.setIsAuthority(false);
+        sessionStorage.clear();
         window.appHistory.push('/');
     }
 

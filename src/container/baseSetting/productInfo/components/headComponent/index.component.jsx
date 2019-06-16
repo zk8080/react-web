@@ -15,6 +15,18 @@ class Index extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+    }
+
     componentWillUnmount() {
 
     }
@@ -24,8 +36,9 @@ class Index extends Component {
             <div className='header-component'>
                 <Button
                     type='primary'
+                    onClick={this.props.addClick}
                 >
-                    导入
+                    新增
                 </Button>
                 <Button
                     type='primary'

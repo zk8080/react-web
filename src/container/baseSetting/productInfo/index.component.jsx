@@ -7,14 +7,17 @@ import './index.less';
 import { toJS } from 'mobx';
 import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
-
+import HeadComponent from './components/headComponent/index.component';
+import DetailComponent from './components/detailComponent/index.component';
 
 @Form.create()
 @observer
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            visible: false
+        };
     }
 
     componentWillMount() {
@@ -25,16 +28,14 @@ class Index extends Component {
         State.getProductList();
     }
 
-    componentWillReceiveProps(nextProps) {
-
+    toggleVisible = () => {
+        this.setState({
+            visible: !this.state.visible
+        });
     }
 
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
+    saveClick = (obj) => {
+        State.saveData(obj);
     }
 
     componentWillUnmount() {
@@ -49,10 +50,21 @@ class Index extends Component {
                         {...this.props}
                     />
                 </Form>
+                <HeadComponent
+                    addClick={this.toggleVisible}
+                />
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
+                    scroll={{x: 1320}}
+                />
+                <DetailComponent
+                    visible={this.state.visible}
+                    cancelClick={this.toggleVisible}
+                    onOk={this.saveClick}
+                    detailData={toJS(State.editForm)}
+                    setDetailData={State.setEditForm}
                 />
             </div>
         );

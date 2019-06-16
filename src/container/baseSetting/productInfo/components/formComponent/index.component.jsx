@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
-import './index.less';
 const FormItem = Form.Item;
 
 class Index extends Component {
@@ -32,21 +31,21 @@ class Index extends Component {
                 <Row>
                     <Col span={8}>
                         <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('password', {
+                            {getFieldDecorator('merchant', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="品牌" hasFeedback>
-                            {getFieldDecorator('password', {
+                            {getFieldDecorator('brand', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="商品名称" hasFeedback>
-                            {getFieldDecorator('password', {
+                            {getFieldDecorator('productName', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>

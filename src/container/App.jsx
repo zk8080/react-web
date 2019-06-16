@@ -5,6 +5,10 @@ import Header from './main/header/index.component';
 import RouterComponent from '@deploy/router/router';
 import Bread from './main/breadcrumb/index.component';
 
+// 引入公用样式
+import './common/css/header.component.less';
+import './common/css/query.component.less';
+
 function App() {
     return (
         <div className="App">

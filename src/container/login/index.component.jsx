@@ -3,6 +3,7 @@ import './index.less';
 import {Form} from 'antd';
 import {observer, inject} from 'mobx-react';
 import LoginModal from './loginModal/index.component';
+import LoginState from './index.state';
 
 @inject('appStore')
 @observer
@@ -51,8 +52,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.appStore.setIsAuthority(true);
-                this.props.history.replace('/');
+                LoginState.loginClick();
             }
         });
         

@@ -1,28 +1,67 @@
+import React from 'react';
+
 const colums = [
     {
         title: '商家',
         dataIndex: 'merchant',
-        width: '150px'
+        width: 150
     },
     {
         title: '品牌',
         dataIndex: 'brand',
-        width: '100px'
+        width: 100
     },
     {
         title: '商品名称',
         dataIndex: 'productName',
-        width: '200px'
+        width: 200
     },
     {
         title: '规格',
         dataIndex: 'size',
-        width: '80px'
+        width: 80
+    },
+    {
+        title: '内部条形码',
+        dataIndex: 'size1',
+        width: 150
+    },
+    {
+        title: '商品条形码',
+        dataIndex: 'size2',
+        width: 150
+    },
+    {
+        title: '商品类型',
+        dataIndex: 'size3',
+        width: 80
+    },
+    {
+        title: '零拣库位',
+        dataIndex: 'size4',
+        width: 80
+    },
+    {
+        title: '储存库位',
+        dataIndex: 'size5',
+        width: 80
     },
     {
         title: '备注',
-        dataIndex: 'remark',
-        width: '300px'
+        dataIndex: 'size6',
+        width: 150
+    },
+    {
+        title: '操作',
+        dataIndex: 'opreate',
+        width: 100,
+        fixed: 'right',
+        render: (text, record, index) => {
+            return <div className='opreat-right'>
+                <span>修改</span>
+                <span>删除</span>
+            </div>;
+        }
     }
 ];
 
