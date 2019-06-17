@@ -2,31 +2,16 @@ import React, { Component } from 'react';
 import { Modal } from '@pubComs';
 import { Form, Row, Col, Input } from 'antd';
 import './index.less';
+import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
 
-const objToForm = (obj = {}) => {
-    const target = {};
-    for(const [key,value] of Object.entries(obj)){
-	    target[key] = Form.createFormField({value});
-    }
-    return target;
-};
-
-const formToObj = (obj = {}) => {
-    const target = {};
-    for(const [key,value] of Object.entries(obj)){
-	    target[key] = value.value;
-    }
-    return target;
-};
-
 const onFieldsChange = (props, changedFields) => {
-    props.setDetailData({...props.detailData, ...formToObj(changedFields)});
+    props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
 };
 
 const mapPropsToFields = (props) => {
-    return objToForm(props.detailData);
+    return formUtils.objToForm(props.detailData);
 };
 
 @Form.create({
