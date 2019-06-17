@@ -1,4 +1,5 @@
 import React from 'react';
+import State from './index.state';
 
 const colums = [
     {
@@ -58,8 +59,8 @@ const colums = [
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <span>修改</span>
-                <span>删除</span>
+                <span onClick={State.editClick.bind(this, record)}>修改</span>
+                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;
         }
     }

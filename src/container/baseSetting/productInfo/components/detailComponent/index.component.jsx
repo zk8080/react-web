@@ -45,7 +45,7 @@ class Index extends Component {
                 >
                     <Form className='query-component'>
                         <Row>
-                            <Col span={24}>
+                            <Col span={8}>
                                 <FormItem label='商家名称'>
                                     {getFieldDecorator('merchant', {
                                         rules: [{
@@ -59,7 +59,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={24}>
+                            <Col span={8}>
                                 <FormItem label='品牌'>
                                     {getFieldDecorator('brand', {
                                         rules: [
@@ -75,7 +75,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={24}>
+                            <Col span={8}>
                                 <FormItem label='商品名称'>
                                     {getFieldDecorator('productName', {
                                         rules: [

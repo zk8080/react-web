@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
+import {formUtils} from '@utils';
 const FormItem = Form.Item;
 
+
+const onFieldsChange = (props, changedFields) => {
+    props.setQueryData({...props.queryData, ...formUtils.formToObj(changedFields)});
+};
+
+const mapPropsToFields = (props) => {
+    return formUtils.objToForm(props.queryData);
+};
+
+@Form.create({
+    mapPropsToFields,
+    onFieldsChange
+})
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -54,6 +68,7 @@ class Index extends Component {
                 <div className='query-btn'>
                     <Button
                         type="primary"
+                        onClick={this.props.getData}
                     >查询</Button>
                 </div>
             </div>

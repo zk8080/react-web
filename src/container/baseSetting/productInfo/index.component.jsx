@@ -10,13 +10,11 @@ import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
 
-@Form.create()
 @observer
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
         };
     }
 
@@ -26,12 +24,6 @@ class Index extends Component {
 
     componentDidMount() {
         State.getProductList();
-    }
-
-    toggleVisible = () => {
-        this.setState({
-            visible: !this.state.visible
-        });
     }
 
     saveClick = (obj) => {
@@ -47,11 +39,13 @@ class Index extends Component {
             <div>
                 <Form>
                     <FormComponent 
-                        {...this.props}
+                        queryData={toJS(State.queryForm)}
+                        setQueryData={State.setQueryForm}
+                        getData={State.getProductList}
                     />
                 </Form>
                 <HeadComponent
-                    addClick={this.toggleVisible}
+                    addClick={State.addClick}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
@@ -60,8 +54,8 @@ class Index extends Component {
                     scroll={{x: 1320}}
                 />
                 <DetailComponent
-                    visible={this.state.visible}
-                    cancelClick={this.toggleVisible}
+                    visible={State.visible}
+                    cancelClick={State.toggleVisible}
                     onOk={this.saveClick}
                     detailData={toJS(State.editForm)}
                     setDetailData={State.setEditForm}

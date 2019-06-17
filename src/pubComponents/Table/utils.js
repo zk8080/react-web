@@ -19,9 +19,7 @@ const getScrollY = () => {
 
 const getScrollX = (arr = []) => {
     let scrollX = 0;
-    arr.map((item, index) => {
-        scrollX += item.width;
-    });
+    arr.map((item, index) => scrollX += item.width);
     return scrollX;
 };
 

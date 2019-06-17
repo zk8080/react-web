@@ -11,6 +11,7 @@ class Index extends Component {
         return (
             <div>
                 <Modal
+                    width='1100px'
                     {...this.props}
                     destroyOnClose={true}
                 >
