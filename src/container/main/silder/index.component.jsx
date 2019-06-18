@@ -19,7 +19,7 @@ class Index extends Component {
         };
     }
 
-    rootSubmenuKeys = ['01', '02', '03', '04', '05', '06']
+    rootSubmenuKeys = ['01', '02', '03', '04', '05', '06', '07']
 
     //  打开时回调
     onOpenChange = (openKeys) => {

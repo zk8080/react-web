@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import {observer} from 'mobx-react';
+import State from './index.state';
+import {Table} from 'antd';
+import {colums} from './index.data';
+import './index.less';
 
+@observer
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -11,14 +17,10 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
+        State.getUserList();
     }
 
     componentWillReceiveProps(nextProps) {
-
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
 
     }
 
@@ -33,14 +35,20 @@ class Index extends Component {
     componentWillUnmount() {
 
     }
-
     render() {
         return (
-            <div>
-                增加用户
+            <div className='user-box'>
+                <Table
+                    columns={colums}
+                    bordered
+                    dataSource={State.tableList}
+                    rowKey={(record, index) => record.id}
+                    scroll={{x: 800,y: 500}}
+                />
             </div>
         );
     }
 }
+
 
 export default Index;

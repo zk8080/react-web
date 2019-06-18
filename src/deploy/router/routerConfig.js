@@ -17,6 +17,11 @@ const Shelf = loadComponent(() => import(/* webpackChunkName: "Shelf" */ '@conta
 // 出库管理
 const DeliveryOrder = loadComponent(() => import(/* webpackChunkName: "DeliveryOrder" */ '@container/outboundManagement/deliveryOrder/index.component'));
 
+
+// 权限管理
+const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
+const RoleList = loadComponent(() => import(/* webpackChunkName: "RoleList" */ '@container/permissionManager/roleList/index.component'));
+
 const routers = [
     {
         path: '/product/list',
@@ -53,6 +58,18 @@ const routers = [
         exact: true,
         component: DeliveryOrder,
         breadcrumbName: '发货订单'
+    },
+    {
+        path: '/userManager/index',
+        exact: true,
+        component: UserList,
+        breadcrumbName: '用户管理'
+    },
+    {
+        path: '/roleManager/index',
+        exact: true,
+        component: RoleList,
+        breadcrumbName: '角色管理'
     }
 ];
 

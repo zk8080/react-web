@@ -180,6 +180,23 @@ const menuData = [
                 url: '/article/20'
             }
         ]
+    },
+    {
+        title: '权限管理',
+        key: '07',
+        icon: 'team',
+        children: [
+            {
+                title: '用户管理',
+                key: '07-01',
+                url: '/userManager/index'
+            },
+            {
+                title: '角色管理',
+                key: '07-02',
+                url: '/roleManager/index'
+            }
+        ]
     }
 ];
 
