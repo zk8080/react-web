@@ -38,21 +38,29 @@ class State {
         this.editForm = obj;
     }
 
-    // 新增按钮
-    @action addClick = () => {
-        this.setEditForm();
-        this.toggleVisible();
-    }
-
     // 编辑弹窗显示标识
     @observable visible = false;
     @action toggleVisible = () => {
         this.visible = !this.visible;
     }
 
+    // 详情弹窗是否可编辑
+    @observable disabled = true;
+    @action toggleDisabled = (bol = false) => {
+        this.disabled = bol;
+    }
+
+    // 新增按钮
+    @action addClick = () => {
+        this.setEditForm();
+        this.toggleDisabled(false);
+        this.toggleVisible();
+    }
+
     // 点击修改
     @action editClick = (record) => {
         console.log( record, '修改' );
+        this.toggleDisabled(true);
         this.setEditForm(record);
         this.toggleVisible();
     }

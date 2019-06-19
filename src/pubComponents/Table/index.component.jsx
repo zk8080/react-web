@@ -46,6 +46,7 @@ class Index extends Component {
             <Table
                 className='cur-table'
                 bordered
+                rowKey={(v, i) => Math.random()}
                 {...this.props}
                 // scroll={{...this.props.scroll, ...{y: this.state.scrollY}}}
                 scroll={{x: this.state.scrollX, y: this.state.scrollY}}

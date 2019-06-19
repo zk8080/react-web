@@ -59,6 +59,8 @@ class Index extends Component {
                     onOk={this.saveClick}
                     detailData={toJS(State.editForm)}
                     setDetailData={State.setEditForm}
+                    disabled={State.disabled}
+                    toggleDisabled={State.toggleDisabled}
                 />
             </div>
         );

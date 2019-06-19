@@ -1,28 +1,33 @@
+import React from 'react';
+import State from './index.state';
+
 const colums = [
     {
-        title: '商家',
-        dataIndex: 'merchant',
-        width: '100px'
+        title: '用户名',
+        dataIndex: 'userName',
+        width: 200
     },
     {
-        title: '品牌',
-        dataIndex: 'brand',
-        width: '100px'
+        title: '账号',
+        dataIndex: 'userNo',
+        width: 200
     },
     {
-        title: '商品名称',
-        dataIndex: 'productName',
-        width: '200px'
+        title: '角色',
+        dataIndex: 'role',
+        width: 300
     },
     {
-        title: '规格',
-        dataIndex: 'size',
-        width: '80px'
-    },
-    {
-        title: '备注',
-        dataIndex: 'remark',
-        width: '300px'
+        title: '操作',
+        dataIndex: 'opreate',
+        width: 100,
+        // fixed: 'right',
+        render: (text, record, index) => {
+            return <div className='opreat-right'>
+                <span onClick={State.editClick.bind(this, record)}>修改</span>
+                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
+            </div>;
+        }
     }
 ];
 

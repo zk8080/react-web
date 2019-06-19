@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Modal } from '@pubComs';
-import { Form, Row, Col, Input } from 'antd';
+import { Form, Row, Col, Input, Select } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -35,7 +36,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled } = this.props;
+        const { visible, toggleVisible, disabled } = this.props;
         return (
             <div>
                 <Modal
@@ -44,14 +45,15 @@ class Index extends Component {
                     className='detail-component'
                     okText={disabled ? '修改': '确认'}
                     cancelText='取消'
-                    onCancel={cancelClick}
+                    width='400px'
+                    onCancel={toggleVisible}
                     onOk={disabled ? this.toggleDisabled: this.onOkClick}
                 >
                     <Form className='query-component'>
                         <Row>
-                            <Col span={8}>
-                                <FormItem label='商家名称'>
-                                    {getFieldDecorator('merchant', {
+                            <Col span={24}>
+                                <FormItem label='用户名'>
+                                    {getFieldDecorator('userName', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -63,9 +65,9 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
-                                <FormItem label='品牌'>
-                                    {getFieldDecorator('brand', {
+                            <Col span={24}>
+                                <FormItem label='用户账号'>
+                                    {getFieldDecorator('userNo', {
                                         rules: [
                                             {
                                                 required: true,
@@ -79,9 +81,9 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
-                                <FormItem label='商品名称'>
-                                    {getFieldDecorator('productName', {
+                            <Col span={24}>
+                                <FormItem label='角色'>
+                                    {getFieldDecorator('role', {
                                         rules: [
                                             {
                                                 required: true,
@@ -89,9 +91,18 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input 
+                                        <Select
+                                            showSearch
+                                            optionFilterProp="children"
                                             disabled={disabled}
-                                        />
+                                            filterOption={(input, option) =>
+                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                            }
+                                        >
+                                            <Option value="001">系统管理员</Option>
+                                            <Option value="002">入库管理</Option>
+                                            <Option value="003">出库管理</Option>
+                                        </Select>
                                     )}
                                 </FormItem>
                             </Col>

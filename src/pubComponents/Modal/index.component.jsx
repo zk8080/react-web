@@ -14,6 +14,7 @@ class Index extends Component {
                     width='1100px'
                     {...this.props}
                     destroyOnClose={true}
+                    maskClosable={false}
                 >
                     {this.props.children}
                 </Modal>

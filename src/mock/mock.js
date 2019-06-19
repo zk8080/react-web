@@ -2,6 +2,22 @@ const Mock = require('mockjs');
 
 var Random = Mock.Random;
 
+// 用户列表
+Mock.mock('/api/userlist', {
+    data: {
+        'data|10-50': [
+            {
+                'id|+1': 1, 
+                'userName': () => Random.cname(),
+                'userNo': () => Random.name(),
+                'role': () => Random.ctitle(5, 9)
+            }
+        ]
+    },
+    ret: 0,
+    msg: '查询成功！'
+});
+
 // 商品档案
 Mock.mock('/api/product/list', {
     data: {
