@@ -1,31 +1,71 @@
+import React from 'react';
+import State from './index.state';
+
 const colums = [
     {
-        title: '商家',
-        dataIndex: 'merchant',
-        width: '100px'
+        title: '角色名',
+        dataIndex: 'roleName',
+        width: 150
     },
     {
-        title: '品牌',
-        dataIndex: 'brand',
-        width: '100px'
-    },
-    {
-        title: '商品名称',
-        dataIndex: 'productName',
-        width: '200px'
-    },
-    {
-        title: '规格',
-        dataIndex: 'size',
-        width: '80px'
-    },
-    {
-        title: '备注',
+        title: '角色描述',
         dataIndex: 'remark',
-        width: '300px'
+        width: 200
+    },
+    {
+        title: '操作',
+        dataIndex: 'opreate',
+        width: 80,
+        // fixed: 'right',
+        render: (text, record, index) => {
+            return <div className='opreat-right'>
+                <span onClick={State.editClick.bind(this, record)}>修改</span>
+                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
+            </div>;
+        }
     }
 ];
 
+const treeData = [
+    {
+        title: '基础设置',
+        key: '0-0',
+        children: [
+            {
+                title: '商品档案',
+                key: '0-0-0'
+            },
+            {
+                title: '客户档案',
+                key: '0-0-1'
+            },
+            {
+                title: '耗材关系设置',
+                key: '0-0-2'
+            },
+        ],
+    },
+    {
+        title: '入库管理',
+        key: '0-1',
+        children: [
+            { title: '采购通知', key: '0-1-0' },
+            { title: '收货', key: '0-1-1' },
+            { title: '上架', key: '0-1-2' },
+        ],
+    },
+    {
+        title: '出库管理',
+        key: '0-2',
+        children: [
+            { title: '发货订单', key: '0-2-0' },
+            { title: '拣货单生成', key: '0-2-1' },
+            { title: '拣货', key: '0-2-2' },
+        ],
+    },
+];
+
 export {
-    colums
+    colums,
+    treeData
 };

@@ -22,21 +22,14 @@ class Index extends Component {
         this.state={};
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.getData(values);
+            }
+        });
+    };
 
     render() {
         const {getFieldDecorator} = this.props.form;
@@ -68,7 +61,7 @@ class Index extends Component {
                 <div className='query-btn'>
                     <Button
                         type="primary"
-                        onClick={this.props.getData}
+                        onClick={this.handleSubmit}
                     >查询</Button>
                 </div>
             </div>

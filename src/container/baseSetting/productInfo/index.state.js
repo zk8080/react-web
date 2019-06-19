@@ -16,8 +16,7 @@ class State {
     }
 
     //获取表格数据
-    @action getProductList = async () => {
-        const params = toJS(this.queryForm);
+    @action getProductList = async (params = {}) => {
         const res = await Service.getProductList(params);
         try{
             if(res.data.ret === 0){

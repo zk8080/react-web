@@ -34,8 +34,11 @@ class Index extends Component {
     }
     render() {
         return (
-            <div className='user-box'>
+            <div className='role-box'>
                 <FormComponent
+                    queryData={toJS(State.queryForm)}
+                    setQueryData={State.setQueryForm}
+                    getData={State.getUserList}
                 />
                 <HeadComponent
                     addClick={State.addClick}

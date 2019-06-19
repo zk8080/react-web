@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const userListUrl = '/api/userlist';
+const roleListUrl = '/api/roleList';
 
 class Service {
-    getUserList = req => {
+    getRoleList = req => {
         return new Promise((resolve, reject) => {
-            axios.get(userListUrl, {
+            axios.get(roleListUrl, {
                 params: req
             })
                 .then(res => {

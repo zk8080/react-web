@@ -35,28 +35,27 @@ class Index extends Component {
         const {getFieldDecorator} = this.props.form;
         return (
             <div className='query-component'>
-                <Row>
-                    <Col span={8}>
-                        <FormItem label="用户名" hasFeedback>
-                            {getFieldDecorator('userName', {
-                                rules: [],
-                            })(<Input />)}
-                        </FormItem>
-                    </Col>
-                    <Col span={8}>
-                        <FormItem label="账号" hasFeedback>
-                            {getFieldDecorator('userNo', {
-                                rules: [],
-                            })(<Input />)}
-                        </FormItem>
-                    </Col>
-                    <Col span={8} className='query-btn'>
-                        <Button
-                            type="primary"
-                            onClick={this.handleSubmit}
-                        >查询</Button>
-                    </Col>
-                </Row>
+                <Form>
+                    <Row>
+                        <Col span={8}>
+                            <FormItem label="角色名" hasFeedback>
+                                {getFieldDecorator('userName', {
+                                    rules: [],
+                                })(<Input />)}
+                            </FormItem>
+                        </Col>
+                        <Col span={8}>
+                        
+                        </Col>
+                        <Col span={8} className='query-btn'>
+                            <Button
+                                type="primary"
+                                onClick={this.handleSubmit}
+                            >查询</Button>
+                        </Col>
+                    </Row>
+                </Form>
+                
             </div>
         );
     }

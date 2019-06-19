@@ -10,9 +10,15 @@ class State {
         this.tableList = arr;
     }
 
+    // 查询组件数据
+    @observable queryForm = {};
+    @action setQueryForm = (obj = {}) => {
+        this.queryForm = obj;
+    }
+
     // 获取用户列表
-    @action getUserList = async () => {
-        const res = await Service.getUserList({});
+    @action getUserList = async (params = {}) => {
+        const res = await Service.getUserList(params);
         console.log(res, 'res');
         try{
             if(res.data.ret === 0){

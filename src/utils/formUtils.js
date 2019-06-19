@@ -5,7 +5,12 @@ class FormUtils {
     objToForm = (obj = {}) => {
         const target = {};
         for(const [key,value] of Object.entries(obj)){
-            target[key] = Form.createFormField({value});
+            target[key] = Form.createFormField(value);
+            if(typeof value == 'object'){
+                target[key] = Form.createFormField(value);
+            }else{
+                target[key] = Form.createFormField({value});
+            }
         }
         return target;
     }
@@ -13,7 +18,29 @@ class FormUtils {
     formToObj = (obj = {}) => {
         const target = {};
         for(const [key,value] of Object.entries(obj)){
+            target[key] = value;
+        }
+        return target;
+    }
+
+    // 将form数据结构 转换为接口所需借口
+    formToParams = (obj = {}) => {
+        const target = {};
+        for(const [key,value] of Object.entries(obj)){
             target[key] = value.value;
+        }
+        return target;
+    }
+
+    // 将接口返回数据转换为form所需要的结构
+    objDataToForm = (obj = {}) => {
+        const target = {};
+        for(const [key,value] of Object.entries(obj)){
+            if(typeof value == 'object'){
+                target[key] = value;
+            }else{
+                target[key] = {value};
+            }
         }
         return target;
     }

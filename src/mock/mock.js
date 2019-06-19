@@ -18,6 +18,21 @@ Mock.mock('/api/userlist', {
     msg: '查询成功！'
 });
 
+// 角色列表
+Mock.mock('/api/roleList', {
+    data: {
+        'data|10-50': [
+            {
+                'id|+1': 1, 
+                'roleName': () => Random.cname(),
+                'remark': () => Random.ctitle(5, 9)
+            }
+        ]
+    },
+    ret: 0,
+    msg: '查询成功！'
+});
+
 // 商品档案
 Mock.mock('/api/product/list', {
     data: {

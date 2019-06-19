@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Modal } from '@pubComs';
-import { Form, Row, Col, Input, Select } from 'antd';
+import { Form, Row, Col, Input, Tree } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
+import {treeData} from '../../index.data';
 
 const FormItem = Form.Item;
-const { Option } = Select;
+const { TreeNode } = Tree;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -21,10 +22,32 @@ const mapPropsToFields = (props) => {
 })
 class Index extends Component {
 
+    state = {
+        checkedKeys: ['0-0-0']
+    };
+
+    onCheck = (checkedKeys, e) => {
+        console.log('onCheck', checkedKeys);
+        this.setState({ checkedKeys });
+    };
+    
+    renderTreeNodes = data =>
+        data.map(item => {
+            if (item.children) {
+                return (
+                    <TreeNode title={item.title} key={item.key} dataRef={item}>
+                        {this.renderTreeNodes(item.children)}
+                    </TreeNode>
+                );
+            }
+            return <TreeNode {...item} />;
+        });
+
     onOkClick = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                // console.log( values, '---values---' );
                 this.props.onOk(values);
             }
         });
@@ -40,20 +63,19 @@ class Index extends Component {
         return (
             <div>
                 <Modal
-                    title='用户信息'
+                    title='角色信息'
                     visible={visible}
                     className='detail-component'
                     okText={disabled ? '修改': '确认'}
                     cancelText='取消'
-                    width='400px'
                     onCancel={toggleVisible}
                     onOk={disabled ? this.toggleDisabled: this.onOkClick}
                 >
                     <Form className='query-component'>
                         <Row>
-                            <Col span={24}>
-                                <FormItem label='用户名'>
-                                    {getFieldDecorator('userName', {
+                            <Col span={8}>
+                                <FormItem label='角色名'>
+                                    {getFieldDecorator('roleName', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -66,8 +88,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='用户账号'>
-                                    {getFieldDecorator('userNo', {
+                                <FormItem label='角色描述'>
+                                    {getFieldDecorator('remark', {
                                         rules: [
                                             {
                                                 required: true,
@@ -82,32 +104,22 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='角色'>
-                                    {getFieldDecorator('role', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Select
-                                            showSearch
-                                            optionFilterProp="children"
-                                            disabled={disabled}
-                                            filterOption={(input, option) =>
-                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                            }
+                                <FormItem label='权限详情'>
+                                    {getFieldDecorator('roleDetail')(
+                                        <Tree
+                                            checkable
+                                            onCheck={this.onCheck}
+                                            checkedKeys={this.state.checkedKeys}
                                         >
-                                            <Option value="001">系统管理员</Option>
-                                            <Option value="002">入库管理</Option>
-                                            <Option value="003">出库管理</Option>
-                                        </Select>
+                                            {this.renderTreeNodes(treeData)}
+                                        </Tree>
                                     )}
+                                    
                                 </FormItem>
                             </Col>
                         </Row>
                     </Form>
+                    
                 </Modal>
             </div>
         );
