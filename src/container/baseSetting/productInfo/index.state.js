@@ -20,8 +20,8 @@ class State {
         const res = await Service.getProductList(params);
         try{
             if(res.data.ret === 0){
-                const {productList} = res.data.data;
-                this.setTableList(productList);
+                const {data} = res.data.data;
+                this.setTableList(data);
             }else{
                 console.log(res.data.msg);
             }

@@ -22,7 +22,7 @@ const menuData = [
             {
                 title: '仓库档案',
                 key: '01-04',
-                url: '/user/2'
+                url: '/warehouse/list'
             },
             {
                 title: '库位关系设置',

@@ -8,6 +8,7 @@ import loadComponent from './loadable';
 //基础设置
 const ProductList = loadComponent(() => import(/* webpackChunkName: "productList" */ '@container/baseSetting/productInfo/index.component'));
 const CustomerList = loadComponent(() => import(/* webpackChunkName: "customerList" */ '@container/baseSetting/customerInfo/index.component'));
+const WarehouseInfo = loadComponent(() => import(/* webpackChunkName: "WarehouseInfo" */ '@container/baseSetting/warehouseInfo/index.component'));
 
 // 入库管理
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
@@ -34,6 +35,12 @@ const routers = [
         exact: true,
         component: CustomerList,
         breadcrumbName: '客户档案'
+    },
+    {
+        path: '/warehouse/list',
+        exact: true,
+        component: WarehouseInfo,
+        breadcrumbName: '仓库档案'
     },
     {
         path: '/inboundManagement/purchaseNotice',

@@ -36,7 +36,7 @@ Mock.mock('/api/roleList', {
 // 商品档案
 Mock.mock('/api/product/list', {
     data: {
-        'productList|10-50': [
+        'data|10-50': [
             {
                 'id|+1': 1, 
                 'merchant': () => Random.ctitle(6, 10),
@@ -54,7 +54,7 @@ Mock.mock('/api/product/list', {
 // 客户档案
 Mock.mock('/api/customer/list', {
     data: {
-        'customerList|10-50': [
+        'data|10-50': [
             {
                 'id|+1': 1, 
                 'merchant': () => Random.ctitle(6, 10),
