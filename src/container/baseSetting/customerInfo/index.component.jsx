@@ -18,10 +18,6 @@ class Index extends Component {
         };
     }
 
-    componentWillMount() {
-
-    }
-
     componentDidMount() {
         State.getCustomerList();
     }
@@ -30,8 +26,8 @@ class Index extends Component {
         State.saveData(obj);
     }
 
-    componentWillUnmount() {
-
+    handleTableChange = (pagination) => {
+        console.log(pagination, '-----pagination----');
     }
 
     render() {
@@ -50,8 +46,8 @@ class Index extends Component {
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
+                    onChange={this.handleTableChange}
                     rowKey='id'
-                    scroll={{x: 1320}}
                 />
                 <DetailComponent
                     visible={State.visible}

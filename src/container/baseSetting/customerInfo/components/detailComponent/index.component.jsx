@@ -5,6 +5,7 @@ import './index.less';
 import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
+const { TextArea } = Input;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -24,7 +25,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk(values);
+                this.props.onOk({...this.props.detailData, ...values});
             }
         });
     }
@@ -52,7 +53,7 @@ class Index extends Component {
                         <Row>
                             <Col span={24}>
                                 <FormItem label='商家名称'>
-                                    {getFieldDecorator('merchant', {
+                                    {getFieldDecorator('customerName', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -66,7 +67,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='品牌'>
-                                    {getFieldDecorator('brand', {
+                                    {getFieldDecorator('brandName', {
                                         rules: [
                                             {
                                                 required: true,
@@ -82,7 +83,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='联系人'>
-                                    {getFieldDecorator('contact', {
+                                    {getFieldDecorator('contactPerson', {
                                         rules: [
                                             {
                                                 required: true,
@@ -98,7 +99,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='联系电话'>
-                                    {getFieldDecorator('contactPhone', {
+                                    {getFieldDecorator('phone', {
                                         rules: [
                                             {
                                                 required: true,
@@ -131,7 +132,7 @@ class Index extends Component {
                             <Col span={24}>
                                 <FormItem label='备注'>
                                     {getFieldDecorator('remark')(
-                                        <Input 
+                                        <TextArea 
                                             disabled={disabled}
                                         />
                                     )}

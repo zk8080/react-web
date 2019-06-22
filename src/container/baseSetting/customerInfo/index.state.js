@@ -1,5 +1,6 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
+import { message } from 'antd';
 
 class State {
 
@@ -7,6 +8,15 @@ class State {
     @observable queryForm = {};
     @action setQueryForm = (obj = {}) => {
         this.queryForm = obj;
+    }
+
+    // 分页数据
+    @observable pageObj = {
+        current: 1,
+        size: 10
+    }
+    @action setPageObj = (obj) => {
+        this.setPageObj = obj;
     }
 
     // 表格数据
@@ -17,11 +27,15 @@ class State {
 
     //获取表格数据
     @action getCustomerList = async (params = {}) => {
-        const res = await Service.getCustomerList(params);
+        const paramsObj = {...params, ...{
+            current: 1,
+            size: 10
+        }};
+        const res = await Service.getCustomerList(paramsObj);
         try{
-            if(res.data.ret === 0){
-                const {data} = res.data.data;
-                this.setTableList(data);
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setTableList(rows);
             }else{
                 console.log(res.data.msg);
             }
@@ -49,29 +63,67 @@ class State {
         this.disabled = bol;
     }
 
+    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
+    @observable isAdd = false;
+    @action setIsAdd = (bol = false) => {
+        this.isAdd = bol;
+    }
+
     // 新增按钮
     @action addClick = () => {
         this.setEditForm();
+        this.setIsAdd(true);
         this.toggleDisabled(false);
         this.toggleVisible();
     }
 
     // 点击修改
     @action editClick = (record) => {
-        console.log( record, '修改' );
         this.toggleDisabled(true);
+        this.setIsAdd(false);
         this.setEditForm(record);
         this.toggleVisible();
     }
 
     // 保存
-    @action saveData = (obj) => {
-        console.log(obj, '-----obj-----');
+    @action saveData = async (obj) => {
+        let res;
+        if(this.isAdd){
+            res = await Service.addCustomer(obj);
+        }else{
+            res = await Service.editCustomer(obj);
+        }
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.toggleVisible();
+                this.getCustomerList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async (record) => {
+        const param = {
+            id: record.id
+        };
+        const res = await Service.deleteCustomer(param);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getCustomerList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

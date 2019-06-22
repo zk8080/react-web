@@ -4,53 +4,38 @@ import State from './index.state';
 const colums = [
     {
         title: '商家',
-        dataIndex: 'merchant',
+        dataIndex: 'customerName',
         width: 150
     },
     {
         title: '品牌',
-        dataIndex: 'brand',
+        dataIndex: 'brandName',
         width: 100
     },
     {
         title: '商品名称',
-        dataIndex: 'productName',
+        dataIndex: 'skuName',
         width: 200
     },
     {
         title: '规格',
-        dataIndex: 'size',
+        dataIndex: 'spec',
         width: 80
     },
     {
         title: '内部条形码',
-        dataIndex: 'size1',
+        dataIndex: 'skuCode',
         width: 150
     },
     {
         title: '商品条形码',
-        dataIndex: 'size2',
+        dataIndex: 'barCode',
         width: 150
     },
     {
         title: '商品类型',
-        dataIndex: 'size3',
+        dataIndex: 'modelNo',
         width: 80
-    },
-    {
-        title: '零拣库位',
-        dataIndex: 'size4',
-        width: 80
-    },
-    {
-        title: '储存库位',
-        dataIndex: 'size5',
-        width: 80
-    },
-    {
-        title: '备注',
-        dataIndex: 'size6',
-        width: 150
     },
     {
         title: '操作',

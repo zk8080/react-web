@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 axios.defaults.timeout = 60 * 1000;
+axios.defaults.baseURL = '/wms';
+axios.defaults.headers['Content-Type'] = 'application/json; charset=UTF-8';
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
-    console.log( '请求拦截器！' );
+    console.log( '请求拦截器！', config );
+    // config.headers['Content-Type'] = 'application/json; charset=UTF-8';
     return config;
 }, function (error) {
     // 对请求错误做些什么
