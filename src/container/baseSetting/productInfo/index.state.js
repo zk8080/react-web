@@ -24,9 +24,9 @@ class State {
         }};
         const res = await Service.getProductList(paramsObj);
         try{
-            if(res.data.ret === 0){
-                const {data} = res.data.data;
-                this.setTableList(data);
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setTableList(rows);
             }else{
                 console.log(res.data.msg);
             }

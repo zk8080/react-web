@@ -24,7 +24,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk(values);
+                this.props.onOk({...this.props.detailData, ...values});
             }
         });
     }
@@ -51,8 +51,8 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={24}>
-                                <FormItem label='商家名称'>
-                                    {getFieldDecorator('merchant', {
+                                <FormItem label='仓库区域'>
+                                    {getFieldDecorator('houseName', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -65,8 +65,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='品牌'>
-                                    {getFieldDecorator('brand', {
+                                <FormItem label='区域编码'>
+                                    {getFieldDecorator('areaCode', {
                                         rules: [
                                             {
                                                 required: true,
@@ -81,8 +81,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='联系人'>
-                                    {getFieldDecorator('contact', {
+                                <FormItem label='库位编号'>
+                                    {getFieldDecorator('storeCode', {
                                         rules: [
                                             {
                                                 required: true,
@@ -90,47 +90,6 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='联系电话'>
-                                    {getFieldDecorator('contactPhone', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='公司地址'>
-                                    {getFieldDecorator('address', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='备注'>
-                                    {getFieldDecorator('remark')(
                                         <Input 
                                             disabled={disabled}
                                         />

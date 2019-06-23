@@ -44,15 +44,15 @@ class Index extends Component {
             <div className='query-component'>
                 <Row>
                     <Col span={8}>
-                        <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('password', {
+                        <FormItem label="仓库区位" hasFeedback>
+                            {getFieldDecorator('houseName', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="品牌" hasFeedback>
-                            {getFieldDecorator('password', {
+                        <FormItem label="区域编号" hasFeedback>
+                            {getFieldDecorator('areaCode', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>

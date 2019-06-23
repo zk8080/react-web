@@ -11,9 +11,7 @@ class Service {
 
     getProductList = req => {
         return new Promise((resolve, reject) => {
-            axios.get(productListUrl, {
-                params: req
-            })
+            axios.post(productListUrl, req)
                 .then(res => {
                     resolve(res);
                 })

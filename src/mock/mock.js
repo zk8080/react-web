@@ -3,7 +3,7 @@ const Mock = require('mockjs');
 var Random = Mock.Random;
 
 // 用户列表
-Mock.mock('/api/userlist', {
+Mock.mock('/wms/api/userlist', {
     data: {
         'data|10-50': [
             {
@@ -19,7 +19,7 @@ Mock.mock('/api/userlist', {
 });
 
 // 角色列表
-Mock.mock('/api/roleList', {
+Mock.mock('/wms/api/roleList', {
     data: {
         'data|10-50': [
             {
@@ -34,7 +34,7 @@ Mock.mock('/api/roleList', {
 });
 
 // 商品档案
-Mock.mock('/api/product/list', {
+Mock.mock('/wms/api/product/list', {
     data: {
         'data|10-50': [
             {
@@ -52,7 +52,7 @@ Mock.mock('/api/product/list', {
 });
 
 // 客户档案
-Mock.mock('/api/customer/list', {
+Mock.mock('/wms/api/customer/list', {
     data: {
         'data|10-50': [
             {
@@ -70,7 +70,7 @@ Mock.mock('/api/customer/list', {
 });
 
 // 采购通知
-Mock.mock('/api/purchaseNotice/list', {
+Mock.mock('/wms/api/purchaseNotice/list', {
     data: {
         'data|10-50': [
             {

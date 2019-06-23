@@ -3,34 +3,24 @@ import State from './index.state';
 
 const colums = [
     {
-        title: '商家名称',
-        dataIndex: 'merchant',
-        width: '200px'
+        title: '仓库区',
+        dataIndex: 'houseName',
+        width: 100
     },
     {
-        title: '品牌',
-        dataIndex: 'brand',
-        width: '100px'
+        title: '区域编号',
+        dataIndex: 'areaCode',
+        width: 100
     },
     {
-        title: '联系人',
-        dataIndex: 'contact',
-        width: '80px'
-    },
-    {
-        title: '联系人电话',
-        dataIndex: 'contactPhone',
-        width: '200px'
-    },
-    {
-        title: '公司地址',
-        dataIndex: 'address'
+        title: '库位编号',
+        dataIndex: 'storeCode',
+        width: 100
     },
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 100,
-        fixed: 'right',
+        width: 50,
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
@@ -38,7 +28,6 @@ const colums = [
             </div>;
         }
     }
-    
 ];
 
 export {
