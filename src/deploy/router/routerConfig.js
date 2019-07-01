@@ -9,6 +9,8 @@ import loadComponent from './loadable';
 const ProductList = loadComponent(() => import(/* webpackChunkName: "productList" */ '@container/baseSetting/productInfo/index.component'));
 const CustomerList = loadComponent(() => import(/* webpackChunkName: "customerList" */ '@container/baseSetting/customerInfo/index.component'));
 const WarehouseInfo = loadComponent(() => import(/* webpackChunkName: "WarehouseInfo" */ '@container/baseSetting/warehouseInfo/index.component'));
+const ConsumableRelation = loadComponent(() => import(/* webpackChunkName: "ConsumableRelation" */ '@container/baseSetting/consumableRelation/index.component'));
+
 
 // 入库管理
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
@@ -35,6 +37,12 @@ const routers = [
         exact: true,
         component: CustomerList,
         breadcrumbName: '客户档案'
+    },
+    {
+        path: '/consumableRelation/list',
+        exact: true,
+        component: ConsumableRelation,
+        breadcrumbName: '耗材关系设置'
     },
     {
         path: '/warehouse/list',

@@ -9,16 +9,14 @@ class Index extends Component {
     static confirm = Modal.confirm;
     render() {
         return (
-            <div>
-                <Modal
-                    width='1100px'
-                    {...this.props}
-                    destroyOnClose={true}
-                    maskClosable={false}
-                >
-                    {this.props.children}
-                </Modal>
-            </div>
+            <Modal
+                width='1100px'
+                {...this.props}
+                destroyOnClose={true}
+                maskClosable={false}
+            >
+                {this.props.children}
+            </Modal>
         );
     }
 }

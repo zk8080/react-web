@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Modal } from '@pubComs';
-import { Form, Row, Col, Input } from 'antd';
+import { Form, Row, Col, Input, Checkbox } from 'antd';
 import './index.less';
-import { formUtils } from '@utils/index';
+import { formUtils } from '@utils';
 
 const FormItem = Form.Item;
-const { TextArea } = Input;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -36,7 +35,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled } = this.props;
+        const { visible, cancelClick, disabled, checkData } = this.props;
         return (
             <div>
                 <Modal
@@ -52,7 +51,7 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={24}>
-                                <FormItem label='商家名称'>
+                                <FormItem label='商品'>
                                     {getFieldDecorator('customerName', {
                                         rules: [{
                                             required: true,
@@ -66,7 +65,7 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='品牌'>
+                                <FormItem label='数量'>
                                     {getFieldDecorator('brandName', {
                                         rules: [
                                             {
@@ -82,8 +81,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='联系人'>
-                                    {getFieldDecorator('contactPerson', {
+                                <Form.Item label="耗材">
+                                    {getFieldDecorator('checkbox-group', {
                                         rules: [
                                             {
                                                 required: true,
@@ -91,52 +90,19 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
+                                        <Checkbox.Group style={{ width: '100%' }}>
+                                            <Row>
+                                                {
+                                                    checkData.map(item => {
+                                                        return <Col span={8} key={Math.random()}>
+                                                            <Checkbox disabled={disabled} value={item.code}>{item.name}</Checkbox>
+                                                        </Col>;
+                                                    })
+                                                }
+                                            </Row>
+                                        </Checkbox.Group>,
                                     )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='联系电话'>
-                                    {getFieldDecorator('phone', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='公司地址'>
-                                    {getFieldDecorator('address', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='备注'>
-                                    {getFieldDecorator('remark')(
-                                        <TextArea 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
+                                </Form.Item>
                             </Col>
                         </Row>
                     </Form>

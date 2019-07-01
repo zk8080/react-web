@@ -7,8 +7,19 @@ class Index extends Component {
         url: ''
     }
 
+    // 点击按钮 拼接url
     downloadClick = () => {
-        
+        const path = this.props.path;
+        const params = this.props.params;
+        const paramsArr = [];
+        for (const [key, value] of Object.entries(params)) {
+            paramsArr.push(`${key}=${value}`);
+        }
+        const paramsStr = paramsArr.join('&');
+        const url = `/wms${path}?${paramsStr}`;
+        this.setState({
+            url
+        });
     }
 
     render() {
@@ -20,7 +31,7 @@ class Index extends Component {
                 >
                     导出
                 </Button>
-                <iframe title='导出' frameborder="0" style={{display: 'none'}} src={this.state.url}></iframe>
+                <iframe title='导出' style={{display: 'none'}} src={this.state.url}></iframe>
             </Fragment>
         );
     }

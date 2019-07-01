@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
+import {DownLoad} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {
@@ -40,11 +41,9 @@ class Index extends Component {
                 >
                     新增
                 </Button>
-                <Button
-                    type='primary'
-                >
-                    导出
-                </Button>
+                <DownLoad
+                    path='/excel/exportUser'
+                />
             </div>
         );
     }

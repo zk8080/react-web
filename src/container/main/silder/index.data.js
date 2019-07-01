@@ -17,7 +17,7 @@ const menuData = [
             {
                 title: '耗材关系设置',
                 key: '01-03',
-                url: '/user/1'
+                url: '/consumableRelation/list'
             },
             {
                 title: '仓库档案',

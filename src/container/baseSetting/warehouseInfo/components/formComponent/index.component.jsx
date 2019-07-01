@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
-import {formUtils} from '@utils';
+import {formUtils, pubFunction} from '@utils';
+import {Select} from '@pubComs';
 
 const FormItem = Form.Item;
 
@@ -47,7 +48,11 @@ class Index extends Component {
                         <FormItem label="仓库区位" hasFeedback>
                             {getFieldDecorator('houseName', {
                                 rules: [],
-                            })(<Input />)}
+                            })(<Select 
+                                option={pubFunction.getDictSelect('CK-GN')}
+                                valueCode='code'
+                                valueName='name'
+                            />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>

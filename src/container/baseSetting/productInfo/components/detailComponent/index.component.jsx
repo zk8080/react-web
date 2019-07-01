@@ -42,7 +42,7 @@ class Index extends Component {
                 <Modal
                     title='新增'
                     visible={visible}
-                    className='detail-component'
+                    className='detail-product'
                     okText={disabled ? '修改': '确认'}
                     cancelText='取消'
                     onCancel={cancelClick}
@@ -64,7 +64,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='品牌'>
                                     {getFieldDecorator('brandName', {
                                         rules: [
@@ -79,7 +79,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             <Col span={8}>
                                 <FormItem label='商品名称'>
                                     {getFieldDecorator('skuName', {
@@ -112,7 +112,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='内部条码'>
                                     {getFieldDecorator('skuCode', {
                                         rules: [
@@ -127,7 +127,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             <Col span={8}>
                                 <FormItem label='商品条码'>
                                     {getFieldDecorator('barCode', {

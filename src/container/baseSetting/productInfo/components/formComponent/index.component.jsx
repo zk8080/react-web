@@ -44,26 +44,19 @@ class Index extends Component {
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="品牌" hasFeedback>
-                            {getFieldDecorator('brand', {
-                                rules: [],
-                            })(<Input />)}
-                        </FormItem>
-                    </Col>
-                    <Col span={8}>
                         <FormItem label="商品名称" hasFeedback>
                             {getFieldDecorator('productName', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
+                    <Col span={8} className='query-btn'>
+                        <Button
+                            type="primary"
+                            onClick={this.handleSubmit}
+                        >查询</Button>
+                    </Col>
                 </Row>
-                <div className='query-btn'>
-                    <Button
-                        type="primary"
-                        onClick={this.handleSubmit}
-                    >查询</Button>
-                </div>
             </div>
         );
     }

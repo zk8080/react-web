@@ -10,6 +10,15 @@ class State {
         this.queryForm = obj;
     }
 
+    // 分页数据
+    @observable pageObj = {
+        current: 1,
+        size: 10
+    }
+    @action setPageObj = (obj) => {
+        this.setPageObj = obj;
+    }
+
     // 表格数据
     @observable tableList = [];
     @action setTableList = (arr = []) => {
@@ -17,12 +26,12 @@ class State {
     }
 
     //获取表格数据
-    @action getProductList = async (params = {}) => {
+    @action getCustomerList = async (params = {}) => {
         const paramsObj = {...params, ...{
-            currentPage: 1,
-            pageSize: 15
+            current: 1,
+            size: 10
         }};
-        const res = await Service.getProductList(paramsObj);
+        const res = await Service.getCustomerList(paramsObj);
         try{
             if(res.data.code === 0){
                 const {rows} = res.data.data;
@@ -34,6 +43,21 @@ class State {
         catch(e){
             console.log(e);
         }
+    }
+
+    // 耗材全量数据
+    @observable consumableData = [
+        {
+            code: 'a',
+            name: '纸箱'
+        },
+        {
+            code: 'b',
+            name: '泡沫'
+        }
+    ];
+    @action setConsumableData = (arr = []) => {
+        this.consumableData = arr;
     }
 
     // 表单编辑数据
@@ -48,16 +72,16 @@ class State {
         this.visible = !this.visible;
     }
 
-    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
-    @observable isAdd = false;
-    @action setIsAdd = (bol = false) => {
-        this.isAdd = bol;
-    }
-
     // 详情弹窗是否可编辑
     @observable disabled = true;
     @action toggleDisabled = (bol = false) => {
         this.disabled = bol;
+    }
+
+    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
+    @observable isAdd = false;
+    @action setIsAdd = (bol = false) => {
+        this.isAdd = bol;
     }
 
     // 新增按钮
@@ -80,15 +104,15 @@ class State {
     @action saveData = async (obj) => {
         let res;
         if(this.isAdd){
-            res = await Service.addProduct(obj);
+            res = await Service.addCustomer(obj);
         }else{
-            res = await Service.editProduct(obj);
+            res = await Service.editCustomer(obj);
         }
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.toggleVisible();
-                this.getProductList();
+                this.getCustomerList();
             }else{
                 message.error(res.data.msg);
             }
@@ -99,8 +123,22 @@ class State {
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async (record) => {
+        const param = {
+            id: record.id
+        };
+        const res = await Service.deleteCustomer(param);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getCustomerList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 
