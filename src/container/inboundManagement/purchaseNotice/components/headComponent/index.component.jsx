@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
+import {DownLoad} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {
@@ -15,6 +16,18 @@ class Index extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+    }
+
     componentWillUnmount() {
 
     }
@@ -24,6 +37,7 @@ class Index extends Component {
             <div className='header-component'>
                 <Button
                     type='primary'
+                    onClick={this.props.addClick}
                 >
                     新增
                 </Button>
@@ -32,11 +46,9 @@ class Index extends Component {
                 >
                     导入
                 </Button>
-                <Button
-                    type='primary'
-                >
-                    导出
-                </Button>
+                <DownLoad
+                    path='/excel/exportUser'
+                />
             </div>
         );
     }

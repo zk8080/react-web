@@ -35,7 +35,7 @@ const colums = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
-                {/* <span onClick={State.deleteClick.bind(this, record)}>删除</span> */}
+                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;
         }
     }

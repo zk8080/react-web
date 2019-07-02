@@ -2,6 +2,7 @@ import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
 
+
 class State {
 
     // 查询组件数据
@@ -17,12 +18,8 @@ class State {
     }
 
     //获取表格数据
-    @action getProductList = async (params = {}) => {
-        const paramsObj = {...params, ...{
-            currentPage: 1,
-            pageSize: 15
-        }};
-        const res = await Service.getProductList(paramsObj);
+    @action getQueryData = async (params = {}) => {
+        const res = await Service.getQueryData(params);
         try{
             if(res.data.code === 0){
                 const {rows} = res.data.data;
@@ -80,15 +77,15 @@ class State {
     @action saveData = async (obj) => {
         let res;
         if(this.isAdd){
-            res = await Service.addProduct(obj);
+            res = await Service.addHouse(obj);
         }else{
-            res = await Service.editProduct(obj);
+            res = await Service.editHouse(obj);
         }
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.toggleVisible();
-                this.getProductList();
+                this.getQueryData();
             }else{
                 message.error(res.data.msg);
             }
@@ -99,8 +96,23 @@ class State {
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async(record) => {
+        const params = {
+            id: record.id
+        };
+        const res = await Service.deleteHouse(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getQueryData();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+
     }
 }
 

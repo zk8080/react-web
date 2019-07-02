@@ -27,12 +27,12 @@ const menuData = [
             {
                 title: '库位关系设置',
                 key: '01-05',
-                url: '/user/3'
+                url: '/locationRelation/list'
             },
             {   
                 title: '上传快递单号',
                 key: '01-06',
-                url: '/user/4'
+                url: '/trackingNumber/list'
             }
             // {
             //     title: '上架策略',
