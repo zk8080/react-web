@@ -42,6 +42,55 @@ class State {
         this.editForm = obj;
     }
 
+    // 采购单中的商品列表
+    @observable editTable = [{
+        key: '0',
+        name: 'Edward King 0',
+        age: '32',
+        address: 'London, Park Lane no. 0',
+    },
+    {
+        key: '1',
+        name: 'Edward King 1',
+        age: '32',
+        address: 'London, Park Lane no. 1',
+    }];
+    @action setEditTable = (arr = []) => {
+        this.editTable = arr;
+    }
+
+    // 删除商品列表数据
+    @action deleteEditTable = (record) => {
+        const dataSource = toJS(this.editTable);
+        const newData = dataSource.filter(item => item.key !== record.key);
+        this.setEditTable(newData);
+    }
+
+    // 保存商品列表数据
+    @action handleSave = row => {
+        const newData = toJS(this.editTable);
+        const index = newData.findIndex(item => row.key === item.key);
+        const item = newData[index];
+        newData.splice(index, 1, {
+            ...item,
+            ...row,
+        });
+        this.setEditTable(newData);
+    };
+
+    // 新增一行商品数据
+    @action handleAdd = () => {
+        const dataSource = toJS(this.editTable);
+        const count = dataSource.length;
+        const newData = {
+            key: count,
+            name: `Edward King ${count}`,
+            age: 32,
+            address: `London, Park Lane no. ${count}`,
+        };
+        this.setEditTable([...dataSource, newData]);
+    }
+
     // 编辑弹窗显示标识
     @observable visible = false;
     @action toggleVisible = () => {

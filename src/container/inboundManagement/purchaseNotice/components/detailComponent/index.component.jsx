@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, EditTable } from '@pubComs';
-import { Form, Row, Col, Input } from 'antd';
+import { Form, Row, Col, Input, Button } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 
@@ -36,32 +36,17 @@ class Index extends Component {
             {
                 title: 'address',
                 dataIndex: 'address',
-            },
-            {
-                title: 'operation',
-                dataIndex: 'operation',
-                render: (text, record) => {
-                    return <span>Delete</span>;
-                }
-            },
+            }
         ];
-    
         this.state = {
-            dataSource: [
-                {
-                    key: '0',
-                    name: 'Edward King 0',
-                    age: '32',
-                    address: 'London, Park Lane no. 0',
-                },
-                {
-                    key: '1',
-                    name: 'Edward King 1',
-                    age: '32',
-                    address: 'London, Park Lane no. 1',
-                },
-            ]
+            selectedRowKeys: [],
+            selectedRows: []
         };
+    }
+
+    handleDelete = () => {
+        const record = this.state.selectedRows[0];
+        this.props.handleDelete(record);
     }
 
     onOkClick = e => {
@@ -77,19 +62,25 @@ class Index extends Component {
         this.props.toggleDisabled(false);
     }
 
-    handleSave = row => {
-        const newData = [...this.state.dataSource];
-        const index = newData.findIndex(item => row.key === item.key);
-        const item = newData[index];
-        newData.splice(index, 1, {
-            ...item,
-            ...row,
-        });
-        this.setState({ dataSource: newData });
-    };
+    handleClick = () => {
+        window.print();
+    }
+
+    rowSelection = {
+        type: 'radio',
+        onChange: (selectedRowKeys, selectedRows) => {
+            this.setState({
+                selectedRowKeys,
+                selectedRows
+            });
+        },
+        selectedRowKeys: []
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled } = this.props;
+        const { visible, cancelClick, disabled, dataSource } = this.props;
+        this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
         return (
             <div>
                 <Modal
@@ -102,6 +93,7 @@ class Index extends Component {
                     onOk={disabled ? this.toggleDisabled: this.onOkClick}
                 >
                     <Form className='query-component'>
+                        <h1>采购通知单</h1>
                         <Row>
                             <Col span={8}>
                                 <FormItem label='商家名称'>
@@ -181,139 +173,27 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
-                                <FormItem label='零拣库位'>
-                                    {getFieldDecorator('ljkw', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='存储库位'>
-                                    {getFieldDecorator('cckw', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='单个重量'>
-                                    {getFieldDecorator('singleWeight', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='单个体积'>
-                                    {getFieldDecorator('singleVolume', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='整箱重量'>
-                                    {getFieldDecorator('packingWeight', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='整箱体积'>
-                                    {getFieldDecorator('packingVolume', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='商品单位'>
-                                    {getFieldDecorator('singleUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='打包单位'>
-                                    {getFieldDecorator('packingNum', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
                         </Row>
+                        <div className='opreat-btn'>
+                            <Button
+                                type='primary'
+                                onClick={this.props.handleAdd}
+                            >新增行</Button>
+                            <Button
+                                type='primary'
+                                onClick={this.handleDelete}
+                            >删除行</Button>
+                            <Button
+                                type='primary'
+                                onClick={this.handleClick}
+                            >打印采购单</Button>
+                        </div>
                         <EditTable
                             columns={this.columns}
-                            dataSource={this.state.dataSource}
-                            handleSave={this.handleSave}
+                            dataSource={dataSource}
+                            handleSave={this.props.handleSave}
+                            pagination={false}
+                            rowSelection={this.rowSelection}
                         />
                     </Form>
                 </Modal>

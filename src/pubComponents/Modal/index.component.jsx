@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
+import './index.less';
 
 class Index extends Component {
     static info = Modal.info;
@@ -12,6 +13,7 @@ class Index extends Component {
             <Modal
                 width='1100px'
                 {...this.props}
+                wrapClassName={`modal-component ${this.props.wrapClassName}`}
                 destroyOnClose={true}
                 maskClosable={false}
             >

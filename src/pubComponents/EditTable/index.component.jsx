@@ -118,6 +118,7 @@ class Index extends React.Component {
         return (
             <div>
                 <Table
+                    {...this.props}
                     components={components}
                     rowClassName={() => 'editable-row'}
                     bordered

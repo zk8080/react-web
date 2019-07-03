@@ -61,6 +61,10 @@ class Index extends Component {
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
+                    handleDelete={State.deleteEditTable}
+                    handleSave={State.handleSave}
+                    dataSource={toJS(State.editTable)}
+                    handleAdd={State.handleAdd}
                 />
             </div>
         );

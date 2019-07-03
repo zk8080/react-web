@@ -1,7 +1,50 @@
 .detail-product{
     .query-component{
+        h1{
+            text-align: center;
+        }
         .ant-form-item-label{
-            width: 109px;
+            width: 80px;
+        }
+        .opreat-btn{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            button{
+                margin-right: 10px;
+            }
+        }
+    }
+}
+@media print{
+    .detail-product{
+        .ant-modal-header{
+            display: none;
+        }
+        .ant-modal-footer{
+            display: none;
+        }
+        .ant-modal-close{
+            display: none;
+        }
+        .query-component{
+            .ant-form-item{
+                display: flex;
+                align-items: center;
+                .ant-form-item-required{
+                    &::before{
+                        content: '';
+                    }
+                }
+                .ant-form-item-control-wrapper{
+                    .ant-input{
+                        border: none;
+                    }
+                }
+            }
+            .opreat-btn{
+                display: none;
+            }
         }
     }
 }
