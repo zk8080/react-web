@@ -25,8 +25,8 @@ class State {
         const res = await Service.getProductList(paramsObj);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
-                this.setTableList(rows);
+                const {records} = res.data.data;
+                this.setTableList(records);
             }else{
                 console.log(res.data.msg);
             }
@@ -43,18 +43,7 @@ class State {
     }
 
     // 采购单中的商品列表
-    @observable editTable = [{
-        key: '0',
-        name: 'Edward King 0',
-        age: '32',
-        address: 'London, Park Lane no. 0',
-    },
-    {
-        key: '1',
-        name: 'Edward King 1',
-        age: '32',
-        address: 'London, Park Lane no. 1',
-    }];
+    @observable editTable = [];
     @action setEditTable = (arr = []) => {
         this.editTable = arr;
     }
@@ -84,9 +73,18 @@ class State {
         const count = dataSource.length;
         const newData = {
             key: count,
-            name: `Edward King ${count}`,
-            age: 32,
-            address: `London, Park Lane no. ${count}`,
+            commodityName: null,
+            modelNo: null,
+            spec: null,
+            unit: null,
+            barCode: null,
+            volume: null,
+            weight: null,
+            purchaseNums: null,
+            arrivalDate: null,
+            productionDate: null,
+            shilfLife: null,
+            remark: '',
         };
         this.setEditTable([...dataSource, newData]);
     }

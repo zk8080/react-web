@@ -47,7 +47,9 @@ class Index extends Component {
                     导入
                 </Button>
                 <DownLoad
-                    path='/excel/exportUser'
+                    path='/warehousing/purchaseBill/downloadTemplate'
+                    params={{isFood: true}}
+                    title='模板下载'
                 />
             </div>
         );

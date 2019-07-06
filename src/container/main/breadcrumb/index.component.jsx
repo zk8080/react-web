@@ -3,12 +3,32 @@ import { NavLink, withRouter } from 'react-router-dom';
 import loadsh from 'lodash';
 import routerConfig from '@deploy/router/routerConfig.js';
 import './index.less';
+import {Icon} from 'antd';
 
 // 获取url和name的键值队
 const getBreadcrumbNameMap = (arr) => {
     const obj = {};
     arr.map(item => obj[`${item.path}`] = item.breadcrumbName);
     return obj;
+};
+
+// 删除菜单
+const deleteMenu = (selectMenu, curUrl) => {
+    let historyUrlData = [];
+    // 获取历史页面数据
+    if( sessionStorage.getItem('historyUrlData') ){
+        historyUrlData = JSON.parse(sessionStorage.getItem('historyUrlData'));
+    }
+    const newHistoryUrlData = historyUrlData.filter(item => item.path !== selectMenu.path);
+    sessionStorage.setItem('historyUrlData', JSON.stringify(newHistoryUrlData));
+    if( selectMenu.path !== curUrl ){
+        window.appHistory.push(curUrl);
+    }else{
+        const nextMenu = newHistoryUrlData[newHistoryUrlData.length - 1];
+        if( nextMenu ){
+            window.appHistory.push(nextMenu.path);
+        }
+    }
 };
 
 const Bread = withRouter((props) => {
@@ -45,6 +65,9 @@ const Bread = withRouter((props) => {
                             return (
                                 <li key={item.path}>
                                     <NavLink to={item.path} activeClassName='active-tab'>{item.name}</NavLink>
+                                    {
+                                        historyUrlData.length > 1 && <Icon type="close" onClick={() => {deleteMenu(item, url);}} />
+                                    }
                                 </li>
                             );
                         })

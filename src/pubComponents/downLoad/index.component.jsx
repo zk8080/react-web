@@ -29,7 +29,7 @@ class Index extends Component {
                     type='primary'
                     onClick={this.downloadClick}
                 >
-                    导出
+                    {this.props.title || '导出'}
                 </Button>
                 <iframe title='导出' style={{display: 'none'}} src={this.state.url}></iframe>
             </Fragment>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 查询url
-const productListUrl = '/commoditySku/loadGrid';
+const productListUrl = '/warehousing/purchaseBill/selectList';
 // 新增url
 const addProductUrl = '/commoditySku/add';
 // 修改url
