@@ -11,7 +11,8 @@ const ProductList = loadComponent(() => import(/* webpackChunkName: "productList
 const CustomerList = loadComponent(() => import(/* webpackChunkName: "customerList" */ '@container/baseSetting/customerInfo/index.component'));
 const WarehouseInfo = loadComponent(() => import(/* webpackChunkName: "WarehouseInfo" */ '@container/baseSetting/warehouseInfo/index.component'));
 const ConsumableRelation = loadComponent(() => import(/* webpackChunkName: "ConsumableRelation" */ '@container/baseSetting/consumableRelation/index.component'));
-
+const LocationRelation = loadComponent(() => import(/* webpackChunkName: "LocationRelation" */ '@container/baseSetting/locationRelation/index.component'));
+const TrackingNumber = loadComponent(() => import(/* webpackChunkName: "trackingNumber" */ '@container/baseSetting/trackingNumber/index.component'));
 
 // 入库管理
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
@@ -54,6 +55,18 @@ const routers = [
         exact: true,
         component: WarehouseInfo,
         breadcrumbName: '仓库档案'
+    },
+    {
+        path: '/locationRelation/list',
+        exact: true,
+        component: LocationRelation,
+        breadcrumbName: '库位关系设置'
+    },
+    {
+        path: '/trackingNumber/list',
+        exact: true,
+        component: TrackingNumber,
+        breadcrumbName: '上传快递单号'
     },
     {
         path: '/inboundManagement/purchaseNotice',

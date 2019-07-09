@@ -85,7 +85,8 @@ class Index extends Component {
                     if( childArr[j].url === pathname ){
                         return {
                             selectedKeys: childArr[j].key,
-                            openKeys: element.key
+                            openKeys: element.key,
+                            title: childArr[j].title
                         };
                     }
                 }
@@ -100,6 +101,7 @@ class Index extends Component {
                 selectedKeys: [keyObj.selectedKeys],
                 openKeys: [keyObj.openKeys]
             });
+            document.title = keyObj.title;
         }
         
     }
@@ -115,6 +117,7 @@ class Index extends Component {
                 selectedKeys: [keyObj.selectedKeys],
                 openKeys: [keyObj.openKeys]
             });
+            document.title = keyObj.title;
         }
     }
 

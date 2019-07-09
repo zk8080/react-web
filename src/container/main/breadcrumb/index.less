@@ -4,17 +4,27 @@
     ul{
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         padding-left: 0;
         margin-bottom: 0;
-        padding: 7px 0;
+        padding-top: 5px;
         li{
-            padding: 0 8px;
+            padding: 8px 16px;
+            background-color: #fff;
+            border-radius: 5px 5px 0 0;
+            margin-left: 1px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
             .active-tab{
                 color: #1890ff;
             }
             a{
                 color: #000;
+                margin-right: 5px;
             }
+            .anticon{
+                color: #aaaaaa;
+            }   
         }
         
     }

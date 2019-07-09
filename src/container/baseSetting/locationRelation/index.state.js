@@ -25,8 +25,8 @@ class State {
         const res = await Service.getProductList(paramsObj);
         try{
             if(res.data.code === 0){
-                const {records} = res.data.data;
-                this.setTableList(records);
+                const {rows} = res.data.data;
+                this.setTableList(rows);
             }else{
                 console.log(res.data.msg);
             }
@@ -40,53 +40,6 @@ class State {
     @observable editForm = {};
     @action setEditForm = (obj = {}) => {
         this.editForm = obj;
-    }
-
-    // 采购单中的商品列表
-    @observable editTable = [];
-    @action setEditTable = (arr = []) => {
-        this.editTable = arr;
-    }
-
-    // 删除商品列表数据
-    @action deleteEditTable = (record) => {
-        const dataSource = toJS(this.editTable);
-        const newData = dataSource.filter(item => item.key !== record.key);
-        this.setEditTable(newData);
-    }
-
-    // 保存商品列表数据
-    @action handleSave = row => {
-        const newData = toJS(this.editTable);
-        const index = newData.findIndex(item => row.key === item.key);
-        const item = newData[index];
-        newData.splice(index, 1, {
-            ...item,
-            ...row,
-        });
-        this.setEditTable(newData);
-    };
-
-    // 新增一行商品数据
-    @action handleAdd = () => {
-        const dataSource = toJS(this.editTable);
-        const count = dataSource.length;
-        const newData = {
-            key: count,
-            commodityName: null,
-            modelNo: null,
-            spec: null,
-            unit: null,
-            barCode: null,
-            volume: null,
-            weight: null,
-            purchaseNums: null,
-            arrivalDate: null,
-            productionDate: null,
-            shilfLife: null,
-            remark: '',
-        };
-        this.setEditTable([...dataSource, newData]);
     }
 
     // 编辑弹窗显示标识

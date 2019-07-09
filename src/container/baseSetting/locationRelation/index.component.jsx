@@ -9,7 +9,6 @@ import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
-import ReceiptModal from './components/receiptModal/index.component';
 
 @observer
 class Index extends Component {
@@ -62,12 +61,7 @@ class Index extends Component {
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
-                    handleDelete={State.deleteEditTable}
-                    handleSave={State.handleSave}
-                    dataSource={toJS(State.editTable)}
-                    handleAdd={State.handleAdd}
                 />
-                <ReceiptModal/>
             </div>
         );
     }
