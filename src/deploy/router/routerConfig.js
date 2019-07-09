@@ -1,5 +1,6 @@
 //路由按需加载
 import loadComponent from './loadable';
+// import {OrderImportComponent, OrderPackageComponent, PickingBellComponent} from '../../container/workflow';
 /**
  * webpackChunkName: webpack按需加在打包时的chunk名字
  */
@@ -18,6 +19,10 @@ const Receipt = loadComponent(() => import(/* webpackChunkName: "Receipt" */ '@c
 const Shelf = loadComponent(() => import(/* webpackChunkName: "Shelf" */ '@container/inboundManagement/shelf/index.component'));
 
 // 出库管理
+const OrderImportComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderImport/order-import.component'));
+const OrderPackageComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderPackage/order-package.component'));
+const PickingBellComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/pickingBill/picking-bill.component'));
+const OrderWeighComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
 const DeliveryOrder = loadComponent(() => import(/* webpackChunkName: "DeliveryOrder" */ '@container/outboundManagement/deliveryOrder/index.component'));
 
 
@@ -73,6 +78,30 @@ const routers = [
         exact: true,
         component: DeliveryOrder,
         breadcrumbName: '发货订单'
+    },
+    {
+        path: '/workflow/orderImport',
+        exact: true,
+        component: OrderImportComponent,
+        breadcrumbName: '订单'
+    },
+    {
+        path: '/workflow/pickingBill',
+        exact: true,
+        component: PickingBellComponent,
+        breadcrumbName: '拣货单'
+    },
+    {
+        path: '/workflow/orderPackage',
+        exact: true,
+        component: OrderPackageComponent,
+        breadcrumbName: '打包'
+    },
+    {
+        path: '/workflow/orderWeigh',
+        exact: true,
+        component: OrderWeighComponent,
+        breadcrumbName: '称重'
     },
     {
         path: '/userManager/index',
