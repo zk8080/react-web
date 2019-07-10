@@ -40,8 +40,8 @@ class Index extends Component {
                 </div>
                 <div className="form">
                     <FormItem>
-                        {getFieldDecorator('username', {
-                            rules: [{ required: true, message: '请输入用户名123！' }],
+                        {getFieldDecorator('userNo', {
+                            rules: [{ required: true, message: '请输入用户名！' }],
                         })(
                             <Input
                                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -51,7 +51,7 @@ class Index extends Component {
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
-                            rules: [{ required: true, message: '请输入密码' }],
+                            rules: [{ required: true, message: '请输入密码！' }],
                         })(
                             <Input.Password
                                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
