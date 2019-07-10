@@ -1,6 +1,6 @@
 import React ,{ Component } from 'react';
 import { observer } from 'mobx-react';
-import {Button, Row, Table, Tabs, Input, Icon, Col, Modal} from 'antd';
+import { Button, Row, Table, Tabs, Input, Icon, Col, Modal, message } from 'antd';
 import { PaginationProps } from 'antd/es/pagination';
 import { TableRowSelection } from 'antd/es/table';
 
@@ -44,7 +44,8 @@ class PickingBillComponent extends Component{
 	 * 打印拣货单
 	 */
 	printerPickBill() {
-		this.pickingBillState.generatorPickBill();
+		message.info('功能并未开放');
+		// this.pickingBillState.generatorPickBill();
 	}
 	tableChange(page: PaginationProps, filter, sorter) {
 		this.pickingBillState.loadGrid(LoadGridUtil.paramsBuild(page, filter, sorter));

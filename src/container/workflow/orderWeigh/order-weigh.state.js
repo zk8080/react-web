@@ -1,5 +1,6 @@
 import { BaseState } from '../../../deploy/state/base-state';
 import type { LoadGrid } from '../../../utils/load-serve';
+import {notification} from 'antd';
 
 class OrderWeighState extends BaseState{
 
@@ -11,6 +12,18 @@ class OrderWeighState extends BaseState{
 	 		// this.refreshPage(result.data);
 		}
 	 });
+	}
+
+	lockOrder(value) {
+
+		if (this.orderNo !== value) {
+			this.orderNo = value;
+
+			if (this.orderNo !== ''){
+				// this.lockPickBillData();
+			}
+		}
+
 	}
 }
 export default OrderWeighState;

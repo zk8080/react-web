@@ -1,8 +1,9 @@
 import React from 'react';
-import { Row, Table } from 'antd';
+import { observer } from 'mobx-react';
+
+import { Col, Icon, Input, Row, Table } from 'antd';
 import OrderPackageState from './order-package.state';
 import { orderPackageDataListColumns } from './order-package.columns';
-import { observer } from 'mobx-react';
 
 @observer
 class OrderPackageComponent extends React.Component{
@@ -11,12 +12,19 @@ class OrderPackageComponent extends React.Component{
 		this.orderPackage = new OrderPackageState();
 	}
 
-	componentDidMount(): void {
-		this.orderPackage.loadGrid();
-	}
-
 	render() {
 		return <Row >
+			<Row  className={'header-component'}>
+				<Col span={6} >
+					<Input.Search
+						placeholder="请锁定订单号"
+						onSearch={this.orderPackage.lockOrderNo.bind(this.orderPackage)}
+						enterButton={
+							<Icon type="unlock" title="解锁"/>
+						}
+					/>
+				</Col>
+			</Row>
 			<Table pagination={false}
 				   loading={this.orderPackage.loading}
 				   columns={orderPackageDataListColumns}
