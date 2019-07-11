@@ -52,7 +52,6 @@ class Index extends Component {
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
-                    scroll={{x: 1320}}
                 />
                 <DetailComponent
                     visible={State.visible}

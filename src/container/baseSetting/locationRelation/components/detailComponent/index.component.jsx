@@ -97,72 +97,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label='规格'>
+                                <FormItem label='商品数量'>
                                     {getFieldDecorator('spec', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            {/* <Col span={8}>
-                                <FormItem label='内部条码'>
-                                    {getFieldDecorator('skuCode', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col> */}
-                            <Col span={8}>
-                                <FormItem label='商品条码'>
-                                    {getFieldDecorator('barCode', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='商品型号'>
-                                    {getFieldDecorator('modelNo', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='零拣库位'>
-                                    {getFieldDecorator('ljkw', {
                                         rules: [
                                             {
                                                 required: true,
@@ -178,7 +114,7 @@ class Index extends Component {
                             </Col>
                             <Col span={8}>
                                 <FormItem label='存储库位'>
-                                    {getFieldDecorator('cckw', {
+                                    {getFieldDecorator('barCode', {
                                         rules: [
                                             {
                                                 required: true,
@@ -193,8 +129,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label='单个重量'>
-                                    {getFieldDecorator('singleWeight', {
+                                <FormItem label='零拣库位'>
+                                    {getFieldDecorator('modelNo', {
                                         rules: [
                                             {
                                                 required: true,
@@ -203,175 +139,6 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='单个体积'>
-                                    {getFieldDecorator('singleVolume', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='整箱重量'>
-                                    {getFieldDecorator('packingWeight', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='整箱体积'>
-                                    {getFieldDecorator('packingVolume', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='商品单位'>
-                                    {getFieldDecorator('singleUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='打包单位'>
-                                    {getFieldDecorator('packingNum', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='打包商品量'>
-                                    {getFieldDecorator('packingUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='打包体积单位'>
-                                    {getFieldDecorator('packingVolumeUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='打包重量单位'>
-                                    {getFieldDecorator('packingWeightUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='商品重量单位'>
-                                    {getFieldDecorator('singleWeightUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='商品体积单位'>
-                                    {getFieldDecorator('singleVolumeUnit', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='备注'>
-                                    {getFieldDecorator('remark')(
-                                        <TextArea 
                                             disabled={disabled}
                                         />
                                     )}

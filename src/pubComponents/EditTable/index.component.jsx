@@ -69,7 +69,7 @@ class EditableCell extends React.Component {
                             },
                         ],
                         initialValue: record[dataIndex]?moment(record[dataIndex]): null,
-                    })(<DatePicker allowClear={false} ref={node => (this.input = node)} onChange={this.changeDate}/>)}
+                    })(<DatePicker allowClear={false} format='YYYY-MM-DD' ref={node => (this.input = node)} onChange={this.changeDate}/>)}
                 </Form.Item>
                 : <Form.Item style={{ margin: 0 }}>
                     {form.getFieldDecorator(dataIndex, {
@@ -133,6 +133,7 @@ class Index extends React.Component {
 
     componentDidMount() {
         const scrollX = this.getScrollX(this.props.columns);
+        console.log( scrollX, '-----scrollX-----' );
         this.setState({
             scrollX
         });

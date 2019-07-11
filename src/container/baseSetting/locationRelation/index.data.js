@@ -13,19 +13,19 @@ const colums = [
         width: 200
     },
     {
-        title: '规格',
+        title: '商品数量',
+        dataIndex: 'modelNo',
+        width: 80
+    },
+    {
+        title: '存储库位',
         dataIndex: 'spec',
         width: 80
     },
     {
-        title: '商品条形码',
+        title: '零拣库位',
         dataIndex: 'barCode',
         width: 150
-    },
-    {
-        title: '商品类型',
-        dataIndex: 'modelNo',
-        width: 80
     },
     {
         title: '操作',

@@ -58,12 +58,13 @@ class State {
     // 保存商品列表数据
     @action handleSave = row => {
         const newData = toJS(this.editTable);
-        const index = newData.findIndex(item => row.key === item.key);
+        const index = newData.findIndex(item => row.barCode === item.barCode);
         const item = newData[index];
         newData.splice(index, 1, {
             ...item,
             ...row,
         });
+        console.log( newData, '----newData--' );
         this.setEditTable(newData);
     };
 
@@ -120,16 +121,21 @@ class State {
         this.toggleDisabled(true);
         this.setIsAdd(false);
         this.setEditForm(record);
+        this.setEditTable(record.detailList);
         this.toggleVisible();
     }
 
     // 保存
     @action saveData = async (obj) => {
+        const params = {
+            ...obj,
+            detailList: toJS(this.editTable)
+        };
         let res;
         if(this.isAdd){
-            res = await Service.addProduct(obj);
+            res = await Service.addProduct(params);
         }else{
-            res = await Service.editProduct(obj);
+            res = await Service.editProduct(params);
         }
         try{
             if(res.data.code === 0){
@@ -146,8 +152,22 @@ class State {
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async(record) => {
+        const params = {
+            id: record.id
+        };
+        const res = await Service.deleteData(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getProductList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

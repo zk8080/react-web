@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, EditTable, Select } from '@pubComs';
-import { Form, Row, Col, Input, Button } from 'antd';
+import { Form, Row, Col, Input, Button, DatePicker } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
@@ -12,7 +12,19 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
-    return formUtils.objToForm(props.detailData);
+    const originData = props.detailData;
+    let detailData = {
+        ...props.detailData
+    };
+    if(typeof originData.purchaseDate == 'string'){
+        detailData = {
+            ...props.detailData,
+            purchaseDate: {value: moment(props.detailData.purchaseDate)}
+        };
+    }
+    
+    console.log( detailData, 'detailData' );
+    return formUtils.objToForm(detailData);
 };
 
 @Form.create({
@@ -41,7 +53,11 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk({...this.props.detailData, ...values});
+                const saveData = {
+                    ...values,
+                    purchaseDate: moment(values.purchaseDate).format('YYYY-MM-DD')
+                };
+                this.props.onOk({...this.props.detailData, ...saveData});
             }
         });
     }
@@ -85,6 +101,7 @@ class Index extends Component {
         const {getFieldDecorator} = this.props.form;
         const { visible, cancelClick, disabled, dataSource } = this.props;
         this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
+        console.log(dataSource, '-----dataSource----');
         return (
             <div>
                 <Modal
@@ -102,13 +119,9 @@ class Index extends Component {
                             <Col span={8}>
                                 <FormItem label='采购订单号'>
                                     {getFieldDecorator('purchaseNo', {
-                                        rules: [{
-                                            required: true,
-                                            message: '必填'
-                                        }]
                                     })(
                                         <Input 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
@@ -139,7 +152,7 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input 
+                                        <DatePicker 
                                             disabled={disabled}
                                         />
                                     )}
@@ -202,11 +215,11 @@ class Index extends Component {
                                                 message: '必填'
                                             }
                                         ],
-                                        initialValue: '0'
+                                        initialValue: false
                                     })(
                                         <Select 
-                                            option={[{code: '0', name: '否'},
-                                                {code: '1', name: '是'}]}
+                                            option={[{code: false, name: '否'},
+                                                {code: true, name: '是'}]}
                                             disabled={disabled}
                                             valueCode='code'
                                             valueName='name'
@@ -240,6 +253,7 @@ class Index extends Component {
                             handleSave={this.props.handleSave}
                             pagination={false}
                             rowSelection={this.rowSelection}
+                            rowKey='barCode'
                         />
                         <Row>
                             <Col span={8}>

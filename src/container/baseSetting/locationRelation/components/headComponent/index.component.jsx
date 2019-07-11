@@ -41,9 +41,6 @@ class Index extends Component {
                 >
                     新增
                 </Button>
-                <DownLoad
-                    path='/excel/exportUser'
-                />
             </div>
         );
     }
