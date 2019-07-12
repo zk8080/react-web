@@ -6,16 +6,12 @@ import * as PropTypes from 'prop-types';
  * 条形码组件
  */
 export default class BarcodeComponent extends React.Component{
-	constructor() {
-		super();
-		this.props = {
-			// 条形码CODE
-			code: PropTypes.string.isRequired,
-			// 条形码高度
-			height: PropTypes.number.isRequired
-		};
-	}
-
+	props = {
+		// 条形码CODE
+		code: PropTypes.string.isRequired,
+		// 条形码高度
+		height: PropTypes.number.isRequired
+	};
 	componentDidMount(): void {
 		JsBarcode(
 			this.elementRef,
@@ -29,7 +25,6 @@ export default class BarcodeComponent extends React.Component{
 			}
 		);
 	}
-
 	render(){
 		return <svg ref={ref => this.elementRef = ref}></svg>;
 	}

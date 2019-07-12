@@ -21,12 +21,12 @@ class OrderWeighComponent extends React.Component{
 				<Col span={6} >
 					<Input.Search placeholder="请锁定订单号"  enterButton={
 						<Icon type="unlock" title="解锁"/>
-					}/>
+					} onSearch={this.orderWeighState.lockOrder.bind(this.orderWeighState)}/>
 				</Col>
 				<Col span={6}>
-					<Input.Search placeholder="订单称重重量"  enterButton="比对"/>
+					<Input.Search type="number" placeholder="订单称重重量" onSearch={this.orderWeighState.weigh.bind(this.orderWeighState)}  enterButton="比对"/>
 				</Col>
-				{/*<Button type="danger" onClick={this.pickingBillState.invoiceCheckClose.bind(this.pickingBillState)}>复检完毕</Button>*/}
+				<Button type="danger" onClick={this.orderWeighState.confirmWeigh.bind(this.orderWeighState)}>忽略异常</Button>
 			</Row>
 			<Table
 				pagination={this.orderWeighState.page}
