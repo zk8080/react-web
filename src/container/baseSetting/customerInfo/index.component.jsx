@@ -9,6 +9,8 @@ import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
+import ProductList from './components/productList/index.component';
+import ProductDetail from './components/productDetail/index.component';
 
 @observer
 class Index extends Component {
@@ -20,10 +22,7 @@ class Index extends Component {
 
     componentDidMount() {
         State.getCustomerList();
-    }
-
-    saveClick = (obj) => {
-        State.saveData(obj);
+        State.getAllProduct();
     }
 
     handleTableChange = (pagination) => {
@@ -52,11 +51,29 @@ class Index extends Component {
                 <DetailComponent
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
-                    onOk={this.saveClick}
+                    onOk={State.saveData}
                     detailData={toJS(State.editForm)}
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
+                />
+                <ProductList
+                    visible={State.productVisible}
+                    cancelClick={State.toggleProductVisible}
+                    onOk={State.toggleProductVisible}
+                    customerInfo={toJS(State.curCustomerInfo)}
+                    addClick={State.addProduct}
+                    tableList={toJS(State.productList)}
+                />
+                <ProductDetail
+                    visible={State.detailVisible}
+                    cancelClick={State.cancelProdiuct}
+                    onOk={State.productSave}
+                    detailData={toJS(State.detailFormData)}
+                    setDetailData={State.setDetailFormData}
+                    disabled={State.productDisabled}
+                    toggleDisabled={State.toggleProductDisabled}
+                    productList={toJS(State.allProductList)}
                 />
             </div>
         );

@@ -24,7 +24,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getProductList();
+        State.getTableList();
     }
 
     saveClick = (obj) => {
@@ -42,11 +42,12 @@ class Index extends Component {
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getTableList}
                     />
                 </Form>
                 <HeadComponent
                     addClick={State.addClick}
+                    successCbk={State.getTableList}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}

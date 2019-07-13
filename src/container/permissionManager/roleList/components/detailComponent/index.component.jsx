@@ -23,20 +23,21 @@ const mapPropsToFields = (props) => {
 class Index extends Component {
 
     state = {
-        checkedKeys: ['0-0-0']
+        checkedKeys: ['0-0-0'],
+        menuKeyList: []
     };
 
     onCheck = (checkedKeys, e) => {
-        console.log('onCheck', checkedKeys);
-        this.setState({ checkedKeys });
+        const menuKeyList = [...e.halfCheckedKeys, ...checkedKeys];
+        this.setState({ checkedKeys, menuKeyList });
     };
     
     renderTreeNodes = data =>
         data.map(item => {
-            if (item.children) {
+            if (item.childMenu) {
                 return (
-                    <TreeNode title={item.title} key={item.key} dataRef={item}>
-                        {this.renderTreeNodes(item.children)}
+                    <TreeNode title={item.menuName} key={item.id} dataRef={item}>
+                        {this.renderTreeNodes(item.childMenu)}
                     </TreeNode>
                 );
             }
@@ -48,7 +49,11 @@ class Index extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 // console.log( values, '---values---' );
-                this.props.onOk(values);
+                const params = {
+                    ...values,
+                    menuKeyList: this.state.menuKeyList
+                };
+                this.props.onOk(params);
             }
         });
     }
@@ -59,7 +64,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, toggleVisible, disabled } = this.props;
+        const { visible, toggleVisible, disabled, menuList } = this.props;
         return (
             <div>
                 <Modal
@@ -73,8 +78,22 @@ class Index extends Component {
                 >
                     <Form className='query-component'>
                         <Row>
-                            <Col span={8}>
-                                <FormItem label='角色名'>
+                            <Col span={12}>
+                                <FormItem label='角色编码'>
+                                    {getFieldDecorator('roleCode', {
+                                        rules: [{
+                                            required: true,
+                                            message: '必填'
+                                        }]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={12}>
+                                <FormItem label='角色名称'>
                                     {getFieldDecorator('roleName', {
                                         rules: [{
                                             required: true,
@@ -89,7 +108,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='角色描述'>
-                                    {getFieldDecorator('remark', {
+                                    {getFieldDecorator('roleDesc', {
                                         rules: [
                                             {
                                                 required: true,
@@ -111,7 +130,7 @@ class Index extends Component {
                                             onCheck={this.onCheck}
                                             checkedKeys={this.state.checkedKeys}
                                         >
-                                            {this.renderTreeNodes(treeData)}
+                                            {this.renderTreeNodes(menuList)}
                                         </Tree>
                                     )}
                                     

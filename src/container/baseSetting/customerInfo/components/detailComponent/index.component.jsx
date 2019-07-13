@@ -66,22 +66,6 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='品牌'>
-                                    {getFieldDecorator('brandName', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
                                 <FormItem label='联系人'>
                                     {getFieldDecorator('contactPerson', {
                                         rules: [

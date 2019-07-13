@@ -44,8 +44,8 @@ class Index extends Component {
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="商品名称" hasFeedback>
-                            {getFieldDecorator('productName', {
+                        <FormItem label="采购单名称" hasFeedback>
+                            {getFieldDecorator('name', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>

@@ -61,6 +61,7 @@ class State {
     // 点击修改
     @action editClick = (record) => {
         console.log( record, '修改' );
+        this.getMenuDetail(record);
         this.setEditForm(record);
         this.toggleDisabled(true);
         this.toggleVisible();
@@ -72,8 +73,51 @@ class State {
     }
 
     // 保存
-    @action saveData = (obj) => {
-        console.log(obj, '-----obj-----');
+    @action saveData = async(obj) => {
+        let res;
+        if( this.isAdd ){
+            res = await Service.addRole(obj);
+        }else{
+            const params = {
+                ...obj,
+                state: 0
+            };
+            res = await Service.updateRole(params);
+        }
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.toggleVisible();
+                this.getRoleList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 当前角色菜单详情
+    @observable curRoleMenu = [];
+    @action setCurRoleMenu = (obj = {}) => {
+        this.curRoleMenu = obj;
+    }
+
+    // 根据角色查询菜单
+    @action getMenuDetail = async (record) => {
+        const params = {
+            roleKey: record.id
+        };
+        const res = await Service.getRoleMenu(params);
+        try{
+            if(res.data.code === 0){
+                console.log( res.data, '-----data-----' );
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

@@ -17,12 +17,12 @@ class State {
     }
 
     //获取表格数据
-    @action getProductList = async (params = {}) => {
+    @action getTableList = async (params = {}) => {
         const paramsObj = {...params, ...{
             currentPage: 1,
             pageSize: 15
         }};
-        const res = await Service.getProductList(paramsObj);
+        const res = await Service.getTableList(paramsObj);
         try{
             if(res.data.code === 0){
                 const {rows} = res.data.data;
@@ -80,15 +80,15 @@ class State {
     @action saveData = async (obj) => {
         let res;
         if(this.isAdd){
-            res = await Service.addProduct(obj);
+            res = await Service.addLocation(obj);
         }else{
-            res = await Service.editProduct(obj);
+            res = await Service.updateLocation(obj);
         }
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.toggleVisible();
-                this.getProductList();
+                this.getTableList();
             }else{
                 message.error(res.data.msg);
             }
@@ -99,8 +99,91 @@ class State {
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async(record) => {
+        const params = {
+            id: record.id
+        };
+        const res = await Service.deleteLocation(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getTableList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 商家数据
+    @observable customerList = [];
+    @action setCustomerList = (arr = []) => {
+        this.customerList = arr;
+    }
+
+    // 查询所有商家
+    @action getCustomerList = async() => {
+        const res = await Service.getCustomerList({});
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setCustomerList(rows);
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 商家下的商品数据
+    @observable productList = [];
+    @action setProductList = (arr = []) => {
+        this.productList = arr;
+    }
+
+    // 查询客户-商品数据
+    @action getProductList = async(id) => {
+        const params = {
+            customerId: id
+        };
+        const res = await Service.getProductList(params);
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setProductList(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 所有库位
+    @observable allStoreList = [];
+    @action setAllStoreList = (arr = []) => {
+        this.allStoreList = arr;
+    }
+
+    // 查询库位
+    @action getStroeList = async() => {
+        const res = await Service.getStroeList({});
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setAllStoreList(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

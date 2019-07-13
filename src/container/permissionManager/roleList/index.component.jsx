@@ -57,6 +57,7 @@ class Index extends Component {
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
+                    menuList={toJS(State.menuList)}
                 />
             </div>
         );

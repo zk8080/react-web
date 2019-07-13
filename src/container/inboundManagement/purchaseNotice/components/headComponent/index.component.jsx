@@ -41,11 +41,10 @@ class Index extends Component {
                 >
                     新增
                 </Button>
-                <Button
-                    type='primary'
-                >
-                    导入
-                </Button>
+                <Upload
+                    action='/wms/warehousing/purchaseBill/import'
+                    successCbk={this.props.successCbk}
+                />
                 <DownLoad
                     path='/warehousing/purchaseBill/downloadTemplate'
                     params={{isFood: true}}

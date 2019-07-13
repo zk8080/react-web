@@ -17,12 +17,12 @@ class State {
     }
 
     //获取表格数据
-    @action getProductList = async (params = {}) => {
+    @action getTableList = async (params = {}) => {
         const paramsObj = {...params, ...{
             currentPage: 1,
             pageSize: 15
         }};
-        const res = await Service.getProductList(paramsObj);
+        const res = await Service.getTableList(paramsObj);
         try{
             if(res.data.code === 0){
                 const {records} = res.data.data;

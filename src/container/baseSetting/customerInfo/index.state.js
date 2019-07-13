@@ -125,6 +125,168 @@ class State {
             console.log(e);
         }
     }
+
+    // 当前选中的客户信息 
+    @observable curCustomerInfo = {};
+    @action setCurCustomerInfo = (obj = {}) => {
+        this.curCustomerInfo = obj;
+    }
+
+    // 客户-商品列表
+    @observable productList = [];
+    @action setProductList = (arr = []) => {
+        this.productList = arr;
+    }
+
+    // 商品列表弹窗显示标识
+    @observable productVisible = false;
+    @action toggleProductVisible = () => {
+        this.productVisible = !this.productVisible;
+    }
+
+    // 点击关联商品按钮
+    @action relateGoods = (record) => {
+        this.toggleProductVisible();
+        this.setCurCustomerInfo(record);
+        this.getProductList();
+    }
+
+    // 查询客户-商品数据
+    @action getProductList = async() => {
+        
+        const params = {
+            customerId: this.curCustomerInfo.id
+        };
+        const res = await Service.getProductList(params);
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setProductList(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 商品列表弹窗 新增按钮
+    @action addProduct = () => {
+        this.setDetailFormData();
+        this.toggleProductDisabled(false);
+        this.toggleDetailVisible();
+        this.toggleProductVisible();
+        this.setIsDetailAdd(true);
+    }
+
+    // 商品列表 修改按钮
+    @action updateProduct = (record) => {
+        this.setDetailFormData(record);
+        this.toggleProductDisabled(true);
+        this.toggleDetailVisible();
+        this.toggleProductVisible();
+        this.setIsDetailAdd(false);
+    }
+
+    // 商品详情弹窗标识
+    @observable detailVisible = false;
+    @action toggleDetailVisible = () => {
+        this.detailVisible = !this.detailVisible;
+    }
+
+    // 商品详情数据
+    @observable detailFormData = {};
+    @action setDetailFormData = (obj = {}) => {
+        this.detailFormData = obj;
+    }
+
+    // 详情弹窗取消按钮
+    @action cancelProdiuct = () => {
+        this.toggleDetailVisible();
+        this.toggleProductVisible();
+        this.toggleProductDisabled(true);
+    }
+
+    // 详情弹窗是否可编辑
+    @observable productDisabled = true;
+    @action toggleProductDisabled = (bol = false) => {
+        this.productDisabled = bol;
+    }
+
+    // 商品详情弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
+    @observable isDetailAdd = false;
+    @action setIsDetailAdd = (bol = false) => {
+        this.isDetailAdd = bol;
+    }
+
+    // 商品详情保存按钮
+    @action productSave = async (obj = {}) => {
+        const customerInfo = toJS(this.curCustomerInfo);
+        const params = {
+            ...obj,
+            customerId: customerInfo.id,
+            commodityCode: obj.barCode
+        };
+        console.log( params, '----params-----' );
+        let res;
+        if( this.isDetailAdd ){
+            res = await Service.addProduct(params);
+        }else{
+            res = await Service.updateProduct(params);
+        }
+        try{
+            if(res.data.code === 0){
+                this.getProductList();
+                this.toggleDetailVisible();
+                this.toggleProductVisible();
+                message.success(res.data.msg);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 删除商品
+    @action deleteProduct = async (record = {}) => {
+        const params = {
+            id: record.id
+        };
+        console.log( params, '----params---' );
+        const res = await Service.deleteProduct(params);
+        try{
+            if(res.data.code === 0){
+                this.getProductList();
+                message.success(res.data.msg);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }    
+
+    // 所有商品
+    @observable allProductList = [];
+    @action setAllProductListUrl = (arr = []) => {
+        this.allProductList = arr;
+    }
+
+    // 查询所有商品
+    @action getAllProduct = async () => {
+        const res = await Service.getAllProduct({});
+        if(res.data.code === 0){
+            const {rows} = res.data.data;
+            this.setAllProductListUrl(rows);
+        }else{
+            message.error(res.data.msg);
+        }
+    }
+
 }
 
 export default new State();
