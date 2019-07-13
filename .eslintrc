@@ -12,7 +12,8 @@
     "extends": ["react-app"],
     "plugins": ["react"],
     "rules": {
-        "indent": [2, 4], // ]控制缩进为2
+//        "indent": [2, 4], // ]控制缩进为2
+        "indent": 0, // ]控制缩进为2
         "quotes": [2, "single"], //单引号
         "no-console": 0, //不禁用console
         "no-debugger": 1, //警告debugger

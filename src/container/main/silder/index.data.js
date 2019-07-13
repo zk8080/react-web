@@ -78,30 +78,45 @@ const menuData = [
         key: '03',
         icon: 'fullscreen',
         children: [
-            {
-                title: '发货订单',
-                key: '03-01',
-                url: '/outboundManagement/deliveryOrder'
-            },
-            {
-                title: '拣货单生成',
-                key: '03-02',
-                url: '/article/5'
-            },
-            {
-                title: 'B2B',
-                key: '03-03',
-                url: '/article/6'
-            },
-            {
-                title: '拣货',
-                key: '03-04',
-                url: '/article/7'
-            },
+			{
+				title: '订单',
+				key: '03-08',
+				url: '/workflow/orderImport'
+			},
+			{
+				title: '拣货单',
+				key: '03-09',
+				url: '/workflow/pickingBill'
+			},
+			{
+				title: '打包',
+				key: '03-10',
+				url: '/workflow/orderPackage'
+			},
+            // {
+            //     title: '发货订单',
+            //     key: '03-01',
+            //     url: '/outboundManagement/deliveryOrder'
+            // },
+            // {
+            //     title: '拣货单生成',
+            //     key: '03-02',
+            //     url: '/article/5'
+            // },
+            // {
+            //     title: 'B2B',
+            //     key: '03-03',
+            //     url: '/article/6'
+            // },
+            // {
+            //     title: '拣货',
+            //     key: '03-04',
+            //     url: '/article/7'
+            // },
             {
                 title: '称重',
                 key: '03-06',
-                url: '/article/9'
+                url: '/workflow/orderWeigh'
             },
             {
                 title: '信息跟踪',
