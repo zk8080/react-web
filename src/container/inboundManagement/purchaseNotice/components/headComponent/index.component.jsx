@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
-import {DownLoad} from '@pubComs';
+import {DownLoad, Upload} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {

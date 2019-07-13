@@ -19,10 +19,9 @@ class State {
     // 获取用户列表
     @action getRoleList = async (params = {}) => {
         const res = await Service.getRoleList(params);
-        console.log(res, 'res');
         try{
-            if(res.data.ret === 0){
-                const {data} = res.data.data;
+            if(res.data.code === 0){
+                const {data} = res.data;
                 this.setTableList(data);
             }else{
                 message.error(res.data.msg);
@@ -51,25 +50,54 @@ class State {
         this.disabled = bol;
     }
 
+    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
+    @observable isAdd = false;
+    @action setIsAdd = (bol = false) => {
+        this.isAdd = bol;
+    }
+
     // 新增按钮
     @action addClick = () => {
         this.setEditForm();
+        this.setIsAdd(true);
         this.toggleDisabled(false);
         this.toggleVisible();
     }
 
+    // 当前选中权限
+    @observable curRoleInfo = {};
+    @action setCurRoleInfo = (obj = {}) => {
+        this.curRoleInfo = obj;
+    }
+
     // 点击修改
     @action editClick = (record) => {
-        console.log( record, '修改' );
         this.getMenuDetail(record);
+        this.setIsAdd(false);
+        this.setCurRoleInfo(record);
         this.setEditForm(record);
         this.toggleDisabled(true);
         this.toggleVisible();
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async (record) => {
+        const params = {
+            roleKey: record.id,
+            state: 0
+        };
+        const res = await Service.updateRole(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getRoleList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 
     // 保存
@@ -78,9 +106,11 @@ class State {
         if( this.isAdd ){
             res = await Service.addRole(obj);
         }else{
+            console.log( 111, '222' );
             const params = {
                 ...obj,
-                state: 0
+                roleKey: this.curRoleInfo.id,
+                state: 1
             };
             res = await Service.updateRole(params);
         }
@@ -98,12 +128,33 @@ class State {
         }
     }
 
+    // 所有菜单列表
+    @observable menuList = [];
+    @action setMenuList = (arr = []) => {
+        this.menuList = arr;
+    }
+
+    // 查询所有菜单
+    @action getMenuList = async () => {
+        const params = {};
+        const res = await Service.getMenuList(params);
+        try{
+            if(res.data.code === 0){
+                const {data} = res.data;
+                this.setMenuList(data);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+    
     // 当前角色菜单详情
     @observable curRoleMenu = [];
     @action setCurRoleMenu = (obj = {}) => {
         this.curRoleMenu = obj;
     }
-
+    
     // 根据角色查询菜单
     @action getMenuDetail = async (record) => {
         const params = {

@@ -10,7 +10,7 @@ const colums = [
     {
         title: '采购单名称',
         dataIndex: 'name',
-        width: 150
+        width: 200
     },
     {
         title: '采购日期',
@@ -51,11 +51,11 @@ const colums = [
         title: '操作',
         dataIndex: 'opreate',
         width: 100,
-        // fixed: 'right',
+        fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
-                {/* <span onClick={State.deleteClick.bind(this, record)}>删除</span> */}
+                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;
         }
     }

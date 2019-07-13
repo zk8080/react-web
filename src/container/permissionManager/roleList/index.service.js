@@ -14,9 +14,7 @@ const getRoleMenuUrl = '/roleMenu/getRoleMenuInfo';
 class Service {
     getRoleList = req => {
         return new Promise((resolve, reject) => {
-            axios.get(roleListUrl, {
-                params: req
-            })
+            axios.post(roleListUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -30,6 +28,45 @@ class Service {
     getRoleMenu = req => {
         return new Promise((resolve, reject) => {
             axios.post(getRoleMenuUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    addRole = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(addRoleUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    updateRole = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(updateRoleUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getMenuList = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(getMenuListUrl, req)
                 .then(res => {
                     resolve(res);
                 })

@@ -9,7 +9,7 @@ const colums = [
     },
     {
         title: '角色描述',
-        dataIndex: 'remark',
+        dataIndex: 'roleDesc',
         width: 200
     },
     {

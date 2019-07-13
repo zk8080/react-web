@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, EditTable, Select } from '@pubComs';
-import { Form, Row, Col, Input, Button } from 'antd';
+import { Form, Row, Col, Input, Button, DatePicker } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
@@ -12,7 +12,14 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
-    return formUtils.objToForm(props.detailData);
+    let detailData = { ...props.detailData };
+    if(typeof props.detailData.purchaseDate === 'string'){
+        detailData = { 
+            ...props.detailData,
+            purchaseDate: {value: moment(props.detailData.purchaseDate)}
+         };
+    }
+    return formUtils.objToForm(detailData);
 };
 
 @Form.create({
@@ -101,14 +108,9 @@ class Index extends Component {
                         <Row>
                             <Col span={8}>
                                 <FormItem label='采购订单号'>
-                                    {getFieldDecorator('purchaseNo', {
-                                        rules: [{
-                                            required: true,
-                                            message: '必填'
-                                        }]
-                                    })(
+                                    {getFieldDecorator('purchaseNo', {})(
                                         <Input 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
@@ -139,7 +141,7 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input 
+                                        <DatePicker 
                                             disabled={disabled}
                                         />
                                     )}

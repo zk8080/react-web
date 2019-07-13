@@ -51,14 +51,14 @@ class State {
     // 删除商品列表数据
     @action deleteEditTable = (record) => {
         const dataSource = toJS(this.editTable);
-        const newData = dataSource.filter(item => item.key !== record.key);
+        const newData = dataSource.filter(item => item.id !== record.id);
         this.setEditTable(newData);
     }
 
     // 保存商品列表数据
     @action handleSave = row => {
         const newData = toJS(this.editTable);
-        const index = newData.findIndex(item => row.key === item.key);
+        const index = newData.findIndex(item => row.id === item.id);
         const item = newData[index];
         newData.splice(index, 1, {
             ...item,

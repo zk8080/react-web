@@ -23,7 +23,7 @@ const mapPropsToFields = (props) => {
 class Index extends Component {
 
     state = {
-        checkedKeys: ['0-0-0'],
+        checkedKeys: [],
         menuKeyList: []
     };
 
@@ -129,6 +129,7 @@ class Index extends Component {
                                             checkable
                                             onCheck={this.onCheck}
                                             checkedKeys={this.state.checkedKeys}
+                                            disabled={disabled}
                                         >
                                             {this.renderTreeNodes(menuList)}
                                         </Tree>

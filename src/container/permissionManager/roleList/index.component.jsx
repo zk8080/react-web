@@ -23,6 +23,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        State.getMenuList();
         State.getRoleList();
     }
 

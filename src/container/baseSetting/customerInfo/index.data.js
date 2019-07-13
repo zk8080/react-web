@@ -30,7 +30,7 @@ const colums = [
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 100,
+        width: 200,
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
