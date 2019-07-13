@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
-import {Table} from '@pubComs';
+// import {Table} from '@pubComs';
 import {colums} from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
-import {Form} from 'antd';
+import {Form, Table} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
@@ -24,7 +24,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getProductList();
+        State.getTableList();
     }
 
     saveClick = (obj) => {
@@ -42,16 +42,19 @@ class Index extends Component {
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getTableList}
                     />
                 </Form>
                 <HeadComponent
                     addClick={State.addClick}
+                    successCbk={State.getTableList}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
+                    bordered
+                    scroll={{x: 1400}}
                 />
                 <DetailComponent
                     visible={State.visible}

@@ -8,6 +8,8 @@ const getMenuListUrl = '/menu/getMenuList';
 const addRoleUrl = '/roleInfo/addRole';
 // 修改删除角色
 const updateRoleUrl = '/roleInfo/updRole';
+// 查询角色-菜单详情
+const getRoleMenuUrl = '/roleMenu/getRoleMenuInfo';
 
 class Service {
     getRoleList = req => {
@@ -23,9 +25,9 @@ class Service {
         });
     }
 
-    getMenuList = req => {
+    getRoleMenu = req => {
         return new Promise((resolve, reject) => {
-            axios.post(getMenuListUrl, req)
+            axios.post(getRoleMenuUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -52,6 +54,19 @@ class Service {
     updateRole = req => {
         return new Promise((resolve, reject) => {
             axios.post(updateRoleUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getMenuList = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(getMenuListUrl, req)
                 .then(res => {
                     resolve(res);
                 })

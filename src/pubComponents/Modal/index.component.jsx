@@ -16,6 +16,7 @@ class Index extends Component {
                 wrapClassName={`modal-component ${this.props.wrapClassName}`}
                 destroyOnClose={true}
                 maskClosable={false}
+                keyboard={false}
             >
                 {this.props.children}
             </Modal>

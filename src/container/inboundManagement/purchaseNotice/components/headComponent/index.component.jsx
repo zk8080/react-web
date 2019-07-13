@@ -43,6 +43,7 @@ class Index extends Component {
                 </Button>
                 <Upload
                     action='/wms/warehousing/purchaseBill/import'
+                    successCbk={this.props.successCbk}
                 />
                 <DownLoad
                     path='/warehousing/purchaseBill/downloadTemplate'

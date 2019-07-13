@@ -83,7 +83,15 @@ export class PickingBillState extends BaseState{
 	}
 
 	generatorPickBill() {
-		message.info('功能并未开放');
+		// message.info('功能并未开放');
+		this.get('/pickBill/executeGenerator', {}, result => {
+
+			if (result.code === 0) {
+				this.loadGrid();
+				message.info('已生成拣货单，请及时处理');
+			}
+
+		});
 	}
 	checkCommodity(value) {
 		if (value) {

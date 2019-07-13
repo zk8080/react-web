@@ -22,8 +22,6 @@ const mapPropsToFields = (props) => {
             purchaseDate: {value: moment(props.detailData.purchaseDate)}
         };
     }
-    
-    console.log( detailData, 'detailData' );
     return formUtils.objToForm(detailData);
 };
 
@@ -118,8 +116,7 @@ class Index extends Component {
                         <Row>
                             <Col span={8}>
                                 <FormItem label='采购订单号'>
-                                    {getFieldDecorator('purchaseNo', {
-                                    })(
+                                    {getFieldDecorator('purchaseNo', {})(
                                         <Input 
                                             disabled
                                         />

@@ -12,7 +12,7 @@ const deleteUrl = '/warehousing/purchaseBill/delete';
 
 class Service {
 
-    getProductList = req => {
+    getTableList = req => {
         return new Promise((resolve, reject) => {
             axios.post(productListUrl, req)
                 .then(res => {

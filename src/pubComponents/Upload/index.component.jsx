@@ -8,7 +8,9 @@ class Index extends Component {
         if( file.status === 'done' ){
             if(file.response.code === 0){
                 message.success('导入成功！');
-                this.props.successCbk();
+                if(this.props.successCbk){
+                    this.props.successCbk();
+                }
             }else{
                 message.error(file.response.msg);
             }

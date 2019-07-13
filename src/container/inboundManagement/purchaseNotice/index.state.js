@@ -17,12 +17,12 @@ class State {
     }
 
     //获取表格数据
-    @action getProductList = async (params = {}) => {
+    @action getTableList = async (params = {}) => {
         const paramsObj = {...params, ...{
             currentPage: 1,
             pageSize: 15
         }};
-        const res = await Service.getProductList(paramsObj);
+        const res = await Service.getTableList(paramsObj);
         try{
             if(res.data.code === 0){
                 const {records} = res.data.data;
@@ -51,7 +51,7 @@ class State {
     // 删除商品列表数据
     @action deleteEditTable = (record) => {
         const dataSource = toJS(this.editTable);
-        const newData = dataSource.filter(item => item.key !== record.key);
+        const newData = dataSource.filter(item => item.id !== record.id);
         this.setEditTable(newData);
     }
 

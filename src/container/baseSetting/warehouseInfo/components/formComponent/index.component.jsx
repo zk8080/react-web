@@ -39,6 +39,15 @@ class Index extends Component {
 
     }
 
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.getData(values);
+            }
+        });
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
@@ -65,6 +74,7 @@ class Index extends Component {
                     <Col span={8} className='query-btn'>
                         <Button
                             type="primary"
+                            onClick={this.handleSubmit}
                         >查询</Button>
                     </Col>
                 </Row>

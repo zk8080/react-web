@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Select } from '@pubComs';
 import { Form, Row, Col, Input } from 'antd';
 import './index.less';
-import { formUtils } from '@utils/index';
+import { formUtils } from '@utils';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -33,83 +33,45 @@ class Index extends Component {
     toggleDisabled = () => {
         this.props.toggleDisabled(false);
     }
-    
+
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, customerList, productList, storeList } = this.props;
+        const { visible, cancelClick, disabled, productList } = this.props;
         return (
             <div>
                 <Modal
-                    title='新增'
+                    title='商品详情'
                     visible={visible}
-                    className='detail-product'
+                    className='detail-customer'
                     okText={disabled ? '修改': '确认'}
                     cancelText='取消'
                     onCancel={cancelClick}
-                    width='550px'
+                    width='1100px'
                     onOk={disabled ? this.toggleDisabled: this.onOkClick}
                 >
                     <Form className='query-component'>
                         <Row>
-                            <Col span={24}>
-                                <FormItem label='商家名称'>
-                                    {getFieldDecorator('customerId', {
+                            <Col span={12}>
+                                <FormItem label='商品名称'>
+                                    {getFieldDecorator('barCode', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
                                         }]
                                     })(
                                         <Select 
-                                            option={customerList}
-                                            disabled={disabled}
-                                            valueCode='id'
-                                            valueName='customerName'
-                                            onChange={this.props.getProductList}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='商品名称'>
-                                    {getFieldDecorator('commodityId', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Select 
                                             option={productList}
                                             disabled={disabled}
                                             valueCode='barCode'
                                             valueName='skuName'
+                                            onChange={this.changeFood}
                                         />
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={24}>
-                                <FormItem label='库位'>
-                                    {getFieldDecorator('storehouseId', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Select 
-                                            option={storeList}
-                                            disabled={disabled}
-                                            valueCode='id'
-                                            valueName='storeCode'
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={24}>
-                                <FormItem label='库容'>
-                                    {getFieldDecorator('storeNums', {
+                            <Col span={12}>
+                                <FormItem label='包装量'>
+                                    {getFieldDecorator('packingNum', {
                                         rules: [
                                             {
                                                 required: true,
@@ -123,9 +85,9 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={24}>
-                                <FormItem label='库位可用量'>
-                                    {getFieldDecorator('availableNums', {
+                            <Col span={12}>
+                                <FormItem label='包装单位'>
+                                    {getFieldDecorator('packingUnit', {
                                         rules: [
                                             {
                                                 required: true,
@@ -139,7 +101,58 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            
+                            <Col span={12}>
+                                <FormItem label='包装体积'>
+                                    {getFieldDecorator('packingVolume', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={12}>
+                                <FormItem label='包体单位'>
+                                    {getFieldDecorator('packingVolumeUnit')(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={12}>
+                                <FormItem label='包装重量'>
+                                    {getFieldDecorator('packingWeight')(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={12}>
+                                <FormItem label='包重单位'>
+                                    {getFieldDecorator('packingWeightUnit')(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
+                                <FormItem label='备注'>
+                                    {getFieldDecorator('remark')(
+                                        <TextArea 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
                         </Row>
                     </Form>
                 </Modal>

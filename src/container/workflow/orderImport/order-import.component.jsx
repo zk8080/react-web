@@ -23,15 +23,15 @@ class OrderImportComponent extends Component{
 	}
 
 	render() {
-		return (<Table
-
-						loading={this.orderImportState.loading}
-						dataSource={this.orderImportState.dataList}
-						columns={orderImportColumns}
-						onChange={this.orderImportState.tableChange.bind(this.orderImportState)}
-						expandedRowRender={this.childTable.bind(this)}
-						pagination={this.orderImportState.page}
-					/>);
+			return <Table
+				loading={this.orderImportState.loading}
+				dataSource={this.orderImportState.dataList}
+				columns={orderImportColumns}
+				onChange={this.orderImportState.tableChange.bind(this.orderImportState)}
+				expandedRowRender={this.childTable.bind(this)}
+				expandedRowKeys={this.orderImportState.dataList.map((value, index )=> index)}
+				pagination={this.orderImportState.page}
+			/>;
 	}
 }
 export default OrderImportComponent;

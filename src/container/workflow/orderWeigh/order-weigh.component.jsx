@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Table} from 'antd';
+import {Button, Col, Icon, Input, Row, Table} from 'antd';
 import OrderWeighState from './order-weigh.state';
 import { orderWeighDataListColumns } from './order-weigh.columns';
 import { observer } from 'mobx-react';
@@ -17,6 +17,17 @@ class OrderWeighComponent extends React.Component{
 
 	render() {
 		return <Row>
+			<Row  className={'header-component'}>
+				<Col span={6} >
+					<Input.Search placeholder="请锁定订单号"  enterButton={
+						<Icon type="unlock" title="解锁"/>
+					} onSearch={this.orderWeighState.lockOrder.bind(this.orderWeighState)}/>
+				</Col>
+				<Col span={6}>
+					<Input.Search type="number" placeholder="订单称重重量" onSearch={this.orderWeighState.weigh.bind(this.orderWeighState)}  enterButton="比对"/>
+				</Col>
+				<Button type="danger" onClick={this.orderWeighState.confirmWeigh.bind(this.orderWeighState)}>忽略异常</Button>
+			</Row>
 			<Table
 				pagination={this.orderWeighState.page}
 				loading={this.orderWeighState.loading}

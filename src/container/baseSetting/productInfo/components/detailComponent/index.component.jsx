@@ -50,7 +50,7 @@ class Index extends Component {
                 >
                     <Form className='query-component'>
                         <Row>
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='商家名称'>
                                     {getFieldDecorator('customerName', {
                                         rules: [{
@@ -63,7 +63,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             {/* <Col span={8}>
                                 <FormItem label='品牌'>
                                     {getFieldDecorator('brandName', {
@@ -160,7 +160,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='零拣库位'>
                                     {getFieldDecorator('ljkw', {
                                         rules: [
@@ -191,7 +191,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             <Col span={8}>
                                 <FormItem label='单个重量'>
                                     {getFieldDecorator('singleWeight', {
