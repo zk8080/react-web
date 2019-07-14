@@ -50,11 +50,13 @@ const colums = [
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 100,
+        width: 200,
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
+                <span onClick={State.confirmClick.bind(this, record)}>确认</span>
+                <span onClick={State.auditClick.bind(this, record)}>审核</span>
                 <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;
         }

@@ -51,14 +51,14 @@ class State {
     // 删除商品列表数据
     @action deleteEditTable = (record) => {
         const dataSource = toJS(this.editTable);
-        const newData = dataSource.filter(item => item.id !== record.id);
+        const newData = dataSource.filter(item => item.key !== record.key);
         this.setEditTable(newData);
     }
 
     // 保存商品列表数据
     @action handleSave = row => {
         const newData = toJS(this.editTable);
-        const index = newData.findIndex(item => row.id === item.id);
+        const index = newData.findIndex(item => row.key === item.key);
         const item = newData[index];
         newData.splice(index, 1, {
             ...item,
@@ -67,12 +67,19 @@ class State {
         this.setEditTable(newData);
     };
 
+    @observable count = 0;
+    @action setDataKey = (arr = []) => {
+        arr.map(item => {
+            item['key'] = this.count;
+            this.count ++;
+        });
+    }
+
     // 新增一行商品数据
     @action handleAdd = () => {
         const dataSource = toJS(this.editTable);
-        const count = dataSource.length;
         const newData = {
-            key: count,
+            key: this.count,
             commodityName: null,
             modelNo: null,
             spec: null,
@@ -86,6 +93,7 @@ class State {
             shilfLife: null,
             remark: '',
         };
+        this.count ++;
         this.setEditTable([...dataSource, newData]);
     }
 
@@ -120,6 +128,7 @@ class State {
         this.toggleDisabled(true);
         this.setIsAdd(false);
         this.setEditForm(record);
+        this.setEditTable(record.detailList);
         this.toggleVisible();
     }
 
@@ -148,6 +157,34 @@ class State {
     // 删除
     @action deleteClick = (record) => {
         console.log( '删除', record);
+    }
+
+    // 点击收货
+    @action receiptClick = () => {
+        this.toggleVisible();
+        this.togglereceiptVisible();
+    }
+
+    // 收货确认单弹窗显示标识
+    @observable receiptVisible = false;
+    @action togglereceiptVisible = () => {
+        this.receiptVisible = !this.receiptVisible;
+    }
+
+    // 收货确认单取消按钮
+    @action cancelReceiptModal = () => {
+        this.toggleVisible();
+        this.togglereceiptVisible();
+    }
+
+    // 确认按钮
+    @action confirmClick = (record) => {
+
+    }
+
+    // 审核按钮
+    @action auditClick = (record) => {
+
     }
 }
 

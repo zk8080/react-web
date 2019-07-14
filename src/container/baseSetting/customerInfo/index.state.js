@@ -228,7 +228,6 @@ class State {
             customerId: customerInfo.id,
             commodityCode: obj.barCode
         };
-        console.log( params, '----params-----' );
         let res;
         if( this.isDetailAdd ){
             res = await Service.addProduct(params);
@@ -277,8 +276,8 @@ class State {
     }
 
     // 查询所有商品
-    @action getAllProduct = async () => {
-        const res = await Service.getAllProduct({});
+    @action getAllProduct = async (obj = {}) => {
+        const res = await Service.getAllProduct(obj);
         if(res.data.code === 0){
             const {rows} = res.data.data;
             this.setAllProductListUrl(rows);

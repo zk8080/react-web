@@ -69,10 +69,7 @@ class Index extends Component {
                     visible={State.detailVisible}
                     cancelClick={State.cancelProdiuct}
                     onOk={State.productSave}
-                    detailData={toJS(State.detailFormData)}
-                    setDetailData={State.setDetailFormData}
-                    disabled={State.productDisabled}
-                    toggleDisabled={State.toggleProductDisabled}
+                    getData={State.getAllProduct}
                     productList={toJS(State.allProductList)}
                 />
             </div>

@@ -1,6 +1,6 @@
 const menuData = [
     {
-        title: '基础设置',
+        title: '库内管理',
         key: '01',
         icon: 'setting',
         children: [
@@ -25,7 +25,7 @@ const menuData = [
                 url: '/warehouse/list'
             },
             {
-                title: '库位关系设置',
+                title: '库位管理',
                 key: '01-05',
                 url: '/locationRelation/list'
             },
@@ -60,11 +60,6 @@ const menuData = [
                 title: '采购通知',
                 key: '02-01',
                 url: '/inboundManagement/purchaseNotice'
-            },
-            {
-                title: '收货',
-                key: '02-02',
-                url: '/inboundManagement/receipt'
             },
             {
                 title: '上架',

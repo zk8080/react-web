@@ -1,5 +1,3 @@
-import React from 'react';
-import State from '../../index.state';
 
 const colums = [
     {
@@ -22,17 +20,6 @@ const colums = [
         dataIndex: 'modelNo',
         width: 80
     },
-    {
-        title: '操作',
-        dataIndex: 'opreate',
-        width: 100,
-        // fixed: 'right',
-        render: (text, record, index) => {
-            return <div className='opreat-right'>
-                <span onClick={State.deleteProduct.bind(this, record)}>删除</span>
-            </div>;
-        }
-    }
 ];
 
 export {
