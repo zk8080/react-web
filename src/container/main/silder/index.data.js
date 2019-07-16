@@ -128,7 +128,7 @@ const menuData = [
             {
                 title: '盘点',
                 key: '04-01',
-                url: '/article/11'
+                url: '/stocktaking/list'
             },
             {
                 title: '冻结/解冻',

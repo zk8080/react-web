@@ -31,6 +31,9 @@ const DeliveryOrder = loadComponent(() => import(/* webpackChunkName: "DeliveryO
 const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
 const RoleList = loadComponent(() => import(/* webpackChunkName: "RoleList" */ '@container/permissionManager/roleList/index.component'));
 
+//盘点管理
+const StocktakingList = loadComponent(() => import(/* webpackChunkName: "StocktakingList" */ '@container/checkManager/stocktaking/index.component'));
+
 const routers = [
     {
         path: '/product/list',
@@ -127,6 +130,12 @@ const routers = [
         exact: true,
         component: RoleList,
         breadcrumbName: '角色管理'
+    },
+    {
+        path: '/stocktaking/list',
+        exact: true,
+        component: StocktakingList,
+        breadcrumbName: '盘点'
     }
 ];
 
