@@ -40,13 +40,13 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {productList=[]} = this.props;
+        const {merchantsList=[]} = this.props;
         return (
             <div className='query-component'>
                 <Row>
                     <Col span={16}>
-                        <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('productName', {
+                        <FormItem label="商家名称" hasFeedback>
+                            {getFieldDecorator('customerId', {
                                 rules: [
                                     {
                                         required: true,
@@ -55,9 +55,9 @@ class Index extends Component {
                                 ],
                             })(
                                 <Select 
-                                    option={productList}
-                                    valueCode='skuName'
-                                    valueName='skuName'
+                                    option={merchantsList}
+                                    valueCode='customerCode'
+                                    valueName='customerName'
                                     showSearch
                                     filterOption={(input, option) =>
                                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0

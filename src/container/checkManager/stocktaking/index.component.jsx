@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
-import {Table} from '@pubComs';
-import {colums} from './index.data';
-import './index.less';
-import { toJS } from 'mobx';
-import {Form} from 'antd';
-import FormComponent from './components/formComponent/index.component';
-import HeadComponent from './components/headComponent/index.component';
+import InventoryInfo from './components/inventoryInfo/index.component';
+import BeginCheck from './components/beginCheck/index.component';
+import Approve from './components/approve/index.component';
 
 @observer
 class Index extends Component {
@@ -17,42 +13,23 @@ class Index extends Component {
         };
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-        // State.getProductList();
-    }
-
-    // saveClick = (obj) => {
-    //     State.saveData(obj);
-    // }
-
-    componentWillUnmount() {
-
+    componentWillMount(){
+        State.setShow(1);
     }
 
     render() {
         return (
-            <div className='stocktaking'>
-                <Form>
-                    <FormComponent 
-                        queryData={toJS(State.queryForm)}
-                        setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
-                        productList={toJS(State.tableList)}
-                    />
-                </Form>
-                <HeadComponent
-                    addClick={State.addClick}
-                />
-                <Table
-                    dataSource={toJS(State.tableList)}
-                    columns={colums}
-                    rowKey='id'
-                />
-            </div>
+            <React.Fragment>
+                {
+                    State.show == 1?
+                        <InventoryInfo {...this.props}/>
+                        :
+                        State.show == 2?
+                            <BeginCheck {...this.props} />
+                            :
+                            <Approve {...this.props} />
+                }
+            </React.Fragment>
         );
     }
 }

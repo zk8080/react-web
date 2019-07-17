@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Button} from 'antd';
-import {DownLoad} from '@pubComs';
+import {Button} from 'antd';   
+import stocktakingState from '../../../../index.state';
 
 class Index extends Component {
     constructor(props) {
@@ -8,12 +8,12 @@ class Index extends Component {
         this.state = {};
     }
 
-    beginCheck = () => {
-        
+    cancelCheck = () => {
+        stocktakingState.setShow(1);
     }
 
-    approve = () => {
-        
+    endCheck = () => {
+        stocktakingState.setShow(1);
     }
 
     render() {
@@ -21,15 +21,15 @@ class Index extends Component {
             <div className='header-component'>
                 <Button
                     type='primary'
-                    onClick={this.beginCheck}
+                    onClick={this.cancelCheck}
                 >
-                    开始盘点
+                    取消盘点
                 </Button>
                 <Button
                     type='primary'
-                    onClick={this.approve}
+                    onClick={this.endCheck}
                 >
-                    审批
+                    盘点结束
                 </Button>
             </div>
         );
