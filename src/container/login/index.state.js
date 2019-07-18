@@ -33,6 +33,11 @@ class State {
             console.log(e);
         }
     }
+
+    //调用登陆接口
+    @action login = async() => {
+        
+    }
 }
 
 export default new State();

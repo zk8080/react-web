@@ -38,7 +38,8 @@ class Index extends Component {
         return (
             <div className='beginCheck'>
                 <HeadComponent
-                    addClick={State.addClick}
+                    cancelCheck={State.cancelCheck}
+                    endCheck={State.endCheck}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}

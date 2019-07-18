@@ -1,5 +1,6 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
+import inventoryInfoState from '../inventoryInfo/index.state';
 import { message } from 'antd';
 
 class State {
@@ -24,21 +25,55 @@ class State {
     @action setTableList = (arr = []) => {
         this.tableList = arr;
     }
-    //获取表格数据
-    @action getTableList = async (params = {}) => {
-        // const paramsObj = {...params};
-        // const res = await Service.getProductList(paramsObj);
-        // try{
-        //     if(res.data.code === 0){
-        //         const {rows} = res.data.data;
-        //         this.setTableList(rows);
-        //     }else{
-        //         console.log(res.data.msg);
-        //     }
-        // }
-        // catch(e){
-        //     console.log(e);
-        // }
+    
+
+    //取消盘点
+    @action cancelCheck = async(callback) => {
+        let data = toJS(this.tableList);
+        let arr = [];
+        data.map(item => {
+            arr.push(item.id);
+        })
+        let params = {
+            storeIdList: toJS(inventoryInfoState.storeIdList),
+            checkRecordIdList: arr
+        }
+        let res = await Service.cancelCheck(params);
+        try{
+            if(res.data.code === 0){
+                // 获取库存信息列表数据
+                inventoryInfoState.getTableList(inventoryInfoState.queryForm);
+                if(callback){
+                    callback()
+                }
+            }else{
+                console.log(res.data.msg);
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    //盘点结束
+    @action endCheck = async(callback) => {
+        let data = toJS(this.tableList);
+        let params = {
+            checkRecordIdList: data
+        }
+        let res = await Service.endCheck(params);
+        try{
+            if(res.data.code === 0){
+                // 获取库存信息列表数据
+                inventoryInfoState.getTableList(inventoryInfoState.queryForm);
+                if(callback){
+                    callback()
+                }
+            }else{
+                console.log(res.data.msg);
+            }
+        }catch(e){
+            console.log(e);
+        }
     }
 }
 

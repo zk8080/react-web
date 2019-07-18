@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// 查询url
-const productListUrl = '/commoditySku/loadGrid';
+// 取消盘点url
+const cancelCheckUrl = '/check/cannelCheckRecord';
 // 新增url
 const addProductUrl = '/commoditySku/add';
 // 修改url
@@ -9,9 +9,9 @@ const editProductUrl = '/commoditySku/update';
 
 class Service {
 
-    getProductList = req => {
+    cancelCheck = req => {
         return new Promise((resolve, reject) => {
-            axios.post(productListUrl, req)
+            axios.post(cancelCheckUrl, req)
                 .then(res => {
                     resolve(res);
                 })

@@ -9,11 +9,21 @@ class Index extends Component {
     }
 
     cancelCheck = () => {
-        stocktakingState.setShow(1);
+        if(this.props.cancelCheck){
+            this.props.cancelCheck(()=>{
+                stocktakingState.setShow(1);
+            });
+        }
+        
     }
 
     endCheck = () => {
-        stocktakingState.setShow(1);
+        if(this.props.endCheck){
+            this.props.endCheck(()=>{
+                stocktakingState.setShow(1);
+            });
+        }
+        
     }
 
     render() {

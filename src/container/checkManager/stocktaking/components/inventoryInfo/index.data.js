@@ -2,47 +2,47 @@ import React from 'react';
 const colums = [
     {
         title: '商家名称',
-        dataIndex: 'a',
+        dataIndex: 'customerName',
         width: 200
     },
-    {
-        title: '盘点日期',
-        dataIndex: 'b',
-        width: 80
-    },
+    // {
+    //     title: '盘点日期',
+    //     dataIndex: 'b',
+    //     width: 80
+    // },
     {
         title: '商品名称',
-        dataIndex: 'c',
+        dataIndex: 'commodityName',
         width: 150
     },
     {
         title: '商品条码',
-        dataIndex: 'd',
+        dataIndex: 'skuCode',
         width: 80
     },
     {
         title: '型号',
-        dataIndex: 'e',
+        dataIndex: 'modelNo',
         width: 80
     },
     {
         title: '规格',
-        dataIndex: 'f',
+        dataIndex: 'fspec',
         width: 80
     },
     {
-        title: '零拣库位',
-        dataIndex: 'g',
+        title: '库位类型',
+        dataIndex: 'storeType',
         width: 80
     },
     {
-        title: '存储库位',
-        dataIndex: 'h',
+        title: '库位编码',
+        dataIndex: 'storeCode',
         width: 80
     },
     {
         title: '库存数量',
-        dataIndex: 'i',
+        dataIndex: 'storeNums',
         width: 80
     }
 ];

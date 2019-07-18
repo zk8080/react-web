@@ -44,10 +44,12 @@ class Index extends Component {
                         setQueryData={State.setQueryForm}
                         getData={State.getTableList}
                         productList={toJS(State.tableList)}
+                        checkUserList={toJS(State.checkUserList)}
                     />
                 </Form>
                 <HeadComponent
-                    addClick={State.addClick}
+                    approveClick={State.approveClick}
+                    checkRecordList={toJS(State.tableList)}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}

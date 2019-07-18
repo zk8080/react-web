@@ -26,19 +26,59 @@ class State {
     }
     //获取表格数据
     @action getTableList = async (params = {}) => {
-        // const paramsObj = {...params};
-        // const res = await Service.getProductList(paramsObj);
-        // try{
-        //     if(res.data.code === 0){
-        //         const {rows} = res.data.data;
-        //         this.setTableList(rows);
-        //     }else{
-        //         console.log(res.data.msg);
-        //     }
-        // }
-        // catch(e){
-        //     console.log(e);
-        // }
+        const paramsObj = {...params};
+        const res = await Service.getProductList(paramsObj);
+        try{
+            if(res.data.code === 0){
+                const rows = res.data.data;
+                this.setTableList(rows);
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+
+    //查询盘点人
+    @observable checkUserList=[];
+    @action setCheckUserList= (arr=[]) => {
+        this.checkUserList = arr;
+    }
+    @action getCheckUserList = async() => {
+        const res = await Service.getCheckUserList({});
+        try{
+            if(res.data.code === 0){
+                const rows = res.data.data;
+                this.setCheckUserList(rows);
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+
+    //审核提交
+    @action approveClick = async(params, callback) => {
+        const res = await Service.approveClick(params);
+        try{
+            if(res.data.code === 0){
+                this.getTableList(this.queryForm);
+                if(callback){
+                    callback();
+                }
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

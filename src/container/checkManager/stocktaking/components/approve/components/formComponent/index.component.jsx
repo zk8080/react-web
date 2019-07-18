@@ -17,8 +17,7 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
-    let fn = () => {};
-    return formUtils.objToForm(props.queryData || fn);
+    return formUtils.objToForm(props.queryData);
 };
 
 @Form.create({
@@ -35,8 +34,8 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                if(props.getData){
-                    props.getData(values);
+                if(this.props.getData){
+                    this.props.getData(values);
                 }
             }
         });
@@ -49,7 +48,7 @@ class Index extends Component {
                 <Row>
                     <Col span={8}>
                         <FormItem label="单据状态" hasFeedback>
-                            {getFieldDecorator('status', {
+                            {getFieldDecorator('billState', {
                                 rules: [
                                     // {
                                     //     required: true,
@@ -58,17 +57,21 @@ class Index extends Component {
                                 ],
                             })(
                                 <Select 
-                                    option={[{
-                                        '1': '状态1',
-                                        '2': '状态2'
-                                    }]}
+                                    placeholder='请选择'
+                                    option={[
+                                        {'save': '初始化'},
+                                        {'approving': '审批中'},
+                                        {'approved': '审批完成'},
+                                        {'approve_fail': '审批失败'},
+                                        {'cancel': '作废'}
+                                    ]}
                                 />
                             )}
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="盘点时间" hasFeedback>
-                            {getFieldDecorator('time', {
+                            {getFieldDecorator('checkDate', {
                                 rules: [
                                     // {
                                     //     required: true,
@@ -76,13 +79,13 @@ class Index extends Component {
                                     // }
                                 ],
                             })(
-                                <DatePicker />
+                                <DatePicker placeholder='请选择'/>
                             )}
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="盘点人" hasFeedback>
-                            {getFieldDecorator('name', {
+                            {getFieldDecorator('checkUser', {
                                 rules: [
                                     // {
                                     //     required: true,
@@ -90,23 +93,31 @@ class Index extends Component {
                                     // }
                                 ],
                             })(
-                                <Input 
-                                    placeholder='请输入'
+                                <Select 
+                                    placeholder='请选择'
+                                    option={toJS(this.props.checkUserList)}
+                                    valueCode='userNo'
+                                    valueName='name'
+                                    showSearch
+                                    filterOption={(input, option) =>
+                                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
                                 />
                             )}
                         </FormItem>
                     </Col>
                     <Col span={8}>
                         <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('productName', {
+                            {getFieldDecorator('customerCode', {
                                 rules: [
                                     {
-                                        // required: true,
-                                        // message: '必填'
+                                        required: true,
+                                        message: '必填'
                                     }
                                 ],
                             })(
                                 <Select 
+                                    placeholder='请选择'
                                     option={toJS(inventoryInfoState.merchantsList)}
                                     valueCode='customerCode'
                                     valueName='customerName'

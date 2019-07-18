@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // 查询url
-const productListUrl = '/commoditySku/loadGrid';
-// 新增url
-const addProductUrl = '/commoditySku/add';
+const productListUrl = '/check/countCheck';
+// 开始盘点
+const beginCheckUrl = '/check/checkRecordStart';
 // 修改url
 const editProductUrl = '/commoditySku/update';
 
@@ -54,6 +54,19 @@ class Service {
     getMerchantsList = req => {
         return new Promise((resolve, reject) => {
             axios.post(getMerchantsListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    beginCheck = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(beginCheckUrl, req)
                 .then(res => {
                     resolve(res);
                 })

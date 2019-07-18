@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// 查询url
-const productListUrl = '/commoditySku/loadGrid';
-// 新增url
-const addProductUrl = '/commoditySku/add';
-// 修改url
-const editProductUrl = '/commoditySku/update';
+// 查询列表（盘点记录）url
+const productListUrl = '/check/queryCheckRecord';
+// 获取盘点人列表url
+const getCheckUserListUrl = '/user/getUserList';
+// 审批提交url
+const approveClickUrl = '/check/auditCheckRecord';
 
 class Service {
 
@@ -22,9 +22,11 @@ class Service {
         });
     }
 
-    addProduct = req => {
+    getCheckUserList = req => {
         return new Promise((resolve, reject) => {
-            axios.post(addProductUrl, req)
+            axios.get(getCheckUserListUrl, {
+                params:req
+            })
                 .then(res => {
                     resolve(res);
                 })
@@ -35,9 +37,9 @@ class Service {
         });
     }
 
-    editProduct = req => {
+    approveClick = req => {
         return new Promise((resolve, reject) => {
-            axios.post(editProductUrl, req)
+            axios.post(approveClickUrl, req)
                 .then(res => {
                     resolve(res);
                 })

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'antd';
 import {DownLoad} from '@pubComs';
 import stocktakingState from '../../../../index.state';
+import approveState from '../../../approve/index.state';
 
 class Index extends Component {
     constructor(props) {
@@ -10,10 +11,15 @@ class Index extends Component {
     }
 
     beginCheck = () => {
-        stocktakingState.setShow(2);
+        if(this.props.beginCheck){
+            this.props.beginCheck(()=>{
+                stocktakingState.setShow(2);
+            })
+        }
     }
 
     approve = () => {
+        approveState.getCheckUserList();
         stocktakingState.setShow(3);
     }
 

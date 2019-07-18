@@ -13,8 +13,7 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
-    let fn = () => {};
-    return formUtils.objToForm(props.queryData || fn);
+    return formUtils.objToForm(props.queryData);
 };
 
 @Form.create({
@@ -30,11 +29,11 @@ class Index extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                if(props.getData){
-                    props.getData(values);
-                }
+            // if (!err) {
+            if(this.props.getData){
+                this.props.getData(values);
             }
+            // }
         });
     };
 
@@ -55,8 +54,9 @@ class Index extends Component {
                                 ],
                             })(
                                 <Select 
+                                    placeholder='请选择'
                                     option={merchantsList}
-                                    valueCode='customerCode'
+                                    valueCode='id'
                                     valueName='customerName'
                                     showSearch
                                     filterOption={(input, option) =>

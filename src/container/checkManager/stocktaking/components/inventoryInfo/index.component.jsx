@@ -47,11 +47,13 @@ class Index extends Component {
                 <HeadComponent
                     addClick={State.addClick}
                     {...this.props}
+                    beginCheck={State.beginCheck}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
+                    pagination={false}
                 />
             </div>
         );
