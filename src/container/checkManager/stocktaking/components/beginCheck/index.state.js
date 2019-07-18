@@ -25,6 +25,13 @@ class State {
     @action setTableList = (arr = []) => {
         this.tableList = arr;
     }
+
+    //修改盘点数量
+    @action changeCheckNums = (key, index, e) => {
+        let data = toJS(this.tableList);
+        data[index][key] = e.target.value;
+        this.setTableList(data);
+    }
     
 
     //取消盘点
