@@ -52,7 +52,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                LoginState.loginClick();
+                LoginState.loginClick(values);
             }
         });
         
