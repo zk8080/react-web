@@ -18,7 +18,7 @@ class Index extends Component {
     }
 
     componentWillMount() {
-
+        
     }
 
     componentDidMount() {

@@ -24,6 +24,8 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        State.getCustomerList();
+        State.getProductList();
         State.getTableList();
     }
 
@@ -69,6 +71,7 @@ class Index extends Component {
                     dataSource={toJS(State.editTable)}
                     handleAdd={State.handleAdd}
                     handleReceipt={State.receiptClick}
+                    {...State}
                 />
                 <ReceiptModal
                     visible={State.receiptVisible}
@@ -83,6 +86,7 @@ class Index extends Component {
                     dataSource={toJS(State.editTable)}
                     handleAdd={State.handleAdd}
                     handleReceipt={State.receiptClick}
+                    {...State}
                 />
             </div>
         );

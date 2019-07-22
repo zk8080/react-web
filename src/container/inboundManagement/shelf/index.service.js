@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-const getDataListUrl = '/api/purchaseNotice/list';
+// 查询url
+const tableListUrl = '/warehousing/purchaseBill/selectList';
 
 class Service {
 
-    getDataList = req => {
+    getTableList = req => {
         return new Promise((resolve, reject) => {
-            axios.get(getDataListUrl, {
-                params: req
-            })
+            axios.post(tableListUrl, req)
                 .then(res => {
                     resolve(res);
                 })

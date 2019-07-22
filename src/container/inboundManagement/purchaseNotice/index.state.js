@@ -48,6 +48,50 @@ class State {
         this.editTable = arr;
     }
 
+    // 所有商品数据
+    @observable productList = [];
+    @action setProductList = (arr = []) => {
+        this.productList = arr;
+    }
+
+    // 获取商品列表
+    @action getProductList = async () => {
+        const res = await Service.getProductList({});
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setProductList(rows);
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 商家列表
+    @observable customerList = [];
+    @action setCustomerList = (arr = []) => {
+        this.customerList = arr;
+    }
+    
+    // 获取商家列表
+    @action getCustomerList = async () => {
+        const res = await Service.getCustomerList({});
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setCustomerList(rows);
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
     // 删除商品列表数据
     @action deleteEditTable = (record) => {
         const dataSource = toJS(this.editTable);
@@ -128,6 +172,7 @@ class State {
         this.toggleDisabled(true);
         this.setIsAdd(false);
         this.setEditForm(record);
+        this.setDataKey(record.detailList);
         this.setEditTable(record.detailList);
         this.toggleVisible();
     }
@@ -155,8 +200,22 @@ class State {
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async (record) => {
+        const params = {
+            id: record.id
+        };
+        const res = await Service.delete(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getTableList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 
     // 点击收货
