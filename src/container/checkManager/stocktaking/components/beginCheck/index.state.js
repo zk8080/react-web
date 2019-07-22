@@ -49,7 +49,7 @@ class State {
         try{
             if(res.data.code === 0){
                 // 获取库存信息列表数据
-                inventoryInfoState.getTableList(inventoryInfoState.queryForm);
+                inventoryInfoState.getTableList(inventoryInfoState.queryData);
                 if(callback){
                     callback()
                 }
@@ -65,13 +65,13 @@ class State {
     @action endCheck = async(callback) => {
         let data = toJS(this.tableList);
         let params = {
-            checkRecordIdList: data
+            checkRecordList: data
         }
         let res = await Service.endCheck(params);
         try{
             if(res.data.code === 0){
                 // 获取库存信息列表数据
-                inventoryInfoState.getTableList(inventoryInfoState.queryForm);
+                inventoryInfoState.getTableList(inventoryInfoState.queryData);
                 if(callback){
                     callback()
                 }

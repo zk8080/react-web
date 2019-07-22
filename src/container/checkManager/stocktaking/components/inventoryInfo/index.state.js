@@ -11,6 +11,12 @@ class State {
         this.queryForm = obj;
     }
 
+    // 查询参数
+    @observable queryData = {};
+    @action setQueryData = (obj = {}) => {
+        this.queryData = obj;
+    }
+
     //查询条件：商家名称下拉列表获取数据
     @observable merchantsList = [];
     @action setMerchantsList = (arr = []) => {
@@ -37,10 +43,8 @@ class State {
     }
     //获取表格数据
     @action getTableList = async (params = {}) => {
-        const paramsObj = Object.assign({},{...params}, {
-            checkType: 'Y',
-            customerId: '1'
-        });
+        this.setQueryData(params);
+        const paramsObj = Object.assign({},{...params});
         const res = await Service.getProductList(paramsObj);
         try{
             if(res.data.code === 0){
