@@ -51,6 +51,22 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={8}>
+                                <FormItem label='品牌'>
+                                    {getFieldDecorator('brand', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
                                 <FormItem label='商品名称'>
                                     {getFieldDecorator('skuName', {
                                         rules: [
@@ -179,7 +195,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='打包单位'>
                                     {getFieldDecorator('packingNum', {
                                         
@@ -222,7 +238,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             <Col span={8}>
                                 <FormItem label='商品重量单位'>
                                     {getFieldDecorator('singleWeightUnit', {
