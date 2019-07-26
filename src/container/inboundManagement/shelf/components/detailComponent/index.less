@@ -1,0 +1,58 @@
+.detail-product{
+    .query-component{
+        h1{
+            text-align: center;
+        }
+        .ant-form-item-label{
+            width: 95px;
+        }
+        .opreat-btn{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            button{
+                margin-right: 10px;
+            }
+        }
+    }
+}
+@media print{
+    .detail-product{
+        height: 100%;
+        .ant-modal-header{
+            display: none;
+        }
+        .ant-modal-footer{
+            display: none;
+        }
+        .ant-modal-close{
+            display: none;
+        }
+        .ant-modal-content{
+            height: 100%;
+            box-shadow: none;
+        }
+        .ant-modal-body{
+            height: 100% !important;
+        }
+        .query-component{
+            .ant-form-item{
+                display: flex;
+                align-items: center;
+                .ant-form-item-required{
+                    &::before{
+                        content: '';
+                    }
+                }
+                .ant-form-item-control-wrapper{
+                    .ant-input{
+                        border: none;
+                    }
+                }
+            }
+            .opreat-btn{
+                display: none;
+            }
+        }
+    }
+}

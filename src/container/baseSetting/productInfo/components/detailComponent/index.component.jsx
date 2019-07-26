@@ -13,6 +13,7 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
+    console.log( formUtils.objToForm(props.detailData), '--formUtils.objToForm(props.detailData)--' );
     return formUtils.objToForm(props.detailData);
 };
 

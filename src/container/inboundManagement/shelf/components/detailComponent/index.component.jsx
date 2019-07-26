@@ -57,10 +57,6 @@ class Index extends Component {
         this.props.toggleDisabled(false);
     }
 
-    handleClick = () => {
-        window.print();
-    }
-
     rowSelection = {
         type: 'radio',
         onChange: (selectedRowKeys, selectedRows) => {
@@ -84,15 +80,6 @@ class Index extends Component {
         }
     }
 
-    // 确认收货
-    confirmRecepit = () => {
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('确认收货');
-            }
-        });
-    }
-
     render() {
         const {getFieldDecorator} = this.props.form;
         const { visible, cancelClick, disabled, dataSource } = this.props;
@@ -100,7 +87,7 @@ class Index extends Component {
         return (
             <div>
                 <Modal
-                    title='收货确认单'
+                    title='入库单'
                     visible={visible}
                     className='detail-product'
                     okText={disabled ? '修改': '确认'}
@@ -109,7 +96,7 @@ class Index extends Component {
                     onOk={disabled ? this.toggleDisabled: this.onOkClick}
                 >
                     <Form className='query-component'>
-                        <h1>收货确认单</h1>
+                        <h1>入库单</h1>
                         <Row>
                             <Col span={8}>
                                 <FormItem label='采购订单号'>
@@ -226,12 +213,8 @@ class Index extends Component {
                         <div className='opreat-btn'>
                             <Button
                                 type='primary'
-                                onClick={this.handleClick}
-                            >打印收货单</Button>
-                            <Button
-                                type='primary'
-                                onClick={this.confirmRecepit}
-                            >收货确认</Button>
+                                
+                            >审核完成</Button>
                         </div>
                         <EditTable
                             columns={this.state.columns}
@@ -239,8 +222,7 @@ class Index extends Component {
                             handleSave={this.props.handleSave}
                             pagination={false}
                             rowSelection={this.rowSelection}
-                            optionarr={this.props.productList}
-                            key='key'
+                            rowKey='barCode'
                         />
                         <Row>
                             <Col span={8}>

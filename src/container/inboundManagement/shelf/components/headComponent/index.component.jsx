@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
+import {DownLoad, Upload} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {
@@ -15,6 +16,18 @@ class Index extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+    }
+
     componentWillUnmount() {
 
     }
@@ -24,14 +37,19 @@ class Index extends Component {
             <div className='header-component'>
                 <Button
                     type='primary'
+                    onClick={this.props.addClick}
                 >
-                    导入
+                    新增
                 </Button>
-                <Button
-                    type='primary'
-                >
-                    导出
-                </Button>
+                <Upload
+                    action='/wms/warehousing/purchaseBill/import'
+                    successCbk={this.props.successCbk}
+                />
+                <DownLoad
+                    path='/warehousing/purchaseBill/downloadTemplate'
+                    params={{isFood: true}}
+                    title='模板下载'
+                />
             </div>
         );
     }

@@ -130,21 +130,16 @@ const menuData = [
                 key: '04-01',
                 url: '/stocktaking/list'
             },
-            {
-                title: '冻结/解冻',
-                key: '04-02',
-                url: '/article/12'
-            },
-            {
-                title: '补货',
-                key: '04-03',
-                url: '/article/13'
-            },
-            {
-                title: '退货',
-                key: '04-04',
-                url: '/article/14'
-            }
+            // {
+            //     title: '补货',
+            //     key: '04-03',
+            //     url: '/article/13'
+            // },
+            // {
+            //     title: '退货',
+            //     key: '04-04',
+            //     url: '/article/14'
+            // }
         ]
     },
     {

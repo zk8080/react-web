@@ -31,7 +31,7 @@ class EditableCell extends React.Component {
     save = (e) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
-            if (error && error[e.currentTarget.id]) {
+            if (error) {
                 return;
             }
             this.toggleEdit();
@@ -57,7 +57,8 @@ class EditableCell extends React.Component {
 
     renderCell = form => {
         this.form = form;
-        const { children, dataIndex, record, type, required, optionArr, code, name } = this.props;
+        const { children, dataIndex, record, type, required, optionarr, code, name } = this.props;
+        
         const { editing } = this.state;
         return editing ? (
             type === 'date' ?
@@ -86,7 +87,7 @@ class EditableCell extends React.Component {
                                 ref={node => (this.input = node)} 
                                 onPressEnter={this.save.bind(this, 'select')} 
                                 onBlur={this.save.bind(this, 'select')} 
-                                option={optionArr}
+                                option={optionarr}
                                 valueCode={code}
                                 valueName={name}
                             />
@@ -181,7 +182,7 @@ class Index extends React.Component {
                     type: col.type,
                     required: col.required,
                     handleSave: this.props.handleSave,
-                    optionArr: this.props.optionArr,
+                    optionarr: this.props.optionarr,
                     code: col.code,
                     name: col.name
                 }),

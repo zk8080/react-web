@@ -36,40 +36,6 @@ class State {
         }
     }
 
-    // 表单编辑数据
-    @observable editForm = {};
-    @action setEditForm = (obj = {}) => {
-        this.editForm = obj;
-    }
-
-    // 采购单中的商品列表
-    @observable editTable = [];
-    @action setEditTable = (arr = []) => {
-        this.editTable = arr;
-    }
-
-    // 所有商品数据
-    @observable productList = [];
-    @action setProductList = (arr = []) => {
-        this.productList = arr;
-    }
-
-    // 获取商品列表
-    @action getProductList = async () => {
-        const res = await Service.getProductList({});
-        try{
-            if(res.data.code === 0){
-                const {rows} = res.data.data;
-                this.setProductList(rows);
-            }else{
-                console.log(res.data.msg);
-            }
-        }
-        catch(e){
-            console.log(e);
-        }
-    }
-
 
     // 编辑弹窗显示标识
     @observable visible = false;
@@ -81,6 +47,19 @@ class State {
     @observable isAdd = false;
     @action setIsAdd = (bol = false) => {
         this.isAdd = bol;
+    }
+
+    // 表单编辑数据
+    @observable editForm = {};
+    @action setEditForm = (obj = {}) => {
+        this.editForm = obj;
+    }
+
+
+    // 采购单中的商品列表
+    @observable editTable = [];
+    @action setEditTable = (arr = []) => {
+        this.editTable = arr;
     }
 
     // 详情弹窗是否可编辑
@@ -147,16 +126,6 @@ class State {
         }
     }
 
-
-    // 确认按钮
-    @action confirmClick = (record) => {
-
-    }
-
-    // 审核按钮
-    @action auditClick = (record) => {
-
-    }
 }
 
 export default new State();

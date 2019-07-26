@@ -59,6 +59,7 @@ class Index extends Component {
                     scroll={{x: 1500}}
                 />
                 <DetailComponent
+                    {...toJS(State)}
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
                     onOk={this.saveClick}
@@ -71,9 +72,10 @@ class Index extends Component {
                     dataSource={toJS(State.editTable)}
                     handleAdd={State.handleAdd}
                     handleReceipt={State.receiptClick}
-                    {...State}
+                    
                 />
                 <ReceiptModal
+                    {...toJS(State)}
                     visible={State.receiptVisible}
                     cancelClick={State.cancelReceiptModal}
                     onOk={this.saveClick}
@@ -81,12 +83,9 @@ class Index extends Component {
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
-                    handleDelete={State.deleteEditTable}
                     handleSave={State.handleSave}
                     dataSource={toJS(State.editTable)}
-                    handleAdd={State.handleAdd}
                     handleReceipt={State.receiptClick}
-                    {...State}
                 />
             </div>
         );

@@ -238,7 +238,7 @@ class Index extends Component {
                             handleSave={this.props.handleSave}
                             pagination={false}
                             rowSelection={this.rowSelection}
-                            optionArr={this.props.productList}
+                            optionarr={this.props.productList}
                             key='key'
                         />
                         <Row>
