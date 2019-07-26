@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Modal } from '@pubComs';
-import { Form, Row, Col, Input } from 'antd';
+import { Form, Row, Col, Input, Select } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
+const Option = Select.Option;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -51,8 +52,8 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={8}>
-                                <FormItem label='品牌'>
-                                    {getFieldDecorator('brand', {
+                                <FormItem label='商品品牌'>
+                                    {getFieldDecorator('banner', {
                                         rules: [
                                             {
                                                 required: true,
@@ -111,6 +112,23 @@ class Index extends Component {
                                         <Input 
                                             disabled={disabled}
                                         />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
+                                <FormItem label='是否是食品'>
+                                    {getFieldDecorator('isFoodstuff', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Select  disabled={disabled} >
+                                            <Option value='Y'>是</Option>
+                                            <Option value='N'>否</Option>
+                                        </Select>
                                     )}
                                 </FormItem>
                             </Col>
@@ -242,6 +260,17 @@ class Index extends Component {
                             <Col span={8}>
                                 <FormItem label='商品重量单位'>
                                     {getFieldDecorator('singleWeightUnit', {
+                                        
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
+                                <FormItem label='商品体积单位'>
+                                    {getFieldDecorator('singleVolumeUnit', {
                                         
                                     })(
                                         <Input 

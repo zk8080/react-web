@@ -69,6 +69,10 @@ class State {
     //点击开始盘点
     @action beginCheck = async (callback) => {
         let data = toJS(this.tableList);
+        if(data.length == 0){
+            message.warning('暂无数据可进行盘点');
+            return;
+        }
         let arr = [];
         data.map(item=>{
             arr.push(item.storehouseId);
