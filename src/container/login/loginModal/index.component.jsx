@@ -11,26 +11,6 @@ class Index extends Component {
         };
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
@@ -62,7 +42,7 @@ class Index extends Component {
                     <FormItem>
                         <Button
                             type='primary'
-                            // onClick={this.props.submitLogin}
+                            onClick={this.props.submitLogin}
                             htmlType='submit'
                         >
                             登录

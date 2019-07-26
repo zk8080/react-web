@@ -24,6 +24,8 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        State.getCustomerList();
+        State.getProductList();
         State.getTableList();
     }
 
@@ -54,9 +56,10 @@ class Index extends Component {
                     columns={colums}
                     rowKey='id'
                     bordered
-                    scroll={{x: 1400}}
+                    scroll={{x: 1500}}
                 />
                 <DetailComponent
+                    {...toJS(State)}
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
                     onOk={this.saveClick}
@@ -68,8 +71,22 @@ class Index extends Component {
                     handleSave={State.handleSave}
                     dataSource={toJS(State.editTable)}
                     handleAdd={State.handleAdd}
+                    handleReceipt={State.receiptClick}
+                    
                 />
-                <ReceiptModal/>
+                <ReceiptModal
+                    {...toJS(State)}
+                    visible={State.receiptVisible}
+                    cancelClick={State.cancelReceiptModal}
+                    onOk={this.saveClick}
+                    detailData={toJS(State.editForm)}
+                    setDetailData={State.setEditForm}
+                    disabled={State.disabled}
+                    toggleDisabled={State.toggleDisabled}
+                    handleSave={State.handleSave}
+                    dataSource={toJS(State.editTable)}
+                    handleReceipt={State.receiptClick}
+                />
             </div>
         );
     }

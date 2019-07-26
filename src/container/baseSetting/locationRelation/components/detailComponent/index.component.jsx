@@ -123,7 +123,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={24}>
+                            {/* <Col span={24}>
                                 <FormItem label='库位可用量'>
                                     {getFieldDecorator('availableNums', {
                                         rules: [
@@ -138,7 +138,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             
                         </Row>
                     </Form>

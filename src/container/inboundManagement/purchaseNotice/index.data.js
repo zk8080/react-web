@@ -50,7 +50,7 @@ const colums = [
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 100,
+        width: 200,
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>

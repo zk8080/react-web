@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
 import {Table} from '@pubComs';
-import {colums} from './index.data';
+import columns from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
 import {Form} from 'antd';
-import HeaderComponent from './components/headerComponent/index.component';
+import HeadComponent from './components/headComponent/index.component';
 
-
-@Form.create()
 @observer
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+        };
     }
 
     componentWillMount() {
@@ -22,20 +21,12 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getQueryData();
+        // State.getProductList();
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
+    // saveClick = (obj) => {
+    //     State.saveData(obj);
+    // }
 
     componentWillUnmount() {
 
@@ -43,13 +34,15 @@ class Index extends Component {
 
     render() {
         return (
-            <div>
-                <HeaderComponent/>
+            <div className='beginCheck'>
+                <HeadComponent
+                    cancelCheck={State.cancelCheck}
+                    endCheck={State.endCheck}
+                />
                 <Table
                     dataSource={toJS(State.tableList)}
-                    columns={colums}
-                    rowKey='id'
-                    // scroll={{x: 2000}}
+                    columns={columns}
+                    // rowKey='id'
                 />
             </div>
         );

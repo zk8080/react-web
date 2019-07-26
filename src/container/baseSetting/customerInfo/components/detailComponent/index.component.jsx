@@ -114,6 +114,24 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
+                                <FormItem label='库位单价'>
+                                    {getFieldDecorator('unitPrice')(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
+                                <FormItem label='库位面积'>
+                                    {getFieldDecorator('storeArea')(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
                                 <FormItem label='备注'>
                                     {getFieldDecorator('remark')(
                                         <TextArea 

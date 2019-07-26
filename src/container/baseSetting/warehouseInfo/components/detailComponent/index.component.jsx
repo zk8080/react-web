@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from '@pubComs';
+import { Modal, Select } from '@pubComs';
 import { Form, Row, Col, Input } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
@@ -24,6 +24,16 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                console.log( {...this.props.detailData, ...values}, '{...this.props.detailData, ...values}' );
+                const dataArr = [];
+                for (let i = values.storeMinCode; i <= values.storeMaxCode; i++) {
+                    const newArr = [`${values.houseName}-`, `${values.areaCode}-`, values.shelfCode, values.floorCode, i];
+                    dataArr.push(newArr);
+                }
+                
+                const resultArr = dataArr.map( item => {
+                    return item.join('');
+                });
                 this.props.onOk({...this.props.detailData, ...values});
             }
         });
@@ -65,7 +75,7 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='区域编码'>
+                                <FormItem label='通道'>
                                     {getFieldDecorator('areaCode', {
                                         rules: [
                                             {
@@ -81,8 +91,58 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={24}>
-                                <FormItem label='库位编号'>
-                                    {getFieldDecorator('storeCode', {
+                                <FormItem label='货架号'>
+                                    {getFieldDecorator('shelfCode')(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
+                                <FormItem label='层号'>
+                                    {getFieldDecorator('floorCode')(
+                                        <Select 
+                                            disabled={disabled}
+                                            option={[
+                                                {
+                                                    code: 'A',
+                                                    name: 'A'
+                                                },
+                                                {
+                                                    code: 'B',
+                                                    name: 'B'
+                                                },
+                                                {
+                                                    code: 'C',
+                                                    name: 'C'
+                                                },
+                                            ]}
+                                            valueCode='code'
+                                            valueName='name'
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
+                                <FormItem label='库位最小编号'>
+                                    {getFieldDecorator('storeMinCode', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
+                                <FormItem label='库位最大编号'>
+                                    {getFieldDecorator('storeMaxCode', {
                                         rules: [
                                             {
                                                 required: true,

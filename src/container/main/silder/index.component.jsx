@@ -111,14 +111,19 @@ class Index extends Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        const keyObj = this.getCurSelectKeys();
-        if( prevState.selectedKeys[0] !== keyObj.selectedKeys ){
-            this.setState({
-                selectedKeys: [keyObj.selectedKeys],
-                openKeys: [keyObj.openKeys]
-            });
-            document.title = keyObj.title;
+        try{
+            const keyObj = this.getCurSelectKeys();
+            if( prevState.selectedKeys[0] !== keyObj.selectedKeys ){
+                this.setState({
+                    selectedKeys: [keyObj.selectedKeys],
+                    openKeys: [keyObj.openKeys]
+                });
+                document.title = keyObj.title;
+            }
+        }catch(e){
+            console.log(e);
         }
+        
     }
 
     componentWillUnmount() {

@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
-import {Table} from '@pubComs';
+// import {Table} from '@pubComs';
 import {colums} from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
-import {Form} from 'antd';
-import HeaderComponent from './components/headerComponent/index.component';
+import {Form, Table} from 'antd';
+import FormComponent from './components/formComponent/index.component';
+import HeadComponent from './components/headComponent/index.component';
+import DetailComponent from './components/detailComponent/index.component';
 
-
-@Form.create()
 @observer
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+        };
     }
 
     componentWillMount() {
@@ -22,19 +23,11 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getQueryData();
+        State.getTableList();
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
+    saveClick = (obj) => {
+        State.saveData(obj);
     }
 
     componentWillUnmount() {
@@ -44,12 +37,34 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <HeaderComponent/>
+                <Form>
+                    <FormComponent 
+                        queryData={toJS(State.queryForm)}
+                        setQueryData={State.setQueryForm}
+                        getData={State.getTableList}
+                    />
+                </Form>
+                <HeadComponent
+                    addClick={State.addClick}
+                    successCbk={State.getTableList}
+                />
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
-                    // scroll={{x: 2000}}
+                    bordered
+                    scroll={{x: 1500}}
+                />
+                <DetailComponent
+                    {...toJS(State)}
+                    visible={State.visible}
+                    cancelClick={State.toggleVisible}
+                    onOk={this.saveClick}
+                    detailData={toJS(State.editForm)}
+                    setDetailData={State.setEditForm}
+                    disabled={State.disabled}
+                    toggleDisabled={State.toggleDisabled}
+                    dataSource={toJS(State.editTable)}
                 />
             </div>
         );

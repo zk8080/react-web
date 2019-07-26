@@ -114,6 +114,11 @@ class State {
         }
 
     }
+
+    // 停用
+    @action stopClick = (record) => {
+
+    }
 }
 
 export default new State();

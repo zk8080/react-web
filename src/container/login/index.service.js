@@ -22,6 +22,7 @@ class Service {
         });
     }
 
+    // 登录
     login = req => {
         return new Promise((resolve, reject) => {
             axios.post(loginUrl, req)

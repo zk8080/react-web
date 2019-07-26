@@ -42,6 +42,7 @@ class Index extends Component {
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
                         getData={State.getProductList}
+                        productList={toJS(State.tableList)}
                     />
                 </Form>
                 <HeadComponent
@@ -51,7 +52,6 @@ class Index extends Component {
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
-                    scroll={{x: 1320}}
                 />
                 <DetailComponent
                     visible={State.visible}

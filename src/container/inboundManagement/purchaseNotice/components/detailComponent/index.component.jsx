@@ -91,10 +91,6 @@ class Index extends Component {
         }
     }
 
-    handleReceipt = () => {
-        
-    }
-
     render() {
         const {getFieldDecorator} = this.props.form;
         const { visible, cancelClick, disabled, dataSource } = this.props;
@@ -103,7 +99,7 @@ class Index extends Component {
         return (
             <div>
                 <Modal
-                    title='新增'
+                    title='采购通知单'
                     visible={visible}
                     className='detail-product'
                     okText={disabled ? '修改': '确认'}
@@ -241,7 +237,7 @@ class Index extends Component {
                             >打印采购单</Button>
                             <Button
                                 type='primary'
-                                onClick={this.handleReceipt}
+                                onClick={this.props.handleReceipt}
                             >收货</Button>
                         </div>
                         <EditTable
@@ -250,7 +246,8 @@ class Index extends Component {
                             handleSave={this.props.handleSave}
                             pagination={false}
                             rowSelection={this.rowSelection}
-                            rowKey='barCode'
+                            optionarr={this.props.productList}
+                            key='key'
                         />
                         <Row>
                             <Col span={8}>

@@ -145,8 +145,12 @@ class State {
         this.productList = arr;
     }
 
-    // 查询客户-商品数据
+    // 查询客户-商品数据(由商家带出商品和库位)
     @action getProductList = async(id) => {
+        if(!id){
+            this.setProductList([]);
+            this.setAllStoreList([]);
+        }
         const params = {
             customerId: id
         };
@@ -162,6 +166,9 @@ class State {
         catch(e){
             console.log(e);
         }
+
+        // 查询库位
+        this.getStroeList();
     }
 
     // 所有库位

@@ -25,7 +25,7 @@ class Index extends Component {
     componentDidMount() {
         State.getTableList();
         State.getCustomerList();
-        State.getStroeList();
+        // State.getStroeList();
     }
 
     saveClick = (obj) => {

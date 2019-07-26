@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Input, Form, DatePicker } from 'antd';
+import { Select } from '@pubComs';
 import './index.less';
 import moment from 'moment';
 
@@ -22,7 +23,7 @@ class EditableCell extends React.Component {
         const editing = !this.state.editing;
         this.setState({ editing }, () => {
             if (editing) {
-                this.input.focus();
+                this.input.focus && this.input.focus();
             }
         });
     };
@@ -30,7 +31,7 @@ class EditableCell extends React.Component {
     save = (e) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
-            if (error && error[e.currentTarget.id]) {
+            if (error) {
                 return;
             }
             this.toggleEdit();
@@ -56,7 +57,8 @@ class EditableCell extends React.Component {
 
     renderCell = form => {
         this.form = form;
-        const { children, dataIndex, record, type, required } = this.props;
+        const { children, dataIndex, record, type, required, optionarr, code, name } = this.props;
+        
         const { editing } = this.state;
         return editing ? (
             type === 'date' ?
@@ -71,17 +73,37 @@ class EditableCell extends React.Component {
                         initialValue: record[dataIndex]?moment(record[dataIndex]): null,
                     })(<DatePicker allowClear={false} format='YYYY-MM-DD' ref={node => (this.input = node)} onChange={this.changeDate}/>)}
                 </Form.Item>
-                : <Form.Item style={{ margin: 0 }}>
-                    {form.getFieldDecorator(dataIndex, {
-                        rules: [
-                            {
-                                required: required,
-                                message: '必填',
-                            },
-                        ],
-                        initialValue: record[dataIndex],
-                    })(<Input ref={node => (this.input = node)} onPressEnter={this.save.bind(this, 'input')} onBlur={this.save.bind(this, 'input')} />)}
-                </Form.Item>
+                : type === 'select' ? 
+                    <Form.Item style={{ margin: 0 }}>
+                        {form.getFieldDecorator(dataIndex, {
+                            rules: [
+                                {
+                                    required: required,
+                                    message: '必填',
+                                },
+                            ],
+                            initialValue: record[dataIndex],
+                        })(<Select 
+                                ref={node => (this.input = node)} 
+                                onPressEnter={this.save.bind(this, 'select')} 
+                                onBlur={this.save.bind(this, 'select')} 
+                                option={optionarr}
+                                valueCode={code}
+                                valueName={name}
+                            />
+                        )}
+                    </Form.Item>
+                    : <Form.Item style={{ margin: 0 }}>
+                        {form.getFieldDecorator(dataIndex, {
+                            rules: [
+                                {
+                                    required: required,
+                                    message: '必填',
+                                },
+                            ],
+                            initialValue: record[dataIndex],
+                        })(<Input ref={node => (this.input = node)} onPressEnter={this.save.bind(this, 'input')} onBlur={this.save.bind(this, 'input')} />)}
+                    </Form.Item>
         ) : (
             <div
                 className="editable-cell-value-wrap"
@@ -161,6 +183,9 @@ class Index extends React.Component {
                     type: col.type,
                     required: col.required,
                     handleSave: this.props.handleSave,
+                    optionarr: this.props.optionarr,
+                    code: col.code,
+                    name: col.name
                 }),
             };
         });

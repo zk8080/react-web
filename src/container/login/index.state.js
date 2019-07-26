@@ -6,15 +6,10 @@ import ComService from '@deploy/service';
 import { message } from 'antd';
 
 class State {
-    //请求参数
-    @observable formData = {};
-    @action setFormData = (obj = {}) => {
-        this.formData = obj;
-    }
 
     // 点击登录 发送请求
-    @action loginClick = async(obj) => {
-        const res = await Service.login(obj);
+    @action loginClick = async(value) => {
+        const res = await Service.login(value);
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
@@ -46,6 +41,7 @@ class State {
             console.log(e);
         }
     }
+
 }
 
 export default new State();

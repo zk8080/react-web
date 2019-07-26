@@ -19,6 +19,7 @@ class SessionStorage {
         }
     }
 
+    // 设置cookie
     setCookie = (name, value, liveMinutes) => {  
         if (liveMinutes === undefined || liveMinutes == null) {
             liveMinutes = 60 * 2;
@@ -31,9 +32,7 @@ class SessionStorage {
         exp.setTime(exp.getTime() + minutes + 8 * 3600 * 1000);
         //path=/表示全站有效，而不是当前页
         document.cookie = name + '=' + value + ';path=/;expires=' + exp.toUTCString();
-        console.log( document.cookie, '--document.cookie--' );
     }
-
 }
 
 export default new SessionStorage();

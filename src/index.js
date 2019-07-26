@@ -16,6 +16,8 @@ import appStore from '@deploy/store';
 import loadComponent from '@deploy/router/loadable';
 import { createBrowserHistory } from 'history';
 import {session} from '@utils/index'; 
+import zhCN from 'antd/es/locale-provider/zh_CN';
+import {LocaleProvider} from 'antd';
 
 const history = createBrowserHistory();
 const Store = {appStore};
@@ -36,14 +38,18 @@ const ProvideRoute = ({component: Component, ...rest}) => {
 };
 
 const Index = () => {
-    return <Provider {...Store}>
-        <Router history={history}>
-            <Switch>
-                <Route path='/login' component={Login}/>
-                <ProvideRoute path='/' component={App}/>
-            </Switch>
-        </Router>
-    </Provider>;
+    return (
+        <LocaleProvider locale={zhCN}>
+            <Provider {...Store}>
+                <Router history={history}>
+                    <Switch>
+                        <Route path='/login' component={Login}/>
+                        <ProvideRoute path='/' component={App}/>
+                    </Switch>
+                </Router>
+            </Provider>
+        </LocaleProvider>
+    );
 };
 
 ReactDOM.render(<Index />, document.getElementById('root'));
