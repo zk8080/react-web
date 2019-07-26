@@ -29,7 +29,7 @@ const colums = [
         // fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <span onClick={State.deleteProduct.bind(this, record)}>删除</span>
+                <span onClick={State.deleteProduct.bind(this, record, index)}>删除</span>
             </div>;
         }
     }

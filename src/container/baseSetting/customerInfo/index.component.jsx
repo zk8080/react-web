@@ -60,7 +60,7 @@ class Index extends Component {
                 <ProductList
                     visible={State.productVisible}
                     cancelClick={State.toggleProductVisible}
-                    onOk={State.toggleProductVisible}
+                    onOk={State.productListSave}
                     customerInfo={toJS(State.curCustomerInfo)}
                     addClick={State.addProduct}
                     tableList={toJS(State.productList)}
@@ -71,6 +71,8 @@ class Index extends Component {
                     onOk={State.productSave}
                     getData={State.getAllProduct}
                     productList={toJS(State.allProductList)}
+                    queryData={toJS(State.detailFormData)}
+                    setQueryData={State.setDetailFormData}
                 />
             </div>
         );

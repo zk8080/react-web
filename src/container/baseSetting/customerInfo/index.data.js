@@ -28,6 +28,16 @@ const colums = [
         width: 200
     },
     {
+        title: '库位单价',
+        dataIndex: 'a',
+        width: 200
+    },
+    {
+        title: '库位面积',
+        dataIndex: 'b',
+        width: 200
+    },
+    {
         title: '操作',
         dataIndex: 'opreate',
         width: 200,
