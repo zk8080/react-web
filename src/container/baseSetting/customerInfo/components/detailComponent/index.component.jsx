@@ -115,7 +115,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位单价'>
-                                    {getFieldDecorator('a')(
+                                    {getFieldDecorator('unitPrice')(
                                         <Input 
                                             disabled={disabled}
                                         />
@@ -124,7 +124,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位面积'>
-                                    {getFieldDecorator('b')(
+                                    {getFieldDecorator('storeArea')(
                                         <Input 
                                             disabled={disabled}
                                         />

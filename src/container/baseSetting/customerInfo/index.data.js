@@ -29,12 +29,12 @@ const colums = [
     },
     {
         title: '库位单价',
-        dataIndex: 'a',
+        dataIndex: 'unitPrice',
         width: 200
     },
     {
         title: '库位面积',
-        dataIndex: 'b',
+        dataIndex: 'storeArea',
         width: 200
     },
     {

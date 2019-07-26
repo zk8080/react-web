@@ -125,9 +125,9 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Select  disabled={disabled} >
-                                            <Option value='Y'>是</Option>
-                                            <Option value='N'>否</Option>
+                                        <Select disabled={disabled} >
+                                            <Option value='1' key='1'>是</Option>
+                                            <Option value='0' key='2'>否</Option>
                                         </Select>
                                     )}
                                 </FormItem>
@@ -260,17 +260,6 @@ class Index extends Component {
                             <Col span={8}>
                                 <FormItem label='商品重量单位'>
                                     {getFieldDecorator('singleWeightUnit', {
-                                        
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='商品体积单位'>
-                                    {getFieldDecorator('singleVolumeUnit', {
                                         
                                     })(
                                         <Input 
