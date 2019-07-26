@@ -18,24 +18,26 @@ class Index extends Component {
 
     //点击审批按钮（打开审批弹窗）
     approve = () => {
-        let flag = true;
-        let data = this.props.queryCheckRecord;
+        let flag = false;
+        let data = this.props.checkRecordList || [];
+        console.log(data,'data');
         if(data && data.length == 0){
-            message.warning('请选择要进行审批的数据');
+            message.warning('暂无数据可审批');
             return;
         }else if(data && data.length > 0){
             data.map(item => {
                 if(item.billState != 'approving'){
-                    flag = false;
+                    flag = true;
                 }
             })
         }
-        if(flag){
+        console.log(flag,'flag');
+        if(!flag){
             this.setState({
                 visible: true
             })
         }else{
-            message.warning('请选择审批中的数据进行审批');
+            message.warning('只有 ’审批中‘ 的数据可进行审批，请重新选择');
             return;
         }
         
