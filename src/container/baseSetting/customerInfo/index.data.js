@@ -8,11 +8,6 @@ const colums = [
         width: 200
     },
     {
-        title: '品牌',
-        dataIndex: 'brandName',
-        width: 100
-    },
-    {
         title: '联系人',
         dataIndex: 'contactPerson',
         width: 80

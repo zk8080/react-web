@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
 import {formUtils} from '@utils';
+import { Select } from '@pubComs';
 const FormItem = Form.Item;
 
 
@@ -33,6 +34,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {customerList} = this.props;
         return (
             <div className='query-component'>
                 <Row>
@@ -40,7 +42,11 @@ class Index extends Component {
                         <FormItem label="商家" hasFeedback>
                             {getFieldDecorator('merchant', {
                                 rules: [],
-                            })(<Input />)}
+                            })(<Select 
+                                option={customerList}
+                                valueCode='id'
+                                valueName='customerName'
+                            />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>

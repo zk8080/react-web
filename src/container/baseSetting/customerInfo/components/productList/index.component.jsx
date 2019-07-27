@@ -26,6 +26,7 @@ class Index extends Component {
                 onCancel={cancelClick}
                 width='1100px'
                 onOk={onOk}
+                footer={null}
             >
                     <div className='customer-info'>
                         <Row>

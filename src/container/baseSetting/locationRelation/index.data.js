@@ -14,7 +14,7 @@ const colums = [
     },
     {
         title: '库位',
-        dataIndex: 'storeNo',
+        dataIndex: 'storeCode',
         width: 80
     },
     {

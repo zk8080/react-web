@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Select } from '@pubComs';
 import { Form, Row, Col, Input } from 'antd';
 import './index.less';
-import { formUtils } from '@utils/index';
+import { formUtils, pubFunction } from '@utils/index';
 
 const FormItem = Form.Item;
 
@@ -52,7 +52,7 @@ class Index extends Component {
                     title='新增'
                     visible={visible}
                     className='detail-component'
-                    okText={disabled ? '修改': '确认'}
+                    okText={disabled ? '修改': '批量生成'}
                     cancelText='取消'
                     onCancel={cancelClick}
                     width='550px'
@@ -61,8 +61,19 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={24}>
+                                <FormItem label="仓库区位" hasFeedback>
+                                    {getFieldDecorator('houseCode', {
+                                        rules: [],
+                                    })(<Select 
+                                        option={pubFunction.getDictSelect('CK-GN')}
+                                        valueCode='code'
+                                        valueName='name'
+                                    />)}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
                                 <FormItem label='仓库区域'>
-                                    {getFieldDecorator('houseName', {
+                                    {getFieldDecorator('areaCode', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -76,7 +87,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='通道'>
-                                    {getFieldDecorator('areaCode', {
+                                    {getFieldDecorator('channelNo', {
                                         rules: [
                                             {
                                                 required: true,
@@ -92,7 +103,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='货架号'>
-                                    {getFieldDecorator('shelfCode')(
+                                    {getFieldDecorator('rockNo')(
                                         <Input 
                                             disabled={disabled}
                                         />
@@ -101,7 +112,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='层号'>
-                                    {getFieldDecorator('floorCode')(
+                                    {getFieldDecorator('tierNo')(
                                         <Select 
                                             disabled={disabled}
                                             option={[
@@ -126,7 +137,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位最小编号'>
-                                    {getFieldDecorator('storeMinCode', {
+                                    {getFieldDecorator('storeMinNo', {
                                         rules: [
                                             {
                                                 required: true,
@@ -142,7 +153,23 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位最大编号'>
-                                    {getFieldDecorator('storeMaxCode', {
+                                    {getFieldDecorator('storeMaxNo', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
+                                <FormItem label='库位优先值'>
+                                    {getFieldDecorator('priorityValue', {
                                         rules: [
                                             {
                                                 required: true,

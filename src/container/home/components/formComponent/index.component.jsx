@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
-import {formUtils, pubFunction} from '@utils';
-import {Select} from '@pubComs';
+import {formUtils} from '@utils';
+import {Select} from '@pubComs'; 
 
 const FormItem = Form.Item;
 
@@ -23,52 +23,41 @@ class Index extends Component {
         this.state={};
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData();
+                this.props.getData(values);
             }
         });
     };
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {productList} = this.props;
         return (
             <div className='query-component'>
                 <Row>
                     <Col span={8}>
-                        <FormItem label="仓库区位" hasFeedback>
-                            {getFieldDecorator('houseCode', {
+                        <FormItem label="商家" hasFeedback>
+                            {getFieldDecorator('customerName', {
                                 rules: [],
-                            })(<Select 
-                                option={pubFunction.getDictSelect('CK-GN')}
-                                valueCode='code'
-                                valueName='name'
-                            />)}
+                            })(<Input />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="区域编号" hasFeedback>
-                            {getFieldDecorator('areaCode', {
+                        <FormItem label="商品" hasFeedback>
+                            {getFieldDecorator('password', {
                                 rules: [],
-                            })(<Input />)}
+                            })(<Select 
+                                option={productList}
+                                valueCode='skuName'
+                                valueName='skuName'
+                                showSearch
+                                filterOption={(input, option) =>
+                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            />)}
                         </FormItem>
                     </Col>
                     <Col span={8} className='query-btn'>
@@ -78,9 +67,6 @@ class Index extends Component {
                         >查询</Button>
                     </Col>
                 </Row>
-                {/* <div className='query-btn'>
-                    
-                </div> */}
             </div>
         );
     }

@@ -159,6 +159,8 @@ class State {
             if(res.data.code === 0){
                 const {rows} = res.data.data;
                 this.setProductList(rows);
+                // 查询库位
+                this.getStroeList(id);
             }else{
                 message.error(res.data.msg);
             }
@@ -166,9 +168,6 @@ class State {
         catch(e){
             console.log(e);
         }
-
-        // 查询库位
-        this.getStroeList();
     }
 
     // 所有库位
@@ -178,8 +177,11 @@ class State {
     }
 
     // 查询库位
-    @action getStroeList = async() => {
-        const res = await Service.getStroeList({});
+    @action getStroeList = async(id) => {
+        const params = {
+            customerId: id
+        };
+        const res = await Service.getStroeList(params);
         try{
             if(res.data.code === 0){
                 const {rows} = res.data.data;
