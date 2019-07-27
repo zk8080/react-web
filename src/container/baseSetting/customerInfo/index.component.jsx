@@ -22,7 +22,6 @@ class Index extends Component {
 
     componentDidMount() {
         State.getCustomerList();
-        State.getAllProduct();
     }
 
     handleTableChange = (pagination) => {

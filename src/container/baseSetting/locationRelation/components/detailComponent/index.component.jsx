@@ -82,7 +82,7 @@ class Index extends Component {
                                         <Select 
                                             option={productList}
                                             disabled={disabled}
-                                            valueCode='barCode'
+                                            valueCode='id'
                                             valueName='skuName'
                                         />
                                     )}
@@ -90,7 +90,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位'>
-                                    {getFieldDecorator('storehouseId', {
+                                    {getFieldDecorator('storehouseIds', {
                                         rules: [
                                             {
                                                 required: true,
@@ -99,6 +99,7 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Select 
+                                            mode="multiple"
                                             option={storeList}
                                             disabled={disabled}
                                             valueCode='id'

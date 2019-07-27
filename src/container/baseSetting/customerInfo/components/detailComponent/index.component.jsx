@@ -52,6 +52,20 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={24}>
+                                <FormItem label='商家编码'>
+                                    {getFieldDecorator('customerCode', {
+                                        rules: [{
+                                            required: true,
+                                            message: '必填'
+                                        }]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={24}>
                                 <FormItem label='商家名称'>
                                     {getFieldDecorator('customerName', {
                                         rules: [{
@@ -115,7 +129,14 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位单价'>
-                                    {getFieldDecorator('unitPrice')(
+                                    {getFieldDecorator('unitPrice',{
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
                                         <Input 
                                             disabled={disabled}
                                         />
@@ -124,7 +145,14 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位面积'>
-                                    {getFieldDecorator('storeArea')(
+                                    {getFieldDecorator('storeArea',{
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
                                         <Input 
                                             disabled={disabled}
                                         />

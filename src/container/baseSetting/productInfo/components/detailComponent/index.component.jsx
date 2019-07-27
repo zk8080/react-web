@@ -57,7 +57,7 @@ class Index extends Component {
                                     {getFieldDecorator('banner', {
                                         rules: [
                                             {
-                                                required: true,
+                                                required: false,
                                                 message: '必填'
                                             }
                                         ]
@@ -117,8 +117,25 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label='是否是食品'>
+                                <FormItem label='是否食品'>
                                     {getFieldDecorator('isFoodstuff', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Select disabled={disabled} >
+                                            <Option value='1' key='1'>是</Option>
+                                            <Option value='0' key='2'>否</Option>
+                                        </Select>
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
+                                <FormItem label='是否耗材'>
+                                    {getFieldDecorator('isConsumable', {
                                         rules: [
                                             {
                                                 required: true,
@@ -166,35 +183,8 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label='整箱重量'>
-                                    {getFieldDecorator('packingWeight', {
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
                                 <FormItem label='单个体积'>
                                     {getFieldDecorator('singleVolume', {
-                                        
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='整箱体积'>
-                                    {getFieldDecorator('packingVolume', {
                                         
                                     })(
                                         <Input 

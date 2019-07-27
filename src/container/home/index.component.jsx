@@ -1,67 +1,59 @@
 import React, { Component } from 'react';
-// import Child from './components/child.component';
+import {observer} from 'mobx-react';
+import State from './index.state';
+import {Table} from '@pubComs';
+import {colums} from './index.data';
+import './index.less';
+import { toJS } from 'mobx';
+import {Form} from 'antd';
+import FormComponent from './components/formComponent/index.component';
+import DetailComponent from './components/detailComponent/index.component';
 
+@observer
 class Index extends Component {
     constructor(props) {
         super(props);
-        console.log('constructor---Parent');
-        this.state={
-            count: 0
+        this.state = {
         };
     }
 
     componentWillMount() {
-        // debugger;
-        console.log('componentWillMount---Parent');
+
     }
 
     componentDidMount() {
-        // debugger;
-        console.log('componentDidMount---Parent');
-        // this.setState({
-        //     count: 1
-        // })
-        // console.log(window._.difference([3, 2, 1], [4, 2]));
-        
+        State.getProductList();
     }
     
-    componentWillUpdate(){
-        console.log('componentWillUpdate---Parent');
-    }
-
-    componentDidUpdate(){
-        console.log('componentDidUpdate---Parent');
-    }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount---Parent');
-    }
-
-    push = () => {
-        
-        // window.appHistory.push({
-        //     pathname: '/home',
-        //     state: {
-        //         a: '1'
-        //     }
-        // })
-        // window.print()
-    }
-
-
-
     render() {
-        console.log('render---Parent');
         return (
             <div>
-                首页
-                {/* <Child /> */}
-                {/* <button
-                    onClick={this.push}
-                >点击</button> */}
+                <Form>
+                    <FormComponent 
+                        queryData={toJS(State.queryForm)}
+                        setQueryData={State.setQueryForm}
+                        getData={State.getProductList}
+                        productList={toJS(State.tableList)}
+                    />
+                </Form>
+                <Table
+                    dataSource={toJS(State.tableList)}
+                    columns={colums}
+                    rowKey='id'
+                />
+                <DetailComponent
+                    visible={State.visible}
+                    cancelClick={State.toggleVisible}
+                    onOk={this.saveClick}
+                    detailData={toJS(State.editForm)}
+                    setDetailData={State.setEditForm}
+                    disabled={State.disabled}
+                    toggleDisabled={State.toggleDisabled}
+                />
             </div>
         );
     }
 }
+
 
 export default Index;

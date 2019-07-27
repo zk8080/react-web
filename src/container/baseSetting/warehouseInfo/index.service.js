@@ -3,12 +3,13 @@ import axios from 'axios';
 // 查询仓库信息url
 const getQueryDataList = '/storehouse/loadGrid';
 // 新增库位信息url
-const addHouseUrl = '/storehouse/add';
-// 修改仓库信息url
-const editHouseUrl = '/storehouse/update';
+const addHouseUrl = '/storehouse/batchAdd';
 // 删除仓库信息
 const deleteHouseUrl = '/storehouse/delete';
-
+// 停用仓库
+const stopHouseUrl = '/storehouse/batchStop';
+// 激活
+const activatiUrl = '/storehouse/batchActivati';
 
 class Service {
 
@@ -37,9 +38,22 @@ class Service {
                 });
         });
     }
-    editHouse = req => {
+    stopHouse = req => {
         return new Promise((resolve, reject) => {
-            axios.post(editHouseUrl, req)
+            axios.post(stopHouseUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    activatiHouse = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(activatiUrl, req)
                 .then(res => {
                     resolve(res);
                 })

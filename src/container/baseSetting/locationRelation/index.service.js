@@ -3,7 +3,7 @@ import axios from 'axios';
 // 查询url
 const getTableListUrl = '/storehouseConfig/loadGrid';
 // 新增url
-const addLocationUrl = '/storehouseConfig/add';
+const addLocationUrl = '/storehouseConfig/batchConfig';
 // 修改url
 const updateLocationUrl = '/storehouseConfig/update';
 // 删除url

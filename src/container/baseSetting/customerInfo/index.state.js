@@ -178,20 +178,32 @@ class State {
         this.setDetailFormData();
         // this.toggleProductDisabled(false);
         this.toggleDetailVisible();
+        this.getAllProduct();
         this.toggleProductVisible();
         // this.setIsDetailAdd(true);
     }
 
     //商品列表弹窗中删除按钮
     @action deleteProduct = async (record = {}) => {
-        let data = toJS(this.productList);
-        let newData = data.filter((item)=> item.id != record.id);
-        this.setProductList(newData);
+        const params = {
+            ids: [record.id]
+        };
+        const res = await Service.deleteProduct(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getProductList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }    
 
     // projectList点击确定按钮，确定商家与商品间的关联关系
     @action productListSave = () => {
-        alert('确定商家与商品关系');
         this.toggleProductVisible();
     }
 
@@ -227,47 +239,31 @@ class State {
     @action setDetailFormData = (obj = {}) => {
         this.detailFormData = obj;
     }
-
-    
-
     
 
     // 商品详情保存按钮(批量选择，将选择的插入到商品列表中)
     @action productSave = async (obj = []) => {
-        // const customerInfo = toJS(this.curCustomerInfo);
-        // const params = {
-        //     ...obj,
-        //     customerId: customerInfo.id,
-        //     commodityCode: obj.barCode
-        // };
-        // let res;
-        // if( this.isDetailAdd ){
-        //     res = await Service.addProduct(params);
-        // }else{
-        //     res = await Service.updateProduct(params);
-        // }
-        // try{
-        //     if(res.data.code === 0){
-        //         this.getProductList();
-        //         this.toggleDetailVisible();
-        //         this.toggleProductVisible();
-        //         message.success(res.data.msg);
-        //     }else{
-        //         message.error(res.data.msg);
-        //     }
-        // }
-        // catch(e){
-        //     console.log(e);
-        // }
-        // 将选中的数据存入商品列表中，在商品列表中点击确认可关联
-        let data = toJS(this.productList);
-        data = data.concat(obj);
-        this.setProductList(data);
-        this.toggleDetailVisible();
-        this.toggleProductVisible();
+        const customerInfo = toJS(this.curCustomerInfo);
+        const barCodeArr = obj.map(item => item.barCode );
+        const params = {
+            customerId: customerInfo.id,
+            commodityCodes: barCodeArr
+        };
+        const res = await Service.batchBindCommodities(params);
+        try{
+            if(res.data.code === 0){
+                this.getProductList();
+                this.toggleProductVisible();
+                this.toggleDetailVisible();
+                message.success(res.data.msg);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
-
-    
 
     // 商品详情table
     @observable allProductList = [];
@@ -275,21 +271,26 @@ class State {
         this.allProductList = arr;
     }
 
-    // 查询商品详情
+    // 查询当前客户未关联的商品
     @action getAllProduct = async (obj = {}) => {
-        const res = await Service.getAllProduct(obj);
-        if(res.data.code === 0){
-            const {rows} = res.data.data;
-            this.setAllProductListUrl(rows);
-        }else{
-            message.error(res.data.msg);
+        const customerInfo = toJS(this.curCustomerInfo);
+        const params = {
+            customerCode: customerInfo.customerCode,
+            loadGrid: obj
+        };
+        const res = await Service.getAllProduct(params);
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setAllProductListUrl(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
         }
     }
-
-
-
-
-    
 }
 
 export default new State();

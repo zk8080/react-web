@@ -10,14 +10,12 @@ const editCustomerUrl = '/customer/update';
 const deleteCustomerUrl = '/customer/updateDelete';
 //查询客户下商品列表
 const getProductListUrl = '/customer/loadCommodities';
-// 新增商品
-const addProductUrl = '/commodity/add';
-// 修改商品详情
-const updateProductUrl = '/commodity/update';
+// 绑定商品
+const batchBindCommoditiesUrl = '/customer/batchBindCommodities';
 // 删除商品
-const deleteProductUrl = '/commodity/delete';
-//查询所有商品
-const getAllProductUrl = '/commoditySku/loadGrid';
+const deleteProductUrl = '/customer/batchUnbindCommodities';
+//查询客户未关联的商品
+const getAllProductUrl = '/customer/notBindCommodities';
 
 class Service {
     getCustomerList = req => {
@@ -85,22 +83,9 @@ class Service {
         });
     }
 
-    addProduct = req => {
+    batchBindCommodities = req => {
         return new Promise((resolve, reject) => {
-            axios.post(addProductUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    updateProduct = req => {
-        return new Promise((resolve, reject) => {
-            axios.post(updateProductUrl, req)
+            axios.post(batchBindCommoditiesUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -113,9 +98,7 @@ class Service {
 
     deleteProduct = req => {
         return new Promise((resolve, reject) => {
-            axios.get(deleteProductUrl, {
-                params: req
-            })
+            axios.post(deleteProductUrl, req)
                 .then(res => {
                     resolve(res);
                 })

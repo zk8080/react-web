@@ -12,10 +12,6 @@ class Index extends Component {
         };
     }
 
-    componentWillMount() {
-
-    }
-
     componentDidMount() {
         const scrollY = getScrollY();
         const scrollX = getScrollX(this.props.columns);
@@ -25,32 +21,24 @@ class Index extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
+    handleTableChange = (pagination, filters, sorter) => {
+        const pageParams = { 
+            current: pagination.current,
+            size: pagination.pageSize
+         };
+        this.props.getQueryData && this.props.getQueryData(pageParams);
+    };
 
     render() {
-        console.log(this.state.scrollX, '---this.state.scrollX--');
         return (
             <Table
                 className='cur-table'
                 bordered
                 rowKey={(v, i) => Math.random()}
                 {...this.props}
-                // scroll={{...this.props.scroll, ...{y: this.state.scrollY}}}
+                pagination={this.props.pagination}
                 scroll={{x: this.state.scrollX, y: this.state.scrollY}}
+                onChange={this.handleTableChange}
             />
         );
     }
