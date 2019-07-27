@@ -9,6 +9,7 @@ import {Form, Table} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
+import ShelfComponent from './components/shelfComponent/index.component';
 
 @observer
 class Index extends Component {
@@ -44,10 +45,10 @@ class Index extends Component {
                         getData={State.getTableList}
                     />
                 </Form>
-                <HeadComponent
+                {/* <HeadComponent
                     addClick={State.addClick}
                     successCbk={State.getTableList}
-                />
+                /> */}
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
@@ -65,6 +66,10 @@ class Index extends Component {
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
                     dataSource={toJS(State.editTable)}
+                />
+                <ShelfComponent
+                    visible={State.shelfVisible}
+                    cancelClick={State.closeShelfVisible}
                 />
             </div>
         );

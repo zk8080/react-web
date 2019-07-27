@@ -247,7 +247,7 @@ class Index extends Component {
                             pagination={false}
                             rowSelection={this.rowSelection}
                             optionarr={this.props.productList}
-                            key='key'
+                            rowKey='key'
                         />
                         <Row>
                             <Col span={8}>

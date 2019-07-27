@@ -12,6 +12,8 @@ const productListUrl = '/commoditySku/loadGrid';
 const deleteUrl = '/warehousing/purchaseBill/delete';
 // 查询商家url
 const customerListUrl = '/customer/loadGrid';
+// 查询推荐库位
+const getRecommendStoreUrl = '/storehouseConfig/recommendStore';
 
 class Service {
 
@@ -54,9 +56,9 @@ class Service {
         });
     }
 
-    getProductList = req => {
+    getRecommendStore = req => {
         return new Promise((resolve, reject) => {
-            axios.post(productListUrl, req)
+            axios.post(getRecommendStoreUrl, req)
                 .then(res => {
                     resolve(res);
                 })

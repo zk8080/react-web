@@ -80,6 +80,10 @@ class Index extends Component {
         }
     }
 
+    shelf = (record) => {
+        this.props.shelf(record);
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const { visible, cancelClick, disabled, dataSource } = this.props;
@@ -211,6 +215,10 @@ class Index extends Component {
                             </Col>
                         </Row>
                         <div className='opreat-btn'>
+                            <Button
+                                type='primary'
+                                onClick={this.shelf}
+                            >上架</Button>
                             <Button
                                 type='primary'
                                 
