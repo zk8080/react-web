@@ -1,3 +1,6 @@
+import React from 'react';
+import { Input } from 'antd';
+import State from '../../index.state';
 const noFoodColumns = [
     {
         title: '序号',
@@ -11,50 +14,53 @@ const noFoodColumns = [
         title: '商品名称',
         dataIndex: 'commodityName',
         width: 200,
-        editable: true,
-        required: true,
-        type: 'select',
-        code: 'skuName',
-        name: 'skuName'
+        render: (text, record, index) => {
+            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>
+        }
+        // editable: true,
+        // required: true,
+        // type: 'select',
+        // code: 'skuName',
+        // name: 'skuName'
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
         width: 150,
-        editable: true,
+        // editable: true,
     },
     {
         title: '规格',
         dataIndex: 'spec',
         width: 200,
-        editable: true,
+        // editable: true,
     },
     {
         title: '单位',
         dataIndex: 'unit',
         width: 150,
-        editable: true,
-        required: true
+        // editable: true,
+        // required: true
     },
     {
         title: '商品条码',
         dataIndex: 'barCode',
         width: 200,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '体积m³',
         dataIndex: 'volume',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '重量KG',
         dataIndex: 'weight',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
@@ -93,50 +99,53 @@ const foodColumns = [
         title: '商品名称',
         dataIndex: 'commodityName',
         width: 200,
-        editable: true,
-        required: true,
-        type: 'select',
-        code: 'skuName',
-        name: 'skuName'
+        render: (text, record, index) => {
+            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>
+        }
+        // editable: true,
+        // required: true,
+        // type: 'select',
+        // code: 'skuName',
+        // name: 'skuName'
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
         width: 150,
-        editable: true,
+        // editable: true,
     },
     {
         title: '规格',
         dataIndex: 'spec',
         width: 200,
-        editable: true,
+        // editable: true,
     },
     {
         title: '单位',
         dataIndex: 'unit',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '商品条码',
         dataIndex: 'barCode',
         width: 200,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '体积m³',
         dataIndex: 'volume',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '重量KG',
         dataIndex: 'weight',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
@@ -167,8 +176,7 @@ const foodColumns = [
         dataIndex: 'shilfLife',
         editable: true,
         required: true,
-        width: 200,
-        type: 'date'
+        width: 200
     },
     {
         title: '备注',

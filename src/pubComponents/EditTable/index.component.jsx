@@ -28,21 +28,21 @@ class EditableCell extends React.Component {
         });
     };
 
-    save = (e) => {
+    save = (type, key, e, option) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
             if (error) {
                 return;
             }
             this.toggleEdit();
-            handleSave({ ...record, ...values });
+            handleSave({ ...record, ...values }, key, option);
         });
     };
 
-    changeDate = (value) => {
+    changeDate = (key, value) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
-            if (error) {
+            if (error && !value) {
                 return;
             }
             const newValue = {};
@@ -50,7 +50,7 @@ class EditableCell extends React.Component {
                 newValue[key] = value? value.format('YYYY-MM-DD'): null;
             }
             this.toggleEdit();
-            handleSave({ ...record, ...newValue });
+            handleSave({ ...record, ...newValue }, key);
         });
         
     }
@@ -71,7 +71,7 @@ class EditableCell extends React.Component {
                             },
                         ],
                         initialValue: record[dataIndex]?moment(record[dataIndex]): null,
-                    })(<DatePicker allowClear={false} format='YYYY-MM-DD' ref={node => (this.input = node)} onChange={this.changeDate}/>)}
+                    })(<DatePicker allowClear={false} format='YYYY-MM-DD' ref={node => (this.input = node)} onChange={this.changeDate.bind(this, dataIndex)}/>)}
                 </Form.Item>
                 : type === 'select' ? 
                     <Form.Item style={{ margin: 0 }}>
@@ -85,8 +85,9 @@ class EditableCell extends React.Component {
                             initialValue: record[dataIndex],
                         })(<Select 
                                 ref={node => (this.input = node)} 
-                                onPressEnter={this.save.bind(this, 'select')} 
-                                onBlur={this.save.bind(this, 'select')} 
+                                onPressEnter={this.save.bind(this, 'select', dataIndex)} 
+                                //onBlur={this.save.bind(this, 'select', dataIndex)} 
+                                onChange={this.save.bind(this, 'select', dataIndex)}
                                 option={optionarr}
                                 valueCode={code}
                                 valueName={name}
@@ -102,7 +103,7 @@ class EditableCell extends React.Component {
                                 },
                             ],
                             initialValue: record[dataIndex],
-                        })(<Input ref={node => (this.input = node)} onPressEnter={this.save.bind(this, 'input')} onBlur={this.save.bind(this, 'input')} />)}
+                        })(<Input ref={node => (this.input = node)} onPressEnter={this.save.bind(this, 'input', dataIndex)} onBlur={this.save.bind(this, 'input', dataIndex)} />)}
                     </Form.Item>
         ) : (
             <div

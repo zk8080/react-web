@@ -20,7 +20,8 @@ class State {
     @action getTableList = async (params = {}) => {
         const paramsObj = {...params, ...{
             currentPage: 1,
-            pageSize: 15
+            pageSize: 15,
+            billType: 2
         }};
         const res = await Service.getTableList(paramsObj);
         try{

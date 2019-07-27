@@ -54,8 +54,10 @@ const colums = [
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <span onClick={State.editClick.bind(this, record)}>修改</span>
-                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
+                <a onClick={State.lookClick.bind(this, record)}>查看</a>
+                <a disabled={record.billState != 'save'} onClick={State.editClick.bind(this, record)}>修改</a>
+                <a disabled={record.billState != 'save'} onClick={State.receiptClick.bind(this, record)}>收货</a>
+                <a disabled={record.billState != 'save'} onClick={State.deleteClick.bind(this, record)}>删除</a>
             </div>;
         }
     }

@@ -5,13 +5,16 @@ const tableListUrl = '/warehousing/purchaseBill/selectList';
 // 新增url
 const addProductUrl = '/warehousing/purchaseBill/add';
 // 修改url
-const editProductUrl = '/commoditySku/update';
+const editProductUrl = '/warehousing/purchaseBill/update';
 // 查询商品url
 const productListUrl = '/commoditySku/loadGrid';
 // 删除url
 const deleteUrl = '/warehousing/purchaseBill/delete';
 // 查询商家url
 const customerListUrl = '/customer/loadGrid';
+// 收货确认url
+const confirmReceiveUrl = '/warehousing/purchaseBill/confirm';
+
 
 class Service {
 
@@ -83,6 +86,19 @@ class Service {
     getCustomerList = req => {
         return new Promise((resolve, reject) => {
             axios.post(customerListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    confirmReceive = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(confirmReceiveUrl, req)
                 .then(res => {
                     resolve(res);
                 })
