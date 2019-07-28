@@ -15,15 +15,15 @@ export class BaseState implements StateOperation{
 
 	@action refreshDataList(dataList = []) {
 		this.dataList = dataList;
-		this.refreshPage({total: 454, size: 200, current: 78});
+		this.refreshPage({total: 454, pageSize: 200, current: 78});
 	}
 
 	/**
 	 * 刷新分页数据
 	 * @param pageInfo
 	 */
-	refreshPage(pageInfo: {total: number, size: number, current: number}) {
-		this.page = {...this.page, current: pageInfo.current, pageSize: pageInfo.size, total: pageInfo.total};
+	refreshPage(pageInfo: {total: number, pageSize: number, current: number}) {
+		this.page = {...this.page, current: pageInfo.current, pageSize: pageInfo.pageSize, total: pageInfo.total};
 	}
 
 	/**

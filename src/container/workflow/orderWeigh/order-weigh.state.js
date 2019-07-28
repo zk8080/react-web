@@ -4,7 +4,7 @@ import {notification, message} from 'antd';
 
 class OrderWeighState extends BaseState{
 
-	loadGrid(loadGrid: LoadGrid = {size: 10, current: 1}) {
+	loadGrid(loadGrid: LoadGrid = {pageSize: 10, current: 1}) {
 	 this.post('order/weigh/loadGrid', loadGrid, result => {
 	 	if (result.status === 1) {
 	 		this.loadGridFinished(result.data);

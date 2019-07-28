@@ -25,7 +25,7 @@ export interface LoadGrid {
 	/**
 	 * 每页显示条数
 	 */
-	size: number;
+	pageSize: number;
 	/**
 	 * 当前页
 	 */
@@ -50,7 +50,7 @@ export class LoadGridUtil {
 	 */
 	static paramsBuild(page: PaginationProps, search, order): LoadGrid {
 		return {
-			size: page.pageSize,
+			pageSize: page.pageSize,
 			current: page.current,
 			order: {
 				[order.field]: order.order == 'ascend'? 'asc': 'desc'

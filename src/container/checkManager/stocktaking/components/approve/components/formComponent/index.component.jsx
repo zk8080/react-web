@@ -4,7 +4,7 @@ import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
 import {formUtils} from '@utils';
 import { Select } from '@pubComs';
 import inventoryInfoState from '../../../inventoryInfo/index.state';
-import { from } from '_array-flatten@2.1.2@array-flatten';
+// import { from } from '_array-flatten@2.1.2@array-flatten';
 import './index.less';
 
 const FormItem = Form.Item;
@@ -56,7 +56,7 @@ class Index extends Component {
                                     // }
                                 ],
                             })(
-                                <Select 
+                                <Select
                                     placeholder='请选择'
                                     option={[
                                         {'save': '初始化'},
@@ -93,7 +93,7 @@ class Index extends Component {
                                     // }
                                 ],
                             })(
-                                <Select 
+                                <Select
                                     placeholder='请选择'
                                     option={toJS(this.props.checkUserList)}
                                     valueCode='userNo'
@@ -116,7 +116,7 @@ class Index extends Component {
                                     }
                                 ],
                             })(
-                                <Select 
+                                <Select
                                     placeholder='请选择'
                                     option={toJS(inventoryInfoState.merchantsList)}
                                     valueCode='customerCode'
@@ -130,7 +130,7 @@ class Index extends Component {
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        
+
                     </Col>
                     <Col span={8} className='query-btn'>
                         <Button

@@ -117,7 +117,7 @@ class PickingBillComponent extends Component{
 								<Col span={3}><h3 align="right" >拣货单号：</h3></Col>
 								<Col span={21}>
 									{/*<Barcode code={46565464} height={80}/>*/}
-									<BarcodeComponent code={9797979789} height={80}/>
+									<BarcodeComponent code={'9797979789KS'} height={80}/>
 								</Col>
 							</Row>
 							<Table pagination={false} columns={invoiceColumns} dataSource={this.pickingBillState.invoices}></Table>
