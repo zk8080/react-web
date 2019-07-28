@@ -1,18 +1,20 @@
 const colums = [
     {
         title: '库位',
-        dataIndex: 'skuName',
-        width: 200
-    },
-    {
-        title: '商品名称',
-        dataIndex: 'spec',
-        width: 80
+        dataIndex: 'storeCode',
+        width: 200,
+        editable: true,
+        required: true,
+        type: 'select',
+        code: 'storeCode',
+        name: 'storeCode'
     },
     {
         title: '上架数量',
-        dataIndex: 'barCode',
-        width: 150
+        dataIndex: 'num',
+        width: 150,
+        editable: true,
+        required: true,
     },
 ];
 

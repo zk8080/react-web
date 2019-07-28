@@ -48,16 +48,22 @@ const noFoodColumns = [
         required: true
     },
     {
-        title: '采购数量',
-        dataIndex: 'purchaseNums',
-        width: 150,
-        required: true
-    },
-    {
         title: '到货日期',
         dataIndex: 'arrivalDate',
         width: 200,
         required: true,
+    },
+    {
+        title: '签收数量',
+        dataIndex: 'receivNums',
+        width: 150,
+        required: true
+    },
+    {
+        title: '存储库位',
+        dataIndex: 'storehouseInfo',
+        width: 150,
+        required: true
     },
     {
         title: '备注',
@@ -116,12 +122,6 @@ const foodColumns = [
         required: true
     },
     {
-        title: '采购数量',
-        dataIndex: 'purchaseNums',
-        width: 150,
-        required: true
-    },
-    {
         title: '到货日期',
         dataIndex: 'arrivalDate',
         width: 200,
@@ -131,13 +131,28 @@ const foodColumns = [
         title: '生产日期',
         dataIndex: 'productionDate',
         required: true,
-        width: 200
+        width: 200,
+        editable: true,
+        type: 'date'
     },
     {
-        title: '保质期',
+        title: '保质期(天)',
         dataIndex: 'shilfLife',
         required: true,
-        width: 200
+        width: 200,
+        editable: true,
+    },
+    {
+        title: '签收数量',
+        dataIndex: 'receivNums',
+        width: 150,
+        required: true
+    },
+    {
+        title: '存储库位',
+        dataIndex: 'storehouseInfo',
+        width: 150,
+        required: true
     },
     {
         title: '备注',

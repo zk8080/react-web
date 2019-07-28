@@ -222,7 +222,7 @@ class Index extends Component {
                                                 message: '必填'
                                             }
                                         ],
-                                        initialValue: false
+                                        initialValue: 0
                                     })(
                                         <Select 
                                             option={[{code: 0, name: '否'},

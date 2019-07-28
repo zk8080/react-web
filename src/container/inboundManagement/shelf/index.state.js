@@ -63,10 +63,10 @@ class State {
         this.visible = !this.visible;
     }
 
-    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
-    @observable isAdd = false;
-    @action setIsAdd = (bol = false) => {
-        this.isAdd = bol;
+    // 详情弹窗状态标识，从查看进入还是上架和审核进入 查看：0; 上架：1; 审核：2;
+    @observable isDetail = 0;
+    @action setIsDetail = (str) => {
+        this.isDetail = str;
     }
 
     // 表单编辑数据
@@ -80,69 +80,56 @@ class State {
     @action setEditTable = (arr = []) => {
         this.editTable = arr;
     }
-    
-    // 详情弹窗是否可编辑
-    @observable disabled = true;
-    @action toggleDisabled = (bol = false) => {
-        this.disabled = bol;
+
+    // 保存采购单商品列表数据
+    @action handleProductSave = (row) => {
+        const newData = toJS(this.editTable);
+        const index = newData.findIndex(item => row.id === item.id);
+        const item = newData[index];
+        newData.splice(index, 1, {
+            ...item,
+            ...row
+        });
+        this.setEditTable(newData);
+    };
+
+    // 当前选中采购单数据
+    @observable curDataInfo = {};
+    @action setCurDataInfo = (obj = {}) => {
+        this.curDataInfo = obj;
     }
 
-    // 新增按钮
-    @action addClick = () => {
-        this.setEditForm();
-        this.setIsAdd(true);
-        this.toggleDisabled(false);
-        this.toggleVisible();
+    // 当前选中的商品信息
+    @observable curProductInfo = {};
+    @action setCurProductInfo = (obj = {}) => {
+        this.curProductInfo = obj;
     }
 
-    // 点击修改
-    @action editClick = (record) => {
-        this.toggleDisabled(true);
-        this.setIsAdd(false);
+    // 点击查看
+    @action detailClick = async (record) => {
+        this.setIsDetail('0');
         this.setEditForm(record);
+        this.setCurDataInfo(record);
         this.setEditTable(record.detailList);
         this.toggleVisible();
     }
 
-    // 保存
-    @action saveData = async (obj) => {
-        let res;
-        if(this.isAdd){
-            res = await Service.addProduct(obj);
-        }else{
-            res = await Service.editProduct(obj);
-        }
-        try{
-            if(res.data.code === 0){
-                message.success(res.data.msg);
-                this.toggleVisible();
-                this.getProductList();
-            }else{
-                message.error(res.data.msg);
-            }
-        }
-        catch(e){
-            console.log(e);
-        }
+    // 点击上架
+    @action shelfModal = async (record) => {
+        this.setIsDetail('1');
+        this.setEditForm(record);
+        this.setCurDataInfo(record);
+        this.setEditTable(record.detailList);
+        this.toggleVisible();
     }
 
-    // 删除
-    @action deleteClick = async (record) => {
-        const params = {
-            id: record.id
-        };
-        const res = await Service.delete(params);
-        try{
-            if(res.data.code === 0){
-                message.success(res.data.msg);
-                this.getTableList();
-            }else{
-                message.error(res.data.msg);
-            }
-        }
-        catch(e){
-            console.log(e);
-        }
+    // 点击列表审核按钮
+    @action auditClick = (record) => {
+        this.setIsDetail('2');
+        this.setEditForm(record);
+        this.setCurDataInfo(record);
+        this.setEditTable(record.detailList);
+        this.toggleVisible();
     }
 
     // 上架弹窗显示标识
@@ -151,9 +138,20 @@ class State {
         this.shelfVisible = bol;
     }
 
+    // 点击上架
+    @action shelfClick = (record) => {
+        this.setCurProductInfo(record);
+        this.setShelfVisible(true);
+        this.toggleVisible();
+        this.setEditStoreList([]);
+        this.getRecommendStore();
+    }
+
     // 关闭弹窗
     @action closeShelfVisible = () => {
         this.setShelfVisible(false);
+        this.toggleVisible();
+        this.setCurProductInfo({});
     }
 
     // 推荐库位列表
@@ -164,12 +162,116 @@ class State {
 
     // 查询推荐库位
     @action getRecommendStore = async () => {
-        const res = await Service.getRecommendStore({});
+        const curData = toJS(this.curDataInfo);
+        const params = {
+            customerCode: curData.customerCode
+        };
+        const res = await Service.getRecommendStore(params);
         try{
             if(res.data.code === 0){
-                const {records} = res.data.data;
-                this.setRecommendStoreList(records);
+                const {data} = res.data;
+                this.setRecommendStoreList(data);
             }else{
+                message.error(res.data.msg);
+                this.setRecommendStoreList([]);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 填写的库位数据
+    @observable editStoreList = [];
+    @action setEditStoreList = (arr = []) => {
+        this.editStoreList = arr;
+    }
+
+    // 删除库位列表
+    @action deleteEditTable = (record) => {
+        const dataSource = toJS(this.editStoreList);
+        const newData = dataSource.filter(item => item.key !== record.key);
+        this.setEditStoreList(newData);
+    }
+
+    // 保存库位列表
+    @action handleSave = (row, key, option) => {
+        const newData = toJS(this.editStoreList);
+        const index = newData.findIndex(item => row.key === item.key);
+        const item = newData[index];
+        //选择库位时 保存库位编码和库位id
+        let obj = {};
+        if(key == 'storeCode' && option){
+            const { storehouseId, storeCode } = option.props.att;
+            obj = {
+                storehouseId,
+                storeCode
+            };
+        }
+        newData.splice(index, 1, {
+            ...item,
+            ...row,
+            ...obj
+        });
+        this.setEditStoreList(newData);
+    };
+
+    @observable count = 0;
+
+    // 新增一行库位数据
+    @action handleAdd = () => {
+        const dataSource = toJS(this.editStoreList);
+        const newData = {
+            key: this.count,
+            storehouseId: null,
+            num: null
+        };
+        this.count ++;
+        this.setEditStoreList([...dataSource, newData]);
+    }
+
+    // 库位弹窗确认按钮
+    @action submitStoreList = () => {
+        // 当前商品信息
+        const curProduct = toJS(this.curProductInfo);
+        const editTable = toJS(this.editTable);
+        //库位信息
+        const storeList = toJS(this.editStoreList);
+        // 库位id+数量
+        const storehouseInfoIdArr = storeList.map(item => `${item.storehouseId}:${item.num}`);
+        const storehouseInfoIdStr = storehouseInfoIdArr.join(';');
+        // 库位编码+数量
+        const storehouseInfoArr = storeList.map(item => `${item.storeCode}:${item.num}`);
+        const storehouseInfoStr = storehouseInfoArr.join(';');
+        const index = editTable.findIndex(item => item.id === curProduct.id);
+        console.log(storehouseInfoIdStr, '---storehouseInfoIdStr---');
+        console.log(storehouseInfoStr, '---storehouseInfoStr---');
+        editTable.splice(index, 1, {
+            ...curProduct,
+            ...{
+                storehouseInfoId: storehouseInfoIdStr,
+                storehouseInfo: storehouseInfoStr
+            }
+        });
+        this.setEditTable(editTable);
+        this.closeShelfVisible();
+    }
+
+    // 提交
+    @action saveData = async (obj) => {
+        const params = {
+            ...obj,
+            detailList: toJS(this.editTable)
+        };
+        const res = await Service.confirmReceive(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.toggleVisible();
+                this.getTableList();
+            }else if(res.data.code == '00'){
+                message.warning(res.data.msg);
+            }else {
                 message.error(res.data.msg);
             }
         }
@@ -178,11 +280,46 @@ class State {
         }
     }
 
-    // 点击上架
-    @action shelfClick = async (record) => {
-        this.setShelfVisible(true);
+    // 审核弹窗标识
+    @observable auditVisible = false;
+    @action setAuditVisible = (bol) => {
+        this.auditVisible = bol;
     }
 
+    // 点击审核
+    @action openAuditModal = () => {
+        this.toggleVisible();
+        this.setAuditVisible(true);
+    }
+
+    // 关闭审核按钮
+    @action closeAuditModal = () => {
+        this.setAuditVisible(false);
+        this.toggleVisible();
+    }
+
+    // 审核
+    @action auditData = async (obj) => {
+        const curData = toJS(this.curDataInfo);
+        const params = {
+            ...curData,
+            ...obj,
+            detailList: toJS(this.editTable)
+        };
+        const res = await Service.confirmReceive(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.setAuditVisible(false);
+                this.getTableList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }  
 }
 
 export default new State();

@@ -66,7 +66,7 @@ class Index extends Component {
                             })(<Input />)}
                         </FormItem>
                     </Col>
-                    <Col span={8} className='query-btn'>
+                    <Col span={16} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}

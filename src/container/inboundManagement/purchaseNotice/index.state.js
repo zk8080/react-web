@@ -107,7 +107,7 @@ class State {
         let obj = {};
         console.log(option,'optionoption');
         if(key == 'commodityName' && option){
-            let { modelNo, spec, singleUnit, barCode, singleVolume, singleWeight } = option.props.att;
+            const { modelNo, spec, singleUnit, barCode, singleVolume, singleWeight } = option.props.att;
             obj = {
                 modelNo, 
                 spec,
@@ -115,7 +115,7 @@ class State {
                 barCode: barCode,
                 volume: singleVolume,
                 weight: singleWeight
-            }
+            };
         }
         newData.splice(index, 1, {
             ...item,
@@ -319,7 +319,7 @@ class State {
 
     // 商品详情保存按钮
     @action productSave = async (obj = {}) => {
-        let newData = toJS(this.editTable);
+        const newData = toJS(this.editTable);
         const item = newData[this.skuIndex];
         //如果是选择的商品名称，那就自动带出型号、规格、单位、商品条码、体积、重量
         const { skuName, modelNo, spec, singleUnit, barCode, singleVolume, singleWeight } = obj;
@@ -331,7 +331,7 @@ class State {
             barCode: barCode,
             volume: singleVolume,
             weight: singleWeight
-        }
+        };
         
         newData[this.skuIndex] = {
             ...item,
@@ -351,11 +351,11 @@ class State {
 
     // 查询商品详情
     @action getProductList = async (value = {}) => {
-        let params = {
+        const params = {
             ...formUtils.formToParams(this.detailFormData),
             ...this.skupageInfo,
             search: value
-        }
+        };
         const res = await Service.getProductList(params);
         try{
             if(res.data.code === 0){

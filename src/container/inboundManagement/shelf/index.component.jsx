@@ -10,6 +10,7 @@ import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
 import ShelfComponent from './components/shelfComponent/index.component';
+import AuditModal from './components/auditModal/index.component';
 
 @observer
 class Index extends Component {
@@ -25,10 +26,6 @@ class Index extends Component {
 
     componentDidMount() {
         State.getTableList();
-    }
-
-    saveClick = (obj) => {
-        State.saveData(obj);
     }
 
     componentWillUnmount() {
@@ -62,16 +59,29 @@ class Index extends Component {
                     {...toJS(State)}
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
-                    onOk={this.saveClick}
+                    onOk={State.saveData}
                     detailData={toJS(State.editForm)}
                     setDetailData={State.setEditForm}
-                    disabled={State.disabled}
-                    toggleDisabled={State.toggleDisabled}
                     dataSource={toJS(State.editTable)}
+                    isDetail={State.isDetail}
+                    shelf={State.shelfClick}
+                    handleSave={State.handleProductSave}
+                    auditClick={State.openAuditModal}
                 />
                 <ShelfComponent
                     visible={State.shelfVisible}
                     cancelClick={State.closeShelfVisible}
+                    storeList={toJS(State.recommendStoreList)}
+                    dataSource={toJS(State.editStoreList)}
+                    handleAdd={State.handleAdd}
+                    handleDelete={State.deleteEditTable}
+                    handleSave={State.handleSave}
+                    onOk={State.submitStoreList}
+                />
+                <AuditModal
+                    visible={State.auditVisible}
+                    cancelClick={State.closeAuditModal}
+                    onOk={State.auditData}
                 />
             </div>
         );

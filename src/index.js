@@ -11,7 +11,6 @@ import {
 } from 'react-router-dom';
 import {Provider} from 'mobx-react';
 import '@deploy/axios';
-import './mock/mock.js';
 import appStore from '@deploy/store';
 import loadComponent from '@deploy/router/loadable';
 import { createBrowserHistory } from 'history';

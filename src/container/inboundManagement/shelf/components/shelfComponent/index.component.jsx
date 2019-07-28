@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { Modal, Select, Table } from '@pubComs';
-import { Form, Row, Col, Input, Button } from 'antd';
+import { Modal, EditTable } from '@pubComs';
 import './index.less';
+import {Button} from 'antd';
 import {colums} from './index.data';
 
-const FormItem = Form.Item;
-
-
-@Form.create()
 class Index extends Component {
     constructor(props){
         super(props);
@@ -27,16 +23,7 @@ class Index extends Component {
         },
         selectedRowKeys: []
     }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                this.props.getData(values);
-            }
-        });
-    };
-
+    
     onCancel = () => {
         this.setState({
             selectedRowKeys: [],
@@ -54,9 +41,16 @@ class Index extends Component {
         });
     }
 
+    handleDelete = () => {
+        const record = this.state.selectedRows[0];
+        this.props.handleDelete(record);
+        this.setState({
+            selectedRowKeys: []
+        });
+    }
+
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const { visible,  productList } = this.props;
+        const { visible,  dataSource } = this.props;
         this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
         return (
             <div>
@@ -70,24 +64,25 @@ class Index extends Component {
                     width='1100px'
                     onOk={this.onOkClick}
                 >
-                    <Form className='query-component'>
-                        <Row>
-                            <Col span={8}>
-                                <FormItem label='库位'>
-                                    {getFieldDecorator('skuName')(
-                                        <Input/>
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='上架数量'>
-                                    {getFieldDecorator('barCode')(
-                                        <Input />
-                                    )}
-                                </FormItem>
-                            </Col>
-                        </Row>
-                    </Form>
+                    <div className='opreat-btn'>
+                        <Button
+                            type='primary'
+                            onClick={this.props.handleAdd}
+                        >新增行</Button>
+                        <Button
+                            type='primary'
+                            onClick={this.handleDelete}
+                        >删除行</Button>
+                    </div>
+                    <EditTable
+                        columns={colums}
+                        dataSource={dataSource}
+                        handleSave={this.props.handleSave}
+                        pagination={false}
+                        rowSelection={this.rowSelection}
+                        optionarr={this.props.storeList}
+                        rowKey='key'
+                    />
                 </Modal>
             </div>
         );

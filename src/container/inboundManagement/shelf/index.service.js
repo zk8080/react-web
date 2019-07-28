@@ -8,12 +8,13 @@ const addProductUrl = '/commoditySku/add';
 const editProductUrl = '/commoditySku/update';
 // 查询商品url
 const productListUrl = '/commoditySku/loadGrid';
-// 删除url
-const deleteUrl = '/warehousing/purchaseBill/delete';
 // 查询商家url
 const customerListUrl = '/customer/loadGrid';
 // 查询推荐库位
 const getRecommendStoreUrl = '/storehouseConfig/recommendStore';
+// 上架提交url
+const confirmReceiveUrl = '/warehousing/purchaseBill/confirm';
+
 
 class Service {
 
@@ -58,7 +59,9 @@ class Service {
 
     getRecommendStore = req => {
         return new Promise((resolve, reject) => {
-            axios.post(getRecommendStoreUrl, req)
+            axios.get(getRecommendStoreUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })
@@ -68,23 +71,22 @@ class Service {
                 });
         });
     }
-
-    delete = req => {
-        return new Promise((resolve, reject) => {
-            axios.get(`${deleteUrl}/${req.id}`, {})
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
     getCustomerList = req => {
         return new Promise((resolve, reject) => {
             axios.post(customerListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    confirmReceive = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(confirmReceiveUrl, req)
                 .then(res => {
                     resolve(res);
                 })

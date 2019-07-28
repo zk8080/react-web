@@ -15,7 +15,7 @@ const noFoodColumns = [
         dataIndex: 'commodityName',
         width: 200,
         render: (text, record, index) => {
-            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>
+            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>;
         }
         // editable: true,
         // required: true,
@@ -100,7 +100,7 @@ const foodColumns = [
         dataIndex: 'commodityName',
         width: 200,
         render: (text, record, index) => {
-            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>
+            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>;
         }
         // editable: true,
         // required: true,
@@ -172,7 +172,7 @@ const foodColumns = [
         type: 'date'
     },
     {
-        title: '保质期',
+        title: '保质期(天)',
         dataIndex: 'shilfLife',
         editable: true,
         required: true,

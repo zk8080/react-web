@@ -59,13 +59,14 @@ class Index extends Component {
                     </Col>
                 </Row>
                 <Row>
-                <Col span={8}>
+                    <Col span={8}>
                         <FormItem label="制单日期" hasFeedback>
                             {getFieldDecorator('name', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
+                    <Col span={8}></Col>
                     <Col span={8} className='query-btn'>
                         <Button
                             type="primary"

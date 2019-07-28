@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, EditTable, Select } from '@pubComs';
-import { Form, Row, Col, Input, Button, DatePicker } from 'antd';
+import { Form, Row, Col, Input, Button, DatePicker, message } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
@@ -36,25 +36,37 @@ class Index extends Component {
         };
     }
 
-    handleDelete = () => {
-        const record = this.state.selectedRows[0];
-        this.props.handleDelete(record);
-        this.setState({
-            selectedRowKeys: []
-        });
-    }
-
     onOkClick = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 this.props.onOk({...this.props.detailData, ...values});
+                this.setState({
+                    selectedRowKeys: [],
+                    selectedRows: []
+                });
             }
         });
     }
 
-    toggleDisabled = () => {
-        this.props.toggleDisabled(false);
+    auditClick = () => {
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                this.props.auditClick();
+                this.setState({
+                    selectedRowKeys: [],
+                    selectedRows: []
+                });
+            }
+        });
+    }
+
+    cancelClick = () => {
+        this.props.cancelClick();
+        this.setState({
+            selectedRowKeys: [],
+            selectedRows: []
+        });
     }
 
     rowSelection = {
@@ -69,35 +81,52 @@ class Index extends Component {
     }
 
     changeFood = (value) => {
-        if(value === '0'){
+        if(value == '0'){
             this.setState({
+                isFood: value,
                 columns: noFoodColumns
             });
         }else{
             this.setState({
+                isFood: value,
                 columns: foodColumns
             });
         }
     }
 
-    shelf = (record) => {
+    componentWillReceiveProps(nextProps){
+        if(nextProps.detailData){
+            const value = nextProps.detailData.isFood;
+            if(value != this.state.isFood){
+                this.changeFood(value);
+            }
+        }
+    }
+
+    shelf = () => {
+        const {selectedRows} = this.state;
+        if( selectedRows.length < 1 ){
+            message.warning('请选择商品！');
+            return;
+        }
+        const record = selectedRows[0];
         this.props.shelf(record);
     }
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, dataSource } = this.props;
+        const { visible, dataSource, isDetail} = this.props;
         this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
         return (
             <div>
                 <Modal
                     title='入库单'
                     visible={visible}
-                    className='detail-product'
-                    okText={disabled ? '修改': '确认'}
+                    className={isDetail? 'detail-product': 'detail-product hidden-footer'}
+                    okText={'提交'}
                     cancelText='取消'
-                    onCancel={cancelClick}
-                    onOk={disabled ? this.toggleDisabled: this.onOkClick}
+                    onCancel={this.cancelClick}
+                    onOk={this.onOkClick}
                 >
                     <Form className='query-component'>
                         <h1>入库单</h1>
@@ -122,7 +151,7 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
@@ -138,7 +167,7 @@ class Index extends Component {
                                         ]
                                     })(
                                         <DatePicker 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
@@ -154,7 +183,7 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
@@ -170,7 +199,7 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
@@ -186,14 +215,14 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
+                                            disabled
                                         />
                                     )}
                                 </FormItem>
                             </Col>
                             <Col span={8}>
                                 <FormItem label='食品'>
-                                    {getFieldDecorator('food', {
+                                    {getFieldDecorator('isFood', {
                                         rules: [
                                             {
                                                 required: true,
@@ -205,7 +234,7 @@ class Index extends Component {
                                         <Select 
                                             option={[{code: '0', name: '否'},
                                                 {code: '1', name: '是'}]}
-                                            disabled={disabled}
+                                            disabled
                                             valueCode='code'
                                             valueName='name'
                                             onChange={this.changeFood}
@@ -215,14 +244,20 @@ class Index extends Component {
                             </Col>
                         </Row>
                         <div className='opreat-btn'>
-                            <Button
-                                type='primary'
-                                onClick={this.shelf}
-                            >上架</Button>
-                            <Button
-                                type='primary'
-                                
-                            >审核完成</Button>
+                            {
+                                isDetail == '1' ? <Button
+                                    type='primary'
+                                    onClick={this.shelf}
+                                >上架</Button>
+                                : null
+                            }
+                            {
+                                isDetail == '2'? <Button
+                                    type='primary'
+                                    onClick={this.auditClick}
+                                >审核</Button>
+                                : null
+                            }
                         </div>
                         <EditTable
                             columns={this.state.columns}

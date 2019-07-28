@@ -28,12 +28,20 @@ class EditableCell extends React.Component {
         });
     };
 
-    save = (type, key, e, option) => {
+    save = (type, e) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
             if (error) {
                 return;
             }
+            this.toggleEdit();
+            handleSave({ ...record, ...values });
+        });
+    };
+
+    changeSelect = (type, key, e, option) => {
+        const { record, handleSave } = this.props;
+        this.form.validateFields((error, values) => {
             this.toggleEdit();
             handleSave({ ...record, ...values }, key, option);
         });
@@ -85,9 +93,9 @@ class EditableCell extends React.Component {
                             initialValue: record[dataIndex],
                         })(<Select 
                                 ref={node => (this.input = node)} 
-                                onPressEnter={this.save.bind(this, 'select', dataIndex)} 
-                                //onBlur={this.save.bind(this, 'select', dataIndex)} 
-                                onChange={this.save.bind(this, 'select', dataIndex)}
+                                // onPressEnter={this.save.bind(this, 'select', dataIndex)} 
+                                onBlur={this.save.bind(this, 'select', dataIndex)} 
+                                onChange={this.changeSelect.bind(this, 'select', dataIndex)}
                                 option={optionarr}
                                 valueCode={code}
                                 valueName={name}
