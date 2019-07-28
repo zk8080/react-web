@@ -59,7 +59,7 @@ class State {
         this.editForm = obj;
     }
 
-    
+
     // 新增按钮
     @action addClick = () => {
         this.setEditForm();
@@ -206,7 +206,7 @@ class State {
         catch(e){
             console.log(e);
         }
-    }    
+    }
 
     // projectList点击确定按钮，确定商家与商品间的关联关系
     @action productListSave = () => {
@@ -219,7 +219,7 @@ class State {
     @action toggleDetailVisible = () => {
         this.detailVisible = !this.detailVisible;
     }
-    
+
     // 详情弹窗取消按钮
     @action cancelProdiuct = () => {
         this.toggleDetailVisible();
@@ -231,7 +231,7 @@ class State {
     @action setDetailFormData = (obj = {}) => {
         this.detailFormData = obj;
     }
-    
+
 
     // 商品详情保存按钮(批量选择，将选择的插入到商品列表中)
     @action productSave = async (obj = []) => {
@@ -327,12 +327,13 @@ class State {
     @action bindStore = async (obj) => {
         const customerInfo = toJS(this.curCustomerInfo);
         const params = {
-            customerCode: customerInfo.id,
+            customerId: customerInfo.id,
             ...obj
         };
         const res = await Service.batchBind(params);
         try{
             if(res.data.code === 0){
+
                 console.log( res, '----res----' );
             }else{
                 message.error(res.data.msg);
