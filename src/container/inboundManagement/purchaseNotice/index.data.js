@@ -13,6 +13,28 @@ const colums = [
         width: 200
     },
     {
+        title: '状态',
+        dataIndex: 'billState',
+        render: (text) => {
+            if(text == 'save'){
+                return <span>保存</span>;
+            }
+            if(text == 'recevieing'){
+                return <span>待收货</span>;
+            }
+            if(text == 'recevied'){
+                return <span>已收货</span>;
+            }
+            if(text == 'stored'){
+                return <span>已入库</span>;
+            }
+            if(text == 'approved'){
+                return <span>已审核</span>;
+            }
+        },
+        width: 150
+    },
+    {
         title: '采购日期',
         dataIndex: 'purchaseDate',
         width: 200

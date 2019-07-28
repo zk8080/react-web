@@ -57,7 +57,7 @@ const colums = [
     {
         title: '地址',
         dataIndex: 'address',
-        width: 80
+        width: 200
     },
     {
         title: '操作',

@@ -58,7 +58,7 @@ class Index extends Component {
                     columns={colums}
                     rowKey='id'
                     bordered
-                    scroll={{x: 1500}}
+                    scroll={{x: 1650}}
                 />
                 <DetailComponent
                     {...toJS(State)}

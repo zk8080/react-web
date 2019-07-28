@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, EditTable, Select } from '@pubComs';
-import { Form, Row, Col, Input, Button, DatePicker } from 'antd';
+import { Form, Row, Col, Input, Button, DatePicker, Table } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
@@ -256,15 +256,24 @@ class Index extends Component {
                                 onClick={this.props.handleReceipt}
                             >收货</Button> */}
                         </div>
-                        <EditTable
-                            columns={this.state.columns}
-                            dataSource={dataSource}
-                            handleSave={this.props.handleSave}
-                            pagination={false}
-                            rowSelection={this.rowSelection}
-                            optionarr={this.props.productList}
-                            rowKey='key'
-                        />
+                        {
+                            disabled ? <Table
+                                columns={this.state.columns}
+                                dataSource={dataSource}
+                                pagination={false}
+                                rowSelection={this.rowSelection}
+                                rowKey='key'
+                                bordered
+                            />: <EditTable
+                                    columns={this.state.columns}
+                                    dataSource={dataSource}
+                                    handleSave={this.props.handleSave}
+                                    pagination={false}
+                                    rowSelection={this.rowSelection}
+                                    optionarr={this.props.productList}
+                                    rowKey='key'
+                                />
+                        }
                         <Row>
                             <Col span={8}>
                                 <FormItem label='制单人'>

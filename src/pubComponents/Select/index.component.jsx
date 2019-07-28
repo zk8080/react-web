@@ -7,11 +7,10 @@ class Index extends Component {
     render() {
         const optionArr = this.props.option || [];
         const {value} = this.props;
-        console.log(value, '----value---');
         return (
             <Select
                 {...this.props}
-                value={value !== null && value !== undefined ? String(value): value}
+                value={value !== null && value !== undefined && !Array.isArray(value) ? String(value): value}
                 allowClear
             >
                 {

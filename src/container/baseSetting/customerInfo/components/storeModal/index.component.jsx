@@ -16,8 +16,6 @@ const mapPropsToFields = (props) => {
 };
 
 @Form.create({
-    // mapPropsToFields,
-    // onFieldsChange
 })
 class Index extends Component {
 
