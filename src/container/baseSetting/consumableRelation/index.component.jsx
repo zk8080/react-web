@@ -26,10 +26,6 @@ class Index extends Component {
         State.saveData(obj);
     }
 
-    handleTableChange = (pagination) => {
-        console.log(pagination, '-----pagination----');
-    }
-
     render() {
         return (
             <div>
@@ -37,7 +33,7 @@ class Index extends Component {
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getCustomerList}
                     />
                 </Form>
                 <HeadComponent
@@ -45,8 +41,9 @@ class Index extends Component {
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getCustomerList}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
-                    onChange={this.handleTableChange}
                     rowKey='id'
                 />
                 <DetailComponent

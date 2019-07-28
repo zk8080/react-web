@@ -61,6 +61,10 @@ class Index extends Component {
                                 option={pubFunction.getDictSelect('CK-GN')}
                                 valueCode='code'
                                 valueName='name'
+                                showSearch
+                                filterOption={(input, option) =>
+                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
                             />)}
                         </FormItem>
                     </Col>

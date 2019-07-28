@@ -35,10 +35,12 @@ const colums = [
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 200,
+        width: 300,
+        fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
+                <span onClick={State.dealStore.bind(this, record)}>分配库位</span>
                 <span onClick={State.relateGoods.bind(this, record)}>配置商品</span>
                 <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;

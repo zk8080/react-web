@@ -48,6 +48,8 @@ class Index extends Component {
                     columns={colums}
                     bordered
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getUserList}
+                    pagination={toJS(State.pageInfo)}
                 />
                 <DetailComponent
                     visible={State.visible}

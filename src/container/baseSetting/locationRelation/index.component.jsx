@@ -52,6 +52,8 @@ class Index extends Component {
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getTableList}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
                     rowKey='id'
                     scroll={{x: 1320}}

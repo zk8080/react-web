@@ -31,7 +31,7 @@ class State {
     //获取表格数据
     @action getQueryData = async (page) => {
         const params = {
-            ...formUtils.formToParams(this.queryForm),
+            search: formUtils.formToParams(this.queryForm),
             ...this.pageInfo,
             ...page
         };
@@ -46,9 +46,8 @@ class State {
                     total
                 });
             }else{
-                console.log(res.data.msg);
+                message.error(res.data.msg);
             }
-            return res && res.data;
         }
         catch(e){
             console.log(e);

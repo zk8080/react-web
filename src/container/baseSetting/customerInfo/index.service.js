@@ -15,7 +15,12 @@ const batchBindCommoditiesUrl = '/customer/batchBindCommodities';
 // 删除商品
 const deleteProductUrl = '/customer/batchUnbindCommodities';
 //查询客户未关联的商品
-const getAllProductUrl = '/customer/notBindCommodities';
+const getCurProductUrl = '/customer/notBindCommodities';
+// 查询未关联客户的库位
+const getNocustomerStoreUrl = '/storehouse/comboGridNotBind';
+// 批量关联客户
+const batchBindUrl = '/storehouseConfig/batchBind';
+
 
 class Service {
     getCustomerList = req => {
@@ -109,9 +114,35 @@ class Service {
         });
     }
 
-    getAllProduct = req => {
+    getCurProduct = req => {
         return new Promise((resolve, reject) => {
-            axios.post(getAllProductUrl, req)
+            axios.post(getCurProductUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+    
+    getNocustomerStore = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(getNocustomerStoreUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    batchBind = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(batchBindUrl, req)
                 .then(res => {
                     resolve(res);
                 })

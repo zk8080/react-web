@@ -27,7 +27,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                this.props.getData();
             }
         });
     };
@@ -46,6 +46,10 @@ class Index extends Component {
                                 option={customerList}
                                 valueCode='id'
                                 valueName='customerName'
+                                showSearch
+                                filterOption={(input, option) =>
+                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
                             />)}
                         </FormItem>
                     </Col>

@@ -7,7 +7,6 @@ import './index.less';
 import { toJS } from 'mobx';
 import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
-import DetailComponent from './components/detailComponent/index.component';
 
 @observer
 class Index extends Component {
@@ -40,15 +39,6 @@ class Index extends Component {
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
-                />
-                <DetailComponent
-                    visible={State.visible}
-                    cancelClick={State.toggleVisible}
-                    onOk={this.saveClick}
-                    detailData={toJS(State.editForm)}
-                    setDetailData={State.setEditForm}
-                    disabled={State.disabled}
-                    toggleDisabled={State.toggleDisabled}
                 />
             </div>
         );

@@ -1,6 +1,7 @@
 import {observable, action} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 class State {
 
@@ -20,9 +21,24 @@ class State {
     @action setMenuList = (arr = []) => {
         this.menuList = arr;
     }
+
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }    
     
     // 查询菜单列表
-    @action getMenuList = async (params = {}) => {
+    @action getMenuList = async (page) => {
+        const params = {
+            search: formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...page
+        };
         const res = await Service.getMenuList(params);
         try{
             if(res.data.code === 0){

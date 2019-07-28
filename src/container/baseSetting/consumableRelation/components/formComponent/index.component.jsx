@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
 import {formUtils} from '@utils';
+import {Select} from '@pubComs';
 
 const FormItem = Form.Item;
 
@@ -34,25 +35,43 @@ class Index extends Component {
 
     }
 
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.getData();
+            }
+        });
+    };
+
     componentWillUnmount() {
 
     }
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {productList} = this.props;
         return (
             <div className='query-component'>
                 <Row>
                     <Col span={8}>
                         <FormItem label="商品" hasFeedback>
-                            {getFieldDecorator('password', {
+                            {getFieldDecorator('customerName', {
                                 rules: [],
-                            })(<Input />)}
+                            })(<Select 
+                                option={productList}
+                                valueCode='skuName'
+                                valueName='skuName'
+                                showSearch
+                                filterOption={(input, option) =>
+                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="耗材" hasFeedback>
-                            {getFieldDecorator('password', {
+                        <FormItem label="商品条形码" hasFeedback>
+                            {getFieldDecorator('barCode', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
@@ -60,6 +79,7 @@ class Index extends Component {
                     <Col span={8} className='query-btn'>
                         <Button
                             type="primary"
+                            onClick={this.handleSubmit}
                         >查询</Button>
                     </Col>
                 </Row>

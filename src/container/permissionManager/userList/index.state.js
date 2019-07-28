@@ -1,6 +1,7 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 class State {
 
@@ -22,9 +23,24 @@ class State {
         this.roleList = arr;
     }
 
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+    
     // 获取用户列表
-    @action getRoleList = async (params = {}) => {
-        const res = await Service.getRoleList({});
+    @action getRoleList = async (page) => {
+        const params = {
+            search: formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...page
+        };
+        const res = await Service.getRoleList(params);
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
