@@ -1,17 +1,26 @@
 import axios from 'axios';
 
 // 查询url
-const productListUrl = '/warehousing/purchaseBill/selectList';
+const tableListUrl = '/warehousing/purchaseBill/selectList';
 // 新增url
-const addProductUrl = '/commoditySku/add';
+const addProductUrl = '/warehousing/purchaseBill/add';
 // 修改url
-const editProductUrl = '/commoditySku/update';
+const editProductUrl = '/warehousing/purchaseBill/update';
+// 查询商品url
+const productListUrl = '/commoditySku/loadGrid';
+// 删除url
+const deleteUrl = '/warehousing/purchaseBill/delete';
+// 查询商家url
+const customerListUrl = '/customer/loadGrid';
+// 收货确认url
+const confirmReceiveUrl = '/warehousing/purchaseBill/confirm';
+
 
 class Service {
 
     getTableList = req => {
         return new Promise((resolve, reject) => {
-            axios.post(productListUrl, req)
+            axios.post(tableListUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -48,6 +57,57 @@ class Service {
         });
     }
 
+    getProductList = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(productListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    delete = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(`${deleteUrl}/${req.id}`, {})
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getCustomerList = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(customerListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    confirmReceive = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(confirmReceiveUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
 }
 
 export default new Service();

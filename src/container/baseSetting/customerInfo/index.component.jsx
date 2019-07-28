@@ -11,6 +11,7 @@ import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
 import ProductList from './components/productList/index.component';
 import ProductDetail from './components/productDetail/index.component';
+import StoreModal from './components/storeModal/index.component';
 
 @observer
 class Index extends Component {
@@ -22,13 +23,8 @@ class Index extends Component {
 
     componentDidMount() {
         State.getCustomerList();
-        State.getAllProduct();
+        State.getStoreList();
     }
-
-    handleTableChange = (pagination) => {
-        console.log(pagination, '-----pagination----');
-    }
-
     render() {
         return (
             <div>
@@ -44,8 +40,9 @@ class Index extends Component {
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getQueryData}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
-                    onChange={this.handleTableChange}
                     rowKey='id'
                 />
                 <DetailComponent
@@ -60,7 +57,7 @@ class Index extends Component {
                 <ProductList
                     visible={State.productVisible}
                     cancelClick={State.toggleProductVisible}
-                    onOk={State.toggleProductVisible}
+                    onOk={State.productListSave}
                     customerInfo={toJS(State.curCustomerInfo)}
                     addClick={State.addProduct}
                     tableList={toJS(State.productList)}
@@ -69,8 +66,16 @@ class Index extends Component {
                     visible={State.detailVisible}
                     cancelClick={State.cancelProdiuct}
                     onOk={State.productSave}
-                    getData={State.getAllProduct}
-                    productList={toJS(State.allProductList)}
+                    getData={State.getCurProduct}
+                    productList={toJS(State.curProduct)}
+                    queryData={toJS(State.detailFormData)}
+                    setQueryData={State.setDetailFormData}
+                />
+                <StoreModal
+                    visible={State.storeVisible}
+                    cancelClick={State.closeStoreModal}
+                    storeList={toJS(State.storeList)}
+                    onOk={State.bindStore}
                 />
             </div>
         );

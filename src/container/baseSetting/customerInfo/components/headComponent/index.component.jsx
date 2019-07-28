@@ -41,10 +41,10 @@ class Index extends Component {
                 >
                     新增
                 </Button>
-                <DownLoad
+                {/* <DownLoad
                     path='/excel/exportUser'
                     params={{a: 1}}
-                />
+                /> */}
             </div>
         );
     }

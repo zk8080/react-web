@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Button, Row, Col, Form, Input, message} from 'antd';
 import { Modal } from '@pubComs';
 import './index.less';
+import stocktakingState from '../../../../index.state';
+import inventoryInfoState from '../../../inventoryInfo/index.state';
 const FormItem = Form.Item;
 
 class Index extends Component {
@@ -16,9 +18,29 @@ class Index extends Component {
 
     //点击审批按钮（打开审批弹窗）
     approve = () => {
-        this.setState({
-            visible: true
-        })
+        let flag = false;
+        let data = this.props.checkRecordList || [];
+        console.log(data,'data');
+        if(data && data.length == 0){
+            message.warning('暂无数据可审批');
+            return;
+        }else if(data && data.length > 0){
+            data.map(item => {
+                if(item.billState != 'approving'){
+                    flag = true;
+                }
+            })
+        }
+        console.log(flag,'flag');
+        if(!flag){
+            this.setState({
+                visible: true
+            })
+        }else{
+            message.warning('只有 ’审批中‘ 的数据可进行审批，请重新选择');
+            return;
+        }
+        
     }
 
     //取消审批弹窗
@@ -27,6 +49,12 @@ class Index extends Component {
             visible: false,
             advice: 'approved'
         })
+    }
+
+    //点击返回按钮
+    back = () => {
+        stocktakingState.setShow(1);
+        inventoryInfoState.getTableList(inventoryInfoState.queryData);
     }
 
     // 审批提交
@@ -71,6 +99,12 @@ class Index extends Component {
                     onClick={this.approve}
                 >
                     审批
+                </Button>
+                <Button
+                    type='primary'
+                    onClick={this.back}
+                >
+                    返回
                 </Button>
                 <Modal
                     title='审批'

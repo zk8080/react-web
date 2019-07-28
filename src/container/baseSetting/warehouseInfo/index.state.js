@@ -1,6 +1,7 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 
 class State {
@@ -17,15 +18,35 @@ class State {
         this.tableList = arr;
     }
 
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+
     //获取表格数据
-    @action getQueryData = async (params = {}) => {
+    @action getQueryData = async (page) => {
+        const params = {
+            search: formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...page
+        };
         const res = await Service.getQueryData(params);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
+                const {rows, current, pageSize, total} = res.data.data;
                 this.setTableList(rows);
+                this.setPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
-                console.log(res.data.msg);
+                message.error(res.data.msg);
             }
         }
         catch(e){
@@ -75,12 +96,7 @@ class State {
 
     // 保存
     @action saveData = async (obj) => {
-        let res;
-        if(this.isAdd){
-            res = await Service.addHouse(obj);
-        }else{
-            res = await Service.editHouse(obj);
-        }
+        const res = await Service.addHouse(obj);
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
@@ -116,8 +132,41 @@ class State {
     }
 
     // 停用
-    @action stopClick = (record) => {
+    @action stopClick = async (record) => {
+        const params = {
+            ids: [record.id]
+        };
+        const res = await Service.stopHouse(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getQueryData();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 
+    // 激活
+    @action activationClick = async (record) => {
+        const params = {
+            ids: [record.id]
+        };
+        const res = await Service.activatiHouse(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getQueryData();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

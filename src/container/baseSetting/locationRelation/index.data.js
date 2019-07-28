@@ -14,7 +14,7 @@ const colums = [
     },
     {
         title: '库位',
-        dataIndex: 'modelNo',
+        dataIndex: 'storeCode',
         width: 80
     },
     {
@@ -22,16 +22,11 @@ const colums = [
         dataIndex: 'storeNums',
         width: 80
     },
-    {
-        title: '库位可用量',
-        dataIndex: 'availableNums',
-        width: 150
-    },
-    {
-        title: '商品类型',
-        dataIndex: 'modelNo',
-        width: 80
-    },
+    // {
+    //     title: '库位可用量',
+    //     dataIndex: 'availableNums',
+    //     width: 150
+    // },
     {
         title: '操作',
         dataIndex: 'opreate',

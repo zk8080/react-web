@@ -1,6 +1,7 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 class State {
 
@@ -11,33 +12,40 @@ class State {
     }
 
     // 分页数据
-    @observable pageObj = {
+    @observable pageInfo = {
         current: 1,
-        size: 10
+        pageSize: 15,
+        total: 15
     }
-    @action setPageObj = (obj) => {
-        this.setPageObj = obj;
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
     }
 
-    // 表格数据
+    // 表格数据（客户档案）
     @observable tableList = [];
     @action setTableList = (arr = []) => {
         this.tableList = arr;
     }
 
-    //获取表格数据
-    @action getCustomerList = async (params = {}) => {
-        const paramsObj = {...params, ...{
-            current: 1,
-            size: 10
-        }};
-        const res = await Service.getCustomerList(paramsObj);
+    //获取表格数据（客户档案）
+    @action getCustomerList = async (page) => {
+        const params = {
+            search: formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...page
+        };
+        const res = await Service.getCustomerList(params);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
+                const {rows, current, pageSize, total} = res.data.data;
                 this.setTableList(rows);
+                this.setPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
-                console.log(res.data.msg);
+                message.error(res.data.msg);
             }
         }
         catch(e){
@@ -51,24 +59,7 @@ class State {
         this.editForm = obj;
     }
 
-    // 编辑弹窗显示标识
-    @observable visible = false;
-    @action toggleVisible = () => {
-        this.visible = !this.visible;
-    }
-
-    // 详情弹窗是否可编辑
-    @observable disabled = true;
-    @action toggleDisabled = (bol = false) => {
-        this.disabled = bol;
-    }
-
-    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
-    @observable isAdd = false;
-    @action setIsAdd = (bol = false) => {
-        this.isAdd = bol;
-    }
-
+    
     // 新增按钮
     @action addClick = () => {
         this.setEditForm();
@@ -83,28 +74,6 @@ class State {
         this.setIsAdd(false);
         this.setEditForm(record);
         this.toggleVisible();
-    }
-
-    // 保存
-    @action saveData = async (obj) => {
-        let res;
-        if(this.isAdd){
-            res = await Service.addCustomer(obj);
-        }else{
-            res = await Service.editCustomer(obj);
-        }
-        try{
-            if(res.data.code === 0){
-                message.success(res.data.msg);
-                this.toggleVisible();
-                this.getCustomerList();
-            }else{
-                message.error(res.data.msg);
-            }
-        }
-        catch(e){
-            console.log(e);
-        }
     }
 
     // 删除
@@ -126,16 +95,60 @@ class State {
         }
     }
 
-    // 当前选中的客户信息 
+    // 配置商品
+    @action relateGoods = (record) => {
+        this.toggleProductVisible();
+        this.setCurCustomerInfo(record);
+        this.getProductList();
+    }
+
+//-----------------------------新增与修改的弹窗--------------------------------------------------------------------------------------------------------------------------------------
+    // 编辑弹窗显示标识（修改弹窗是否可见）
+    @observable visible = false;
+    @action toggleVisible = () => {
+        this.visible = !this.visible;
+    }
+
+    // 详情弹窗是否可编辑（修改弹窗数据是否可修改）
+    @observable disabled = true;
+    @action toggleDisabled = (bol = false) => {
+        this.disabled = bol;
+    }
+
+    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
+    @observable isAdd = false;
+    @action setIsAdd = (bol = false) => {
+        this.isAdd = bol;
+    }
+
+    // 保存(点击修改和新增的保存按钮)
+    @action saveData = async (obj) => {
+        let res;
+        if(this.isAdd){
+            res = await Service.addCustomer(obj);
+        }else{
+            res = await Service.editCustomer(obj);
+        }
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.toggleVisible();
+                this.getCustomerList();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+//-----------------------------商品列表弹窗--------------------------------------------------------------------------------------------------------------------------------------
+
+    // 当前选中的客户信息(需要展示在商品列表中)
     @observable curCustomerInfo = {};
     @action setCurCustomerInfo = (obj = {}) => {
         this.curCustomerInfo = obj;
-    }
-
-    // 客户-商品列表
-    @observable productList = [];
-    @action setProductList = (arr = []) => {
-        this.productList = arr;
     }
 
     // 商品列表弹窗显示标识
@@ -144,16 +157,13 @@ class State {
         this.productVisible = !this.productVisible;
     }
 
-    // 点击关联商品按钮
-    @action relateGoods = (record) => {
-        this.toggleProductVisible();
-        this.setCurCustomerInfo(record);
-        this.getProductList();
+    // 客户-商品列表
+    @observable productList = [];
+    @action setProductList = (arr = []) => {
+        this.productList = arr;
     }
-
     // 查询客户-商品数据
     @action getProductList = async() => {
-        
         const params = {
             customerId: this.curCustomerInfo.id
         };
@@ -174,92 +184,21 @@ class State {
     // 商品列表弹窗 新增按钮
     @action addProduct = () => {
         this.setDetailFormData();
-        this.toggleProductDisabled(false);
         this.toggleDetailVisible();
+        this.getCurProduct();
         this.toggleProductVisible();
-        this.setIsDetailAdd(true);
     }
 
-    // 商品列表 修改按钮
-    @action updateProduct = (record) => {
-        this.setDetailFormData(record);
-        this.toggleProductDisabled(true);
-        this.toggleDetailVisible();
-        this.toggleProductVisible();
-        this.setIsDetailAdd(false);
-    }
-
-    // 商品详情弹窗标识
-    @observable detailVisible = false;
-    @action toggleDetailVisible = () => {
-        this.detailVisible = !this.detailVisible;
-    }
-
-    // 商品详情数据
-    @observable detailFormData = {};
-    @action setDetailFormData = (obj = {}) => {
-        this.detailFormData = obj;
-    }
-
-    // 详情弹窗取消按钮
-    @action cancelProdiuct = () => {
-        this.toggleDetailVisible();
-        this.toggleProductVisible();
-        this.toggleProductDisabled(true);
-    }
-
-    // 详情弹窗是否可编辑
-    @observable productDisabled = true;
-    @action toggleProductDisabled = (bol = false) => {
-        this.productDisabled = bol;
-    }
-
-    // 商品详情弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
-    @observable isDetailAdd = false;
-    @action setIsDetailAdd = (bol = false) => {
-        this.isDetailAdd = bol;
-    }
-
-    // 商品详情保存按钮
-    @action productSave = async (obj = {}) => {
-        const customerInfo = toJS(this.curCustomerInfo);
-        const params = {
-            ...obj,
-            customerId: customerInfo.id,
-            commodityCode: obj.barCode
-        };
-        let res;
-        if( this.isDetailAdd ){
-            res = await Service.addProduct(params);
-        }else{
-            res = await Service.updateProduct(params);
-        }
-        try{
-            if(res.data.code === 0){
-                this.getProductList();
-                this.toggleDetailVisible();
-                this.toggleProductVisible();
-                message.success(res.data.msg);
-            }else{
-                message.error(res.data.msg);
-            }
-        }
-        catch(e){
-            console.log(e);
-        }
-    }
-
-    // 删除商品
+    //商品列表弹窗中删除按钮
     @action deleteProduct = async (record = {}) => {
         const params = {
-            id: record.id
+            ids: [record.id]
         };
-        console.log( params, '----params---' );
         const res = await Service.deleteProduct(params);
         try{
             if(res.data.code === 0){
-                this.getProductList();
                 message.success(res.data.msg);
+                this.getProductList();
             }else{
                 message.error(res.data.msg);
             }
@@ -269,23 +208,141 @@ class State {
         }
     }    
 
-    // 所有商品
-    @observable allProductList = [];
-    @action setAllProductListUrl = (arr = []) => {
-        this.allProductList = arr;
+    // projectList点击确定按钮，确定商家与商品间的关联关系
+    @action productListSave = () => {
+        this.toggleProductVisible();
     }
 
-    // 查询所有商品
-    @action getAllProduct = async (obj = {}) => {
-        const res = await Service.getAllProduct(obj);
-        if(res.data.code === 0){
-            const {rows} = res.data.data;
-            this.setAllProductListUrl(rows);
-        }else{
-            message.error(res.data.msg);
+//-----------------------------商品详情弹窗--------------------------------------------------------------------------------------------------------------------------------------
+    // 商品详情弹窗标识
+    @observable detailVisible = false;
+    @action toggleDetailVisible = () => {
+        this.detailVisible = !this.detailVisible;
+    }
+    
+    // 详情弹窗取消按钮
+    @action cancelProdiuct = () => {
+        this.toggleDetailVisible();
+        this.toggleProductVisible();
+    }
+
+    // 商品详情数据(查询条件)
+    @observable detailFormData = {};
+    @action setDetailFormData = (obj = {}) => {
+        this.detailFormData = obj;
+    }
+    
+
+    // 商品详情保存按钮(批量选择，将选择的插入到商品列表中)
+    @action productSave = async (obj = []) => {
+        const customerInfo = toJS(this.curCustomerInfo);
+        const barCodeArr = obj.map(item => item.barCode );
+        const params = {
+            customerId: customerInfo.id,
+            commodityCodes: barCodeArr
+        };
+        const res = await Service.batchBindCommodities(params);
+        try{
+            if(res.data.code === 0){
+                this.getProductList();
+                this.toggleProductVisible();
+                this.toggleDetailVisible();
+                message.success(res.data.msg);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
         }
     }
 
+    // 商品详情table
+    @observable curProduct = [];
+    @action setCurProductUrl = (arr = []) => {
+        this.curProduct = arr;
+    }
+
+    // 查询当前客户未关联的商品
+    @action getCurProduct = async (obj = {}) => {
+        const customerInfo = toJS(this.curCustomerInfo);
+        const params = {
+            customerCode: customerInfo.customerCode,
+            loadGrid: obj
+        };
+        const res = await Service.getCurProduct(params);
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setCurProductUrl(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 关联库位弹窗
+    @observable storeVisible = false;
+    @action setStoreVisible = (bol) => {
+        this.storeVisible = bol;
+    }
+
+    // 关闭库位弹窗
+    @observable closeStoreModal = () => {
+        this.setStoreVisible(false);
+    }
+
+    // 未关联的库位
+    @observable storeList = [];
+    @action setStoreList = (arr = []) => {
+        this.storeList = arr;
+    }
+
+    // 查询未关联库位
+    @action getStoreList = async () => {
+        const res = await Service.getNocustomerStore({});
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setStoreList(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 点击分配库位
+    @action dealStore = (record) => {
+        this.setStoreVisible(true);
+        this.setCurCustomerInfo(record);
+    }
+
+    // 分配库位确认
+    @action bindStore = async (obj) => {
+        const customerInfo = toJS(this.curCustomerInfo);
+        const params = {
+            customerCode: customerInfo.id,
+            ...obj
+        };
+        const res = await Service.batchBind(params);
+        try{
+            if(res.data.code === 0){
+                console.log( res, '----res----' );
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+
+    }
 }
 
 export default new State();

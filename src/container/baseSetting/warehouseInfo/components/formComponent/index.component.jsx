@@ -43,7 +43,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                this.props.getData();
             }
         });
     };
@@ -55,12 +55,16 @@ class Index extends Component {
                 <Row>
                     <Col span={8}>
                         <FormItem label="仓库区位" hasFeedback>
-                            {getFieldDecorator('houseName', {
+                            {getFieldDecorator('houseCode', {
                                 rules: [],
                             })(<Select 
                                 option={pubFunction.getDictSelect('CK-GN')}
                                 valueCode='code'
                                 valueName='name'
+                                showSearch
+                                filterOption={(input, option) =>
+                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
                             />)}
                         </FormItem>
                     </Col>

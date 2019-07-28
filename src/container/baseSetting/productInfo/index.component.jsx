@@ -50,6 +50,8 @@ class Index extends Component {
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getProductList}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
                     rowKey='id'
                 />

@@ -32,26 +32,11 @@ class Index extends Component {
         this.state = {
             selectedRowKeys: [],
             selectedRows: [],
-            columns: noFoodColumns
+            columns: noFoodColumns,
+            isFood: ''
         };
     }
 
-    handleDelete = () => {
-        const record = this.state.selectedRows[0];
-        this.props.handleDelete(record);
-        this.setState({
-            selectedRowKeys: []
-        });
-    }
-
-    onOkClick = e => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                this.props.onOk({...this.props.detailData, ...values});
-            }
-        });
-    }
 
     toggleDisabled = () => {
         this.props.toggleDisabled(false);
@@ -61,44 +46,54 @@ class Index extends Component {
         window.print();
     }
 
-    rowSelection = {
-        type: 'radio',
-        onChange: (selectedRowKeys, selectedRows) => {
-            this.setState({
-                selectedRowKeys,
-                selectedRows
-            });
-        },
-        selectedRowKeys: []
-    }
-
     changeFood = (value) => {
-        if(value === '0'){
+        if(value == '0'){
             this.setState({
+                isFood: value,
                 columns: noFoodColumns
             });
         }else{
             this.setState({
+                isFood: value,
                 columns: foodColumns
             });
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.detailData){
+            const value = nextProps.detailData.isFood;
+            if(value != this.state.isFood){
+                this.changeFood(value);
+            }
+        }
+    }
+
+    // 确认收货
+    confirmRecepit = () => {
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('确认收货');
+                const saveData = {
+                    ...values,
+                    purchaseDate: moment(values.purchaseDate).format('YYYY-MM-DD')
+                };
+                this.props.onOk({...this.props.detailData, ...saveData});
+            }
+        });
+    }
 
     render() {
         const {getFieldDecorator} = this.props.form;
         const { visible, cancelClick, disabled, dataSource } = this.props;
-        this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
         return (
             <div>
                 <Modal
                     title='收货确认单'
                     visible={visible}
                     className='detail-product'
-                    okText={disabled ? '修改': '确认'}
-                    cancelText='取消'
+                    footer={null}
                     onCancel={cancelClick}
-                    onOk={disabled ? this.toggleDisabled: this.onOkClick}
                 >
                     <Form className='query-component'>
                         <h1>收货确认单</h1>
@@ -194,18 +189,17 @@ class Index extends Component {
                             </Col>
                             <Col span={8}>
                                 <FormItem label='食品'>
-                                    {getFieldDecorator('food', {
+                                    {getFieldDecorator('isFood', {
                                         rules: [
                                             {
                                                 required: true,
                                                 message: '必填'
                                             }
-                                        ],
-                                        initialValue: '0'
+                                        ]
                                     })(
                                         <Select 
-                                            option={[{code: '0', name: '否'},
-                                                {code: '1', name: '是'}]}
+                                            option={[{code: 0, name: '否'},
+                                                {code: 1, name: '是'}]}
                                             disabled={disabled}
                                             valueCode='code'
                                             valueName='name'
@@ -218,27 +212,21 @@ class Index extends Component {
                         <div className='opreat-btn'>
                             <Button
                                 type='primary'
-                                onClick={this.props.handleAdd}
-                            >新增行</Button>
-                            <Button
-                                type='primary'
-                                onClick={this.handleDelete}
-                            >删除行</Button>
-                            <Button
-                                type='primary'
                                 onClick={this.handleClick}
-                            >打印采购单</Button>
-                            {/* <Button
+                            >打印收货单</Button>
+                            <Button
                                 type='primary'
-                                onClick={this.handleReceipt}
-                            >收货</Button> */}
+                                onClick={this.confirmRecepit}
+                            >收货确认</Button>
                         </div>
                         <EditTable
                             columns={this.state.columns}
                             dataSource={dataSource}
                             handleSave={this.props.handleSave}
                             pagination={false}
-                            rowSelection={this.rowSelection}
+                            //rowSelection={this.rowSelection}
+                            optionarr={this.props.productList}
+                            key='key'
                         />
                         <Row>
                             <Col span={8}>

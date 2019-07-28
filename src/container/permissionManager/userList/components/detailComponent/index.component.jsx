@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Modal } from '@pubComs';
-import { Form, Row, Col, Input, Select } from 'antd';
+import { Modal, Select } from '@pubComs';
+import { Form, Row, Col, Input } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
-const { Option } = Select;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -25,7 +24,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk(values);
+                this.props.onOk({...this.props.detailData, ...values});
             }
         });
     }
@@ -36,7 +35,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, toggleVisible, disabled } = this.props;
+        const { visible, toggleVisible, disabled, roleList } = this.props;
         return (
             <div>
                 <Modal
@@ -53,7 +52,7 @@ class Index extends Component {
                         <Row>
                             <Col span={24}>
                                 <FormItem label='用户名'>
-                                    {getFieldDecorator('userName', {
+                                    {getFieldDecorator('name', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -83,7 +82,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='角色'>
-                                    {getFieldDecorator('role', {
+                                    {getFieldDecorator('roleKey', {
                                         rules: [
                                             {
                                                 required: true,
@@ -91,18 +90,13 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Select
-                                            showSearch
-                                            optionFilterProp="children"
+                                        <Select 
+                                            option={roleList}
                                             disabled={disabled}
-                                            filterOption={(input, option) =>
-                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                            }
-                                        >
-                                            <Option value="001">系统管理员</Option>
-                                            <Option value="002">入库管理</Option>
-                                            <Option value="003">出库管理</Option>
-                                        </Select>
+                                            valueCode='id'
+                                            valueName='roleName'
+                                            mode="multiple"
+                                        />
                                     )}
                                 </FormItem>
                             </Col>

@@ -18,7 +18,7 @@ class Index extends Component {
     }
 
     rowSelection = {
-        type: 'radio',
+        // type: 'radio',
         onChange: (selectedRowKeys, selectedRows) => {
             this.setState({
                 selectedRowKeys,
@@ -46,7 +46,7 @@ class Index extends Component {
     }
 
     onOkClick = e => {
-        const params = this.state.selectedRows[0];
+        const params = this.state.selectedRows;
         this.props.onOk(params);
         this.setState({
             selectedRowKeys: [],

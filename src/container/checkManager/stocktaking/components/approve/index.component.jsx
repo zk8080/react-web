@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
-import {Table} from '@pubComs';
+// import {Table} from '@pubComs';
 import columns from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
-import {Form} from 'antd';
+import {Form, Table} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 
@@ -18,7 +18,7 @@ class Index extends Component {
     }
 
     componentWillMount() {
-
+        
     }
 
     componentDidMount() {
@@ -48,11 +48,13 @@ class Index extends Component {
                 <HeadComponent
                     approveClick={State.approveClick}
                     checkRecordList={toJS(State.tableList)}
+                    queryData={toJS(State.queryData)}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={columns}
                     rowKey='id'
+                    bordered
                 />
             </div>
         );

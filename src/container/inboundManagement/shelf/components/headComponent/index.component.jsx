@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
+import {DownLoad, Upload} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {
@@ -40,11 +41,15 @@ class Index extends Component {
                 >
                     新增
                 </Button>
-                <Button
-                    type='primary'
-                >
-                    导出
-                </Button>
+                <Upload
+                    action='/wms/warehousing/purchaseBill/import'
+                    successCbk={this.props.successCbk}
+                />
+                <DownLoad
+                    path='/warehousing/purchaseBill/downloadTemplate'
+                    params={{isFood: true}}
+                    title='模板下载'
+                />
             </div>
         );
     }

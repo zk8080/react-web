@@ -4,7 +4,7 @@ import State from './index.state';
 import InventoryInfo from './components/inventoryInfo/index.component';
 import BeginCheck from './components/beginCheck/index.component';
 import Approve from './components/approve/index.component';
-
+import inventoryInfoState from './components/inventoryInfo/index.state';
 @observer
 class Index extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class Index extends Component {
 
     componentWillMount(){
         State.setShow(1);
+        inventoryInfoState.getMerchantsList();
     }
 
     render() {

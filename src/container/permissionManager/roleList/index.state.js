@@ -1,6 +1,7 @@
 import {observable, action} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 class State {
 
@@ -14,6 +15,42 @@ class State {
     @observable queryForm = {};
     @action setQueryForm = (obj = {}) => {
         this.queryForm = obj;
+    }
+
+    @observable menuList = [];
+    @action setMenuList = (arr = []) => {
+        this.menuList = arr;
+    }
+
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }    
+    
+    // 查询菜单列表
+    @action getMenuList = async (page) => {
+        const params = {
+            search: formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...page
+        };
+        const res = await Service.getMenuList(params);
+        try{
+            if(res.data.code === 0){
+                const {data} = res.data;
+                this.setMenuList(data);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 
     // 获取用户列表
@@ -42,6 +79,12 @@ class State {
     @observable visible = false;
     @action toggleVisible = () => {
         this.visible = !this.visible;
+    }
+
+    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
+    @observable isAdd = false;
+    @action setIsAdd = (bol = false) => {
+        this.isAdd = bol;
     }
 
     // 详情弹窗是否可编辑
@@ -77,6 +120,7 @@ class State {
         this.setCurRoleInfo(record);
         this.setEditForm(record);
         this.toggleDisabled(true);
+        this.setIsAdd(false);
         this.toggleVisible();
     }
 
@@ -164,6 +208,8 @@ class State {
         try{
             if(res.data.code === 0){
                 console.log( res.data, '-----data-----' );
+                const {data} = res.data;
+                this.setCurRoleMenu(data);
             }
         }
         catch(e){

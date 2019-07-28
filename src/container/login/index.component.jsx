@@ -31,19 +31,7 @@ class Index extends Component {
             color: '#fff'
         });
     }
-
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        console.log('login-WillUpdate');
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        console.log('login-DidUpdate');
-    }
-
+    
     componentWillUnmount() {
 
     }
@@ -52,7 +40,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                LoginState.loginClick();
+                LoginState.loginClick(values);
             }
         });
         

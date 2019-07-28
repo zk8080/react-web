@@ -16,7 +16,7 @@ const TrackingNumber = loadComponent(() => import(/* webpackChunkName: "tracking
 
 // 入库管理
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
-const Receipt = loadComponent(() => import(/* webpackChunkName: "Receipt" */ '@container/inboundManagement/receipt/index.component'));
+// const Receipt = loadComponent(() => import(/* webpackChunkName: "Receipt" */ '@container/inboundManagement/receipt/index.component'));
 const Shelf = loadComponent(() => import(/* webpackChunkName: "Shelf" */ '@container/inboundManagement/shelf/index.component'));
 
 // 出库管理
@@ -26,13 +26,15 @@ const PickingBellComponent = loadComponent(/* webpackChunkName: "Order Import" *
 const OrderWeighComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
 const DeliveryOrder = loadComponent(() => import(/* webpackChunkName: "DeliveryOrder" */ '@container/outboundManagement/deliveryOrder/index.component'));
 
-
 // 权限管理
 const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
 const RoleList = loadComponent(() => import(/* webpackChunkName: "RoleList" */ '@container/permissionManager/roleList/index.component'));
 
 //盘点管理
 const StocktakingList = loadComponent(() => import(/* webpackChunkName: "StocktakingList" */ '@container/checkManager/stocktaking/index.component'));
+
+// 预警管理
+const warningAgentList = loadComponent(() => import(/* webpackChunkName: "warningAgentList" */ '@container/home/index.component'));
 
 const routers = [
     {
@@ -77,12 +79,12 @@ const routers = [
         component: PurchaseNotice,
         breadcrumbName: '采购通知'
     },
-    {
-        path: '/inboundManagement/receipt',
-        exact: true,
-        component: Receipt,
-        breadcrumbName: '收货'
-    },
+    // {
+    //     path: '/inboundManagement/receipt',
+    //     exact: true,
+    //     component: Receipt,
+    //     breadcrumbName: '收货'
+    // },
     {
         path: '/inboundManagement/shelf',
         exact: true,
@@ -136,6 +138,12 @@ const routers = [
         exact: true,
         component: StocktakingList,
         breadcrumbName: '盘点'
+    },
+    {
+        path: '/warningAgent/list',
+        exact: true,
+        component: warningAgentList,
+        breadcrumbName: '代办'
     }
 ];
 

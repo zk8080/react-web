@@ -12,12 +12,15 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
-    let detailData = { ...props.detailData };
-    if(typeof props.detailData.purchaseDate === 'string'){
-        detailData = { 
+    const originData = props.detailData;
+    let detailData = {
+        ...props.detailData
+    };
+    if(typeof originData.purchaseDate == 'string'){
+        detailData = {
             ...props.detailData,
             purchaseDate: {value: moment(props.detailData.purchaseDate)}
-         };
+        };
     }
     return formUtils.objToForm(detailData);
 };
@@ -32,7 +35,8 @@ class Index extends Component {
         this.state = {
             selectedRowKeys: [],
             selectedRows: [],
-            columns: noFoodColumns
+            columns: noFoodColumns,
+            isFood: ''
         };
     }
 
@@ -48,7 +52,11 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk({...this.props.detailData, ...values});
+                const saveData = {
+                    ...values,
+                    purchaseDate: moment(values.purchaseDate).format('YYYY-MM-DD')
+                };
+                this.props.onOk({...this.props.detailData, ...saveData});
             }
         });
     }
@@ -73,31 +81,45 @@ class Index extends Component {
     }
 
     changeFood = (value) => {
-        if(value === '0'){
+        if(value == '0'){
             this.setState({
+                isFood: value,
                 columns: noFoodColumns
             });
         }else{
             this.setState({
+                isFood: value,
                 columns: foodColumns
             });
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.detailData){
+            const value = nextProps.detailData.isFood;
+            if(value != this.state.isFood){
+                this.changeFood(value);
+            }
+        }
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, dataSource } = this.props;
+        const { visible, cancelClick, disabled, dataSource, detailData } = this.props;
         this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
+        console.log(dataSource, '-----dataSource----', detailData,'detailData');
+        const foot = this.props.isLook? 'hide' : '';
         return (
             <div>
                 <Modal
                     title='采购通知单'
                     visible={visible}
-                    className='detail-product'
+                    className={`detail-product ${foot}`}
                     okText={disabled ? '修改': '确认'}
                     cancelText='取消'
                     onCancel={cancelClick}
                     onOk={disabled ? this.toggleDisabled: this.onOkClick}
+                    foot
                 >
                     <Form className='query-component'>
                         <h1>采购通知单</h1>
@@ -193,18 +215,18 @@ class Index extends Component {
                             </Col>
                             <Col span={8}>
                                 <FormItem label='食品'>
-                                    {getFieldDecorator('food', {
+                                    {getFieldDecorator('isFood', {
                                         rules: [
                                             {
                                                 required: true,
                                                 message: '必填'
                                             }
                                         ],
-                                        initialValue: '0'
+                                        initialValue: false
                                     })(
                                         <Select 
-                                            option={[{code: '0', name: '否'},
-                                                {code: '1', name: '是'}]}
+                                            option={[{code: 0, name: '否'},
+                                                {code: 1, name: '是'}]}
                                             disabled={disabled}
                                             valueCode='code'
                                             valueName='name'
@@ -218,19 +240,21 @@ class Index extends Component {
                             <Button
                                 type='primary'
                                 onClick={this.props.handleAdd}
+                                disabled={this.props.isLook}
                             >新增行</Button>
                             <Button
                                 type='primary'
                                 onClick={this.handleDelete}
+                                disabled={this.props.isLook}
                             >删除行</Button>
                             <Button
                                 type='primary'
                                 onClick={this.handleClick}
                             >打印采购单</Button>
-                            <Button
+                            {/* <Button
                                 type='primary'
                                 onClick={this.props.handleReceipt}
-                            >收货</Button>
+                            >收货</Button> */}
                         </div>
                         <EditTable
                             columns={this.state.columns}
@@ -238,6 +262,8 @@ class Index extends Component {
                             handleSave={this.props.handleSave}
                             pagination={false}
                             rowSelection={this.rowSelection}
+                            optionarr={this.props.productList}
+                            rowKey='key'
                         />
                         <Row>
                             <Col span={8}>

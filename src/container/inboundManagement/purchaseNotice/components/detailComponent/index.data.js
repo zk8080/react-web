@@ -1,3 +1,6 @@
+import React from 'react';
+import { Input } from 'antd';
+import State from '../../index.state';
 const noFoodColumns = [
     {
         title: '序号',
@@ -11,47 +14,53 @@ const noFoodColumns = [
         title: '商品名称',
         dataIndex: 'commodityName',
         width: 200,
-        editable: true,
-        required: true
+        render: (text, record, index) => {
+            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>
+        }
+        // editable: true,
+        // required: true,
+        // type: 'select',
+        // code: 'skuName',
+        // name: 'skuName'
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
         width: 150,
-        editable: true,
+        // editable: true,
     },
     {
         title: '规格',
         dataIndex: 'spec',
         width: 200,
-        editable: true,
+        // editable: true,
     },
     {
         title: '单位',
         dataIndex: 'unit',
         width: 150,
-        editable: true,
-        required: true
+        // editable: true,
+        // required: true
     },
     {
         title: '商品条码',
         dataIndex: 'barCode',
         width: 200,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '体积m³',
         dataIndex: 'volume',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
         title: '重量KG',
         dataIndex: 'weight',
         width: 150,
-        editable: true,
+        // editable: true,
         required: true
     },
     {
@@ -81,7 +90,7 @@ const foodColumns = [
     {
         title: '序号',
         dataIndex: 'seq',
-        width: 50,
+        width: 100,
         render: (text, record, index) => {
             return index + 1;
         }
@@ -89,52 +98,67 @@ const foodColumns = [
     {
         title: '商品名称',
         dataIndex: 'commodityName',
-        editable: true,
-        required: true
+        width: 200,
+        render: (text, record, index) => {
+            return <Input disabled={State.disabled} value={text} onClick={State.openSkuModal.bind(this, record, index)}/>
+        }
+        // editable: true,
+        // required: true,
+        // type: 'select',
+        // code: 'skuName',
+        // name: 'skuName'
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
-        editable: true,
+        width: 150,
+        // editable: true,
     },
     {
         title: '规格',
         dataIndex: 'spec',
-        editable: true,
+        width: 200,
+        // editable: true,
     },
     {
         title: '单位',
         dataIndex: 'unit',
-        editable: true,
+        width: 150,
+        // editable: true,
         required: true
     },
     {
         title: '商品条码',
         dataIndex: 'barCode',
-        editable: true,
+        width: 200,
+        // editable: true,
         required: true
     },
     {
         title: '体积m³',
         dataIndex: 'volume',
-        editable: true,
+        width: 150,
+        // editable: true,
         required: true
     },
     {
         title: '重量KG',
         dataIndex: 'weight',
-        editable: true,
+        width: 150,
+        // editable: true,
         required: true
     },
     {
         title: '采购数量',
         dataIndex: 'purchaseNums',
+        width: 150,
         editable: true,
         required: true
     },
     {
         title: '到货日期',
         dataIndex: 'arrivalDate',
+        width: 200,
         editable: true,
         required: true,
         type: 'date'
@@ -144,6 +168,7 @@ const foodColumns = [
         dataIndex: 'productionDate',
         editable: true,
         required: true,
+        width: 200,
         type: 'date'
     },
     {
@@ -151,11 +176,12 @@ const foodColumns = [
         dataIndex: 'shilfLife',
         editable: true,
         required: true,
-        type: 'date'
+        width: 200
     },
     {
         title: '备注',
         dataIndex: 'remark',
+        width: 200,
         editable: true,
     }
 ];

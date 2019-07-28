@@ -25,7 +25,7 @@ class Index extends Component {
     componentDidMount() {
         State.getTableList();
         State.getCustomerList();
-        State.getStroeList();
+        // State.getStroeList();
     }
 
     saveClick = (obj) => {
@@ -42,8 +42,9 @@ class Index extends Component {
                 <Form>
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
+                        customerList={toJS(State.customerList)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getTableList}
                     />
                 </Form>
                 <HeadComponent
@@ -51,6 +52,8 @@ class Index extends Component {
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getTableList}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
                     rowKey='id'
                     scroll={{x: 1320}}

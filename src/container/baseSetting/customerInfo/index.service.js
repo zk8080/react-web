@@ -10,14 +10,17 @@ const editCustomerUrl = '/customer/update';
 const deleteCustomerUrl = '/customer/updateDelete';
 //查询客户下商品列表
 const getProductListUrl = '/customer/loadCommodities';
-// 新增商品
-const addProductUrl = '/commodity/add';
-// 修改商品详情
-const updateProductUrl = '/commodity/update';
+// 绑定商品
+const batchBindCommoditiesUrl = '/customer/batchBindCommodities';
 // 删除商品
-const deleteProductUrl = '/commodity/delete';
-//查询所有商品
-const getAllProductUrl = '/commoditySku/loadGrid';
+const deleteProductUrl = '/customer/batchUnbindCommodities';
+//查询客户未关联的商品
+const getCurProductUrl = '/customer/notBindCommodities';
+// 查询未关联客户的库位
+const getNocustomerStoreUrl = '/storehouse/comboGridNotBind';
+// 批量关联客户
+const batchBindUrl = '/storehouseConfig/batchBind';
+
 
 class Service {
     getCustomerList = req => {
@@ -85,22 +88,9 @@ class Service {
         });
     }
 
-    addProduct = req => {
+    batchBindCommodities = req => {
         return new Promise((resolve, reject) => {
-            axios.post(addProductUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    updateProduct = req => {
-        return new Promise((resolve, reject) => {
-            axios.post(updateProductUrl, req)
+            axios.post(batchBindCommoditiesUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -113,9 +103,7 @@ class Service {
 
     deleteProduct = req => {
         return new Promise((resolve, reject) => {
-            axios.get(deleteProductUrl, {
-                params: req
-            })
+            axios.post(deleteProductUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -126,9 +114,35 @@ class Service {
         });
     }
 
-    getAllProduct = req => {
+    getCurProduct = req => {
         return new Promise((resolve, reject) => {
-            axios.post(getAllProductUrl, req)
+            axios.post(getCurProductUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+    
+    getNocustomerStore = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(getNocustomerStoreUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    batchBind = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(batchBindUrl, req)
                 .then(res => {
                     resolve(res);
                 })

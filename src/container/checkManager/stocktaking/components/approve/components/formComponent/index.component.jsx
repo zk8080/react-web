@@ -4,7 +4,7 @@ import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
 import {formUtils} from '@utils';
 import { Select } from '@pubComs';
 import inventoryInfoState from '../../../inventoryInfo/index.state';
-// import { from } from '_array-flatten@2.1.2@array-flatten';
+import { from } from '_array-flatten@2.1.2@array-flatten';
 import './index.less';
 
 const FormItem = Form.Item;

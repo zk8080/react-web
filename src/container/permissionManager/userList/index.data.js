@@ -4,18 +4,13 @@ import State from './index.state';
 const colums = [
     {
         title: '用户名',
-        dataIndex: 'userName',
+        dataIndex: 'name',
         width: 200
     },
     {
         title: '账号',
         dataIndex: 'userNo',
         width: 200
-    },
-    {
-        title: '角色',
-        dataIndex: 'role',
-        width: 300
     },
     {
         title: '操作',

@@ -22,6 +22,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        State.getRoleList();
         State.getUserList();
     }
 
@@ -47,6 +48,8 @@ class Index extends Component {
                     columns={colums}
                     bordered
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getUserList}
+                    pagination={toJS(State.pageInfo)}
                 />
                 <DetailComponent
                     visible={State.visible}
@@ -56,6 +59,7 @@ class Index extends Component {
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
+                    roleList={toJS(State.roleList)}
                 />
             </div>
         );

@@ -3,6 +3,7 @@ import axios from 'axios';
 axios.defaults.timeout = 60 * 1000;
 axios.defaults.baseURL = '/wms';
 axios.defaults.headers['Content-Type'] = 'application/json; charset=UTF-8';
+axios.defaults.withCredentials = true;
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {

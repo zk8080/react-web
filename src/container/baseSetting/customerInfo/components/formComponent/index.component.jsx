@@ -27,7 +27,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                this.props.getData();
             }
         });
     };
@@ -47,7 +47,7 @@ class Index extends Component {
                     </Col>
                     <Col span={8}>
                         <FormItem label="商品" hasFeedback>
-                            {getFieldDecorator('password', {
+                            {getFieldDecorator('skuName', {
                                 rules: [],
                             })(<Select 
                                 option={productList}
@@ -60,7 +60,16 @@ class Index extends Component {
                             />)}
                         </FormItem>
                     </Col>
-                    <Col span={8} className='query-btn'>
+                    <Col span={8}>
+                        <FormItem label="商品条形码" hasFeedback>
+                            {getFieldDecorator('barCode', {
+                                rules: [],
+                            })(<Input />)}
+                        </FormItem>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={24} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}

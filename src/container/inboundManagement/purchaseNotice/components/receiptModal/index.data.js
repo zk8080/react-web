@@ -2,7 +2,7 @@ const noFoodColumns = [
     {
         title: '序号',
         dataIndex: 'seq',
-        width: 50,
+        width: 100,
         render: (text, record, index) => {
             return index + 1;
         }
@@ -10,60 +10,87 @@ const noFoodColumns = [
     {
         title: '商品名称',
         dataIndex: 'commodityName',
-        editable: true,
-        required: true
+        width: 200,
+        //editable: true,
+        required: true,
+        type: 'select',
+        code: 'skuName',
+        name: 'skuName'
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
-        editable: true,
+        width: 150,
+        //editable: true,
     },
     {
         title: '规格',
         dataIndex: 'spec',
-        editable: true,
+        width: 200,
+        //editable: true,
     },
     {
         title: '单位',
         dataIndex: 'unit',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '商品条码',
         dataIndex: 'barCode',
-        editable: true,
+        width: 200,
+        //editable: true,
         required: true
     },
     {
         title: '体积m³',
         dataIndex: 'volume',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '重量KG',
         dataIndex: 'weight',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '采购数量',
         dataIndex: 'purchaseNums',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '到货日期',
         dataIndex: 'arrivalDate',
-        editable: true,
+        width: 200,
+        //editable: true,
         required: true,
         type: 'date'
     },
     {
         title: '备注',
         dataIndex: 'remark',
+        width: 200,
+        //editable: true,
+    },
+    {
+        title: '签收数量',
+        dataIndex: 'receivNums',
+        width: 150,
         editable: true,
+        required: true
+    },
+    {
+        title: '签收说明',
+        dataIndex: 'receivRemark',
+        width: 150,
+        editable: true,
+        required: true
     }
 ];
 
@@ -71,7 +98,7 @@ const foodColumns = [
     {
         title: '序号',
         dataIndex: 'seq',
-        width: 50,
+        width: 100,
         render: (text, record, index) => {
             return index + 1;
         }
@@ -79,74 +106,103 @@ const foodColumns = [
     {
         title: '商品名称',
         dataIndex: 'commodityName',
-        editable: true,
-        required: true
+        width: 200,
+        //editable: true,
+        required: true,
+        type: 'select',
+        code: 'skuName',
+        name: 'skuName'
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
-        editable: true,
+        width: 150,
+        //editable: true,
     },
     {
         title: '规格',
         dataIndex: 'spec',
-        editable: true,
+        width: 200,
+        //editable: true,
     },
     {
         title: '单位',
         dataIndex: 'unit',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '商品条码',
         dataIndex: 'barCode',
-        editable: true,
+        width: 200,
+        //editable: true,
         required: true
     },
     {
         title: '体积m³',
         dataIndex: 'volume',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '重量KG',
         dataIndex: 'weight',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '采购数量',
         dataIndex: 'purchaseNums',
-        editable: true,
+        width: 150,
+        //editable: true,
         required: true
     },
     {
         title: '到货日期',
         dataIndex: 'arrivalDate',
-        editable: true,
+        width: 200,
+        //editable: true,
         required: true,
         type: 'date'
     },
     {
         title: '生产日期',
         dataIndex: 'productionDate',
-        editable: true,
+        //editable: true,
         required: true,
+        width: 200,
         type: 'date'
     },
     {
         title: '保质期',
         dataIndex: 'shilfLife',
-        editable: true,
+        //editable: true,
         required: true,
+        width: 200,
         type: 'date'
     },
     {
         title: '备注',
         dataIndex: 'remark',
+        width: 200,
+        //editable: true,
+    },
+    {
+        title: '签收数量',
+        dataIndex: 'receivNums',
+        width: 150,
         editable: true,
+        required: true
+    },
+    {
+        title: '签收说明',
+        dataIndex: 'receivRemark',
+        width: 150,
+        editable: true,
+        required: true
     }
 ];
 

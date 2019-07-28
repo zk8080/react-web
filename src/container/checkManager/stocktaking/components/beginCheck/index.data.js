@@ -44,7 +44,7 @@ const colums = [
         dataIndex: 'firstCheckNums',
         width: 100,
         render: (text, record, index) => {
-            return <Input defaultValue={text} placeholder='请输入' onChange={State.changeCheckNums.bind(this, 'firstCheckNums',index)} />;
+            return <Input value={text} placeholder='请输入' onChange={State.changeCheckNums.bind(this, 'firstCheckNums',index)} />;
         }
     },
     {
@@ -52,7 +52,7 @@ const colums = [
         dataIndex: 'secondCheckNums',
         width: 100,
         render: (text, record, index) => {
-            return <Input defaultValue={text} placeholder='请输入' onChange={State.changeCheckNums.bind(this, 'firstCheckNums',index)} />;
+            return <Input value={text} placeholder='请输入' onChange={State.changeCheckNums.bind(this, 'secondCheckNums',index)} />;
         }
     },
     {
@@ -60,7 +60,7 @@ const colums = [
         dataIndex: 'thirdCheckNums',
         width: 100,
         render: (text, record, index) => {
-            return <Input defaultValue={text} placeholder='请输入' onChange={State.changeCheckNums.bind(this, 'firstCheckNums',index)} />;
+            return <Input value={text} placeholder='请输入' onChange={State.changeCheckNums.bind(this, 'thirdCheckNums',index)} />;
         }
     },
     {

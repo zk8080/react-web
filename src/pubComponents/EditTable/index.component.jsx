@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Input, Form, DatePicker } from 'antd';
+import { Select } from '@pubComs';
 import './index.less';
 import moment from 'moment';
 
@@ -22,26 +23,26 @@ class EditableCell extends React.Component {
         const editing = !this.state.editing;
         this.setState({ editing }, () => {
             if (editing) {
-                this.input.focus();
+                this.input.focus && this.input.focus();
             }
         });
     };
 
-    save = (e) => {
-        const { record, handleSave } = this.props;
-        this.form.validateFields((error, values) => {
-            if (error && error[e.currentTarget.id]) {
-                return;
-            }
-            this.toggleEdit();
-            handleSave({ ...record, ...values });
-        });
-    };
-
-    changeDate = (value) => {
+    save = (type, key, e, option) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
             if (error) {
+                return;
+            }
+            this.toggleEdit();
+            handleSave({ ...record, ...values }, key, option);
+        });
+    };
+
+    changeDate = (key, value) => {
+        const { record, handleSave } = this.props;
+        this.form.validateFields((error, values) => {
+            if (error && !value) {
                 return;
             }
             const newValue = {};
@@ -49,14 +50,15 @@ class EditableCell extends React.Component {
                 newValue[key] = value? value.format('YYYY-MM-DD'): null;
             }
             this.toggleEdit();
-            handleSave({ ...record, ...newValue });
+            handleSave({ ...record, ...newValue }, key);
         });
         
     }
 
     renderCell = form => {
         this.form = form;
-        const { children, dataIndex, record, type, required } = this.props;
+        const { children, dataIndex, record, type, required, optionarr, code, name } = this.props;
+        
         const { editing } = this.state;
         return editing ? (
             type === 'date' ?
@@ -69,19 +71,40 @@ class EditableCell extends React.Component {
                             },
                         ],
                         initialValue: record[dataIndex]?moment(record[dataIndex]): null,
-                    })(<DatePicker allowClear={false} ref={node => (this.input = node)} onChange={this.changeDate}/>)}
+                    })(<DatePicker allowClear={false} format='YYYY-MM-DD' ref={node => (this.input = node)} onChange={this.changeDate.bind(this, dataIndex)}/>)}
                 </Form.Item>
-                : <Form.Item style={{ margin: 0 }}>
-                    {form.getFieldDecorator(dataIndex, {
-                        rules: [
-                            {
-                                required: required,
-                                message: '必填',
-                            },
-                        ],
-                        initialValue: record[dataIndex],
-                    })(<Input ref={node => (this.input = node)} onPressEnter={this.save.bind(this, 'input')} onBlur={this.save.bind(this, 'input')} />)}
-                </Form.Item>
+                : type === 'select' ? 
+                    <Form.Item style={{ margin: 0 }}>
+                        {form.getFieldDecorator(dataIndex, {
+                            rules: [
+                                {
+                                    required: required,
+                                    message: '必填',
+                                },
+                            ],
+                            initialValue: record[dataIndex],
+                        })(<Select 
+                                ref={node => (this.input = node)} 
+                                onPressEnter={this.save.bind(this, 'select', dataIndex)} 
+                                //onBlur={this.save.bind(this, 'select', dataIndex)} 
+                                onChange={this.save.bind(this, 'select', dataIndex)}
+                                option={optionarr}
+                                valueCode={code}
+                                valueName={name}
+                            />
+                        )}
+                    </Form.Item>
+                    : <Form.Item style={{ margin: 0 }}>
+                        {form.getFieldDecorator(dataIndex, {
+                            rules: [
+                                {
+                                    required: required,
+                                    message: '必填',
+                                },
+                            ],
+                            initialValue: record[dataIndex],
+                        })(<Input ref={node => (this.input = node)} onPressEnter={this.save.bind(this, 'input', dataIndex)} onBlur={this.save.bind(this, 'input', dataIndex)} />)}
+                    </Form.Item>
         ) : (
             <div
                 className="editable-cell-value-wrap"
@@ -133,6 +156,7 @@ class Index extends React.Component {
 
     componentDidMount() {
         const scrollX = this.getScrollX(this.props.columns);
+        console.log( scrollX, '-----scrollX-----' );
         this.setState({
             scrollX
         });
@@ -160,6 +184,9 @@ class Index extends React.Component {
                     type: col.type,
                     required: col.required,
                     handleSave: this.props.handleSave,
+                    optionarr: this.props.optionarr,
+                    code: col.code,
+                    name: col.name
                 }),
             };
         });

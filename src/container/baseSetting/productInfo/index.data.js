@@ -5,27 +5,27 @@ const colums = [
     {
         title: '商品名称',
         dataIndex: 'skuName',
-        width: 200
+        width: '20%'
     },
     {
         title: '规格',
         dataIndex: 'spec',
-        width: 80
+        width: '10%'
     },
     {
         title: '商品条形码',
         dataIndex: 'barCode',
-        width: 150
+        width: '15%'
     },
     {
         title: '商品类型',
         dataIndex: 'modelNo',
-        width: 80
+        width: '15%'
     },
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 100,
+        width: '20%',
         // fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>

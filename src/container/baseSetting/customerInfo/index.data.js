@@ -8,11 +8,6 @@ const colums = [
         width: 200
     },
     {
-        title: '品牌',
-        dataIndex: 'brandName',
-        width: 100
-    },
-    {
         title: '联系人',
         dataIndex: 'contactPerson',
         width: 80
@@ -28,12 +23,24 @@ const colums = [
         width: 200
     },
     {
+        title: '库位单价',
+        dataIndex: 'unitPrice',
+        width: 200
+    },
+    {
+        title: '库位面积',
+        dataIndex: 'storeArea',
+        width: 200
+    },
+    {
         title: '操作',
         dataIndex: 'opreate',
-        width: 200,
+        width: 300,
+        fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <span onClick={State.editClick.bind(this, record)}>修改</span>
+                <span onClick={State.dealStore.bind(this, record)}>分配库位</span>
                 <span onClick={State.relateGoods.bind(this, record)}>配置商品</span>
                 <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;

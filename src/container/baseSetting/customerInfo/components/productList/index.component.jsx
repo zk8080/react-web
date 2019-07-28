@@ -12,13 +12,10 @@ class Index extends Component {
         this.state = {
         };
     }
-
-    handleTableChange = (pagination) => {
-        console.log(pagination, '-----pagination----');
-    }
+    
 
     render() {
-        const {tableList, customerInfo, visible, cancelClick} = this.props;
+        const {tableList, customerInfo, visible, cancelClick, onOk} = this.props;
         return (
             <Modal
                 title='商品列表'
@@ -28,7 +25,8 @@ class Index extends Component {
                 cancelText='取消'
                 onCancel={cancelClick}
                 width='1100px'
-                onOk={this.onOkClick}
+                onOk={onOk}
+                footer={null}
             >
                     <div className='customer-info'>
                         <Row>
