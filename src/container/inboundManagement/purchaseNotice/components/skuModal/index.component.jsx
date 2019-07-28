@@ -113,6 +113,8 @@ class Index extends Component {
                         columns={colums}
                         rowSelection={this.rowSelection}
                         rowKey='id'
+                        getQueryData={this.props.getData}
+                        pagination={this.props.pagination}
                     />
                 </Modal>
             </div>

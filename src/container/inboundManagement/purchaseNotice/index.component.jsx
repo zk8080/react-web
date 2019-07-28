@@ -53,6 +53,8 @@ class Index extends Component {
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getTableList}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
                     rowKey='id'
                     bordered
@@ -98,6 +100,7 @@ class Index extends Component {
                     productList={toJS(State.productList)}
                     queryData={toJS(State.detailFormData)}
                     setQueryData={State.setDetailFormData}
+                    pagination={toJS(State.pageInfo)}
                 />
             </div>
         );

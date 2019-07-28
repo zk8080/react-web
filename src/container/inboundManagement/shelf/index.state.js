@@ -1,6 +1,7 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 class State {
 
@@ -16,18 +17,37 @@ class State {
         this.tableList = arr;
     }
 
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+
+
     //获取表格数据
     @action getTableList = async (params = {}) => {
-        const paramsObj = {...params, ...{
-            currentPage: 1,
-            pageSize: 15,
-            billType: 2
-        }};
+        const paramsObj = {
+            ...formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...params, 
+            ...{
+                billType: 2
+            }
+        };
         const res = await Service.getTableList(paramsObj);
         try{
             if(res.data.code === 0){
-                const {records} = res.data.data;
+                const {records, current, pageSize, total} = res.data.data;
                 this.setTableList(records);
+                this.setPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
                 console.log(res.data.msg);
             }

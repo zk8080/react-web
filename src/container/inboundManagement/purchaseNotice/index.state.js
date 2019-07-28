@@ -1,6 +1,7 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
+import {formUtils} from '@utils';
 
 class State {
 
@@ -16,18 +17,36 @@ class State {
         this.tableList = arr;
     }
 
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+
     //获取表格数据
     @action getTableList = async (params = {}) => {
-        const paramsObj = {...params, ...{
-            currentPage: 1,
-            pageSize: 15,
-            billType: 1
-        }};
+        const paramsObj = {
+            ...formUtils.formToParams(this.queryForm),
+            ...this.pageInfo,
+            ...params, 
+            ...{
+                billType: 1
+            }
+        };
         const res = await Service.getTableList(paramsObj);
         try{
             if(res.data.code === 0){
-                const {records} = res.data.data;
+                const {records, current, pageSize, total} = res.data.data;
                 this.setTableList(records);
+                this.setPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
                 console.log(res.data.msg);
             }
@@ -269,6 +288,16 @@ class State {
     @action setSkuIndex = (num = '') => {
         this.skuIndex = num;
     }
+
+    // 分页数据
+    @observable skupageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setSkuPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
     
     // 弹窗标识
     @observable detailVisible = false;
@@ -323,13 +352,20 @@ class State {
     // 查询商品详情
     @action getProductList = async (value = {}) => {
         let params = {
+            ...formUtils.formToParams(this.detailFormData),
+            ...this.skupageInfo,
             search: value
         }
         const res = await Service.getProductList(params);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
+                const {rows, current, pageSize, total} = res.data.data;
                 this.setProductList(rows);
+                this.setSkuPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
                 console.log(res.data.msg);
             }
