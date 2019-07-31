@@ -148,6 +148,33 @@ class State {
             console.log(e);
         }
     }
+
+    // 商品信息
+    @observable productList = [];
+    @action setProductList = (arr = []) => {
+        this.productList = arr;
+    }
+
+    // 查询商品
+    @action getProductList = async (page) => {
+        const params = {
+            current: 1,
+            pageSize: 1000000
+        };
+        const res = await Service.getProductList(params);
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setProductList(rows);
+            }else{
+                this.setProductList([]);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
 }
 
 export default new State();

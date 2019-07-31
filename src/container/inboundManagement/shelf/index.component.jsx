@@ -34,12 +34,14 @@ class Index extends Component {
 
     render() {
         return (
-            <div>
+            <div className='shelf'>
                 <Form>
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
                         getData={State.getTableList}
+                        customerList={toJS(State.customerList)}
+                        productList={toJS(State.allProductList)}
                     />
                 </Form>
                 {/* <HeadComponent

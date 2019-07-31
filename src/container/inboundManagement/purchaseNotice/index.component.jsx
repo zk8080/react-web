@@ -25,7 +25,7 @@ class Index extends Component {
 
     componentDidMount() {
         State.getCustomerList();
-        // State.getProductList();
+        State.getAllProductList();
         State.getTableList();
     }
 
@@ -39,12 +39,14 @@ class Index extends Component {
 
     render() {
         return (
-            <div>
+            <div className='purchaseNotice'>
                 <Form>
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
                         getData={State.getTableList}
+                        customerList={toJS(State.customerList)}
+                        productList={toJS(State.allProductList)}
                     />
                 </Form>
                 <HeadComponent
@@ -74,6 +76,7 @@ class Index extends Component {
                     handleSave={State.handleSave}
                     dataSource={toJS(State.editTable)}
                     handleAdd={State.handleAdd}
+                    customerList={toJS(State.customerList)}
                     //handleReceipt={State.receiptClick}
                     
                 />

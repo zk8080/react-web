@@ -32,7 +32,7 @@ class Index extends Component {
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getCustomerList}
                     />
                 </Form>
                 <HeadComponent

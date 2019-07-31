@@ -320,6 +320,58 @@ class State {
             console.log(e);
         }
     }  
+
+    // 商家列表
+    @observable customerList = [];
+    @action setCustomerList = (arr = []) => {
+        this.customerList = arr;
+    }
+    
+    // 获取商家列表
+    @action getCustomerList = async () => {
+        const res = await Service.getCustomerList({
+            current: 1,
+            pageSize: 100000
+        });
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setCustomerList(rows);
+            }else{
+                console.log(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+
+    // 查询列表商品下拉数据
+    @observable allProductList = [];
+    @action setAllProductList = (arr = []) => {
+        this.allProductList = arr;
+    }
+
+    // 查询商品详情
+    @action getAllProductList = async (value = {}) => {
+        const params = {
+            current: 1,
+            pageSize: 10000
+        };
+        const res = await Service.getProductList(params);
+        try{
+            if(res.data.code === 0){
+                const {rows} = res.data.data;
+                this.setAllProductList(rows);
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 }
 
 export default new State();

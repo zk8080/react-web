@@ -45,7 +45,7 @@ class State {
                     total
                 });
             }else{
-                console.log(res.data.msg);
+                message.error(res.data.msg);
             }
         }
         catch(e){

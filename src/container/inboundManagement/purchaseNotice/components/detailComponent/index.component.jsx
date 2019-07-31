@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, EditTable, Select } from '@pubComs';
-import { Form, Row, Col, Input, Button, DatePicker, Table } from 'antd';
+import { Modal, EditTable, Select, Table } from '@pubComs';
+import { Form, Row, Col, Input, Button, DatePicker,  } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
@@ -105,9 +105,8 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, dataSource, detailData } = this.props;
+        const { visible, cancelClick, disabled, dataSource, customerList } = this.props;
         this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
-        console.log(dataSource, '-----dataSource----', detailData,'detailData');
         const foot = this.props.isLook? 'hide' : '';
         return (
             <div>
@@ -143,8 +142,15 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Input 
+                                        <Select 
+                                            option={customerList}
                                             disabled={disabled}
+                                            valueCode='customerName'
+                                            valueName='customerName'
+                                            showSearch
+                                            filterOption={(input, option) =>
+                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                            }
                                         />
                                     )}
                                 </FormItem>

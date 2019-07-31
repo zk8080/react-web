@@ -13,7 +13,6 @@ const onFieldsChange = (props, changedFields) => {
 };
 
 const mapPropsToFields = (props) => {
-    console.log( formUtils.objToForm(props.detailData), '--formUtils.objToForm(props.detailData)--' );
     return formUtils.objToForm(props.detailData);
 };
 
@@ -22,6 +21,10 @@ const mapPropsToFields = (props) => {
     onFieldsChange
 })
 class Index extends Component {
+
+    state = {
+        isConsumable: false
+    }
 
     onOkClick = e => {
         e.preventDefault();
@@ -34,6 +37,18 @@ class Index extends Component {
 
     toggleDisabled = () => {
         this.props.toggleDisabled(false);
+    }
+
+    onConsumable = (value) => {
+        if(value == '1'){
+            this.setState({
+                isConsumable: true
+            });
+        }else{
+            this.setState({
+                isConsumable: false
+            });
+        }
     }
 
     render() {
@@ -53,11 +68,11 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={8}>
-                                <FormItem label='商品品牌'>
-                                    {getFieldDecorator('banner', {
+                                <FormItem label='商品名称'>
+                                    {getFieldDecorator('skuName', {
                                         rules: [
                                             {
-                                                required: false,
+                                                required: true,
                                                 message: '必填'
                                             }
                                         ]
@@ -69,11 +84,11 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
-                                <FormItem label='商品名称'>
-                                    {getFieldDecorator('skuName', {
+                                <FormItem label='商品品牌'>
+                                    {getFieldDecorator('banner', {
                                         rules: [
                                             {
-                                                required: true,
+                                                required: false,
                                                 message: '必填'
                                             }
                                         ]
@@ -143,13 +158,35 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Select disabled={disabled} >
+                                        <Select 
+                                            disabled={disabled} 
+                                            onChange={this.onConsumable}
+                                        >
                                             <Option value='1' key='1'>是</Option>
                                             <Option value='0' key='2'>否</Option>
                                         </Select>
                                     )}
                                 </FormItem>
                             </Col>
+                            {
+                                this.state.isConsumable && <Col span={8}>
+                                    <FormItem label='商品类型'>
+                                        {getFieldDecorator('commodityType', {
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: '必填'
+                                                }
+                                            ]
+                                        })(
+                                            <Select disabled={disabled} >
+                                                <Option value='纸箱' key='1'>纸箱</Option>
+                                                <Option value='泡沫' key='2'>泡沫</Option>
+                                            </Select>
+                                        )}
+                                    </FormItem>
+                                </Col>
+                            }
                             <Col span={8}>
                                 <FormItem label='商品型号'>
                                     {getFieldDecorator('modelNo', {

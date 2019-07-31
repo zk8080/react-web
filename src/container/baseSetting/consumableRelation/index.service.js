@@ -8,6 +8,8 @@ const addCustomerUrl = '/customer/add';
 const editCustomerUrl = '/customer/update';
 //删除接口
 const deleteCustomerUrl = '/customer/updateDelete';
+// 查询商品接口
+const productListUrl = '/commoditySku/loadGrid';
 
 class Service {
     getCustomerList = req => {
@@ -52,6 +54,19 @@ class Service {
     deleteCustomer = req => {
         return new Promise((resolve, reject) => {
             axios.post(deleteCustomerUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getProductList = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(productListUrl, req)
                 .then(res => {
                     resolve(res);
                 })

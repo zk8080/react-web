@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from '@pubComs';
+import { Modal, Select } from '@pubComs';
 import { Form, Row, Col, Input, Checkbox, Tree } from 'antd';
 import './index.less';
 import { formUtils } from '@utils';
@@ -138,8 +138,8 @@ class Index extends Component {
     onCheck = checkedKeys => {
         this.setState({ checkedKeys });
         this.props.form.setFieldsValue({
-            ['checkbox-group']: checkedKeys
-        })
+            'checkbox-group': checkedKeys
+        });
     };
 
     renderTreeNodes = data =>
@@ -157,7 +157,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, checkData } = this.props;
+        const { visible, cancelClick, disabled, checkData, productList } = this.props;
         return (
             <div>
                 <Modal
@@ -180,8 +180,14 @@ class Index extends Component {
                                             message: '必填'
                                         }]
                                     })(
-                                        <Input 
-                                            disabled={disabled}
+                                        <Select 
+                                            option={productList}
+                                            valueCode='skuName'
+                                            valueName='skuName'
+                                            showSearch
+                                            filterOption={(input, option) =>
+                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                            }
                                         />
                                     )}
                                 </FormItem>
@@ -212,17 +218,6 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        // <Checkbox.Group style={{ width: '100%' }}>
-                                        //     <Row>
-                                        //         {
-                                        //             checkData.map(item => {
-                                        //                 return <Col span={8} key={Math.random()}>
-                                        //                     <Checkbox disabled={disabled} value={item.code}>{item.name}</Checkbox>
-                                        //                 </Col>;
-                                        //             })
-                                        //         }
-                                        //     </Row>
-                                        // </Checkbox.Group>,
                                         <Tree
                                             checkable
                                             onExpand={this.onExpand}

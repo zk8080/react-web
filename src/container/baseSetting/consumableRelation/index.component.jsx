@@ -20,6 +20,7 @@ class Index extends Component {
 
     componentDidMount() {
         State.getCustomerList();
+        State.getProductList();
     }
 
     saveClick = (obj) => {
@@ -34,6 +35,7 @@ class Index extends Component {
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
                         getData={State.getCustomerList}
+                        productList={toJS(State.productList)}
                     />
                 </Form>
                 <HeadComponent
@@ -55,6 +57,7 @@ class Index extends Component {
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
                     checkData={toJS(State.consumableData)}
+                    productList={toJS(State.productList)}
                 />
             </div>
         );
