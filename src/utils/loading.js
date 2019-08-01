@@ -4,7 +4,7 @@ import ReactLoading from 'react-loading';
 
 function loading () {
     const div = document.createElement('div');
-    div.className = 'root-loading';
+    div.className = 'request-loading hideLoading';
     document.body.appendChild(div);
     ReactDOM.render(<ReactLoading 
         type='spinningBubbles' 
@@ -14,10 +14,10 @@ function loading () {
     />, div);
     return {
         showLoading: () => {
-            div.className = 'root-loading showLoading';
+            div.className = 'request-loading showLoading';
         },
         hideLoading: () => {
-            div.className = 'root-loading hideLoading';
+            div.className = 'request-loading hideLoading';
         }
     };
 }
