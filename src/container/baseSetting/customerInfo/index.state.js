@@ -162,16 +162,36 @@ class State {
     @action setProductList = (arr = []) => {
         this.productList = arr;
     }
+
+    // 客户-商品分页
+    @observable customerProdPage = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setProdPage = (obj = {}) => {
+        this.customerProdPage = obj;
+    }
+
     // 查询客户-商品数据
-    @action getProductList = async() => {
+    @action getProductList = async(page) => {
         const params = {
-            customerId: this.curCustomerInfo.id
+            customerId: this.curCustomerInfo.id,
+            loadGrid: {
+                ...this.customerProdPage,
+                ...page
+            }
         };
         const res = await Service.getProductList(params);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
+                const {rows, pageSize, total, current} = res.data.data;
                 this.setProductList(rows);
+                this.setProdPage({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
                 message.error(res.data.msg);
             }
@@ -263,18 +283,35 @@ class State {
         this.curProduct = arr;
     }
 
+    // 商品详情分页
+    @observable productPage = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setCurProdPage = (obj = {}) => {
+        this.productPage = obj;
+    }
+
+
     // 查询当前客户未关联的商品
     @action getCurProduct = async (obj = {}) => {
         const customerInfo = toJS(this.curCustomerInfo);
         const params = {
             customerCode: customerInfo.customerCode,
-            loadGrid: obj
+            ...this.productPage,
+            ...obj
         };
         const res = await Service.getCurProduct(params);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
+                const {rows, current, pageSize, total} = res.data.data;
                 this.setCurProductUrl(rows);
+                this.setCurProdPage({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
                 message.error(res.data.msg);
             }
@@ -333,8 +370,9 @@ class State {
         const res = await Service.batchBind(params);
         try{
             if(res.data.code === 0){
-
-                console.log( res, '----res----' );
+                message.success(res.data.msg);
+                this.setStoreVisible(false);
+                this.getCustomerList();
             }else{
                 message.error(res.data.msg);
             }

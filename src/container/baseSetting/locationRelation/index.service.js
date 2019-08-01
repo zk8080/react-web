@@ -13,7 +13,7 @@ const getCustomerListUrl = '/customer/loadGrid';
 // 通过商家查询商品url
 const getProductListUrl = '/customer/loadCommodities';
 // 查询库位url
-const getStroeListUrl = '/storehouse/loadGrid';
+const getStroeListUrl = '/storehouse/comboGridBind';
 
 class Service {
 

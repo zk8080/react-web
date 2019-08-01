@@ -56,7 +56,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible,  productList } = this.props;
+        const { visible,  productList, productPage } = this.props;
         this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
         return (
             <div>
@@ -97,6 +97,8 @@ class Index extends Component {
                     <Table
                         dataSource={productList}
                         columns={colums}
+                        getQueryData={this.props.getCurProduct}
+                        pagination={productPage}
                         rowSelection={this.rowSelection}
                         rowKey='id'
                     />

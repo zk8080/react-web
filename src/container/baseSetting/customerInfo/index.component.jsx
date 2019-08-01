@@ -55,14 +55,17 @@ class Index extends Component {
                     toggleDisabled={State.toggleDisabled}
                 />
                 <ProductList
+                    {...toJS(State)}
                     visible={State.productVisible}
                     cancelClick={State.toggleProductVisible}
                     onOk={State.productListSave}
                     customerInfo={toJS(State.curCustomerInfo)}
                     addClick={State.addProduct}
                     tableList={toJS(State.productList)}
+                    getProductList={State.getProductList}
                 />
                 <ProductDetail
+                    {...toJS(State)}
                     visible={State.detailVisible}
                     cancelClick={State.cancelProdiuct}
                     onOk={State.productSave}
@@ -70,6 +73,7 @@ class Index extends Component {
                     productList={toJS(State.curProduct)}
                     queryData={toJS(State.detailFormData)}
                     setQueryData={State.setDetailFormData}
+                    getCurProduct={State.getCurProduct}
                 />
                 <StoreModal
                     visible={State.storeVisible}

@@ -15,7 +15,7 @@ class Index extends Component {
     
 
     render() {
-        const {tableList, customerInfo, visible, cancelClick, onOk} = this.props;
+        const {tableList, customerInfo, visible, cancelClick, onOk, customerProdPage} = this.props;
         return (
             <Modal
                 title='商品列表'
@@ -51,6 +51,8 @@ class Index extends Component {
                     <Table
                         dataSource={tableList}
                         columns={colums}
+                        getQueryData={this.props.getProductList}
+                        pagination={customerProdPage}
                         rowKey='id'
                     />
             </Modal>

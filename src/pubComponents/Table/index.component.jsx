@@ -24,7 +24,7 @@ class Index extends Component {
     handleTableChange = (pagination, filters, sorter) => {
         const pageParams = { 
             current: pagination.current,
-            size: pagination.pageSize
+            pageSize: pagination.pageSize
          };
         this.props.getQueryData && this.props.getQueryData(pageParams);
     };

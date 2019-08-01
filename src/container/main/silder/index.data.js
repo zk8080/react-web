@@ -33,7 +33,12 @@ const menuData = [
                 title: '上传快递单号',
                 key: '01-06',
                 url: '/trackingNumber/list'
-            }
+            },
+            {
+                title: '盘点',
+                key: '01-07',
+                url: '/stocktaking/list'
+            },
             // {
             //     title: '上架策略',
             //     key: '01-06',
@@ -120,28 +125,28 @@ const menuData = [
             }
         ]
     },
-    {
-        title: '盘点管理',
-        key: '04',
-        icon: 'diff',
-        children: [
-            {
-                title: '盘点',
-                key: '04-01',
-                url: '/stocktaking/list'
-            },
-            // {
-            //     title: '补货',
-            //     key: '04-03',
-            //     url: '/article/13'
-            // },
-            // {
-            //     title: '退货',
-            //     key: '04-04',
-            //     url: '/article/14'
-            // }
-        ]
-    },
+    // {
+    //     title: '盘点管理',
+    //     key: '04',
+    //     icon: 'diff',
+    //     children: [
+    //         {
+    //             title: '盘点',
+    //             key: '04-01',
+    //             url: '/stocktaking/list'
+    //         },
+    //         // {
+    //         //     title: '补货',
+    //         //     key: '04-03',
+    //         //     url: '/article/13'
+    //         // },
+    //         // {
+    //         //     title: '退货',
+    //         //     key: '04-04',
+    //         //     url: '/article/14'
+    //         // }
+    //     ]
+    // },
     {
         title: '统计分析',
         key: '05',

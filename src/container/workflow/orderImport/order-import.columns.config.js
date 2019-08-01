@@ -10,31 +10,31 @@ export const orderImportColumns: ColumnProps[] = [
 		title: '订单号',
 		dataIndex: 'orderNo',
 		sorter: true,
-		width: 200
+		width: '20%'
 	},{
 		title: '商家名称',
 		dataIndex: 'customerName',
 		sorter: true,
-		width: 300
+		width: '20%'
 	},{
 		title: '收件人',
 		dataIndex: 'reciptName',
 		sorter: true,
-		width: 100
+		width: '10%'
 	},{
 		title: '手机号',
 		dataIndex: 'reciptPhone',
 		sorter: true,
-		width: 100
+		width: '10%'
 	},{
 		title: '地址',
 		dataIndex: 'reciptAddr',
 		sorter: true,
-		width: 300
+		width: '30%'
 	}, {
 		title: '拣货单',
 		dataIndex: 'billState',
-		width: 200,
+		width: '10%',
 		render: ((text, record, index) =>
 			 '正常'
 		)

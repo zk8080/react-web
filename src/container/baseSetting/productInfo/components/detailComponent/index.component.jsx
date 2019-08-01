@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Modal } from '@pubComs';
-import { Form, Row, Col, Input, Select } from 'antd';
+import { Modal, Select } from '@pubComs';
+import { Form, Row, Col, Input } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
-const Option = Select.Option;
+// const Option = Select.Option;
 
 const onFieldsChange = (props, changedFields) => {
     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
@@ -40,6 +40,7 @@ class Index extends Component {
     }
 
     onConsumable = (value) => {
+        console.log(value, '111');
         if(value == '1'){
             this.setState({
                 isConsumable: true
@@ -49,6 +50,23 @@ class Index extends Component {
                 isConsumable: false
             });
         }
+    }
+
+    componentDidUpdate(prevProps){
+        // debugger;
+        if(JSON.stringify(this.props.detailData) != JSON.stringify(prevProps.detailData)){
+            const detailData = this.props.detailData;
+            if(detailData.isConsumable == '1' || detailData.isConsumable.value == '1'){
+                this.setState({
+                    isConsumable: true
+                });
+            }else{
+                this.setState({
+                    isConsumable: false
+                });
+            }
+        }
+        
     }
 
     render() {
@@ -141,10 +159,20 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Select disabled={disabled} >
-                                            <Option value='1' key='1'>是</Option>
-                                            <Option value='0' key='2'>否</Option>
-                                        </Select>
+                                        <Select 
+                                            disabled={disabled} 
+                                            option={[
+                                                {
+                                                    code: '1',
+                                                    name: '是'
+                                                },{
+                                                    code: '0',
+                                                    name: '否'
+                                                }
+                                            ]}
+                                            valueCode='code'
+                                            valueName='name'
+                                        />
                                     )}
                                 </FormItem>
                             </Col>
@@ -160,11 +188,19 @@ class Index extends Component {
                                     })(
                                         <Select 
                                             disabled={disabled} 
+                                            option={[
+                                                {
+                                                    code: '1',
+                                                    name: '是'
+                                                },{
+                                                    code: '0',
+                                                    name: '否'
+                                                }
+                                            ]}
+                                            valueCode='code'
+                                            valueName='name'
                                             onChange={this.onConsumable}
-                                        >
-                                            <Option value='1' key='1'>是</Option>
-                                            <Option value='0' key='2'>否</Option>
-                                        </Select>
+                                        />
                                     )}
                                 </FormItem>
                             </Col>
@@ -179,10 +215,23 @@ class Index extends Component {
                                                 }
                                             ]
                                         })(
-                                            <Select disabled={disabled} >
-                                                <Option value='纸箱' key='1'>纸箱</Option>
-                                                <Option value='泡沫' key='2'>泡沫</Option>
-                                            </Select>
+                                            <Select 
+                                                disabled={disabled} 
+                                                option={[
+                                                    {
+                                                        code: 'carton',
+                                                        name: '纸箱'
+                                                    },{
+                                                        code: 'froth',
+                                                        name: '泡沫'
+                                                    },{
+                                                        code: 'packing_bag',
+                                                        name: '快递袋'
+                                                    }
+                                                ]}
+                                                valueCode='code'
+                                                valueName='name'
+                                            />
                                         )}
                                     </FormItem>
                                 </Col>

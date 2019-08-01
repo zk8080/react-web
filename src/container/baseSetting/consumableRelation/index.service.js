@@ -1,20 +1,22 @@
 import axios from 'axios';
 
 //查询接口
-const customerListUrl = '/customer/loadGrid';
+const getQueryDataUrl = '/consumable/loadGrid';
 //新增接口
-const addCustomerUrl = '/customer/add';
+const addDataUrl = '/consumable/batchConfig';
 //修改接口
 const editCustomerUrl = '/customer/update';
 //删除接口
 const deleteCustomerUrl = '/customer/updateDelete';
 // 查询商品接口
 const productListUrl = '/commoditySku/loadGrid';
+// 查询耗材列表
+const queryConsumableUrl = '/commoditySku/consumable';
 
 class Service {
-    getCustomerList = req => {
+    getQueryData = req => {
         return new Promise((resolve, reject) => {
-            axios.post(customerListUrl, req)
+            axios.post(getQueryDataUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -25,9 +27,9 @@ class Service {
         });
     }
 
-    addCustomer = req => {
+    addData = req => {
         return new Promise((resolve, reject) => {
-            axios.post(addCustomerUrl, req)
+            axios.post(addDataUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -67,6 +69,21 @@ class Service {
     getProductList = req => {
         return new Promise((resolve, reject) => {
             axios.post(productListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    queryConsumable = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(queryConsumableUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })

@@ -28,13 +28,13 @@ class State {
     }
 
     //获取表格数据
-    @action getCustomerList = async (page) => {
+    @action getQueryData = async (page) => {
         const params = {
             search: formUtils.formToParams(this.queryForm),
             ...this.pageInfo,
             ...page
         };
-        const res = await Service.getCustomerList(params);
+        const res = await Service.getQueryData(params);
         try{
             if(res.data.code === 0){
                 const {rows, current, pageSize, total} = res.data.data;
@@ -110,17 +110,17 @@ class State {
 
     // 保存
     @action saveData = async (obj) => {
-        let res;
-        if(this.isAdd){
-            res = await Service.addCustomer(obj);
-        }else{
-            res = await Service.editCustomer(obj);
-        }
+        const res = await Service.addData(obj);
+        // if(this.isAdd){
+        //     res = await Service.addData(obj);
+        // }else{
+        //     res = await Service.editCustomer(obj);
+        // }
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.toggleVisible();
-                this.getCustomerList();
+                this.getQueryData();
             }else{
                 message.error(res.data.msg);
             }
@@ -159,7 +159,10 @@ class State {
     @action getProductList = async (page) => {
         const params = {
             current: 1,
-            pageSize: 1000000
+            pageSize: 1000000,
+            search: {
+                isConsumable: '0'
+            }
         };
         const res = await Service.getProductList(params);
         try{
@@ -175,6 +178,45 @@ class State {
         }
     }
 
+    // 耗材数据
+    @observable consumableData = [];
+    @action setConsumableData = (arr = []) => {
+        this.consumableData = arr;
+    }
+
+    // 处理耗材数据
+    dealData = (obj) => {
+        // 一级数据
+        const parentData = Object.keys(obj);
+       
+        const resultData = [];
+        parentData.map((item, index) => {
+            resultData.push({
+                skuName: item,
+                barCode: `parent${index}`,
+                children: obj[item]
+            });
+        });
+        console.log( resultData, '---resultData---' );
+        return resultData;
+    }
+
+    // 查询耗材
+    @action getConsumableData = async () => {
+        const res = await Service.queryConsumable({});
+        try{
+            if(res.data.code === 0){
+                const {data} = res.data;
+                const resultData = this.dealData(data);
+                this.setConsumableData(resultData);
+            }else{
+                this.setConsumableData([]);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 }
 
 export default new State();

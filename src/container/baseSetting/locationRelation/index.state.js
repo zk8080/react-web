@@ -104,6 +104,8 @@ class State {
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.toggleVisible();
+                this.setProductList([]);
+                this.setAllStoreList([]);
                 this.getTableList();
             }else{
                 message.error(res.data.msg);
@@ -162,11 +164,12 @@ class State {
     }
 
     // 查询客户-商品数据(由商家带出商品和库位)
-    @action getProductList = async(id) => {
+    @action getProductList = async(id, option) => {
         if(!id){
             this.setProductList([]);
             this.setAllStoreList([]);
         }
+        const customerCode = option.props.att.customerCode;
         const params = {
             customerId: id
         };
@@ -176,7 +179,7 @@ class State {
                 const {rows} = res.data.data;
                 this.setProductList(rows);
                 // 查询库位
-                this.getStroeList(id);
+                this.getStroeList(customerCode);
             }else{
                 message.error(res.data.msg);
             }
@@ -195,7 +198,9 @@ class State {
     // 查询库位
     @action getStroeList = async(id) => {
         const params = {
-            customerId: id
+            customerCode: id,
+            current: 1,
+            pageSize: 10000
         };
         const res = await Service.getStroeList(params);
         try{

@@ -4,17 +4,17 @@ import State from './index.state';
 const colums = [
     {
         title: '商品',
-        dataIndex: 'customerName',
+        dataIndex: 'skuName',
         width: 200
     },
     {
         title: '数量',
-        dataIndex: 'brandName',
+        dataIndex: 'rightValue',
         width: 100
     },
     {
         title: '耗材',
-        dataIndex: 'contactPerson',
+        dataIndex: 'useSkuName',
         width: 300
     },
     {

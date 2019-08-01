@@ -77,7 +77,7 @@ class Service {
 
     getProductList = req => {
         return new Promise((resolve, reject) => {
-            axios.post(`${getProductListUrl}/${req.customerId}`, {})
+            axios.post(`${getProductListUrl}/${req.customerId}`, req.loadGrid)
                 .then(res => {
                     resolve(res);
                 })
