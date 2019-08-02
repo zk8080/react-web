@@ -24,7 +24,6 @@ const OrderImportComponent = loadComponent(/* webpackChunkName: "Order Import" *
 const OrderPackageComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderPackage/order-package.component'));
 const PickingBellComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/pickingBill/picking-bill.component'));
 const OrderWeighComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
-const DeliveryOrder = loadComponent(() => import(/* webpackChunkName: "DeliveryOrder" */ '@container/outboundManagement/deliveryOrder/index.component'));
 
 // 权限管理
 const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
@@ -90,12 +89,6 @@ const routers = [
         exact: true,
         component: Shelf,
         breadcrumbName: '上架'
-    },
-    {
-        path: '/outboundManagement/deliveryOrder',
-        exact: true,
-        component: DeliveryOrder,
-        breadcrumbName: '发货订单'
     },
     {
         path: '/workflow/orderImport',

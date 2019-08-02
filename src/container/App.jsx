@@ -4,7 +4,6 @@ import Silder from './main/silder/index.component';
 import Header from './main/header/index.component';
 import RouterComponent from '@deploy/router/router';
 import Bread from './main/breadcrumb/index.component';
-import ReactLoading from 'react-loading';
 
 // 引入公用样式
 import './common/css/header.component.less';
