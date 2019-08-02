@@ -26,17 +26,14 @@ class OrderImportComponent extends Component{
 		OrderImportState.loadGrid();
 	}
 
-    successCbk = (obj) => {
-        console.log(obj, '----obj----');
-    }
-
 	render() {
 			return (
                 <div>
                     <div className='header-component'>
                         <Upload
                             action='/wms/order/excelImport'
-                            successCbk={this.successCbk}
+                            successCbk={OrderImportState.loadGrid}
+                            name='excelOrders'
                         />
                     </div>
                     <Table
