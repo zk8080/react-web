@@ -1,84 +1,64 @@
 import React, { Component } from 'react';
-import { Modal, Select } from '@pubComs';
-import { Form, Row, Col, Input } from 'antd';
-// import './index.less';
-import { formUtils } from '@utils/index';
+import {observer} from 'mobx-react';
+import {Table, Modal} from '@pubComs';
+import {colums} from './index.data';
+import './index.less';
+import {Button, Row, Col} from 'antd';
 
-const FormItem = Form.Item;
-const { TextArea } = Input;
-
-const onFieldsChange = (props, changedFields) => {
-    props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
-};
-
-const mapPropsToFields = (props) => {
-    return formUtils.objToForm(props.detailData);
-};
-
-@Form.create({
-})
+@observer
 class Index extends Component {
-
-    onOkClick = e => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                this.props.onOk({ ...values});
-            }
-        });
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
     }
-
-    toggleDisabled = () => {
-        this.props.toggleDisabled(false);
-    }
+    
 
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, storeList } = this.props;
+        const {tableList, customerInfo, visible, cancelClick, onOk, bindStorePage} = this.props;
         return (
-            <div>
-                <Modal
-                    title='新增'
-                    visible={visible}
-                    className='detail-customer'
-                    okText={disabled ? '修改': '确认'}
-                    cancelText='取消'
-                    onCancel={cancelClick}
-                    width='550px'
-                    onOk={disabled ? this.toggleDisabled: this.onOkClick}
-                >
-                    <Form className='query-component'>
+            <Modal
+                title='商品列表'
+                visible={visible}
+                className='product-list'
+                okText='确认'
+                cancelText='取消'
+                onCancel={cancelClick}
+                width='1100px'
+                onOk={onOk}
+                footer={null}
+            >
+                    <div className='customer-info'>
                         <Row>
-                            <Col span={24}>
-                                <FormItem label='库位'>
-                                    {getFieldDecorator('storehouseIds',{
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: '必填'
-                                            }
-                                        ]
-                                    })(
-                                        <Select 
-                                            mode="multiple"
-                                            option={storeList}
-                                            disabled={disabled}
-                                            valueCode='id'
-                                            valueName='storeCode'
-                                            showSearch
-                                            filterOption={(input, option) =>
-                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                            }
-                                        />
-                                    )}
-                                </FormItem>
+                            <Col span={12}>
+                                <span>商家名称：</span>
+                                <span>{customerInfo.customerName}</span>
+                            </Col>
+                            <Col span={12}>
+                                <span>联系人：</span>
+                                <span>{customerInfo.contactPerson}</span>
                             </Col>
                         </Row>
-                    </Form>
-                </Modal>
-            </div>
+                    </div>
+                    <div className='handle-btn'>
+                        <Button
+                            type='primary'
+                            onClick={this.props.addClick}
+                        >
+                            新增
+                        </Button>
+                    </div>
+                    <Table
+                        dataSource={tableList}
+                        columns={colums}
+                        getQueryData={this.props.getStoreList}
+                        pagination={bindStorePage}
+                        rowKey='id'
+                    />
+            </Modal>
         );
     }
 }
+
 
 export default Index;

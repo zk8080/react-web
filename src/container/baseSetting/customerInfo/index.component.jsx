@@ -12,7 +12,7 @@ import DetailComponent from './components/detailComponent/index.component';
 import ProductList from './components/productList/index.component';
 import ProductDetail from './components/productDetail/index.component';
 import StoreModal from './components/storeModal/index.component';
-
+import StoreList from './components/storeList/index.component';
 @observer
 class Index extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class Index extends Component {
 
     componentDidMount() {
         State.getCustomerList();
-        State.getStoreList();
+        // State.getStoreList();
     }
     render() {
         return (
@@ -78,8 +78,18 @@ class Index extends Component {
                 <StoreModal
                     visible={State.storeVisible}
                     cancelClick={State.closeStoreModal}
-                    storeList={toJS(State.storeList)}
+                    customerInfo={toJS(State.curCustomerInfo)}
+                    addClick={State.addStore}
+                    tableList={toJS(State.bindStoreList)}
+                    getStoreList={State.getBindStore}
+                />
+                <StoreList
+                    {...toJS(State)}
+                    visible={State.storeListVisible}
+                    cancelClick={State.cancelStoreList}
                     onOk={State.bindStore}
+                    getData={State.getStoreList}
+                    storeList={toJS(State.storeList)}
                 />
             </div>
         );

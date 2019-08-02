@@ -20,7 +20,10 @@ const getCurProductUrl = '/customer/notBindCommodities';
 const getNocustomerStoreUrl = '/storehouse/comboGridNotBind';
 // 批量关联客户
 const batchBindUrl = '/storehouseConfig/batchBind';
-
+// 查询客户已关联库位
+const bindCustomerStoreUrl = '/storehouseConfig/loadGrid';
+// 删除已关联库位
+const deleteStoreUrl = '/storehouseConfig/delete';
 
 class Service {
     getCustomerList = req => {
@@ -152,6 +155,36 @@ class Service {
                 });
         });
     }
+
+    bindCustomerStore = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(bindCustomerStoreUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    deleteStore = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(deleteStoreUrl, {
+                params: req
+            })
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    
 }
 
 export default new Service();

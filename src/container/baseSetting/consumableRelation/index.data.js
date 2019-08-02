@@ -8,6 +8,11 @@ const colums = [
         width: 200
     },
     {
+        title: '商品条码',
+        dataIndex: 'commodityCode',
+        width: 200
+    },
+    {
         title: '数量',
         dataIndex: 'rightValue',
         width: 100
@@ -23,7 +28,7 @@ const colums = [
         width: 100,
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <span onClick={State.editClick.bind(this, record)}>修改</span>
+                {/* <span onClick={State.editClick.bind(this, record)}>修改</span> */}
                 <span onClick={State.deleteClick.bind(this, record)}>删除</span>
             </div>;
         }

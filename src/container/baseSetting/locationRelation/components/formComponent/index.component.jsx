@@ -40,16 +40,17 @@ class Index extends Component {
                 <Row>
                     <Col span={8}>
                         <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('merchant', {
+                            {getFieldDecorator('customerCode', {
                                 rules: [],
                             })(<Select 
                                 option={customerList}
-                                valueCode='id'
+                                valueCode='customerCode'
                                 valueName='customerName'
                                 showSearch
-                                filterOption={(input, option) =>
-                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
+                                filterOption={(input, option) => {
+                                    
+                                   return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                }}
                             />)}
                         </FormItem>
                     </Col>

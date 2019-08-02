@@ -22,11 +22,11 @@ const colums = [
         dataIndex: 'storeNums',
         width: 80
     },
-    // {
-    //     title: '库位可用量',
-    //     dataIndex: 'availableNums',
-    //     width: 150
-    // },
+    {
+        title: '库位可用量',
+        dataIndex: 'availableNums',
+        width: 80
+    },
     {
         title: '操作',
         dataIndex: 'opreate',

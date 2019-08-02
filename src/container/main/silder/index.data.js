@@ -42,7 +42,7 @@ const menuData = [
             {
                 title: '库位补货',
                 key: '01-08',
-                url: '/stocktaking/list'
+                url: '/a'
             },
             // {
             //     title: '上架策略',
@@ -79,7 +79,7 @@ const menuData = [
             {
                 title: '退货管理',
                 key: '02-03',
-                url: '/inboundManagement/shelf'
+                url: '/b'
             }
         ]
     },

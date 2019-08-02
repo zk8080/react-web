@@ -28,13 +28,30 @@ class State {
         
     }
 
+    // 处理字典表数据 可以对表格数据进行反显
+    dealDictData = (obj) => {
+        const tableDictObj = {};
+        const keyArr = Object.keys(obj);
+        keyArr.map(item => {
+            const data = obj[item];
+            const dataObj = {};
+            data.map(dataItem => {
+                dataObj[dataItem.code] = dataItem.name;
+            });
+            tableDictObj[item] = dataObj;
+        });
+        return tableDictObj;
+    }
+
     // 查询字典表
     @action getAllDict = async () => {
         const res = await ComService.getDict({});
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
+                const tableDictData = this.dealDictData(data);
                 session.setItem('dictAll', data);
+                session.setItem('tableDictData', tableDictData);
             }
         }
         catch(e){

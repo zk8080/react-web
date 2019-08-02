@@ -1,6 +1,7 @@
 import React from 'react';
 import { ColumnProps } from 'antd/es/table';
-
+import orderImportState from './order-import.state';
+// const orderImportState = new OrderImportState();
 /**
  * 导入订单查询列表columns
  * @type {*[]}
@@ -39,6 +40,19 @@ export const orderImportColumns: ColumnProps[] = [
 			 '正常'
 		)
 	},
+    {
+        title: '操作',
+        dataIndex: 'opreate',
+        width: 200,
+        fixed: 'right',
+        render: (text, record, index) => {
+            return <div className='opreat-right'>
+                <a onClick={orderImportState.lookClick.bind(this, record)}>查看</a>
+                {/* <a onClick={orderImportState.editClick.bind(this, record)}>修改</a>
+                <a>删除</a> */}
+            </div>;
+        }
+    }
 ];
 /**
  * 导入订单查询列表子columns

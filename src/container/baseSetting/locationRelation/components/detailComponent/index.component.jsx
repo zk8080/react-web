@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Select } from '@pubComs';
+import { Modal, Select, ProductSelect } from '@pubComs';
 import { Form, Row, Col, Input } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
@@ -65,6 +65,10 @@ class Index extends Component {
                                             valueCode='id'
                                             valueName='customerName'
                                             onChange={this.props.getProductList}
+                                            showSearch
+                                            filterOption={(input, option) => {
+                                                return  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                            }}
                                         />
                                     )}
                                 </FormItem>
@@ -79,11 +83,15 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Select 
+                                        <ProductSelect 
                                             option={productList}
                                             disabled={disabled}
                                             valueCode='id'
                                             valueName='skuName'
+                                            showSearch
+                                            filterOption={(input, option) => {
+                                                return  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                            }}
                                         />
                                     )}
                                 </FormItem>

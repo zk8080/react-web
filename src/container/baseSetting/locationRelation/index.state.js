@@ -171,7 +171,11 @@ class State {
         }
         const customerCode = option.props.att.customerCode;
         const params = {
-            customerId: id
+            customerId: id,
+            loadGrid: {
+                current: 1,
+                pageSize: 10000
+            }
         };
         const res = await Service.getProductList(params);
         try{

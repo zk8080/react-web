@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Select } from '@pubComs';
+import { Modal, Select, ProductSelect } from '@pubComs';
 import { Form, Row, Col, Input, Checkbox, Tree } from 'antd';
 import './index.less';
 import { formUtils } from '@utils';
@@ -36,7 +36,7 @@ class Index extends Component {
             if (!err) {
                 // console.log( values, '---values---' );
                 const useCommodityCodes = values.useCommodityCodes.filter(item => item.indexOf('parent') == '-1');
-                const commodityCodes = [values.commodityCodes];
+                const commodityCodes = [values.commodityCode];
                 this.props.onOk({...this.props.detailData, ...values, ...{useCommodityCodes, commodityCodes}});
             }
         });
@@ -85,20 +85,21 @@ class Index extends Component {
                         <Row>
                             <Col span={24}>
                                 <FormItem label='商品'>
-                                    {getFieldDecorator('commodityCodes', {
+                                    {getFieldDecorator('commodityCode', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
                                         }]
                                     })(
-                                        <Select 
+                                        <ProductSelect 
                                             option={productList}
+                                            disabled={disabled}
                                             valueCode='barCode'
                                             valueName='skuName'
                                             showSearch
-                                            filterOption={(input, option) =>
-                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                            }
+                                            filterOption={(input, option) => {
+                                                return  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                                            }}
                                         />
                                     )}
                                 </FormItem>
@@ -132,10 +133,11 @@ class Index extends Component {
                                     })(
                                         <DirectoryTree
                                             checkable
+                                            disabled={disabled}
                                             onCheck={this.onCheck}
                                             autoExpandParent={true}
-                                            checkedKeys={this.state.checkedKeys}
-                                            selectedKeys={this.state.selectedKeys}
+                                            // checkedKeys={this.state.checkedKeys}
+                                            // selectedKeys={this.state.selectedKeys}
                                             showIcon={false}
                                         >
                                             {this.renderTreeNodes(treeData)}

@@ -5,6 +5,7 @@ import Select from './Select/index.component';
 import EditTable from './EditTable/index.component';
 import BarcodeComponent from './barcode/barcode.component';
 import Upload from './Upload/index.component';
+import ProductSelect from './ProductSelect/index.component';
 
 export {
     Table,
@@ -13,5 +14,6 @@ export {
     Select,
     EditTable,
     BarcodeComponent,
-    Upload
+    Upload,
+    ProductSelect
 };

@@ -1,17 +1,19 @@
 import React, { Component }  from 'react';
 import { observer } from 'mobx-react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
+import {toJS} from 'mobx';
 // import { Table } from '@pubComs';
 
 import { orderImportChildColumns, orderImportColumns } from './order-import.columns.config';
-import { OrderImportState } from './order-import.state';
+import OrderImportState from './order-import.state';
+import DetailComponent from './components/detailComponent/index.component';
 
 @observer
 class OrderImportComponent extends Component{
 	constructor(props) {
 		super(props);
 		this.state={};
-		this.orderImportState = new OrderImportState();
+		// OrderImportState = new OrderImportState();
 	}
 
 	childTable(target) {
@@ -20,21 +22,46 @@ class OrderImportComponent extends Component{
 	}
 
 	componentDidMount(): void {
-		this.orderImportState.loadGrid();
+		OrderImportState.loadGrid();
 	}
 
 	render() {
-			return <Table
-				loading={this.orderImportState.loading}
-				dataSource={this.orderImportState.dataList}
-                columns={orderImportColumns}
-                rowKey='id'
-                bordered
-				onChange={this.orderImportState.tableChange.bind(this.orderImportState)}
-				expandedRowRender={this.childTable.bind(this)}
-				expandedRowKeys={this.orderImportState.dataList.map((value, index )=> value.id)}
-				pagination={this.orderImportState.page}
-			/>;
+			return (
+                <div>
+                    <div className='header-component'>
+                        <Button
+                            type='primary'
+                            onClick={this.props.addClick}
+                        >
+                            导入
+                        </Button>
+                    </div>
+                    <Table
+                        loading={OrderImportState.loading}
+                        dataSource={OrderImportState.dataList}
+                        columns={orderImportColumns}
+                        rowKey='id'
+                        bordered
+                        onChange={OrderImportState.tableChange.bind(OrderImportState)}
+                        // expandedRowRender={this.childTable.bind(this)}
+                        // expandedRowKeys={OrderImportState.dataList.map((value, index )=> value.id)}
+                        pagination={OrderImportState.page}
+                    />
+                    <DetailComponent
+                        visible={OrderImportState.visible}
+                        cancelClick={OrderImportState.toggleVisible}
+                        onOk={this.saveClick}
+                        detailData={toJS(OrderImportState.editForm)}
+                        setDetailData={OrderImportState.setEditForm}
+                        disabled={OrderImportState.disabled}
+                        toggleDisabled={OrderImportState.toggleDisabled}
+                        handleDelete={OrderImportState.deleteEditTable}
+                        handleSave={OrderImportState.handleSave}
+                        dataSource={toJS(OrderImportState.editTable)}
+                        handleAdd={OrderImportState.handleAdd}
+                    />
+                </div>
+            );
 	}
 }
 export default OrderImportComponent;

@@ -332,19 +332,41 @@ class State {
         this.setStoreVisible(false);
     }
 
-    // 未关联的库位
-    @observable storeList = [];
-    @action setStoreList = (arr = []) => {
-        this.storeList = arr;
+    // 当前商家已分配库位列表
+    @observable bindStoreList = [];
+    @action setBindStoreList = (arr = []) => {
+        this.bindStoreList = arr;
     }
 
-    // 查询未关联库位
-    @action getStoreList = async () => {
-        const res = await Service.getNocustomerStore({});
+    // 已分配库位分页
+    @observable bindStorePage = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action  setBindStorePage = (obj = {}) => {
+        this.bindStorePage = obj;
+    }
+
+    // 查询当前商家已分配库位
+    @action getBindStore = async () => {
+        const customerInfo = toJS(this.curCustomerInfo);
+        const params = {
+            search: {
+                customerCode: customerInfo.customerCode
+            },
+            ...this.bindStorePage
+        };
+        const res = await Service.bindCustomerStore(params);
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
-                this.setStoreList(rows);
+                const {rows, current, pageSize, total} = res.data.data;
+                this.setBindStoreList(rows);
+                this.setBindStorePage({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
                 message.error(res.data.msg);
             }
@@ -352,12 +374,14 @@ class State {
         catch(e){
             console.log(e);
         }
+
     }
 
     // 点击分配库位
     @action dealStore = (record) => {
         this.setStoreVisible(true);
         this.setCurCustomerInfo(record);
+        this.getBindStore();
     }
 
     // 分配库位确认
@@ -371,8 +395,7 @@ class State {
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
-                this.setStoreVisible(false);
-                this.getCustomerList();
+                this.cancelStoreList();
             }else{
                 message.error(res.data.msg);
             }
@@ -382,6 +405,84 @@ class State {
         }
 
     }
+
+    // 库位列表弹窗标识
+    @observable storeListVisible = false;
+    @action setStoreListVisible = (bol) => {
+        this.storeListVisible = bol;
+    }
+
+    // 点击新增库位
+    @action addStore = () => {
+        this.getStoreList();
+        this.setStoreListVisible(true);
+        this.setStoreVisible(false);
+    }
+
+    // 删除已分配库位
+    @action deleteStore = async (record) => {
+        const params = {
+            id: record.id
+        };
+        const res = await Service.deleteStore(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getBindStore();
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 关闭库位列表
+    @action cancelStoreList = () => {
+        this.setStoreListVisible(false);
+        this.setStoreVisible(true);
+    }
+
+    // 未关联的库位
+    @observable storeList = [];
+    @action setStoreList = (arr = []) => {
+        this.storeList = arr;
+    }
+
+    // 库位列表分页
+    @observable storeListPage = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    };
+    @action setStoreListPage = (obj) => {
+        this.storeListPage = obj;
+    }
+
+    // 查询未关联库位
+    @action getStoreList = async (params) => {
+        const res = await Service.getNocustomerStore({
+            ...params
+        });
+        try{
+            if(res.data.code === 0){
+                const {rows, current, pageSize, total} = res.data.data;
+                this.setStoreList(rows);
+                this.setStoreListPage({
+                    current,
+                    pageSize,
+                    total
+                });
+            }else{
+                message.error(res.data.msg);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
 }
 
 export default new State();
