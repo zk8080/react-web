@@ -35,8 +35,13 @@ const menuData = [
                 url: '/trackingNumber/list'
             },
             {
-                title: '盘点',
+                title: '库存盘点',
                 key: '01-07',
+                url: '/stocktaking/list'
+            },
+            {
+                title: '库位补货',
+                key: '01-08',
                 url: '/stocktaking/list'
             },
             // {
@@ -67,7 +72,12 @@ const menuData = [
                 url: '/inboundManagement/purchaseNotice'
             },
             {
-                title: '上架',
+                title: '入库上架',
+                key: '02-02',
+                url: '/inboundManagement/shelf'
+            },
+            {
+                title: '退货管理',
                 key: '02-03',
                 url: '/inboundManagement/shelf'
             }
@@ -79,12 +89,12 @@ const menuData = [
         icon: 'fullscreen',
         children: [
 			{
-				title: '订单',
+				title: '订单管理',
 				key: '03-08',
 				url: '/workflow/orderImport'
 			},
 			{
-				title: '拣货单',
+				title: '拣货单管理',
 				key: '03-09',
 				url: '/workflow/pickingBill'
 			},
@@ -175,7 +185,7 @@ const menuData = [
         ]
     },
     {
-        title: '结算管理',
+        title: '财务报表',
         key: '06',
         icon: 'transaction',
         children: [

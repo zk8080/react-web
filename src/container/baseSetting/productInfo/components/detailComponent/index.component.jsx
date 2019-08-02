@@ -56,7 +56,7 @@ class Index extends Component {
         // debugger;
         if(JSON.stringify(this.props.detailData) != JSON.stringify(prevProps.detailData)){
             const detailData = this.props.detailData;
-            if(detailData.isConsumable == '1' || detailData.isConsumable.value == '1'){
+            if(detailData.isConsumable && (detailData.isConsumable == '1' || detailData.isConsumable.value == '1')){
                 this.setState({
                     isConsumable: true
                 });
