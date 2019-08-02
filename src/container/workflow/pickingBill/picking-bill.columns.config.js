@@ -62,27 +62,32 @@ export const lockPickingBillColumns: ColumnProps[] = [{
 	dataIndex: 'weightUnit'
 }];
 
+// commodityCode: "9505900000"
+// mailNo: "1564568552887"
+// modelNo: "DL-OK"
+// packageNums: 4
+// pickNums: 0
+// singleUnit: "栈"
+// skuName: "飞利浦立柱灯笼"
+// spec: "黄色"
 export const lockBillCommodityColumns: ColumnProps[] = [{
-	title: 'orderNo',
-	dataIndex: 'orderNo'
+	title: '商品名称',
+	dataIndex: 'commodityCode'
 },{
-	title: 'barCode',
-	dataIndex: 'barCode'
-},{
-	title: 'skuName',
+	title: '商品条码',
 	dataIndex: 'skuName'
 },{
-	title: 'modelNo',
-	dataIndex: 'modelNo'
+	title: '规格',
+	dataIndex: 'spec'
 },{
-	title: 'pickNumbers',
-	dataIndex: 'pickNumbers'
+	title: '已检',
+	dataIndex: 'pickNums'
 },{
-	title: 'numbers',
-	dataIndex: 'numbers'
+	title: '数量',
+	dataIndex: 'packageNums'
 },{
-	title: 'unit',
-	dataIndex: 'unit'
+	title: '单位',
+	dataIndex: 'singleUnit'
 }];
 // pick_no pickNo,
 // 	customer_code customerCode,

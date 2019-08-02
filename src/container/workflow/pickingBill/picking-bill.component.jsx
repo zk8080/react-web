@@ -53,7 +53,7 @@ class PickingBillComponent extends Component{
 	}
 
 	rowRender(row) {
-		return <Table dataSource={row.orderCommodities} columns={lockBillCommodityColumns} pagination={false}/>;
+		return <Table dataSource={row.packageCommodities} columns={lockBillCommodityColumns} pagination={false}/>;
 	}
 
 	render(){
