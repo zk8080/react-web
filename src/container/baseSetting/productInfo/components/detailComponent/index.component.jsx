@@ -279,7 +279,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='商品单位'>
                                     {getFieldDecorator('singleUnit', {
                                         
@@ -289,7 +289,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             {/* <Col span={8}>
                                 <FormItem label='打包单位'>
                                     {getFieldDecorator('packingNum', {
@@ -334,7 +334,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col> */}
-                            <Col span={8}>
+                            {/* <Col span={8}>
                                 <FormItem label='商品重量单位'>
                                     {getFieldDecorator('singleWeightUnit', {
                                         
@@ -355,7 +355,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             <Col span={24}>
                                 <FormItem label='备注'>
                                     {getFieldDecorator('remark')(

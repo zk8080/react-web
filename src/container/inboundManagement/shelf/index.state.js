@@ -144,7 +144,7 @@ class State {
         this.setShelfVisible(true);
         this.toggleVisible();
         this.setEditStoreList([]);
-        this.getRecommendStore();
+        this.getRecommendStore(record);
     }
 
     // 关闭弹窗
@@ -161,10 +161,12 @@ class State {
     }
 
     // 查询推荐库位
-    @action getRecommendStore = async () => {
+    @action getRecommendStore = async (record) => {
         const curData = toJS(this.curDataInfo);
         const params = {
-            customerCode: curData.customerCode
+            customerCode: curData.customerCode,
+            barCode: ''
+            // barCode: record.barCode
         };
         const res = await Service.getRecommendStore(params);
         try{

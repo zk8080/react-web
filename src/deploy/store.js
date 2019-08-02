@@ -2,11 +2,9 @@
 import {observable, action} from 'mobx';
 
 class Store {
-    @observable globalData = {
-        name: '测试101'
-    };
-    @action setGlobalData = (obj = {}) => {
-        this.globalData = obj;
+    @observable globalUserData = {};
+    @action setGlobalUserData = (obj = {}) => {
+        this.globalUserData = obj;
     }
 
     //登录验证

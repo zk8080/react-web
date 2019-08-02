@@ -23,7 +23,7 @@ class State {
         this.merchantsList = arr;
     }
     @action getMerchantsList = async () => {
-        let res = await Service.getMerchantsList({});
+        const res = await Service.getMerchantsList({});
         try{
             if(res.data.code === 0){
                 const {rows=[]} = res.data.data;
@@ -68,15 +68,15 @@ class State {
 
     //点击开始盘点
     @action beginCheck = async (callback) => {
-        let data = toJS(this.tableList);
+        const data = toJS(this.tableList);
         if(data.length == 0){
             message.warning('暂无数据可进行盘点');
             return;
         }
-        let arr = [];
+        const arr = [];
         data.map(item=>{
             arr.push(item.storehouseId);
-        })
+        });
         this.setStoreIdList(arr);
         const paramsObj = Object.assign({}, {
             storeIdList: arr
@@ -90,7 +90,7 @@ class State {
                     callback();
                 }
             }else{
-                console.log(res.data.msg);
+                message.error(res.data.msg);
             }
         }
         catch(e){

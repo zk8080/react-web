@@ -13,6 +13,7 @@ class State {
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
+                appStore.setGlobalUserData(data);
                 appStore.setIsAuthority(true);
                 session.setItem('isAuthority', {login: true});
                 this.getAllDict(); 

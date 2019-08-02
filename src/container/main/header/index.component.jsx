@@ -58,7 +58,7 @@ class Index extends Component {
                     <div className='logout'>
                         <Dropdown overlay={this.menu}>
                             <span className="ant-dropdown-link">
-                                {appStore.globalData.name} <Icon type="down" />
+                                {appStore.globalUserData.name} <Icon type="down" />
                             </span>
                         </Dropdown>
                     </div>

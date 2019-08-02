@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import { observer } from 'mobx-react';
 import { Table, Button } from 'antd';
 import {toJS} from 'mobx';
+import {Upload} from '@pubComs';
 // import { Table } from '@pubComs';
 
 import { orderImportChildColumns, orderImportColumns } from './order-import.columns.config';
@@ -25,16 +26,18 @@ class OrderImportComponent extends Component{
 		OrderImportState.loadGrid();
 	}
 
+    successCbk = (obj) => {
+        console.log(obj, '----obj----');
+    }
+
 	render() {
 			return (
                 <div>
                     <div className='header-component'>
-                        <Button
-                            type='primary'
-                            onClick={this.props.addClick}
-                        >
-                            导入
-                        </Button>
+                        <Upload
+                            action='/wms/order/excelImport'
+                            successCbk={this.successCbk}
+                        />
                     </div>
                     <Table
                         loading={OrderImportState.loading}

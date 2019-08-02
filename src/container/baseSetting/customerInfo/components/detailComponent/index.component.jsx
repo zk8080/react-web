@@ -127,7 +127,7 @@ class Index extends Component {
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col span={24}>
+                            {/* <Col span={24}>
                                 <FormItem label='库位单价'>
                                     {getFieldDecorator('unitPrice',{
                                         rules: [
@@ -158,7 +158,7 @@ class Index extends Component {
                                         />
                                     )}
                                 </FormItem>
-                            </Col>
+                            </Col> */}
                             <Col span={24}>
                                 <FormItem label='备注'>
                                     {getFieldDecorator('remark')(

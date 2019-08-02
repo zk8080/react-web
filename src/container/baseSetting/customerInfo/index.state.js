@@ -396,6 +396,7 @@ class State {
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.cancelStoreList();
+                this.getBindStore();
             }else{
                 message.error(res.data.msg);
             }
