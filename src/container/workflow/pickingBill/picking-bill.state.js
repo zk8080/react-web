@@ -98,7 +98,7 @@ export class PickingBillState extends BaseState{
 			if (!this.pickNo) {
 				message.warning('请先锁定件货单号！');
 			} else {
-				this.get('order/invoiceCheck', {
+				this.get('pickBill/invoiceCheck', {
 					pickNo: this.pickNo,
 					commodityCode: value
 				}, result => {
