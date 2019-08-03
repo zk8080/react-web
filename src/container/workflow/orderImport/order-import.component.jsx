@@ -2,12 +2,13 @@ import React, { Component }  from 'react';
 import { observer } from 'mobx-react';
 import { Table, Button } from 'antd';
 import {toJS} from 'mobx';
-import {Upload} from '@pubComs';
+import {Upload, DownLoad} from '@pubComs';
 // import { Table } from '@pubComs';
 
 import { orderImportChildColumns, orderImportColumns } from './order-import.columns.config';
 import OrderImportState from './order-import.state';
 import DetailComponent from './components/detailComponent/index.component';
+import FormComponent from './components/formComponent/index.component';
 
 @observer
 class OrderImportComponent extends Component{
@@ -29,11 +30,22 @@ class OrderImportComponent extends Component{
 	render() {
 			return (
                 <div>
+                    <FormComponent 
+                        // queryData={toJS(OrderImportState.queryForm)}
+                        // setQueryData={OrderImportState.setQueryForm}
+                        getData={OrderImportState.loadGrid}
+                        // customerList={toJS(OrderImportState.customerList)}
+                        // productList={toJS(OrderImportState.allProductList)}
+                    />
                     <div className='header-component'>
                         <Upload
                             action='/wms/order/excelImport'
                             successCbk={OrderImportState.loadGrid}
                             name='excelOrders'
+                        />
+                        <DownLoad
+                            path='/order/downloadTemplate'
+                            title='模板下载'
                         />
                     </div>
                     <Table

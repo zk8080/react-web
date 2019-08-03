@@ -1,0 +1,27 @@
+.column_cont{
+    display: flex;
+    flex-wrap: wrap;
+    .column_box{
+        width: 180px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #eee;
+        flex-direction: column;
+        cursor: pointer;
+        // background: red;
+        .column{
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .all_data{
+            display: flex;
+            font-size: 18px;
+        }
+        &.yellow{
+            background: yellow;
+            color: #fff;
+        }
+    }
+}

@@ -13,7 +13,7 @@ import {
 import { PickingBillState } from './picking-bill.state';
 import { LoadGridUtil } from '../../../utils/load-serve';
 import BarcodeComponent from '../../../pubComponents/barcode/barcode.component';
-
+import ReviewComponent from './components/reviewComponent/index.component';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -84,7 +84,7 @@ class PickingBillComponent extends Component{
 								onChange={this.tableChange.bind(this)}
 							/>
 						</TabPane>
-						<TabPane tab="复检" key="chick">
+						<TabPane tab="扫描复核" key="chick">
 							<Row  className={'header-component'}>
 								<Col span={6} >
 									<Search placeholder="请锁定拣货单号" onSearch={this.pickingBillState.lockPickBill.bind(this.pickingBillState)} enterButton={
@@ -97,13 +97,14 @@ class PickingBillComponent extends Component{
 
 								<Button type="danger" onClick={this.pickingBillState.invoiceCheckClose.bind(this.pickingBillState)}>复检完毕</Button>
 							</Row>
-							<Table
+                            <ReviewComponent></ReviewComponent>
+							{/* <Table
 								pagination={false}
 								defaultExpandAllRows={true}
 								columns={lockPickingBillColumns}
 								expandedRowRender={this.rowRender.bind(this)}
 								dataSource={this.pickingBillState.lockDataList}
-							/>
+							/> */}
 							<Modal
 								title="提示"
 								visible={this.pickingBillState.visible}
@@ -112,16 +113,15 @@ class PickingBillComponent extends Component{
 								<h3>请将此商品放置 {this.pickingBillState.basketNum} 号框.</h3>
 							</Modal>
 						</TabPane>
-						<TabPane tab="拣货单列表" key="pickBillList">
+						{/* <TabPane tab="拣货单列表" key="pickBillList">
 							<Row type="flex" justify="space-around" align="middle" className="header-component">
 								<Col span={3}><h3 align="right" >拣货单号：</h3></Col>
 								<Col span={21}>
-									{/*<Barcode code={46565464} height={80}/>*/}
 									<BarcodeComponent code={'9797979789KS'} height={80}/>
 								</Col>
 							</Row>
 							<Table pagination={false} columns={invoiceColumns} dataSource={this.pickingBillState.invoices}></Table>
-						</TabPane>
+						</TabPane> */}
 					</Tabs>
 		</div>;
 	}

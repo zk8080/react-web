@@ -12,11 +12,11 @@ class OrderImportState extends BaseState{
         super(...rest);
     }
 	@observable orderCommodityData: [];
-	@action refreshOrderCommodityDate(orderCommodityData = []) {
+	@action refreshOrderCommodityDate = (orderCommodityData = []) => {
 		this.orderCommodityData = orderCommodityData;
 	}
 
-	loadGrid(param: LoadGrid = {}) {
+	loadGrid = (param: LoadGrid = {}) => {
 		this.post('/order/loadGrid', param, result => {
 			if (result.status === 1) {
 				this.loadGridFinished(result.data);

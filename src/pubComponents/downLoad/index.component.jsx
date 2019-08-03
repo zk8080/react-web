@@ -10,7 +10,7 @@ class Index extends Component {
     // 点击按钮 拼接url
     downloadClick = () => {
         const path = this.props.path;
-        const params = this.props.params;
+        const params = this.props.params || {};
         const paramsArr = [];
         for (const [key, value] of Object.entries(params)) {
             paramsArr.push(`${key}=${value}`);

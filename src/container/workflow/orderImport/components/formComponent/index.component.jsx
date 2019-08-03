@@ -16,7 +16,9 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                this.props.getData({
+                    search: values
+                });
             }
         });
     };
@@ -50,7 +52,7 @@ class Index extends Component {
                 </Row>
                 <Row>
                     <Col span={8}>
-                        <FormItem label="订单状态" hasFeedback>
+                        {/* <FormItem label="订单状态" hasFeedback>
                             {getFieldDecorator('purchaseDate', {
                                 rules: [],
                             })(<Select 
@@ -79,14 +81,14 @@ class Index extends Component {
                                 valueCode='code'
                                 valueName='name'
                             />)}
-                        </FormItem>
+                        </FormItem> */}
                     </Col>
                     <Col span={8}>
-                        <FormItem label="收货日期" hasFeedback>
+                        {/* <FormItem label="收货日期" hasFeedback>
                             {getFieldDecorator('receivDate', {
                                 rules: [],
                             })(<DatePicker/>)}
-                        </FormItem>
+                        </FormItem> */}
                     </Col>
                     <Col span={8} className='query-btn'>
                         <Button
