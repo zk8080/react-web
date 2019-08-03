@@ -117,8 +117,8 @@ class State {
         const res = await Service.getUserRoleInfo(params);
         if(res.data.code === 0){
             const {data} = res.data;
-            const roleList = data.roleList.map(item => item.id);
-            const editData = {...data, roleList};
+            const roleKey = data.roleList.map(item => String(item.id));
+            const editData = {...data, roleKey};
             this.setEditForm(editData);
             this.toggleDisabled(true);
             this.setIsAdd(false);

@@ -5,7 +5,7 @@ class FormUtils {
     objToForm = (obj = {}) => {
         const target = {};
         for(const [key,value] of Object.entries(obj)){
-            if(typeof value == 'object'){
+            if(typeof value == 'object' && !Array.isArray(value)){
                 target[key] = Form.createFormField(value);
             }else{
                 target[key] = Form.createFormField({value});
