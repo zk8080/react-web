@@ -6,38 +6,38 @@ import { switchCase } from '@babel/types';
 const colums = [
     {
         title: '商品名称',
-        dataIndex: 'commodityName',
-        width: 150
+        dataIndex: 'skuName',
+        width: 200
     },
     {
         title: '商品条码',
         dataIndex: 'skuCode',
-        width: 80
+        width: 150
     },
     {
         title: '型号',
         dataIndex: 'modelNo',
-        width: 80
+        width: 100
     },
     {
         title: '规格',
-        dataIndex: 'fspec',
-        width: 80
+        dataIndex: 'spec',
+        width: 100
     },
     {
         title: '库位类型',
-        dataIndex: 'storeType',
+        dataIndex: 'storehouseType',
         width: 80
     },
     {
         title: '库位编码',
-        dataIndex: 'storeCode',
-        width: 80
+        dataIndex: 'storehouseCode',
+        width: 100
     },
     {
         title: '库存数量',
         dataIndex: 'storeNums',
-        width: 80
+        width: 100
     },
     {
         title: '初盘数量',

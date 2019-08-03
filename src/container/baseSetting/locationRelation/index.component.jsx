@@ -9,6 +9,7 @@ import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
+import AddComponent from './components/addComponent/index.component';
 
 @observer
 class Index extends Component {
@@ -26,10 +27,6 @@ class Index extends Component {
         State.getTableList();
         State.getCustomerList();
         // State.getStroeList();
-    }
-
-    saveClick = (obj) => {
-        State.saveData(obj);
     }
 
     componentWillUnmount() {
@@ -61,7 +58,7 @@ class Index extends Component {
                 <DetailComponent
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
-                    onOk={this.saveClick}
+                    onOk={State.updateData}
                     detailData={toJS(State.editForm)}
                     setDetailData={State.setEditForm}
                     disabled={State.disabled}
@@ -70,6 +67,11 @@ class Index extends Component {
                     productList={toJS(State.productList)}
                     storeList={toJS(State.allStoreList)}
                     getProductList={State.getProductList}
+                />
+                <AddComponent
+                    visible={State.addVisible}
+                    cancelClick={State.closeAddModal}
+                    onOk={State.saveData}
                 />
             </div>
         );

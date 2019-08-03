@@ -38,7 +38,7 @@ class Index extends Component {
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
-                    rowKey='commodityId'
+                    rowKey={(v, i) => i}
                     pagination={false}
                     bordered
                 />

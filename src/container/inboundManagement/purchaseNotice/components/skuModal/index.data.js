@@ -8,7 +8,7 @@ const colums = [
     {
         title: '规格',
         dataIndex: 'spec',
-        width: 80
+        width: 150
     },
     {
         title: '商品条形码',
@@ -18,7 +18,7 @@ const colums = [
     {
         title: '商品类型',
         dataIndex: 'modelNo',
-        width: 80
+        width: 150
     },
 ];
 

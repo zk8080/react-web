@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import { Modal, Select, ProductSelect } from '@pubComs';
 import { Form, Row, Col, Input } from 'antd';
 import './index.less';
-import { formUtils } from '@utils/index';
+// import { formUtils } from '@utils';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-const onFieldsChange = (props, changedFields) => {
-    props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
-};
+// const onFieldsChange = (props, changedFields) => {
+//     props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
+// };
 
-const mapPropsToFields = (props) => {
-    return formUtils.objToForm(props.detailData);
-};
+// const mapPropsToFields = (props) => {
+//     return formUtils.objToForm(props.detailData);
+// };
 
 @Form.create({
-    mapPropsToFields,
-    onFieldsChange
+    // mapPropsToFields,
+    // onFieldsChange
 })
 class Index extends Component {
 
@@ -36,18 +36,18 @@ class Index extends Component {
     
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, customerList, productList, storeList } = this.props;
+        const { visible, cancelClick, customerList, productList, storeList } = this.props;
         return (
             <div>
                 <Modal
                     title='库位关系配置'
                     visible={visible}
                     className='detail-product'
-                    okText={disabled ? '修改': '确认'}
+                    okText={'确认'}
                     cancelText='取消'
                     onCancel={cancelClick}
                     width='550px'
-                    onOk={disabled ? this.toggleDisabled: this.onOkClick}
+                    onOk={this.onOkClick}
                 >
                     <Form className='query-component'>
                         <Row>
@@ -61,7 +61,6 @@ class Index extends Component {
                                     })(
                                         <Select 
                                             option={customerList}
-                                            disabled={disabled}
                                             valueCode='id'
                                             valueName='customerName'
                                             onChange={this.props.getProductList}
@@ -85,7 +84,6 @@ class Index extends Component {
                                     })(
                                         <ProductSelect 
                                             option={productList}
-                                            disabled={disabled}
                                             valueCode='id'
                                             valueName='skuName'
                                             showSearch
@@ -98,7 +96,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位'>
-                                    {getFieldDecorator('storehouseId', {
+                                    {getFieldDecorator('storehouseIds', {
                                         rules: [
                                             {
                                                 required: true,
@@ -107,9 +105,8 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Select 
-                                            // mode="multiple"
+                                            mode="multiple"
                                             option={storeList}
-                                            disabled={disabled}
                                             valueCode='id'
                                             valueName='storeCode'
                                             showSearch
@@ -131,7 +128,6 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
                                         />
                                     )}
                                 </FormItem>
@@ -147,7 +143,6 @@ class Index extends Component {
                                         ]
                                     })(
                                         <Input 
-                                            disabled={disabled}
                                         />
                                     )}
                                 </FormItem>

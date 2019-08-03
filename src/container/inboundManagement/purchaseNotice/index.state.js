@@ -327,7 +327,7 @@ class State {
         total: 15
     }
     @action setSkuPageInfo = (obj = {}) => {
-        this.pageInfo = obj;
+        this.skupageInfo = obj;
     }
     
     // 弹窗标识

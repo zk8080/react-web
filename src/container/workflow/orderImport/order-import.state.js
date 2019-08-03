@@ -7,6 +7,10 @@ import {message} from 'antd';
  * 订单导入
  */
 class OrderImportState extends BaseState{
+    // eslint-disable-next-line no-useless-constructor
+    constructor(...rest){
+        super(...rest);
+    }
 	@observable orderCommodityData: [];
 	@action refreshOrderCommodityDate(orderCommodityData = []) {
 		this.orderCommodityData = orderCommodityData;

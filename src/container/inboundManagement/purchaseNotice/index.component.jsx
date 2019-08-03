@@ -103,7 +103,7 @@ class Index extends Component {
                     productList={toJS(State.productList)}
                     queryData={toJS(State.detailFormData)}
                     setQueryData={State.setDetailFormData}
-                    pagination={toJS(State.pageInfo)}
+                    pagination={toJS(State.skupageInfo)}
                 />
             </div>
         );

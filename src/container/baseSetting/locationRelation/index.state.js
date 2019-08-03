@@ -64,11 +64,6 @@ class State {
         this.visible = !this.visible;
     }
 
-    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
-    @observable isAdd = false;
-    @action setIsAdd = (bol = false) => {
-        this.isAdd = bol;
-    }
 
     // 详情弹窗是否可编辑
     @observable disabled = true;
@@ -76,30 +71,55 @@ class State {
         this.disabled = bol;
     }
 
-    // 新增按钮
-    @action addClick = () => {
-        this.setEditForm();
-        this.setIsAdd(true);
-        this.toggleDisabled(false);
-        this.toggleVisible();
+    // 新增弹窗显示标识
+    @observable addVisible = false;
+    @action setAddVisible = (bol) => {
+        this.addVisible = bol;
     }
 
+    // 新增按钮
+    @action addClick = () => {
+        // this.setEditForm();
+        this.setAddVisible(true);
+    }
+
+    // 关闭新增弹窗
+    @action closeAddModal = () => {
+        this.setAddVisible(false);
+    }
+    
     // 点击修改
     @action editClick = (record) => {
         this.toggleDisabled(true);
-        this.setIsAdd(false);
-        this.setEditForm(record);
+        this.setEditForm({
+            ...record
+        });
+        this.getProductList(record.customerId, record.customerCode);
         this.toggleVisible();
     }
 
-    // 保存
+    // 新增保存
     @action saveData = async (obj) => {
-        let res;
-        if(this.isAdd){
-            res = await Service.addLocation(obj);
-        }else{
-            res = await Service.updateLocation(obj);
+        const res = await Service.addLocation(obj);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.setAddVisible(false);
+                this.setProductList([]);
+                this.setAllStoreList([]);
+                this.getTableList();
+            }else{
+                message.error(res.data.msg);
+            }
         }
+        catch(e){
+            console.log(e);
+        }
+    }
+
+    // 修改保存
+    @action updateData = async (obj) => {
+        const res = await Service.updateLocation(obj);
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
@@ -169,7 +189,7 @@ class State {
             this.setProductList([]);
             this.setAllStoreList([]);
         }
-        const customerCode = option.props.att.customerCode;
+        const customerCode = option.props? option.props.att.customerCode: option;
         const params = {
             customerId: id,
             loadGrid: {

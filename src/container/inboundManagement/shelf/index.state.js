@@ -140,6 +140,7 @@ class State {
 
     // 点击上架
     @action shelfClick = (record) => {
+        console.log(record, '---record---');
         this.setCurProductInfo(record);
         this.setShelfVisible(true);
         this.toggleVisible();
@@ -244,10 +245,8 @@ class State {
         const storehouseInfoIdStr = storehouseInfoIdArr.join(';');
         // 库位编码+数量
         const storehouseInfoArr = storeList.map(item => `${item.storeCode}:${item.num}`);
-        const storehouseInfoStr = storehouseInfoArr.join(';');
+        const storehouseInfoStr = storehouseInfoArr.join('/');
         const index = editTable.findIndex(item => item.id === curProduct.id);
-        console.log(storehouseInfoIdStr, '---storehouseInfoIdStr---');
-        console.log(storehouseInfoStr, '---storehouseInfoStr---');
         editTable.splice(index, 1, {
             ...curProduct,
             ...{

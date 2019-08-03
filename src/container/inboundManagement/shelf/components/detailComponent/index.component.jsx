@@ -111,6 +111,10 @@ class Index extends Component {
         }
         const record = selectedRows[0];
         this.props.shelf(record);
+        this.setState({
+            selectedRowKeys: [],
+            selectedRows: []
+        });
     }
 
     render() {

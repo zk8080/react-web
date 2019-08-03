@@ -27,7 +27,7 @@ const colums = [
     },
     {
         title: '规格',
-        dataIndex: 'fspec',
+        dataIndex: 'spec',
         width: 80
     },
     {
