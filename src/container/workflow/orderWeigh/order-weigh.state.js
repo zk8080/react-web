@@ -16,7 +16,7 @@ class OrderWeighState extends BaseState{
 
 	confirmWeigh() {
 		if (!this.orderNo) {
-			message.warning('请先锁定订单号');
+			message.warning('请先锁定快递单号');
 			return;
 		}
 
@@ -25,7 +25,7 @@ class OrderWeighState extends BaseState{
 			return;
 		}
 
-		this.get('order/weighIgnore', {orderNo: this.orderNo, realWeight: this.orderWeight}, result => {
+		this.get('package/ignore', {mailNo: this.orderNo, realWeight: this.orderWeight}, result => {
 			if (result.code != 0) {
 				notification.warning({
 					message: '称重操作警告',
@@ -42,7 +42,7 @@ class OrderWeighState extends BaseState{
 
 		if (this.orderWeight > 0)
 			if (this.orderNo)  {
-				this.get('order/weigh', {orderNo: this.orderNo, realWeight: value}, result => {
+				this.get('package/weigh', {mailNo: this.orderNo, realWeight: value}, result => {
 					if (result.code != 0) {
 						notification.warning({
 							message: '称重操作警告',
@@ -53,7 +53,7 @@ class OrderWeighState extends BaseState{
 					}
 				});
 			} else {
-				message.warning('请先锁定订单号');
+				message.warning('请先锁定快递单号');
 			}
 	}
 
