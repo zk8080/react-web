@@ -140,11 +140,29 @@ class State {
 
     // 点击上架
     @action shelfClick = (record) => {
-        console.log(record, '---record---');
+        if( record.storehouseInfo ){
+            const storeCodeArr = record.storehouseInfo.split('/');
+            const codeArr = [];
+            storeCodeArr.map(item => {
+                codeArr.push({
+                    storeCode: item.split(':')[0],
+                    num: item.split(':')[1],
+                });
+            });
+            const storeIdArr = record.storehouseInfoId.split(';');
+            storeIdArr.map((item, index) => {
+                codeArr[index] = {
+                    ...codeArr[index],
+                    storehouseId: item.split(':')[0],
+                };
+            });
+            this.setEditStoreList(codeArr);
+        }else{
+            this.setEditStoreList([]);
+        }
         this.setCurProductInfo(record);
         this.setShelfVisible(true);
         this.toggleVisible();
-        this.setEditStoreList([]);
         this.getRecommendStore(record);
     }
 

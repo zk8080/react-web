@@ -61,7 +61,7 @@ class Index extends Component {
                                     })(
                                         <Select 
                                             option={customerList}
-                                            disabled={disabled}
+                                            disabled
                                             valueCode='id'
                                             valueName='customerName'
                                             onChange={this.props.getProductList}
@@ -98,7 +98,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='库位'>
-                                    {getFieldDecorator('storehouseId', {
+                                    {getFieldDecorator('storeCode', {
                                         rules: [
                                             {
                                                 required: true,
@@ -109,7 +109,7 @@ class Index extends Component {
                                         <Select 
                                             // mode="multiple"
                                             option={storeList}
-                                            disabled={disabled}
+                                            disabled
                                             valueCode='id'
                                             valueName='storeCode'
                                             showSearch

@@ -72,6 +72,10 @@ class Index extends Component {
                     visible={State.addVisible}
                     cancelClick={State.closeAddModal}
                     onOk={State.saveData}
+                    customerList={toJS(State.customerList)}
+                    productList={toJS(State.productList)}
+                    storeList={toJS(State.allStoreList)}
+                    getProductList={State.getProductList}
                 />
             </div>
         );

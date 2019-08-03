@@ -217,6 +217,7 @@ class State {
         this.setIsAdd(true);
         this.setIsLook(false);
         this.toggleDisabled(false);
+        this.setEditTable([]);
         this.toggleVisible();
     }
 
@@ -306,6 +307,7 @@ class State {
 
     //在新增和修改界面点击商品
     @action openSkuModal = (record = {}, index) => {
+        // console.log( this.editForm, '---this.editForm---' );
         this.setDetailFormData({});
         this.toggleDetailVisible();
         this.getProductList();
@@ -381,11 +383,17 @@ class State {
     }
 
     // 查询商品详情
-    @action getProductList = async (value = {}) => {
+    @action getProductList = async (page = {}) => {
         const params = {
-            ...formUtils.formToParams(this.detailFormData),
+            // customerId: ,
+            // loadGrid: {
+            //     search: {...formUtils.formToParams(this.detailFormData)},
+            //     ...this.skupageInfo,
+            //     ...value
+            // }
+            search: {...formUtils.formToParams(this.detailFormData)},
             ...this.skupageInfo,
-            search: value
+            ...page
         };
         const res = await Service.getProductList(params);
         try{

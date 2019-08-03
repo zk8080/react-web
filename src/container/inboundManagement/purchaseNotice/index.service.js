@@ -8,6 +8,8 @@ const addProductUrl = '/warehousing/purchaseBill/add';
 const editProductUrl = '/warehousing/purchaseBill/update';
 // 查询商品url
 const productListUrl = '/commoditySku/loadGrid';
+// 查询客户下商品url
+const getCustomerProductUrl = '/customer/loadCommodities';
 // 删除url
 const deleteUrl = '/warehousing/purchaseBill/delete';
 // 查询商家url
@@ -60,6 +62,19 @@ class Service {
     getProductList = req => {
         return new Promise((resolve, reject) => {
             axios.post(productListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getCustomerProduct = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(`${getCustomerProductUrl}/${req.customerId}`, req.loadGrid)
                 .then(res => {
                     resolve(res);
                 })
