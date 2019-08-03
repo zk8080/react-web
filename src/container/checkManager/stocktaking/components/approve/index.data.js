@@ -6,7 +6,7 @@ import { switchCase } from '@babel/types';
 const colums = [
     {
         title: '商品名称',
-        dataIndex: 'commodityName',
+        dataIndex: 'skuName',
         width: 150
     },
     {
@@ -21,12 +21,12 @@ const colums = [
     },
     {
         title: '规格',
-        dataIndex: 'fspec',
+        dataIndex: 'spec',
         width: 80
     },
     {
         title: '库位类型',
-        dataIndex: 'storeType',
+        dataIndex: 'storehouseType',
         width: 80
     },
     {

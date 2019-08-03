@@ -126,7 +126,7 @@ class Index extends Component {
                 <Modal
                     title='入库单'
                     visible={visible}
-                    className={isDetail? 'detail-product': 'detail-product hidden-footer'}
+                    className={isDetail == '1'? 'detail-product': 'detail-product hidden-footer'}
                     okText={'提交'}
                     cancelText='取消'
                     onCancel={this.cancelClick}
