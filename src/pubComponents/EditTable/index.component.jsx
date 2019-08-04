@@ -28,14 +28,14 @@ class EditableCell extends React.Component {
         });
     };
 
-    save = (type, e) => {
+    save = (type, key, e) => {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
             if (error) {
                 return;
             }
             this.toggleEdit();
-            handleSave({ ...record, ...values });
+            handleSave({ ...record, ...values }, key);
         });
     };
 
@@ -43,6 +43,8 @@ class EditableCell extends React.Component {
         const { record, handleSave } = this.props;
         this.form.validateFields((error, values) => {
             this.toggleEdit();
+            console.log(  { ...values }, '--{ ...record, ...values }--')
+            console.log( key, '---key---' )
             handleSave({ ...record, ...values }, key, option);
         });
     };

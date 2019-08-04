@@ -30,6 +30,7 @@ class Index extends Component {
     };
 
     render() {
+        console.log(this.state.scrollX,'this.state.scrollX');
         return (
             <Table
                 className='cur-table'

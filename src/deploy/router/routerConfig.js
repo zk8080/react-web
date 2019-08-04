@@ -13,6 +13,10 @@ const WarehouseInfo = loadComponent(() => import(/* webpackChunkName: "Warehouse
 const ConsumableRelation = loadComponent(() => import(/* webpackChunkName: "ConsumableRelation" */ '@container/baseSetting/consumableRelation/index.component'));
 const LocationRelation = loadComponent(() => import(/* webpackChunkName: "LocationRelation" */ '@container/baseSetting/locationRelation/index.component'));
 const TrackingNumber = loadComponent(() => import(/* webpackChunkName: "trackingNumber" */ '@container/baseSetting/trackingNumber/index.component'));
+// 库存补货
+const Restocking = loadComponent(()=> import(/* webpackChunkName: "restocking" */ '@container/baseSetting/restocking/index.component'));
+
+
 
 // 入库管理
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
@@ -137,6 +141,12 @@ const routers = [
         exact: true,
         component: warningAgentList,
         breadcrumbName: '代办'
+    },
+    {
+        path: '/restocking/list',
+        exact: true,
+        component: Restocking,
+        breadcrumbName: '库位补货'
     }
 ];
 

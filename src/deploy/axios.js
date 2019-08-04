@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {loading} from '@utils';
+import { message } from 'antd';
+import { switchCase } from '@babel/types';
 
 axios.defaults.timeout = 60 * 1000;
 axios.defaults.baseURL = '/wms';
@@ -23,8 +25,26 @@ axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     // console.log('响应拦截器！');
     loading.hideLoading();
+    if(response.data.code == '00'){
+        message.warning(response.data.msg);
+    }else if(response.data.code != 0){
+        message.error(response.data.msg);
+    }
     return response;
 }, function (error) {
     // 对响应错误做点什么
+    loading.hideLoading();
+    if(error && error.response){
+        switch( error.response.status ){
+            case 404:
+                message.error('请求错误，未找到该资源');
+                break;
+            case 504:
+                    message.error('请求超时');
+                    break;
+        }
+        
+    }
+    console.log(error.response.status,'responseresponseresponse');
     return Promise.reject(error);
 });

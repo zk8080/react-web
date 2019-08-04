@@ -8,6 +8,7 @@ import Bread from './main/breadcrumb/index.component';
 // 引入公用样式
 import './common/css/header.component.less';
 import './common/css/query.component.less';
+import './common/css/table.component.less';
 
 function App() {
     return (

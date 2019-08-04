@@ -42,7 +42,7 @@ const menuData = [
             {
                 title: '库位补货',
                 key: '01-08',
-                url: '/a'
+                url: '/restocking/list'
             },
             // {
             //     title: '上架策略',
