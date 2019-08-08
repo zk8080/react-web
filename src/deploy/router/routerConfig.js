@@ -39,6 +39,7 @@ const StocktakingList = loadComponent(() => import(/* webpackChunkName: "Stockta
 
 // 预警管理
 const warningAgentList = loadComponent(() => import(/* webpackChunkName: "warningAgentList" */ '@container/warningManager/commission/index.component'));
+const warningAgentConfig = loadComponent(() => import(/* webpackChunkName: "warningAgentConfig" */ '@container/warningManager/warningRules/index.component'));
 
 const routers = [
     {
@@ -148,7 +149,13 @@ const routers = [
         exact: true,
         component: Restocking,
         breadcrumbName: '库位补货'
-    }
+    },
+    {
+        path: '/warningAgent/config',
+        exact: true,
+        component: warningAgentConfig,
+        breadcrumbName: '预警规则'
+    },
 ];
 
 export default routers;

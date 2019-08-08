@@ -38,18 +38,18 @@ class Index extends Component {
             <div className='query-component'>
                 <Row>
                     <Col span={6}>
-                        <FormItem label="预警类型" hasFeedback>
-                            {getFieldDecorator('typeCode', {
+                        <FormItem label="规则类型" hasFeedback>
+                            {getFieldDecorator('ruleType', {
                                 rules: [],
                             })(<Select 
                                 option={[
                                     {
                                         code: 'food',
-                                        name: '食品类预警'
+                                        name: '食品类'
                                     },
                                     {
                                         code: 'unsalableGoods',
-                                        name: '滞销品预警'
+                                        name: '滞销品'
                                     },
                                     {
                                         code: 'logistics',
@@ -62,14 +62,18 @@ class Index extends Component {
                                     {
                                         code: 'inventory',
                                         name: '库存预警'
-                                    }
+                                    },
+                                    {
+                                        code: 'split',
+                                        name: '商品拆分'
+                                    },
                                 ]}
                                 valueCode='code'
                                 valueName='name'
                             />)}
                         </FormItem>
                     </Col>
-                    <Col span={6}>
+                    {/* <Col span={6}>
                         <FormItem label="状态" hasFeedback>
                             {getFieldDecorator('state', {
                                 rules: [],
@@ -95,8 +99,8 @@ class Index extends Component {
                                 rules: [],
                             })(<DatePicker/>)}
                         </FormItem>
-                    </Col>
-                    <Col span={6} className='query-btn'>
+                    </Col> */}
+                    <Col span={18} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}

@@ -3,27 +3,24 @@ import State from './index.state';
 
 const colums = [
     {
-        title: '预警任务',
-        dataIndex: 'agentName',
-        width: 500
+        title: '规则名称',
+        dataIndex: 'ruleName',
+        width: 300
     },
     {
-        title: '预警类型',
-        dataIndex: 'typeName',
+        title: '规则类型',
+        dataIndex: 'ruleTypeName',
         width: 200
     },
     {
-        title: '任务状态',
-        dataIndex: 'agentState',
-        width: 200,
-        render: (text) => {
-            if(text == '1'){
-                return '已处理';
-            }
-            if(text == '0'){
-                return '未处理';
-            }
-        }
+        title: '左规则值',
+        dataIndex: 'leftValue',
+        width: 200
+    },
+    {
+        title: '右规则值',
+        dataIndex: 'rightValue',
+        width: 200
     },
     {
         title: '创建时间',
@@ -36,7 +33,7 @@ const colums = [
         width: 100,
         fixed: 'right',
         render: (text, record, index) => {
-            return <a disabled={record.agentState == 1} onClick={State.dealClick.bind(this, record)}>处理</a>;
+            return <a onClick={State.deleteClick.bind(this, record)}>删除</a>;
         }
     }
     

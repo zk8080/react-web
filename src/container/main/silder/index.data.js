@@ -155,7 +155,7 @@ const menuData = [
             {
                 title: '预警规则',
                 key: '05-02',
-                url: '/article/101'
+                url: '/warningAgent/config'
             },
         ]
     },
