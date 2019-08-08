@@ -1,5 +1,11 @@
 const menuData = [
     {
+        title: '单量统计',
+        key: '00',
+        icon: 'dashboard',
+        url: '/home/index'
+    },
+    {
         title: '库内管理',
         key: '01',
         icon: 'setting',

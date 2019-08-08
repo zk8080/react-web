@@ -38,8 +38,12 @@ const RoleList = loadComponent(() => import(/* webpackChunkName: "RoleList" */ '
 const StocktakingList = loadComponent(() => import(/* webpackChunkName: "StocktakingList" */ '@container/checkManager/stocktaking/index.component'));
 
 // 预警管理
-const warningAgentList = loadComponent(() => import(/* webpackChunkName: "warningAgentList" */ '@container/warningManager/commission/index.component'));
-const warningAgentConfig = loadComponent(() => import(/* webpackChunkName: "warningAgentConfig" */ '@container/warningManager/warningRules/index.component'));
+const WarningAgentList = loadComponent(() => import(/* webpackChunkName: "WarningAgentList" */ '@container/warningManager/commission/index.component'));
+const WarningAgentConfig = loadComponent(() => import(/* webpackChunkName: "WarningAgentConfig" */ '@container/warningManager/warningRules/index.component'));
+
+// 单量统计
+const HomeComponent = loadComponent(() => import(/* webpackChunkName: "HomeComponent" */ '@container/home/index.component'));
+
 
 const routers = [
     {
@@ -141,7 +145,7 @@ const routers = [
     {
         path: '/warningAgent/list',
         exact: true,
-        component: warningAgentList,
+        component: WarningAgentList,
         breadcrumbName: '预警代办'
     },
     {
@@ -153,8 +157,14 @@ const routers = [
     {
         path: '/warningAgent/config',
         exact: true,
-        component: warningAgentConfig,
+        component: WarningAgentConfig,
         breadcrumbName: '预警规则'
+    },
+    {
+        path: '/home/index',
+        exact: true,
+        component: HomeComponent,
+        breadcrumbName: '单量统计'
     },
 ];
 

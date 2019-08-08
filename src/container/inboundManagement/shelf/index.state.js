@@ -33,10 +33,7 @@ class State {
         const paramsObj = {
             ...formUtils.formToParams(this.queryForm),
             ...this.pageInfo,
-            ...params, 
-            ...{
-                billType: 2
-            }
+            ...params
         };
         const res = await Service.getTableList(paramsObj);
         try{
@@ -48,8 +45,6 @@ class State {
                     pageSize,
                     total
                 });
-            }else{
-                console.log(res.data.msg);
             }
         }
         catch(e){
@@ -110,7 +105,7 @@ class State {
         this.setIsDetail('0');
         this.setEditForm(record);
         this.setCurDataInfo(record);
-        this.setEditTable(record.detailList);
+        this.setEditTable([record.detail]);
         this.toggleVisible();
     }
 
@@ -119,7 +114,7 @@ class State {
         this.setIsDetail('1');
         this.setEditForm(record);
         this.setCurDataInfo(record);
-        this.setEditTable(record.detailList);
+        this.setEditTable([record.detail]);
         this.toggleVisible();
     }
 
@@ -128,7 +123,7 @@ class State {
         this.setIsDetail('2');
         this.setEditForm(record);
         this.setCurDataInfo(record);
-        this.setEditTable(record.detailList);
+        this.setEditTable([record.detail]);
         this.toggleVisible();
     }
 
@@ -184,8 +179,8 @@ class State {
         const curData = toJS(this.curDataInfo);
         const params = {
             customerCode: curData.customerCode,
-            barCode: ''
-            // barCode: record.barCode
+            barCode: record.barCode,
+            type: '1'
         };
         const res = await Service.getRecommendStore(params);
         try{
@@ -193,7 +188,6 @@ class State {
                 const {data} = res.data;
                 this.setRecommendStoreList(data);
             }else{
-                message.error(res.data.msg);
                 this.setRecommendStoreList([]);
             }
         }
@@ -280,7 +274,7 @@ class State {
     @action saveData = async (obj) => {
         const params = {
             ...obj,
-            detailList: toJS(this.editTable)
+            detail: toJS(this.editTable)[0]
         };
         const res = await Service.grounding(params);
         try{
@@ -321,9 +315,9 @@ class State {
     @action auditData = async (obj) => {
         const curData = toJS(this.curDataInfo);
         const params = {
-            ...curData,
+            purchaseId: curData.id,
             ...obj,
-            detailList: toJS(this.editTable)
+            id: toJS(this.editTable)[0].id
         };
         const res = await Service.confirmReceive(params);
         try{
@@ -331,8 +325,6 @@ class State {
                 message.success(res.data.msg);
                 this.setAuditVisible(false);
                 this.getTableList();
-            }else{
-                message.error(res.data.msg);
             }
         }
         catch(e){

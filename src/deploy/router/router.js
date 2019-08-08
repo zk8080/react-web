@@ -18,7 +18,7 @@ const NoMatch = loadComponent(() => import(/* webpackChunkName: "404" */ '@conta
 
 const Index = () => (
     <Switch>
-        <Route path='/' exact render={() => <Redirect to='/product/list'/>}/>
+        <Route path='/' exact render={() => <Redirect to='/home/index'/>}/>
         {
             routerConfig.map((route, index) => {
                 return <Route

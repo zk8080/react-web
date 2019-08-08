@@ -31,6 +31,9 @@ const colums = [
             if(text == 'approved'){
                 return <span>已审核</span>;
             }
+            if(text == 'confirm'){
+                return <span>待收货</span>;
+            }
         },
         width: 150
     },
@@ -72,13 +75,14 @@ const colums = [
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 200,
+        width: 250,
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <a onClick={State.lookClick.bind(this, record)}>查看</a>
                 <a disabled={record.billState != 'save'} onClick={State.editClick.bind(this, record)}>修改</a>
-                <a disabled={record.billState != 'save'} onClick={State.receiptClick.bind(this, record)}>收货</a>
+                <a disabled={record.billState != 'save'} onClick={State.okClick.bind(this, record)}>确认</a>
+                <a disabled={record.billState != 'confirm'} onClick={State.receiptClick.bind(this, record)}>收货</a>
                 <a disabled={record.billState != 'save'} onClick={State.deleteClick.bind(this, record)}>删除</a>
             </div>;
         }

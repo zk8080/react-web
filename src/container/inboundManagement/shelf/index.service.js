@@ -11,7 +11,7 @@ const getRecommendStoreUrl = '/storehouseConfig/recommendStore';
 // 上架提交url
 const groundingUrl = '/warehousing/purchaseBill/grounding';
 // 审核url
-const confirmReceiveUrl = '/warehousing/purchaseBill/confirm';
+const confirmReceiveUrl = '/warehousing/purchaseBill/approve';
 
 
 class Service {
@@ -71,7 +71,9 @@ class Service {
 
     confirmReceive = req => {
         return new Promise((resolve, reject) => {
-            axios.post(confirmReceiveUrl, req)
+            axios.get(confirmReceiveUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })
