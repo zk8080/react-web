@@ -282,7 +282,7 @@ class State {
             ...obj,
             detailList: toJS(this.editTable)
         };
-        const res = await Service.confirmReceive(params);
+        const res = await Service.grounding(params);
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);

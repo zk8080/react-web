@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {loading} from '@utils';
 import { message } from 'antd';
-import { switchCase } from '@babel/types';
 
 axios.defaults.timeout = 60 * 1000;
 axios.defaults.baseURL = '/wms';
@@ -25,9 +24,7 @@ axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     // console.log('响应拦截器！');
     loading.hideLoading();
-    if(response.data.code == '00'){
-        message.warning(response.data.msg);
-    }else if(response.data.code != 0){
+    if(response.data.code != 0 || response.data.code != '00'){
         message.error(response.data.msg);
     }
     return response;

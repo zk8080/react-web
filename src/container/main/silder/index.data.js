@@ -90,73 +90,31 @@ const menuData = [
         children: [
 			{
 				title: '订单管理',
-				key: '03-08',
+				key: '03-01',
 				url: '/workflow/orderImport'
 			},
 			{
 				title: '拣货单管理',
-				key: '03-09',
+				key: '03-02',
 				url: '/workflow/pickingBill'
 			},
-			// {
-			// 	title: '打包',
-			// 	key: '03-10',
-			// 	url: '/workflow/orderPackage'
-			// },
-            // {
-            //     title: '发货订单',
-            //     key: '03-01',
-            //     url: '/outboundManagement/deliveryOrder'
-            // },
-            // {
-            //     title: '拣货单生成',
-            //     key: '03-02',
-            //     url: '/article/5'
-            // },
-            // {
-            //     title: 'B2B',
-            //     key: '03-03',
-            //     url: '/article/6'
-            // },
-            // {
-            //     title: '拣货',
-            //     key: '03-04',
-            //     url: '/article/7'
-            // },
+            {
+                title: '扫描复核',
+                key: '03-03',
+                url: '/workflow/scanReview'
+            },
             {
                 title: '称重',
-                key: '03-06',
+                key: '03-04',
                 url: '/workflow/orderWeigh'
             },
             {
                 title: '信息跟踪',
-                key: '03-07',
+                key: '03-05',
                 url: '/article/10'
             }
         ]
     },
-    // {
-    //     title: '盘点管理',
-    //     key: '04',
-    //     icon: 'diff',
-    //     children: [
-    //         {
-    //             title: '盘点',
-    //             key: '04-01',
-    //             url: '/stocktaking/list'
-    //         },
-    //         // {
-    //         //     title: '补货',
-    //         //     key: '04-03',
-    //         //     url: '/article/13'
-    //         // },
-    //         // {
-    //         //     title: '退货',
-    //         //     key: '04-04',
-    //         //     url: '/article/14'
-    //         // }
-    //     ]
-    // },
     {
         title: '统计分析',
         key: '05',
@@ -185,20 +143,20 @@ const menuData = [
         ]
     },
     {
-        title: '财务报表',
+        title: '预警管理',
         key: '06',
-        icon: 'transaction',
+        icon: 'control',
         children: [
             {
-                title: '费率设置',
-                key: '06-01',
-                url: '/article/19'
+                title: '预警代办',
+                key: '05-01',
+                url: '/warningAgent/list'
             },
             {
-                title: '费率结算',
-                key: '06-02',
-                url: '/article/20'
-            }
+                title: '预警规则',
+                key: '05-02',
+                url: '/article/101'
+            },
         ]
     },
     {

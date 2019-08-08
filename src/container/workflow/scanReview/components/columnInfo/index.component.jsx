@@ -7,9 +7,9 @@ class Index extends Component {
     renderColumn = (arr) => {
         return arr.map((item, index) => {
             return (
-                <div className={item.allData == item.scanningData ? 'column_box yellow': 'column_box'} key={index}>
+                <div className={item.lastData == 0 ? 'column_box yellow': 'column_box'} key={index}>
                     <div className='column'>
-                        {item.column}
+                        {item.basketNum}
                     </div>
                     <div className='all_data'>
                         <div>
@@ -35,7 +35,7 @@ class Index extends Component {
         return (
             <div className='column_cont'>
                 {
-                    this.renderColumn(data)
+                    this.renderColumn(this.props.data)
                 }
             </div>
         );

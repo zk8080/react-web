@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import './index.less';
 import { inject, observer } from 'mobx-react';
 import { Menu, Dropdown, Icon } from 'antd';
+import {session} from '@utils';
 
 @inject('appStore')
 @observer
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            name: null
+        };
     }
 
     componentWillMount() {
@@ -16,7 +19,10 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
+        const userData = session.getItem('userInfo');
+        this.setState({
+            name: userData.name
+        });
     }
 
     componentWillUnmount() {
@@ -58,7 +64,7 @@ class Index extends Component {
                     <div className='logout'>
                         <Dropdown overlay={this.menu}>
                             <span className="ant-dropdown-link">
-                                {appStore.globalUserData.name} <Icon type="down" />
+                                {this.state.name} <Icon type="down" />
                             </span>
                         </Dropdown>
                     </div>

@@ -36,7 +36,7 @@ const colums = [
         width: 100,
         fixed: 'right',
         render: (text, record, index) => {
-            return <a disabled={record.state == 1} onClick={State.dealClick.bind(this, record)}>处理</a>;
+            return <a disabled={record.agentState == 1} onClick={State.dealClick.bind(this, record)}>处理</a>;
         }
     }
     

@@ -25,9 +25,10 @@ const Shelf = loadComponent(() => import(/* webpackChunkName: "Shelf" */ '@conta
 
 // 出库管理
 const OrderImportComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderImport/order-import.component'));
-const OrderPackageComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderPackage/order-package.component'));
-const PickingBellComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/pickingBill/picking-bill.component'));
-const OrderWeighComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
+const OrderPackageComponent = loadComponent(/* webpackChunkName: "OrderPackageComponent" */() => import('@container/workflow/orderPackage/order-package.component'));
+const PickingBellComponent = loadComponent(/* webpackChunkName: "PickingBellComponent" */() => import('@container/workflow/pickingBill/picking-bill.component'));
+const OrderWeighComponent = loadComponent(/* webpackChunkName: "OrderWeighComponent" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
+const ScanReviewComponent = loadComponent(/* webpackChunkName: "ScanReviewComponent" */() => import('@container/workflow/scanReview/index.component'));
 
 // 权限管理
 const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
@@ -37,7 +38,7 @@ const RoleList = loadComponent(() => import(/* webpackChunkName: "RoleList" */ '
 const StocktakingList = loadComponent(() => import(/* webpackChunkName: "StocktakingList" */ '@container/checkManager/stocktaking/index.component'));
 
 // 预警管理
-const warningAgentList = loadComponent(() => import(/* webpackChunkName: "warningAgentList" */ '@container/home/index.component'));
+const warningAgentList = loadComponent(() => import(/* webpackChunkName: "warningAgentList" */ '@container/warningManager/commission/index.component'));
 
 const routers = [
     {
@@ -68,7 +69,7 @@ const routers = [
         path: '/locationRelation/list',
         exact: true,
         component: LocationRelation,
-        breadcrumbName: '库位关系设置'
+        breadcrumbName: '库位管理'
     },
     {
         path: '/trackingNumber/list',
@@ -92,7 +93,7 @@ const routers = [
         path: '/inboundManagement/shelf',
         exact: true,
         component: Shelf,
-        breadcrumbName: '上架'
+        breadcrumbName: '入库上架'
     },
     {
         path: '/workflow/orderImport',
@@ -104,13 +105,13 @@ const routers = [
         path: '/workflow/pickingBill',
         exact: true,
         component: PickingBellComponent,
-        breadcrumbName: '拣货单'
+        breadcrumbName: '拣货单管理'
     },
     {
-        path: '/workflow/orderPackage',
+        path: '/workflow/scanReview',
         exact: true,
-        component: OrderPackageComponent,
-        breadcrumbName: '打包'
+        component: ScanReviewComponent,
+        breadcrumbName: '扫描复核'
     },
     {
         path: '/workflow/orderWeigh',
@@ -134,13 +135,13 @@ const routers = [
         path: '/stocktaking/list',
         exact: true,
         component: StocktakingList,
-        breadcrumbName: '盘点'
+        breadcrumbName: '库存盘点'
     },
     {
         path: '/warningAgent/list',
         exact: true,
         component: warningAgentList,
-        breadcrumbName: '代办'
+        breadcrumbName: '预警代办'
     },
     {
         path: '/restocking/list',

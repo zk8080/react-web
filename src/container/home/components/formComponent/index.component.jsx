@@ -47,7 +47,7 @@ class Index extends Component {
                     </Col>
                     <Col span={8}>
                         <FormItem label="商品" hasFeedback>
-                            {getFieldDecorator('password', {
+                            {/* {getFieldDecorator('password', {
                                 rules: [],
                             })(<Select 
                                 option={productList}
@@ -57,7 +57,7 @@ class Index extends Component {
                                 filterOption={(input, option) =>
                                     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                 }
-                            />)}
+                            />)} */}
                         </FormItem>
                     </Col>
                     <Col span={8} className='query-btn'>

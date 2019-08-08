@@ -31,14 +31,15 @@ class Index extends Component {
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
-                        productList={toJS(State.tableList)}
+                        getData={State.getQueryData}
                     />
                 </Form>
                 <Table
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
+                    getQueryData={State.getQueryData}
+                    pagination={toJS(State.pageInfo)}
                 />
             </div>
         );

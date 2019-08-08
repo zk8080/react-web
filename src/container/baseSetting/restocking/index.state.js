@@ -2,7 +2,6 @@ import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
 import {formUtils} from '@utils';
-import { visible } from '_ansi-colors@3.2.4@ansi-colors';
 
 class State {
 
@@ -95,8 +94,8 @@ class State {
 
     // 新增一行
     @action addRow = () => {
-        let arr = toJS(this.restockData || []);
-        let { skuName, modelNo, spec, singleUnit, stockoutNums, commodityCode, storeCode } = toJS(this.restockObj);
+        const arr = toJS(this.restockData || []);
+        const { skuName, modelNo, spec, singleUnit, stockoutNums, commodityCode, storeCode } = toJS(this.restockObj);
         const len = arr.length;
         arr.push({
             skuName,
@@ -113,7 +112,7 @@ class State {
 
     // 删除一行
     @action delRow = (index, callback) => {
-        let arr = toJS(this.restockData);
+        const arr = toJS(this.restockData);
         arr.splice(index, 1);
         this.setRestockData(arr);
         if(callback){
@@ -133,8 +132,8 @@ class State {
         const params = {
             replenishmentInfos: toJS(this.restockData),
             replenishmentNo: this.restockObj.replenishmentNo
-        }
-        let res = await Service.confirmRestock(params);
+        };
+        const res = await Service.confirmRestock(params);
         try{
             if(res.data.code === 0){
                 this.getTableList();
@@ -162,10 +161,10 @@ class State {
         this.finalStoreData = arr;
     }
     @action getFinalStoreData = async(replenishmentNo) => {
-        let params = {
+        const params = {
             replenishmentNo: replenishmentNo
-        }
-        let res = await Service.getFinalStoreData(params);
+        };
+        const res = await Service.getFinalStoreData(params);
         try{
             if(res.data.code === 0){
                 this.setFinalStoreData(res.data.data);
