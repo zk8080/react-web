@@ -10,12 +10,12 @@ const colums = [
     {
         title: '商家名称',
         dataIndex: 'customerName',
-        width: 200
+        width: 250
     },
     {
         title: '日期',
         dataIndex: 'createTime',
-        width: 80,
+        width: 120,
         render:(text) => {
             return text?moment(text).format('YYYY-MM-DD'):null;
         }
@@ -28,7 +28,7 @@ const colums = [
     {
         title: '商品名称',
         dataIndex: 'skuName',
-        width: 200
+        width: 250
     },
     {
         title: '型号',
@@ -53,7 +53,7 @@ const colums = [
     {
         title: '商品条码',
         dataIndex: 'commodityCode',
-        width: 80
+        width: 200
     },
     {
         title: '零拣库位',

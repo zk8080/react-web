@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
-import { Modal, Select,  EditTable } from '@pubComs';
+import { Modal, Select,  EditTable, NewTable } from '@pubComs';
 import { Form, Row, Col, Input, Table,Button } from 'antd';
 import './index.less';
 import {colums} from './index.data';
@@ -92,7 +92,7 @@ class Index extends Component {
                         <Button onClick={this.addRow}>新增行</Button>
                         <Button onClick={this.delRow}>删除行</Button>
                     </div>
-                    <Table
+                    <NewTable
                         dataSource={dataSource}
                         columns={colums}
                         pagination={false}

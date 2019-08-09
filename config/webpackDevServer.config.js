@@ -46,7 +46,7 @@ module.exports = function(proxy, allowedHost) {
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
         // In JavaScript code, you can access it with `process.env.PUBLIC_URL`.
         // Note that we only recommend to use `public` folder as an escape hatch
-        // for files like `favicon.ico`, `manifest.json`, and libraries that are
+        // for files like `fhoavicon.ico`, `manifest.json`, and libraries that are
         // for some reason broken when imported through Webpack. If you just want to
         // use an image, put it in `src` and `import` it from JavaScript instead.
         contentBase: paths.appPublic,
@@ -58,6 +58,7 @@ module.exports = function(proxy, allowedHost) {
         // in the Webpack development configuration. Note that only changes
         // to CSS are currently hot reloaded. JS changes will refresh the browser.
         hot: true,
+        sockPath: process.env.WDS_SOCKET_PATH,
         // It is important to tell WebpackDevServer to use the same "root" path
         // as we specified in the config. In development, we always serve from /.
         publicPath: '/',

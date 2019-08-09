@@ -34,7 +34,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
     // 对响应错误做点什么
     loading.hideLoading();
-    if(error && error.response){
+    if(error && error.response && error.response.status){
         switch( error.response.status ){
             case 404:
                 message.error('请求错误，未找到该资源');
@@ -43,8 +43,7 @@ axios.interceptors.response.use(function (response) {
                     message.error('请求超时');
                     break;
         }
-        
     }
-    console.log(error.response.status,'responseresponseresponse');
+    
     return Promise.reject(error);
 });
