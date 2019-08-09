@@ -22,6 +22,9 @@ const Restocking = loadComponent(()=> import(/* webpackChunkName: "restocking" *
 const PurchaseNotice = loadComponent(() => import(/* webpackChunkName: "PurchaseNotice" */ '@container/inboundManagement/purchaseNotice/index.component'));
 // const Receipt = loadComponent(() => import(/* webpackChunkName: "Receipt" */ '@container/inboundManagement/receipt/index.component'));
 const Shelf = loadComponent(() => import(/* webpackChunkName: "Shelf" */ '@container/inboundManagement/shelf/index.component'));
+// 退货管理
+const ReturnGoods = loadComponent(() => import(/* webpackChunkName: "returnGoods" */ '@container/inboundManagement/returnGoods/index.component'));
+
 
 // 出库管理
 const OrderImportComponent = loadComponent(/* webpackChunkName: "Order Import" */() => import('@container/workflow/orderImport/order-import.component'));
@@ -29,6 +32,10 @@ const OrderPackageComponent = loadComponent(/* webpackChunkName: "OrderPackageCo
 const PickingBellComponent = loadComponent(/* webpackChunkName: "PickingBellComponent" */() => import('@container/workflow/pickingBill/picking-bill.component'));
 const OrderWeighComponent = loadComponent(/* webpackChunkName: "OrderWeighComponent" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
 const ScanReviewComponent = loadComponent(/* webpackChunkName: "ScanReviewComponent" */() => import('@container/workflow/scanReview/index.component'));
+// 信息跟踪
+const InfoTracking = loadComponent(/* webpackChunkName: "InfoTracking" */() => import('@container/workflow/infoTracking/index.component'));
+
+
 
 // 权限管理
 const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
@@ -166,6 +173,18 @@ const routers = [
         component: HomeComponent,
         breadcrumbName: '单量统计'
     },
+    {
+        path: '/returned/list',
+        exact: true,
+        component: ReturnGoods,
+        breadcrumbName: '退货管理'
+    },
+    {
+        path: '/infoTracking/list',
+        exact: true,
+        component: InfoTracking,
+        breadcrumbName: '信息跟踪'
+    }
 ];
 
 export default routers;

@@ -85,7 +85,7 @@ const menuData = [
             {
                 title: '退货管理',
                 key: '02-03',
-                url: '/b'
+                url: '/returned/list'
             }
         ]
     },
@@ -117,7 +117,7 @@ const menuData = [
             {
                 title: '信息跟踪',
                 key: '03-05',
-                url: '/article/10'
+                url: '/infoTracking/list'
             }
         ]
     },
