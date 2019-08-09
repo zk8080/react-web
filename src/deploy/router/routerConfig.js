@@ -29,6 +29,7 @@ const OrderPackageComponent = loadComponent(/* webpackChunkName: "OrderPackageCo
 const PickingBellComponent = loadComponent(/* webpackChunkName: "PickingBellComponent" */() => import('@container/workflow/pickingBill/picking-bill.component'));
 const OrderWeighComponent = loadComponent(/* webpackChunkName: "OrderWeighComponent" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
 const ScanReviewComponent = loadComponent(/* webpackChunkName: "ScanReviewComponent" */() => import('@container/workflow/scanReview/index.component'));
+const OrderDetailComponent = loadComponent(/* webpackChunkName: "OrderDetailComponent" */() => import('@container/workflow/orderDetail/index.component'));
 
 // 权限管理
 const UserList = loadComponent(() => import(/* webpackChunkName: "UserList" */ '@container/permissionManager/userList/index.component'));
@@ -165,6 +166,12 @@ const routers = [
         exact: true,
         component: HomeComponent,
         breadcrumbName: '单量统计'
+    },
+    {
+        path: '/orderDetail/index',
+        exact: true,
+        component: OrderDetailComponent,
+        breadcrumbName: '订单详情'
     },
 ];
 

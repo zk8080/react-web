@@ -34,7 +34,6 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {productList} = this.props;
         return (
             <div className='query-component'>
                 <Row>
@@ -45,22 +44,7 @@ class Index extends Component {
                             })(<Input />)}
                         </FormItem>
                     </Col>
-                    <Col span={8}>
-                        <FormItem label="商品" hasFeedback>
-                            {/* {getFieldDecorator('password', {
-                                rules: [],
-                            })(<Select 
-                                option={productList}
-                                valueCode='skuName'
-                                valueName='skuName'
-                                showSearch
-                                filterOption={(input, option) =>
-                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                            />)} */}
-                        </FormItem>
-                    </Col>
-                    <Col span={8} className='query-btn'>
+                    <Col span={16} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}

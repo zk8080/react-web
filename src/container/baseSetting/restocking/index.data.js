@@ -69,8 +69,9 @@ const colums = [
         title: '操作',
         dataIndex: 'operate',
         width: 100,
+        fixed: 'right',
         render: (text, record, index) => {
-            return <a disabled={record.isFinally == 1} onClick={State.confirmRestock.bind(this, record)}>确认补货</a>
+            return <a disabled={record.isFinally == 1} onClick={State.confirmRestock.bind(this, record)}>确认补货</a>;
         }
     }
 ];

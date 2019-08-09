@@ -48,8 +48,7 @@ export const orderImportColumns: ColumnProps[] = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <a onClick={orderImportState.lookClick.bind(this, record)}>查看</a>
-                {/* <a onClick={orderImportState.editClick.bind(this, record)}>修改</a>
-                <a>删除</a> */}
+                <a onClick={orderImportState.editClick.bind(this, record)}>修改</a>
             </div>;
         }
     }

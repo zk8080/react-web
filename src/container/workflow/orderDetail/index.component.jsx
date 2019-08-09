@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, EditTable, Select, Table } from '@pubComs';
-import { Form, Row, Col, Input, Button, DatePicker,  } from 'antd';
+import { Table } from '@pubComs';
+import { Form, Row, Col, Input, } from 'antd';
 import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
-import {data} from './index.data';
+import {columns} from './index.data';
+import State from './index.state';
 const FormItem = Form.Item;
 
 const onFieldsChange = (props, changedFields) => {
@@ -26,26 +27,16 @@ const mapPropsToFields = (props) => {
 };
 
 @Form.create({
-    mapPropsToFields,
-    onFieldsChange
+    // mapPropsToFields,
+    // onFieldsChange
 })
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedRowKeys: [],
-            selectedRows: [],
-            columns: data,
-            isFood: ''
+            selectedRows: []
         };
-    }
-
-    handleDelete = () => {
-        const record = this.state.selectedRows[0];
-        this.props.handleDelete(record);
-        this.setState({
-            selectedRowKeys: []
-        });
     }
 
     onOkClick = e => {
@@ -65,39 +56,18 @@ class Index extends Component {
         this.props.toggleDisabled(false);
     }
 
-    handleClick = () => {
-        window.print();
-    }
+    componentDidMount(){
 
-    rowSelection = {
-        type: 'radio',
-        onChange: (selectedRowKeys, selectedRows) => {
-            this.setState({
-                selectedRowKeys,
-                selectedRows
-            });
-        },
-        selectedRowKeys: []
     }
-
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const { visible, cancelClick, disabled, dataSource, customerList } = this.props;
-        this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
+        const { disabled, dataSource } = this.props;
         return (
-            <div>
-                <Modal
-                    title='订单'
-                    visible={visible}
-                    className={'detail-product'}
-                    okText={disabled ? '修改': '确认'}
-                    cancelText='取消'
-                    onCancel={cancelClick}
-                    onOk={disabled ? this.toggleDisabled: this.onOkClick}
-                    // footer={null}
-                >
-                    <Form className='query-component'>
+            <div className='order-detail'>
+                <Form className='query-component'>
+                    <div className='detail'>
+                        <div className='title'>订单信息</div>
                         <Row>
                             <Col span={8}>
                                 <FormItem label='订单号'>
@@ -110,7 +80,16 @@ class Index extends Component {
                             </Col>
                             <Col span={8}>
                                 <FormItem label='商家名称'>
-                                    {getFieldDecorator('customerName', {
+                                    {getFieldDecorator('customerName')(
+                                        <Input
+                                            disabled
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
+                                <FormItem label='快递公司'>
+                                    {getFieldDecorator('reciptAddr', {
                                         rules: [
                                             {
                                                 required: true,
@@ -118,15 +97,24 @@ class Index extends Component {
                                             }
                                         ]
                                     })(
-                                        <Select 
-                                            option={customerList}
-                                            disabled
-                                            valueCode='customerName'
-                                            valueName='customerName'
-                                            showSearch
-                                            filterOption={(input, option) =>
-                                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
+                                <FormItem label='快递单号'>
+                                    {getFieldDecorator('reciptAddr', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
                                             }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
                                         />
                                     )}
                                 </FormItem>
@@ -164,6 +152,38 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                             <Col span={8}>
+                                <FormItem label='省份'>
+                                    {getFieldDecorator('prov', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
+                                <FormItem label='市区县'>
+                                    {getFieldDecorator('city', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: '必填'
+                                            }
+                                        ]
+                                    })(
+                                        <Input 
+                                            disabled={disabled}
+                                        />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col span={8}>
                                 <FormItem label='地址'>
                                     {getFieldDecorator('reciptAddr', {
                                         rules: [
@@ -180,50 +200,30 @@ class Index extends Component {
                                 </FormItem>
                             </Col>
                         </Row>
-                        <div className='opreat-btn'>
-                            {/* <Button
-                                type='primary'
-                                onClick={this.props.handleAdd}
-                                disabled={this.props.isLook}
-                            >新增行</Button>
-                            <Button
-                                type='primary'
-                                onClick={this.handleDelete}
-                                disabled={this.props.isLook}
-                            >删除行</Button> */}
-                        </div>
-                        {
-                            disabled ? <Table
-                                columns={this.state.columns}
-                                dataSource={dataSource}
-                                pagination={false}
-                                rowSelection={this.rowSelection}
-                                rowKey='key'
-                                bordered
-                            />: <EditTable
-                                    columns={this.state.columns}
-                                    dataSource={dataSource}
-                                    handleSave={this.props.handleSave}
-                                    pagination={false}
-                                    rowSelection={this.rowSelection}
-                                    optionarr={this.props.productList}
-                                    rowKey='key'
-                                />
-                        }
-                        {/* <Row>
-                            <Col span={8}>
-                                <FormItem label='制单人'>
-                                    <span>管理员</span>
-                                </FormItem>
-                            </Col>
-                            <Col span={8}>
-                                <FormItem label='制单时间'>
-                                    <span>{moment().format('YYYY-MM-DD')}</span>
-                                </FormItem>
-                            </Col>
-                        </Row> */}
-                    </Form>
-                </Modal>
+                    </div>
+                    <div className='product-list'>
+                        <div className='title'>商品列表</div>
+                        <Table
+                            columns={columns}
+                            dataSource={dataSource}
+                            pagination={false}
+                            rowSelection={this.rowSelection}
+                            rowKey='key'
+                            bordered
+                        />
+                    </div>
+                    <div className='package-list'>
+                        <div className='title'>包裹列表</div>   
+                        <Table
+                            columns={columns}
+                            dataSource={dataSource}
+                            pagination={false}
+                            rowSelection={this.rowSelection}
+                            rowKey='key'
+                            bordered
+                        />
+                    </div>
+                </Form>
             </div>
         );
     }

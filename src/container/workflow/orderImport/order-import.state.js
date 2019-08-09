@@ -127,12 +127,10 @@ class OrderImportState extends BaseState{
 
     // 点击修改
     @action editClick = (record) => {
-        // this.toggleDisabled(true);
-        // this.setIsAdd(false);
-        // this.setIsLook(false);
-        // this.setEditForm(record);
-        // this.setDataKey(record.detailList);
-        // this.setEditTable(record.detailList);
+        this.toggleDisabled(true);
+        this.setEditForm(record);
+        this.setDataKey(record.orderCommodities);
+        this.setEditTable(record.orderCommodities);
         this.toggleVisible();
     }
 

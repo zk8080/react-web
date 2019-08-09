@@ -1,6 +1,4 @@
-import React from 'react';
-
-const data = [
+const columns = [
     {
         title: '序号',
         dataIndex: 'seq',
@@ -38,5 +36,5 @@ const data = [
 
 
 export {
-    data,
+    columns,
 };
