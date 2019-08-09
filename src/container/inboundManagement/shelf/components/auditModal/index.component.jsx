@@ -23,7 +23,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk({ ...{approveResult: flag}, ...values});
+                this.props.onOk({ ...{result: flag}, ...values});
             }
         });
     }

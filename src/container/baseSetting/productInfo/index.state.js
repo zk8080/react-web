@@ -116,8 +116,20 @@ class State {
     }
 
     // 删除
-    @action deleteClick = (record) => {
-        console.log( '删除', record);
+    @action deleteClick = async (record) => {
+        const params = {
+            id: record.id
+        };
+        const res = await Service.deleteProduct(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getProductList();
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

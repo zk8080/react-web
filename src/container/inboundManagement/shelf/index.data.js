@@ -15,20 +15,20 @@ const colums = [
     {
         title: '状态',
         dataIndex: 'billState',
-        render: (text) => {
-            if(text == 'save'){
+        render: (text, record) => {
+            if(record.detail && record.detail.billState == 'save'){
                 return <span>保存</span>;
             }
-            if(text == 'recevieing'){
+            if(record.detail && record.detail.billState == 'recevieing'){
                 return <span>待收货</span>;
             }
-            if(text == 'recevied'){
+            if(record.detail && record.detail.billState == 'recevied'){
                 return <span>已收货</span>;
             }
-            if(text == 'stored'){
+            if(record.detail && record.detail.billState == 'stored'){
                 return <span>已入库</span>;
             }
-            if(text == 'approved'){
+            if(record.detail && record.detail.billState == 'approved'){
                 return <span>已审核</span>;
             }
         },
@@ -67,8 +67,8 @@ const colums = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <a onClick={State.detailClick.bind(this, record)}>查看</a>
-                <a disabled={record.billState != 'recevied'} onClick={State.shelfModal.bind(this, record)}>上架</a>
-                <a disabled={record.billState != 'stored'} onClick={State.auditClick.bind(this, record)}>审核</a>
+                <a disabled={(record.detail && record.detail.billState) != 'recevied'} onClick={State.shelfModal.bind(this, record)}>上架</a>
+                <a disabled={(record.detail && record.detail.billState) != 'stored'} onClick={State.auditClick.bind(this, record)}>审核</a>
             </div>;
         }
     }

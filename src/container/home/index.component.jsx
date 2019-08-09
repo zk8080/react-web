@@ -21,7 +21,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getProductList();
+        State.getQueryData();
     }
     
     render() {

@@ -28,8 +28,6 @@ class State {
             if(res.data.code === 0){
                 const {rows} = res.data.data;
                 this.setAllProductList(rows);
-            }else{
-                message.error(res.data.msg);
             }
         }
         catch(e){
@@ -58,10 +56,7 @@ class State {
         const paramsObj = {
             ...formUtils.formToParams(this.queryForm),
             ...this.pageInfo,
-            ...params, 
-            ...{
-                billType: 1
-            }
+            ...params
         };
         if(paramsObj.purchaseDate) paramsObj.purchaseDate = moment(paramsObj.purchaseDate).format('YYYY-MM-DD');
         if(paramsObj.receivDate) paramsObj.receivDate = moment(paramsObj.receivDate).format('YYYY-MM-DD');
@@ -260,8 +255,6 @@ class State {
                 message.success(res.data.msg);
                 this.toggleVisible();
                 this.getTableList();
-            }else{
-                message.error(res.data.msg);
             }
         }
         catch(e){
@@ -279,14 +272,30 @@ class State {
             if(res.data.code === 0){
                 message.success(res.data.msg);
                 this.getTableList();
-            }else{
-                message.error(res.data.msg);
             }
         }
         catch(e){
             console.log(e);
         }
     }
+
+    // 确认
+    @action okClick = async (obj={}) => {
+        const params = {
+            ...obj
+        };
+        const res = await Service.confirmReceive(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.getTableList();
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+        
+    }  
 
     // 点击收货
     @action receiptClick = (record) => {
@@ -295,13 +304,6 @@ class State {
         this.setEditForm(record);
         this.setDataKey(record.detailList);
         this.setEditTable(record.detailList);
-    }
-
-    
-
-    // 审核按钮
-    @action auditClick = (record) => {
-
     }
 
 
@@ -431,7 +433,8 @@ class State {
     @action confirmClick = async (obj={}) => {
         const params = {
             ...obj,
-            detailList: toJS(this.editTable)
+            detailList: toJS(this.editTable),
+            billState: 'confirm'
         };
         const res = await Service.confirmReceive(params);
         try{
@@ -439,8 +442,6 @@ class State {
                 message.success(res.data.msg);
                 this.togglereceiptVisible();
                 this.getTableList();
-            }else{
-                message.error(res.data.msg);
             }
         }
         catch(e){

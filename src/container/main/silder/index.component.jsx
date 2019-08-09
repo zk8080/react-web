@@ -14,12 +14,12 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openKeys: ['01'],
-            selectedKeys: ['01-01']
+            openKeys: ['00'],
+            selectedKeys: ['00']
         };
     }
 
-    rootSubmenuKeys = ['01', '02', '03', '04', '05', '06', '07']
+    rootSubmenuKeys = ['00', '01', '02', '03', '04', '05', '06', '07']
 
     //  打开时回调
     onOpenChange = (openKeys) => {
@@ -89,6 +89,14 @@ class Index extends Component {
                             title: childArr[j].title
                         };
                     }
+                }
+            }else{
+                if( element.url === pathname ){
+                    return {
+                        selectedKeys: element.key,
+                        openKeys: element.key,
+                        title: element.title
+                    };
                 }
             }   
         }

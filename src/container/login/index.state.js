@@ -16,6 +16,7 @@ class State {
                 appStore.setGlobalUserData(data);
                 appStore.setIsAuthority(true);
                 session.setItem('isAuthority', {login: true});
+                session.setItem('userInfo', data);
                 this.getAllDict(); 
                 session.setCookie('Wms-Token', data.token);
                 window.appHistory.push('/');

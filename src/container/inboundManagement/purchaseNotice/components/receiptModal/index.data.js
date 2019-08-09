@@ -171,7 +171,7 @@ const foodColumns = [
     {
         title: '生产日期',
         dataIndex: 'productionDate',
-        //editable: true,
+        editable: true,
         required: true,
         width: 200,
         type: 'date'
@@ -179,7 +179,7 @@ const foodColumns = [
     {
         title: '保质期',
         dataIndex: 'shilfLife',
-        //editable: true,
+        editable: true,
         required: true,
         width: 200,
         type: 'date'

@@ -6,6 +6,10 @@ import * as PropTypes from 'prop-types';
  * 条形码组件
  */
 export default class BarcodeComponent extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {};
+    }
 	props = {
 		// 条形码CODE
 		code: PropTypes.string.isRequired,

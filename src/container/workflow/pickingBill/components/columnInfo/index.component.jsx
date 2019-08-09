@@ -14,10 +14,10 @@ class Index extends Component {
                     <div className='all_data'>
                         <div>
                             <div>
-                                <span>共：</span><span>{item.scanningData}</span>
+                                <span>共：</span><span>{item.allData}</span>
                             </div>
                             <div>
-                                <span>剩：</span><span>{item.allData}</span>
+                                <span>剩：</span><span>{item.lastData}</span>
                             </div>
                             
                         </div>

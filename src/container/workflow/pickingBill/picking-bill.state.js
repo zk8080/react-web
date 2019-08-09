@@ -46,7 +46,7 @@ export class PickingBillState extends BaseState{
 				// this.refreshDataList(result.data.rows);
 				// this.refreshPage(result.data);
 				this.loadGridFinished(result.data);
-				this.rowSelect.selectedRowKeys = [];
+				// this.rowSelect.selectedRowKeys = [];
 			}
 
 		});

@@ -1,11 +1,7 @@
 import axios from 'axios';
 
 // 查询url
-const tableListUrl = '/warehousing/purchaseBill/selectList';
-// 新增url
-const addProductUrl = '/commoditySku/add';
-// 修改url
-const editProductUrl = '/commoditySku/update';
+const tableListUrl = '/warehousing/purchaseBill/selectWarehousingList';
 // 查询商品url
 const productListUrl = '/commoditySku/loadGrid';
 // 查询商家url
@@ -13,7 +9,9 @@ const customerListUrl = '/customer/loadGrid';
 // 查询推荐库位
 const getRecommendStoreUrl = '/storehouseConfig/recommendStore';
 // 上架提交url
-const confirmReceiveUrl = '/warehousing/purchaseBill/confirm';
+const groundingUrl = '/warehousing/purchaseBill/grounding';
+// 审核url
+const confirmReceiveUrl = '/warehousing/purchaseBill/approve';
 
 
 class Service {
@@ -21,32 +19,6 @@ class Service {
     getTableList = req => {
         return new Promise((resolve, reject) => {
             axios.post(tableListUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    addProduct = req => {
-        return new Promise((resolve, reject) => {
-            axios.post(addProductUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    editProduct = req => {
-        return new Promise((resolve, reject) => {
-            axios.post(editProductUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -84,9 +56,24 @@ class Service {
         });
     }
 
+    grounding = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(groundingUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
     confirmReceive = req => {
         return new Promise((resolve, reject) => {
-            axios.post(confirmReceiveUrl, req)
+            axios.get(confirmReceiveUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })
