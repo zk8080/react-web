@@ -86,7 +86,7 @@ class Index extends Component {
                 rowKey={(v, i) => i}
                 bordered
                 {...this.props}
-                className={`cur-table ${this.props.className}`}
+                className={`cur-table ${this.props.className || ''}`}
                 onChange={this.handleTableChange}
                 columns={columns}
                 components={this.components}

@@ -8,7 +8,7 @@ class Index extends Component{
 
     render(){
         return (
-            <DownLoad path='' params={{}}/>
+            <DownLoad path='/statistics/export/storeUsedExcel' params={this.props.queryData}/>
         )
     }
 }

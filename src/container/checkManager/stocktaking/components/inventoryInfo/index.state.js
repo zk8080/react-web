@@ -90,7 +90,7 @@ class State {
                     callback();
                 }
             }else{
-                message.error(res.data.msg);
+                // message.error(res.data.msg);
             }
         }
         catch(e){

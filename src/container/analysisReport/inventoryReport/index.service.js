@@ -1,37 +1,14 @@
 import axios from 'axios';
 
+//查询商家
+const getMerchantsListUrl = '/customer/loadGrid';
 // 查询url
-const tableListUrl = '/warehousing/purchaseBill/selectWarehousingList';
-// 查询商品url
-const productListUrl = '/commoditySku/loadGrid';
-// 查询商家url
-const customerListUrl = '/customer/loadGrid';
-// 查询推荐库位
-const getRecommendStoreUrl = '/storehouseConfig/recommendStore';
-// 上架提交url
-const groundingUrl = '/warehousing/purchaseBill/grounding';
-// 审核url
-const confirmReceiveUrl = '/warehousing/purchaseBill/approve';
-
+const tableListUrl = '/statistics/query/storehouse';
 
 class Service {
-
     getTableList = req => {
         return new Promise((resolve, reject) => {
-            axios.post(tableListUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    getRecommendStore = req => {
-        return new Promise((resolve, reject) => {
-            axios.get(getRecommendStoreUrl, {
+            axios.get(tableListUrl, {
                 params: req
             })
                 .then(res => {
@@ -43,9 +20,10 @@ class Service {
                 });
         });
     }
-    getCustomerList = req => {
+
+    getMerchantsList = req => {
         return new Promise((resolve, reject) => {
-            axios.post(customerListUrl, req)
+            axios.post(getMerchantsListUrl, req)
                 .then(res => {
                     resolve(res);
                 })
@@ -56,33 +34,6 @@ class Service {
         });
     }
 
-    grounding = req => {
-        return new Promise((resolve, reject) => {
-            axios.post(groundingUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    confirmReceive = req => {
-        return new Promise((resolve, reject) => {
-            axios.get(confirmReceiveUrl, {
-                params: req
-            })
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
 }
 
 export default new Service();

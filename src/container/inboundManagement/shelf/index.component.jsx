@@ -42,6 +42,7 @@ class Index extends Component {
                         getData={State.getTableList}
                         customerList={toJS(State.customerList)}
                         productList={toJS(State.allProductList)}
+                        setCurrent={State.setCurrent} 
                     />
                 </Form>
                 {/* <HeadComponent

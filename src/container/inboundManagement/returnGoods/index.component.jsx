@@ -38,6 +38,7 @@ class Index extends Component {
                         getData={State.getTableList}
                         customerList={toJS(State.customerList)}
                         productList={toJS(State.allProductList)}
+                        setCurrent={State.setCurrent} 
                     />
                 </Form>
                 <NewTable
@@ -45,7 +46,7 @@ class Index extends Component {
                     columns={colums}
                     // rowKey='id'
                     bordered
-                    scroll={{x: 1400}}
+                    scroll={{x: 2000}}
                     getQueryData={State.getTableList}
                     pagination={toJS(State.pageInfo)}
                 />

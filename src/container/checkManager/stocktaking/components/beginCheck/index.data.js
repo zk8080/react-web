@@ -40,6 +40,11 @@ const colums = [
         width: 100
     },
     {
+        title: '盘点批次',
+        dataIndex: 'checkCode',
+        width: 100
+    },
+    {
         title: '初盘数量',
         dataIndex: 'firstCheckNums',
         width: 100,

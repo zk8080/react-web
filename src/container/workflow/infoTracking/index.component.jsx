@@ -7,6 +7,7 @@ import './index.less';
 import { toJS } from 'mobx';
 import {Form} from 'antd';
 import FormComponent from './components/formComponent/index.component';
+import DetailComponent from './components/detailComponent/index.component';
 
 @observer
 class Index extends Component {
@@ -38,6 +39,7 @@ class Index extends Component {
                         getData={State.getTableList}
                         customerList={toJS(State.customerList)}
                         productList={toJS(State.allProductList)}
+                        setCurrent={State.setCurrent} 
                     />
                 </Form>
                 <NewTable
@@ -48,6 +50,17 @@ class Index extends Component {
                     scroll={{x: 1400}}
                     getQueryData={State.getTableList}
                     pagination={toJS(State.pageInfo)}
+                />
+                <DetailComponent
+                    visible={State.visible}
+                    cancelClick={State.toggleVisible}
+                    onOk={this.saveClick}
+                    detailData={toJS(State.editForm)}
+                    setDetailData={State.setEditForm}
+                    disabled={State.disabled}
+                    toggleDisabled={State.toggleDisabled}
+                    productList={toJS(State.productList)}
+                    logisticsList={toJS(State.logisticsList)}
                 />
             </div>
         );

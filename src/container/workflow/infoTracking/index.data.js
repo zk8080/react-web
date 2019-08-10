@@ -1,68 +1,79 @@
 import React from 'react';
 import State from './index.state';
+import moment from 'moment';
 
 const colums = [
     {
-        title: '采购单号',
-        dataIndex: 'purchaseNo',
-        width: 150
-    },
-    {
-        title: '采购单名称',
-        dataIndex: 'name',
-        width: 200
-    },
-    {
-        title: '状态',
-        dataIndex: 'billState',
-        render: (text, record) => {
-            if(record.detail && record.detail.billState == 'save'){
-                return <span>保存</span>;
-            }
-            if(record.detail && record.detail.billState == 'recevieing'){
-                return <span>待收货</span>;
-            }
-            if(record.detail && record.detail.billState == 'recevied'){
-                return <span>已收货</span>;
-            }
-            if(record.detail && record.detail.billState == 'stored'){
-                return <span>已入库</span>;
-            }
-            if(record.detail && record.detail.billState == 'approved'){
-                return <span>已审核</span>;
-            }
-        },
-        width: 150
-    },
-    {
-        title: '采购日期',
-        dataIndex: 'purchaseDate',
-        width: 150
-    },
-    {
-        title: '商家',
+        title: '商家名称',
         dataIndex: 'customerName',
         width: 150
     },
     {
-        title: '联系人',
-        dataIndex: 'contacts',
+        title: '订单号',
+        dataIndex: 'orderNo',
         width: 200
     },
     {
-        title: '联系电话',
-        dataIndex: 'contactsTel',
+        title: '快递单号',
+        dataIndex: 'mailNo',
+        width: 200
+    },
+    {
+        title: '发送状态',
+        dataIndex: 'sendState',
+        render: (text, record) => {
+            return text == 1 ? '已发送' : '未发送';
+        },
+        width: 150
+    },
+    {
+        title: '发送失败原因',
+        dataIndex: 'failReason',
+        width: 150
+    },
+    {
+        title: '是否捡货完成',
+        dataIndex: 'isFinish',
+        render: (text, record) => {
+            return text == 1 ? '是' : '否';
+        },
+        width: 150
+    },
+    {
+        title: '是否称重完成',
+        dataIndex: 'isWeight',
+        render: (text, record) => {
+            return text == 1 ? '是' : '否';
+        },
+        width: 200
+    },
+    {
+        title: '订单日期',
+        dataIndex: 'orderDate',
+        render: (text, record) => {
+            return text && moment(text).format('YYYY-MM-DD');
+        },
+        width: 200
+    },
+    {
+        title: '收件人姓名',
+        dataIndex: 'reciptName',
         width: 80
     },
     {
-        title: '地址',
-        dataIndex: 'address',
+        title: '收件人电话',
+        dataIndex: 'reciptPhone',
+        width: 200
+    },
+    {
+        title: '收件人地址',
+        dataIndex: 'reciptAddr',
         width: 200
     },
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 200,
+        width: 100,
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>

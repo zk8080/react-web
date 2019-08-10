@@ -26,6 +26,9 @@ class State {
     @action setPageInfo = (obj = {}) => {
         this.pageInfo = obj;
     }
+    @action setCurrent = (num = 1) => {
+        this.pageInfo.current = num;
+    }
 
 
     //获取表格数据

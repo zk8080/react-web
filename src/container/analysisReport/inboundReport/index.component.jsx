@@ -6,6 +6,7 @@ import {colums} from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
 import {Form} from 'antd';
+import {formUtils} from '@utils';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 
@@ -22,7 +23,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getTableList();
+        State.getMerchantsList();
     }
 
     componentWillUnmount() {
@@ -37,17 +38,19 @@ class Index extends Component {
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
                         getData={State.getTableList}
-                        customerList={toJS(State.customerList)}
-                        productList={toJS(State.allProductList)}
+                        merchantsList={toJS(State.merchantsList)}
+                        setCurrent={State.setCurrent}
                     />
                 </Form>
-                <HeadComponent />
+                <HeadComponent 
+                    queryData={formUtils.formToParams(toJS(State.queryForm || {}))}
+                />
                 <NewTable
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     // rowKey='id'
                     bordered
-                    scroll={{x: 1400}}
+                    scroll={{x: 900}}
                     getQueryData={State.getTableList}
                     pagination={toJS(State.pageInfo)}
                 />

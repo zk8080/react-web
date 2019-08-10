@@ -82,6 +82,34 @@ class State {
             console.log(e);
         }
     }
+
+
+    // 点击保存
+    @action saveCheck = async(callback) => {
+        let data = toJS(this.tableList);
+        let arr = [];
+        data.map(item => {
+            arr.push(item.id);
+        })
+        let params = {
+            storeIdList: toJS(inventoryInfoState.storeIdList),
+            checkRecordIdList: arr
+        }
+        let res = await Service.saveCheck(params);
+        try{
+            if(res.data.code === 0){
+                // 获取库存信息列表数据
+                inventoryInfoState.getTableList(inventoryInfoState.queryData);
+                if(callback){
+                    callback()
+                }
+            }else{
+                console.log(res.data.msg);
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
 }
 
 export default new State();

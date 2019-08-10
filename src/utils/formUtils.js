@@ -1,4 +1,5 @@
 import {Form} from 'antd';
+import moment from 'moment';
 
 class FormUtils {
     //  将mobx中观察的数据 转换为mapPropsToFields所需要的结构
@@ -24,9 +25,16 @@ class FormUtils {
 
     // 将form数据结构 转换为接口所需借口
     formToParams = (obj = {}) => {
-        const target = {};
+        let target = {};
         for(const [key,value] of Object.entries(obj)){
-            target[key] = value.value;
+            // 判断下如果是moment格式的转化为字符串类型
+            let val = '';
+            if(typeof value.value == 'object' && value.value._locale){
+                val = moment(value.value).format('YYYY-MM-DD');
+            }else{
+                val = value.value;
+            }
+            target[key] = val;
         }
         return target;
     }

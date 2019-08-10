@@ -27,7 +27,10 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                if(this.props.setCurrent){
+                    this.props.setCurrent();
+                }
+                this.props.getData();
             }
         });
     };
@@ -39,60 +42,64 @@ class Index extends Component {
             <div className='query-component'>
                 <Row>
                     <Col span={8}>
-                        <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('customerName', {
+                        <FormItem label="订单号" hasFeedback>
+                            {getFieldDecorator('orderNo', {
                                 rules: [],
-                            })(<Select 
-                                option={customerList}
-                                valueCode='customerName'
-                                valueName='customerName'
-                                showSearch
-                                filterOption={(input, option) =>
-                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
+                            })(<Input 
+                                placeholder='请输入'
                             />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="商品" hasFeedback>
+                        <FormItem label="商品名称" hasFeedback>
                             {getFieldDecorator('commodityName', {
                                 rules: [],
-                            })(<Select 
-                                option={productList}
-                                valueCode='skuName'
-                                valueName='skuName'
-                                showSearch
-                                filterOption={(input, option) =>
-                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
+                            })(<Input 
+                                placeholder='请输入'
                             />)}
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label="状态" hasFeedback>
-                            {getFieldDecorator('billState', {
+                        <FormItem label="收件人姓名" hasFeedback>
+                            {getFieldDecorator('reciptName', {
+                                rules: [],
+                            })(<Input 
+                                placeholder='请输入'
+                            />)}
+                        </FormItem>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={8}>
+                        <FormItem label="收件人电话" hasFeedback>
+                            {getFieldDecorator('reciptPhone', {
+                                rules: [],
+                            })(<Input 
+                                placeholder='请输入'
+                            />)}
+                        </FormItem>
+                    </Col>
+                    <Col span={8}>
+                        <FormItem label="退货时间" hasFeedback>
+                            {getFieldDecorator('createTime', {
+                                rules: [],
+                            })(<DatePicker format='YYYY-MM-DD'/>)}
+                        </FormItem>
+                    </Col>
+                    <Col span={8}>
+                        <FormItem label="商品状态" hasFeedback>
+                            {getFieldDecorator('commodityState', {
                                 rules: [],
                             })(<Select 
+                                placeholder='请选择'
                                 option={[
                                     {
-                                        code: 'save',
-                                        name: '保存'
+                                        code: 'normal',
+                                        name: '正常'
                                     },
                                     {
-                                        code: 'recevieing',
-                                        name: '待收货'
-                                    },
-                                    {
-                                        code: 'recevied',
-                                        name: '已收货'
-                                    },
-                                    {
-                                        code: 'stored',
-                                        name: '已入库'
-                                    },
-                                    {
-                                        code: 'approved',
-                                        name: '已审核'
+                                        code: 'residual',
+                                        name: '残次'
                                     }
                                 ]}
                                 valueCode='code'
@@ -102,25 +109,13 @@ class Index extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={8}>
-                        <FormItem label="采购日期" hasFeedback>
-                            {getFieldDecorator('purchaseDate', {
-                                rules: [],
-                            })(<DatePicker/>)}
-                        </FormItem>
-                    </Col>
-                    <Col span={8}>
-                        <FormItem label="收货日期" hasFeedback>
-                            {getFieldDecorator('receivDate', {
-                                rules: [],
-                            })(<DatePicker/>)}
-                        </FormItem>
-                    </Col>
-                    <Col span={8} className='query-btn'>
+                    <Col span={24} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}
-                        >查询</Button>
+                        >
+                            查询
+                        </Button>
                     </Col>
                 </Row>
             </div>

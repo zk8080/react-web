@@ -26,6 +26,9 @@ class State {
     @action setPageInfo = (obj = {}) => {
         this.pageInfo = obj;
     }
+    @action setCurrent = (num = 1) => {
+        this.pageInfo.current = num;
+    }
 
 
     //获取表格数据
@@ -54,8 +57,54 @@ class State {
 
 
     // 点击查看
-    @action detailClick = (records = {}) => {
-        
+    @action detailClick = records => {
+        this.setEditForm(records);
+        this.setProductList(records.detailList || []);
+        this.setLogisticsList(records.logisticsInfo || []);
+        this.toggleVisible();
+    }
+
+
+//--------------------------------查看弹窗-----------------------------------------------------------------------------------------------------
+    // 编辑弹窗显示标识
+    @observable visible = false;
+    @action toggleVisible = () => {
+        this.visible = !this.visible;
+    }
+
+    // 详情弹窗是否可编辑
+    @observable disabled = true;
+    @action toggleDisabled = (bol = false) => {
+        this.disabled = bol;
+    }
+
+    // 表单编辑数据
+    @observable editForm = {};
+    @action setEditForm = (obj = {}) => {
+        this.editForm = obj;
+    }
+
+    // 详情弹窗是否可编辑
+    @observable disabled = true;
+    @action toggleDisabled = (bol = false) => {
+        this.disabled = bol;
+    }
+
+    // 商品信息
+    @observable productList = [];
+    @action setProductList = (arr = []) => {
+        this.productList = arr;
+    }
+
+    // 物流信息
+    @observable logisticsList = [];
+    @action setLogisticsList = (arr = []) => {
+        this.logisticsList = arr;
+    }
+
+    //点击提交
+    @action saveClick = () => {
+
     }
 }
 

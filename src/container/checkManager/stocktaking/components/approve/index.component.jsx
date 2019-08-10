@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
-// import {Table} from '@pubComs';
+import {NewTable} from '@pubComs';
 import columns from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
@@ -50,11 +50,12 @@ class Index extends Component {
                     checkRecordList={toJS(State.tableList)}
                     queryData={toJS(State.queryData)}
                 />
-                <Table
+                <NewTable
                     dataSource={toJS(State.tableList)}
                     columns={columns}
                     rowKey='id'
                     bordered
+                    scroll={{x: 1330}}
                 />
             </div>
         );

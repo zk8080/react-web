@@ -26,9 +26,24 @@ class Index extends Component {
         
     }
 
+    saveCheck = () => {
+        if(this.props.saveCheck){
+            this.props.saveCheck(()=>{
+                stocktakingState.setShow(1);
+            });
+        }
+        
+    }
+
     render() {
         return (
             <div className='header-component'>
+                <Button
+                    type='primary'
+                    onClick={this.saveCheck}
+                >
+                    保存
+                </Button>
                 <Button
                     type='primary'
                     onClick={this.cancelCheck}

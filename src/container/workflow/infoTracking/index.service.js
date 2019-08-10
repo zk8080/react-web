@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 查询url
-const tableListUrl = '/warehousing/purchaseBill/selectWarehousingList';
+const tableListUrl = '/tracking/getPickList';
 // 查询商品url
 const productListUrl = '/commoditySku/loadGrid';
 // 查询商家url

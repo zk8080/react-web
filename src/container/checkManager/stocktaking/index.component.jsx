@@ -14,7 +14,7 @@ class Index extends Component {
     }
 
     componentWillMount(){
-        State.setShow(1);
+        // State.setShow(1);
         inventoryInfoState.getMerchantsList();
     }
 

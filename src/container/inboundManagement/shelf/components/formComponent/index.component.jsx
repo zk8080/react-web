@@ -27,6 +27,9 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                if(this.props.setCurrent){
+                    this.props.setCurrent();
+                }
                 this.props.getData(values);
             }
         });
