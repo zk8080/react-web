@@ -79,7 +79,7 @@ class Index extends Component{
                     </Col>  
                     <Col span={8}>
                         <BarcodeComponent
-                            code={'201908041754348458'}
+                            code={'201908081127267685'}
                             height={50}
                         />
                     </Col>

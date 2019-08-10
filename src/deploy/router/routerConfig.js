@@ -52,6 +52,11 @@ const WarningAgentConfig = loadComponent(() => import(/* webpackChunkName: "Warn
 // 单量统计
 const HomeComponent = loadComponent(() => import(/* webpackChunkName: "HomeComponent" */ '@container/home/index.component'));
 
+// 统计分析
+const InboundReport = loadComponent(() => import(/* webpackChunkName: "InboundReport" */ '@container/analysisReport/inboundReport/index.component'));
+const OutboundReport = loadComponent(() => import(/* webpackChunkName: "OutboundReport" */ '@container/analysisReport/outboundReport/index.component'));
+const InventoryReport = loadComponent(() => import(/* webpackChunkName: "InventoryReport" */ '@container/analysisReport/inventoryReport/index.component'));
+const LocationUsageReport = loadComponent(() => import(/* webpackChunkName: "LocationUsageReport" */ '@container/analysisReport/locationUsageReport/index.component'));
 
 const routers = [
     {
@@ -96,12 +101,6 @@ const routers = [
         component: PurchaseNotice,
         breadcrumbName: '采购通知'
     },
-    // {
-    //     path: '/inboundManagement/receipt',
-    //     exact: true,
-    //     component: Receipt,
-    //     breadcrumbName: '收货'
-    // },
     {
         path: '/inboundManagement/shelf',
         exact: true,
@@ -191,6 +190,30 @@ const routers = [
         exact: true,
         component: InfoTracking,
         breadcrumbName: '信息跟踪'
+    },
+    {
+        path: '/inboundReport/list',
+        exact: true,
+        component: InboundReport,
+        breadcrumbName: '入库报表'
+    },
+    {
+        path: '/outboundReport/list',
+        exact: true,
+        component: OutboundReport,
+        breadcrumbName: '出库报表'
+    },
+    {
+        path: '/inventoryReport/list',
+        exact: true,
+        component: InventoryReport,
+        breadcrumbName: '库存报表'
+    },
+    {
+        path: '/locationUsageReport/list',
+        exact: true,
+        component: LocationUsageReport,
+        breadcrumbName: '库位使用报表'
     }
 ];
 

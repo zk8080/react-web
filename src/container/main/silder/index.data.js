@@ -129,22 +129,22 @@ const menuData = [
             {
                 title: '入库报表',
                 key: '05-01',
-                url: '/article/15'
+                url: '/inboundReport/list'
             },
             {
                 title: '出库报表',
                 key: '05-02',
-                url: '/article/16'
+                url: '/outboundReport/list'
             },
             {
                 title: '库存报表',
                 key: '05-03',
-                url: '/article/17'
+                url: '/inventoryReport/list'
             },
             {
                 title: '库位使用报表',
                 key: '05-04',
-                url: '/article/18'
+                url: '/locationUsageReport/list'
             }
         ]
     },

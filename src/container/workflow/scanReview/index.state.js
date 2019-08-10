@@ -1,4 +1,4 @@
-import {observable, action, toJS} from 'mobx';
+import {observable, action, toJS, computed} from 'mobx';
 import Service from './index.service';
 import Lodash from 'lodash';
 
@@ -22,7 +22,6 @@ class State {
             pickNo: code
         };
         const res = await Service.getTableList(params);
-        console.log(res, '----res---');
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
@@ -60,9 +59,6 @@ class State {
     // 扫描商品 修改栏位数据、
     @action dealProductArr = (code) => {
         const packageList = toJS(this.packageList);
-        // packageList.map(item => {
-            
-        // });
         for (let i = 0; i < packageList.length; i++) {
             const item = packageList[i];
             const productList = item.packageCommodities;
@@ -70,12 +66,39 @@ class State {
             if(productIndx >= 0){
                 item.lastData --;
                 productList.splice(productIndx, 1);
-                // item.packageCommodities = productList;
                 break;
             }
         }
-        console.log(packageList, '---packageList---'  );
         this.setPackageList(packageList);
+    }
+
+    // 监听拣货完成
+    @computed get isCheckFinished () {
+        const packageList = toJS(this.packageList);
+        let hasFinishArr = [];
+        for (let i = 0; i < packageList.length; i++) {
+            const item = packageList[i];
+            const productList = item.packageCommodities;
+            const lastArr = productList.filter(item => item.lastData != item.allData);
+            hasFinishArr = [...hasFinishArr, ...lastArr];
+        }
+        console.log( hasFinishArr, '---hashasFinishArr--' );
+    }
+
+    // 拣货完成修改状态
+    @action checkFinished = async () => {
+        const params = {
+
+        };
+        const res = await Service.checkFinished(params);
+    }
+
+    // 漏检
+    @action checkFinished = async () => {
+        const params = {
+
+        };
+        const res = await Service.checkOmit(params);
     }
 }
 export default new State();
