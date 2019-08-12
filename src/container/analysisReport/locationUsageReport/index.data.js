@@ -3,7 +3,7 @@ import State from './index.state';
 
 const colums = [
     {
-        title: '商家Code',
+        title: '商家编码',
         dataIndex: 'customerCode',
         width: 150
     },

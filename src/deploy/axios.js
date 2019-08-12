@@ -24,7 +24,14 @@ axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     // console.log('响应拦截器！');
     loading.hideLoading();
-    if(response.data.code != 0 || response.data.code != '00'){
+    if(response.data.code == 400001){
+        // 表示用户未登录或者是登陆超时，返回登陆页
+        window.appHistory.push('/login');
+    }else if(response.data.code == '50001'){
+        //50001代表在盘点中如果点击开始盘点，当前正在拥有盘点的数据，需要给到用户提示
+        message.warning(response.data.msg);
+    }else if(response.data.code != 0 || response.data.code != '00'){
+        // 0和00代表接口成功
         message.error(response.data.msg);
     }
     return response;

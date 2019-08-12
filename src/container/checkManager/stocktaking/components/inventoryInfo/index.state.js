@@ -83,14 +83,12 @@ class State {
         });
         const res = await Service.beginCheck(paramsObj);
         try{
-            if(res.data.code === 0){
-                // const {rows} = res.data.data;
+            // code为1代表接口成功，Code为50001代表当前正有数据处于盘点中状态
+            if(res.data.code == 0 || res.data.code == 50001){
                 beginCheckState.setTableList(res.data.data);
                 if(callback){
                     callback();
                 }
-            }else{
-                // message.error(res.data.msg);
             }
         }
         catch(e){

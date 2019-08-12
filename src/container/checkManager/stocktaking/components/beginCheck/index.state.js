@@ -87,22 +87,18 @@ class State {
     // 点击保存
     @action saveCheck = async(callback) => {
         let data = toJS(this.tableList);
-        let arr = [];
-        data.map(item => {
-            arr.push(item.id);
-        })
         let params = {
-            storeIdList: toJS(inventoryInfoState.storeIdList),
-            checkRecordIdList: arr
+            checkRecordList: data
         }
         let res = await Service.saveCheck(params);
         try{
             if(res.data.code === 0){
-                // 获取库存信息列表数据
-                inventoryInfoState.getTableList(inventoryInfoState.queryData);
-                if(callback){
-                    callback()
-                }
+                // // 获取库存信息列表数据
+                // inventoryInfoState.getTableList(inventoryInfoState.queryData);
+                // if(callback){
+                //     callback()
+                // }
+                message.success(res.data.msg);
             }else{
                 console.log(res.data.msg);
             }
