@@ -6,6 +6,8 @@ import ReviewComponent from './components/reviewComponent/index.component';
 import './index.less';
 import State from './index.state';
 import { toJS } from 'mobx';
+import {session} from '@utils';
+
 const FormItem = Form.Item;;
 
 @Form.create()
@@ -14,36 +16,47 @@ class Index extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-            inputVal: ''
+            inputVal: '',
+            reviewUser: null
 		};
 	}
 	componentDidMount() {
         this.input.focus();
         this.bindKeyDown();
+        this.setState({
+            reviewUser: session.getItem('userInfo').name
+        });
     }
     
     // 绑定keyDown事件
-    bindKeyDown = () => {
+    bindKeyDown = (ele) => {
         let lastTime = null;
         let nextTime = null;
         let code = '';
-        document.addEventListener('keydown', (e) => {
+        document.querySelector('#pickNo').addEventListener('keydown', (e) => {
             const keycode = e.keyCode || e.which || e.charCode;
             this.props.form.resetFields();
             nextTime = new Date();
             if (keycode === 13) {
+                e.preventDefault();
+                code = code.replace(/\s+/g,'');
                 this.props.form.setFieldsValue({
-                    'field': code
+                    'pickNo': code
                 });
-                // 如果没有拣货单数据 则请求数据
+                //如果没有拣货单数据 则请求数据
                 if( !State.isAlreadyReview ){
                     State.getTableList(code);
                 }else{
-                    State.dealProductArr(code);
+                    if(!State.isAlreadyPicker){
+                        console.log(111, '22');
+                        State.setPickUser(code);
+                    }else{
+                        console.log(33, '44');
+                        State.dealProductArr(code);
+                    }
                 }
                 code = '';
                 lastTime = null;
-                e.preventDefault();
             }else {
                 if (!lastTime) {
                     code = String.fromCharCode(keycode);
@@ -60,24 +73,20 @@ class Index extends Component{
         return <div className='scanReview'>    
             <div className='query-component'>
                 <Row>
-                    <Col span={8} >
-                        <FormItem>
-                        {getFieldDecorator('field', {
-                            rules: [
-                                {
-                                required: true,
-                                message: 'Input something!',
-                                },
-                            ],
-                        })(<Input
+                    <Col span={6} >
+                        <FormItem label=''>
+                        {getFieldDecorator('pickNo')(<Input
                             ref={input => this.input = input}
+                            autoComplete='off'
                         />)}
                         </FormItem>
                     </Col>
-                    <Col span={8}>  
+                    <Col span={6}>  
+                        <Button type='primary'>打印面单</Button>
+                        <Button type='primary' onClick={State.getOmitStore}>缺货</Button>
                         <Button type='primary'>复检完毕</Button>
                     </Col>  
-                    <Col span={8}>
+                    <Col span={6}>
                         <BarcodeComponent
                             code={'201908081127267685'}
                             height={50}
@@ -88,6 +97,9 @@ class Index extends Component{
             
             <ReviewComponent
                 packageList={toJS(State.packageList)}
+                curProduct={State.curProductInfo}
+                reviewUser={this.state.reviewUser}
+                pickerUser={State.pickUser}
             />
         </div>;
 	}

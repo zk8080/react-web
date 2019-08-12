@@ -12,7 +12,10 @@ class OrderWeighComponent extends React.Component{
 	}
 
 	componentDidMount(): void {
-		this.orderWeighState.loadGrid();
+        this.orderWeighState.loadGrid();
+        document.addEventListener('keydown', (e) => {
+            console.log(e);
+        });
 	}
 
 	render() {

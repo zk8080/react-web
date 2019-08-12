@@ -6,6 +6,8 @@ const tableListUrl = '/pickBill/lockPickBillData';
 const checkFinishedUrl = '/pickBill/invoiceCheckFinished';
 // 漏拣
 const checkOmitUrl = '/pickBill/invoiceCheckOmit';
+// 查询漏拣商品url
+const getOmitStoreUrl = 'pickBill/omitStoke';
 
 class Service {
 
@@ -42,6 +44,19 @@ class Service {
     checkOmit = req => {
         return new Promise((resolve, reject) => {
             axios.post(checkOmitUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getOmitStore = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(getOmitStoreUrl, req)
                 .then(res => {
                     resolve(res);
                 })

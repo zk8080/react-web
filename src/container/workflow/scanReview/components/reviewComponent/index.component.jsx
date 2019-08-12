@@ -14,7 +14,10 @@ class Index extends Component {
                     />
                 </div>
                 <div className='package_info'>
-                    <PackageInfo></PackageInfo>
+                    <PackageInfo
+                        {...this.props}
+                        data={this.props.curProduct}
+                    />
                 </div>
             </div>
         );

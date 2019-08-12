@@ -7,7 +7,7 @@ class Index extends Component {
     renderColumn = (arr) => {
         return arr.map((item, index) => {
             return (
-                <div className={item.lastData == 0 ? 'column_box yellow': 'column_box'} key={index}>
+                <div className={item.lastData == 0 ? 'column_box yellow': item.lastData != item.allData ?'column_box green':'column_box'} key={index}>
                     <div className='column'>
                         {item.basketNum}
                     </div>
