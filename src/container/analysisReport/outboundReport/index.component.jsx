@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import State from './index.state';
 import { NewTable } from '@pubComs';
 import {colums} from './index.data';
-import './index.less';
+import '../inboundReport/index.less';
 import { toJS } from 'mobx';
 import {Form} from 'antd';
 import {formUtils} from '@utils';
