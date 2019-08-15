@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {Form, Row, Col, Input, Button} from 'antd';
-import {formUtils} from '@utils';
-import {Select} from '@pubComs'; 
+import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
+import {formUtils} from '@utils'; 
 
 const FormItem = Form.Item;
 
@@ -38,10 +37,10 @@ class Index extends Component {
             <div className='query-component'>
                 <Row>
                     <Col span={8}>
-                        <FormItem label="商家" hasFeedback>
-                            {getFieldDecorator('customerName', {
+                        <FormItem label="日期" hasFeedback>
+                            {getFieldDecorator('orderDate', {
                                 rules: [],
-                            })(<Input />)}
+                            })(<DatePicker/>)}
                         </FormItem>
                     </Col>
                     <Col span={16} className='query-btn'>

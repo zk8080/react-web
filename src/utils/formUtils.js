@@ -25,13 +25,13 @@ class FormUtils {
 
     // 将form数据结构 转换为接口所需借口
     formToParams = (obj = {}) => {
-        let target = {};
+        const target = {};
         for(const [key,value] of Object.entries(obj)){
             // 判断下如果是moment格式的转化为字符串类型
-            let val = '';
+            let val = value;
             if(typeof value.value == 'object' && value.value._locale){
                 val = moment(value.value).format('YYYY-MM-DD');
-            }else{
+            }else if(value.value){
                 val = value.value;
             }
             target[key] = val;

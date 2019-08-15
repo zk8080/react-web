@@ -81,9 +81,8 @@ class Index extends Component{
                         />)}
                         </FormItem>
                     </Col>
-                    <Col span={6}>  
-                        <Button type='primary'>打印面单</Button>
-                        <Button type='primary' onClick={State.getOmitStore}>缺货</Button>
+                    <Col span={6}> 
+                        <Button type='primary' onClick={State.getOmitStore}>打印缺货单</Button>
                         <Button type='primary'>复检完毕</Button>
                     </Col>  
                     <Col span={6}>

@@ -21,7 +21,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        // State.getQueryData();
+        State.getQueryData();
     }
     
     render() {
@@ -39,6 +39,8 @@ class Index extends Component {
                     dataSource={toJS(State.tableList)}
                     columns={colums}
                     rowKey='id'
+                    getQueryData={State.getQueryData}
+                    pagination={toJS(State.pageInfo)}
                 />
             </div>
         );

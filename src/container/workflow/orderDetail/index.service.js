@@ -1,15 +1,17 @@
 import axios from 'axios';
 
 // 查询订单详情url
-const queryDetailUrl = '';
+const queryDetailUrl = '/order/loadDetails';
 // 修改url
-const editProductUrl = '/order/updateOrder';
+const editOrderUrl = '/order/updateOrder';
 
 class Service {
 
     queryDetail = req => {
         return new Promise((resolve, reject) => {
-            axios.post(queryDetailUrl, req)
+            axios.get(queryDetailUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })
@@ -20,9 +22,9 @@ class Service {
         });
     }
 
-    editProduct = req => {
+    editOrder = req => {
         return new Promise((resolve, reject) => {
-            axios.post(editProductUrl, req)
+            axios.post(editOrderUrl, req)
                 .then(res => {
                     resolve(res);
                 })

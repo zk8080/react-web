@@ -100,6 +100,7 @@ class Index extends Component {
                 }
             }   
         }
+        return {};
     }
 
     componentWillMount() {

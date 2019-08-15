@@ -1,28 +1,13 @@
 import axios from 'axios';
 
 // 查询代办列表
-const getQueryDataList = '/warningAgent/getList';
-// 处理代办数据
-const dealDataUrl = '/warningAgent/deal';
+const getQueryDataList = '/index/orderStatistics';
 
 class Service {
 
     getQueryData = req => {
         return new Promise((resolve, reject) => {
-            axios.post(getQueryDataList, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    dealData = req => {
-        return new Promise((resolve, reject) => {
-            axios.get(dealDataUrl, {
+            axios.get(getQueryDataList, {
                 params: req
             })
                 .then(res => {

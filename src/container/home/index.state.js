@@ -1,7 +1,8 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
-
+import {formUtils} from '@utils';
+import moment from 'moment';
 class State {
 
     // 查询组件数据
@@ -16,36 +17,37 @@ class State {
         this.tableList = arr;
     }
 
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+
     //获取表格数据
-    @action getQueryData = async (params = {}) => {
-        const paramsObj = {...params, ...{
-            currentPage: 1,
-            pageSize: 15
-        }};
+    @action getQueryData = async (page = {}) => {
+        const formData = formUtils.formToParams(this.queryForm);
+        if( formData.orderDate ) {
+            formData.orderDate = moment(formData.orderDate).format('YYYY-MM-DD');
+        }
+        const paramsObj = {
+            ...formData, 
+            ...this.pageInfo,
+            ...page
+        };
         const res = await Service.getQueryData(paramsObj);
         try{
             if(res.data.code === 0){
-                const {records} = res.data.data;
+                const {records, current, size, total} = res.data.data;
                 this.setTableList(records);
-            }else{
-                message.error(res.data.msg);
-            }
-        }
-        catch(e){
-            console.log(e);
-        }
-    }
-
-    // 处理数据
-    @action dealClick = async (record) => {
-        console.log( record, '----record---' );
-        const params = {
-            id: record.id
-        };
-        const res = await Service.dealData(params);
-        try{
-            if(res.data.code === 0){
-                message.success(res.data.msg);
+                this.setPageInfo({
+                    current,
+                    pageSize: size,
+                    total
+                });
             }else{
                 message.error(res.data.msg);
             }
