@@ -19,6 +19,16 @@ class SessionStorage {
         }
     }
 
+    // 删除sessionItem
+    removeItem = (key) => {
+        try{
+            sessionStorage.removeItem(key);
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
     // 设置cookie
     setCookie = (name, value, liveMinutes) => {  
         if (liveMinutes === undefined || liveMinutes == null) {

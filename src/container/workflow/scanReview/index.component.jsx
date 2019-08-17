@@ -48,22 +48,22 @@ class Index extends Component{
                     State.getTableList(code);
                 }else{
                     if(!State.isAlreadyPicker){
-                        console.log(111, '22');
                         State.setPickUser(code);
                     }else{
-                        console.log(33, '44');
                         State.dealProductArr(code);
                     }
                 }
                 code = '';
                 lastTime = null;
             }else {
-                if (!lastTime) {
-                    code = String.fromCharCode(keycode);
-                } else {
-                    code += String.fromCharCode(keycode);
+                if(keycode !== 16){
+                    if (!lastTime) {
+                        code = String.fromCharCode(keycode);
+                    } else {
+                        code += String.fromCharCode(keycode);
+                    }
+                    lastTime = nextTime;
                 }
-                lastTime = nextTime;
             }
         });
     }
@@ -83,7 +83,7 @@ class Index extends Component{
                     </Col>
                     <Col span={6}> 
                         <Button type='primary' onClick={State.getOmitStore}>打印缺货单</Button>
-                        <Button type='primary'>复检完毕</Button>
+                        <Button type='primary' onClick={State.checkFinished}>复检完毕</Button>
                     </Col>  
                     <Col span={6}>
                         <BarcodeComponent

@@ -3,17 +3,20 @@ import { Modal, Table } from '@pubComs';
 import './index.less';
 import moment from 'moment';
 import {column} from './index.data';
+import {Button} from 'antd';
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedRowKeys: [],
+            selectedRows: []
         };
     }
 
     handleDelete = () => {
         const record = this.state.selectedRows[0];
-        this.props.handleDelete(record);
+        this.props.deletePackage(record);
         this.setState({
             selectedRowKeys: []
         });
@@ -32,14 +35,6 @@ class Index extends Component {
         });
     }
 
-    toggleDisabled = () => {
-        this.props.toggleDisabled(false);
-    }
-
-    handleClick = () => {
-        window.print();
-    }
-
     rowSelection = {
         type: 'radio',
         onChange: (selectedRowKeys, selectedRows) => {
@@ -51,28 +46,35 @@ class Index extends Component {
         selectedRowKeys: []
     }
 
-
     render() {
-        const { visible, cancelClick, data} = this.props;
-        this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
+        const { visible, cancelClick, data, openProductModal, unPackage} = this.props;
         return (
             <div>
                 <Modal
-                    title='包裹详情'
+                    title='拆包'
                     visible={visible}
-                    className={'detail-product'}
+                    className={'detail-package'}
                     onCancel={cancelClick}
-                    footer={null}
+                    onOk={unPackage}
+                    // footer={null}
                 >
                     <div>
-                        <div className='title'>
-                            商品列表：
+                        <div className='package-header'>
+                            <Button
+                                type='primary'
+                                onClick={openProductModal}
+                            >新增包裹</Button>
+                            <Button
+                                type='primary'
+                                onClick={this.handleDelete}
+                            >删除包裹</Button>
                         </div>
                         <Table
                             columns={column}
                             dataSource={data}
                             pagination={false}
-                            rowKey='mailNo'
+                            rowSelection={this.rowSelection}
+                            rowKey='id'
                             bordered
                         />
                     </div>

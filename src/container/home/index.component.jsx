@@ -21,7 +21,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        State.getQueryData();
+        // State.getQueryData();
     }
     
     render() {
@@ -31,7 +31,7 @@ class Index extends Component {
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getQueryData}
                         productList={toJS(State.tableList)}
                     />
                 </Form>

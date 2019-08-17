@@ -74,8 +74,8 @@ class State {
     dealPackageArr = (arr = []) => {
         const dataArr = [];
         arr.map(item => {
-            const allData = item.packageCommodities.length;
-            const lastData = item.packageCommodities.length;
+            const allData = item.packageCommodities && item.packageCommodities.length || 0;
+            const lastData = item.packageCommodities && item.packageCommodities.length || 0;
             dataArr.push({
                 allData,
                 lastData,
@@ -98,7 +98,7 @@ class State {
         let isHasProduct = false;
         for (let i = 0; i < packageList.length; i++) {
             const item = packageList[i];
-            const productList = item.packageCommodities;
+            const productList = item.packageCommodities || [];
             const productIndx = Lodash.findIndex(productList, prodItem => prodItem.commodityCode == code);
             if(productIndx >= 0){
                 const curProductInfo = productList[productIndx];
@@ -179,7 +179,7 @@ class State {
         let commodityCodes = [];
         let customerCode = null;
         packageList.map(item => {
-            const productList = item.packageCommodities;
+            const productList = item.packageCommodities || [];
             if(productList.length > 0){
                 commodityCodes = [...commodityCodes, ...productList.map(prodItem => prodItem.commodityCode)];
             }
@@ -192,10 +192,10 @@ class State {
         const res = await Service.getOmitStore(params);
         try{
             if(res.data.code == 0){
-                // message.success('拣货完成，请扫描下一单！');
-                // this.setIsAlreadyReview(false);
-                // this.setIsAlreadyPicker(false);
-                // this.setReviewList([]);
+                message.success('拣货完成，请扫描下一单！');
+                this.setIsAlreadyReview(false);
+                this.setIsAlreadyPicker(false);
+                this.setReviewList([]);
             }
         }
         catch(e){

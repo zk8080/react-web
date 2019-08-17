@@ -11,50 +11,8 @@ class Index extends Component {
         };
     }
 
-    handleDelete = () => {
-        const record = this.state.selectedRows[0];
-        this.props.handleDelete(record);
-        this.setState({
-            selectedRowKeys: []
-        });
-    }
-
-    onOkClick = e => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                const saveData = {
-                    ...values,
-                    purchaseDate: moment(values.purchaseDate).format('YYYY-MM-DD')
-                };
-                this.props.onOk({...this.props.detailData, ...saveData});
-            }
-        });
-    }
-
-    toggleDisabled = () => {
-        this.props.toggleDisabled(false);
-    }
-
-    handleClick = () => {
-        window.print();
-    }
-
-    rowSelection = {
-        type: 'radio',
-        onChange: (selectedRowKeys, selectedRows) => {
-            this.setState({
-                selectedRowKeys,
-                selectedRows
-            });
-        },
-        selectedRowKeys: []
-    }
-
-
     render() {
         const { visible, cancelClick, data = {} } = this.props;
-        this.rowSelection.selectedRowKeys = this.state.selectedRowKeys;
         return (
             <div>
                 <Modal

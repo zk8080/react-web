@@ -26,7 +26,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                this.props.getData();
             }
         });
     };
@@ -39,7 +39,10 @@ class Index extends Component {
                     <Col span={8}>
                         <FormItem label="日期" hasFeedback>
                             {getFieldDecorator('orderDate', {
-                                rules: [],
+                                rules: [{
+                                    required: true,
+                                    message: '请选择日期'
+                                }],
                             })(<DatePicker/>)}
                         </FormItem>
                     </Col>

@@ -7,9 +7,12 @@ import './index.less';
 import moment from 'moment';
 import {columns, packageColumn} from './index.data';
 import State from './index.state';
+import {session} from '@utils';
 
 import FormComponent from './components/formComponent/index.component';
 import DetailComponent from './components/detailComponent/index.component';
+import PackageComponent from './components/packageModal/index.component';
+import ProductModal from './components/productModal/index.component';
 @observer
 class Index extends Component {
     constructor(props) {
@@ -42,14 +45,19 @@ class Index extends Component {
     }
 
     componentDidMount(){
-        const queryData = this.props.location.state || {};
+        let queryData = this.props.location.state;
+        if( queryData ){
+            session.setItem('orderDetail', queryData);
+        }else {
+            queryData = session.getItem('orderDetail') || {};
+        }
         State.setDetailData(queryData);
-        const { orderNo, customerCode, systemOrderNo } = queryData;
-        State.getDetailData({
-            orderNo,
-            customerCode,
-            systemOrderNo
-        });
+        
+        State.getDetailData();
+    }
+
+    componentWillUnmount(){
+        // session.removeItem('orderDetail');
     }
 
     render() {
@@ -59,9 +67,12 @@ class Index extends Component {
                     <div className='detail'>
                         <div className='title'>订单信息</div>
                         <FormComponent
+                            {...toJS(State)}
                             detailData={toJS(State.detailData)}
                             setDetailData={State.setDetailData}
                             disabled={State.disabled}
+                            onCityChange={State.onCityChange}
+                            onProvChange={State.onProvChange}
                         />
                     </div>
                     <div className='product-list'>
@@ -89,7 +100,7 @@ class Index extends Component {
                     {
                         State.detailData.isMatched == 0 && <div className='btn-box'>
                             {
-                                State.detailData.isLock == 0 ?
+                                State.detailData.isLock != 1 ?
                                     State.disabled ?
                                         <Button
                                             type='primary'
@@ -115,6 +126,7 @@ class Index extends Component {
                             }
                             <Button
                                 type='primary'
+                                onClick={State.unPackageClick}
                             >
                                 拆包
                             </Button>
@@ -126,6 +138,20 @@ class Index extends Component {
                     visible={State.visible}
                     data={toJS(State.packageDetail)}
                     cancelClick={State.closeModal}
+                />
+                <PackageComponent
+                    visible={State.unPackageVisible}
+                    data={toJS(State.unPackageList)}
+                    cancelClick={State.closePackage}
+                    openProductModal={State.openProductModal}
+                    deletePackage={State.deletePackage}
+                    unPackage={State.unPackage}
+                />
+                <ProductModal
+                    visible={State.productVisible}
+                    data={toJS(State.productList)}
+                    cancelClick={State.closeProductModal}
+                    addPackage={State.addPackage}
                 />
             </div>
         );

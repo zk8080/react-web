@@ -29,12 +29,27 @@ const mapPropsToFields = (props) => {
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state={};
+        this.state={
+        };
+    }
+
+    onProvChange = (value) => {
+        // this.props.form.setFieldsValue({
+        //     'city': null
+        // });
+        this.props.onProvChange(value);
+    }
+
+    onCityChange = (value) => {
+        // this.props.form.setFieldsValue({
+        //     'county': null
+        // });
+        this.props.onCityChange(value);
     }
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {disabled} = this.props;
+        const {disabled, provList, cityList, countyList} = this.props;
         return (
             <div className='query-component'>
                 <Row>
@@ -130,14 +145,19 @@ class Index extends Component {
                                     }
                                 ]
                             })(
-                                <Input 
+                                <Select 
                                     disabled={disabled}
+                                    option={provList}
+                                    valueCode='name'
+                                    valueName='name'
+                                    onChange={this.onProvChange}
                                 />
+                                
                             )}
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label='市区县'>
+                        <FormItem label='市'>
                             {getFieldDecorator('city', {
                                 rules: [
                                     {
@@ -146,8 +166,31 @@ class Index extends Component {
                                     }
                                 ]
                             })(
-                                <Input 
+                                <Select 
                                     disabled={disabled}
+                                    option={cityList}
+                                    valueCode='name'
+                                    valueName='name'
+                                    onChange={this.onCityChange}
+                                />
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col span={8}>
+                        <FormItem label='区县'>
+                            {getFieldDecorator('county', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: '必填'
+                                    }
+                                ]
+                            })(
+                                <Select 
+                                    disabled={disabled}
+                                    option={countyList}
+                                    valueCode='name'
+                                    valueName='name'
                                 />
                             )}
                         </FormItem>

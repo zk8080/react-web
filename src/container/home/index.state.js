@@ -30,9 +30,9 @@ class State {
     //获取表格数据
     @action getQueryData = async (page = {}) => {
         const formData = formUtils.formToParams(this.queryForm);
-        if( formData.orderDate ) {
-            formData.orderDate = moment(formData.orderDate).format('YYYY-MM-DD');
-        }
+        // if( formData.orderDate ) {
+        //     formData.orderDate = moment(formData.orderDate).format('YYYY-MM-DD');
+        // }
         const paramsObj = {
             ...formData, 
             ...this.pageInfo,
