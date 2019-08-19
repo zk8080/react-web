@@ -10,6 +10,9 @@ const editProductUrl = '/commoditySku/update';
 //查询商家
 const getMerchantsListUrl = '/customer/loadGrid';
 
+// 根据商家查询库存
+const getAreaCodeListUrl = '/check/queryAreaCodeList';
+
 class Service {
 
     getProductList = req => {
@@ -67,6 +70,21 @@ class Service {
     beginCheck = req => {
         return new Promise((resolve, reject) => {
             axios.post(beginCheckUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getAreaCodeList = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(getAreaCodeListUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })

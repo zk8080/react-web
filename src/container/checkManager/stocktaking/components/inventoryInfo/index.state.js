@@ -36,6 +36,42 @@ class State {
         }
     }
 
+
+    // 库存数据
+    @observable areaCodeList = [];
+    @action setAreaCodeList = (arr = []) => {
+        this.areaCodeList = arr;
+    }
+    // 库存是根据商家联动来的
+    @action getAreaCodeList = async (value) => {
+        const params={
+            customerId: value
+        }
+        console.log(value,'value');
+        if(!value){
+            this.setAreaCodeList([]);
+            return;
+        }
+        const res = await Service.getAreaCodeList(params);
+        try{
+            if(res.data.code === 0){
+                const data = res.data.data;
+                let newData = [];
+                data.map(item => {
+                    newData.push({
+                        code: item,
+                        name: item
+                    });
+                })
+                this.setAreaCodeList(newData);
+            }else{
+                console.log(res.data.msg);
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
+
     // 表格数据
     @observable tableList = [];
     @action setTableList = (arr = []) => {

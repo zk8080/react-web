@@ -42,7 +42,7 @@ class Index extends Component {
                     type='primary'
                     onClick={this.saveCheck}
                 >
-                    保存
+                    暂存
                 </Button>
                 <Button
                     type='primary'

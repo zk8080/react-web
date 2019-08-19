@@ -39,11 +39,11 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {merchantsList=[]} = this.props;
+        const {merchantsList=[], areaCodeList=[]} = this.props;
         return (
             <div className='query-component'>
                 <Row>
-                    <Col span={16}>
+                    <Col span={8}>
                         <FormItem label="商家名称" hasFeedback>
                             {getFieldDecorator('customerId', {
                                 rules: [
@@ -62,11 +62,55 @@ class Index extends Component {
                                     filterOption={(input, option) =>
                                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
+                                    onChange={this.props.getAreaCodeList}
                                 />
                             )}
                         </FormItem>
                     </Col>
-                    <Col span={8} className='query-btn'>
+                    <Col span={8}>
+                        <FormItem label="库区" hasFeedback>
+                            {getFieldDecorator('areaCode', {
+                                rules: [
+                                    {
+                                        required: false,
+                                        message: '必填'
+                                    }
+                                ],
+                            })(
+                                <Select 
+                                    placeholder='请选择'
+                                    option={areaCodeList}
+                                    valueCode='code'
+                                    valueName='name'
+                                />
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col span={8}>
+                        <FormItem label="商品名称" hasFeedback>
+                            {getFieldDecorator('commodityId', {
+                                rules: [
+                                    {
+                                        required: false,
+                                        message: '必填'
+                                    }
+                                ],
+                            })(
+                                <Select 
+                                    placeholder='请选择'
+                                    mode="multiple"
+                                    option={merchantsList}
+                                    valueCode='id'
+                                    valueName='customerName'
+                                    showSearch
+                                    filterOption={(input, option) =>
+                                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                />
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col span={24} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}

@@ -64,8 +64,21 @@ class State {
     //盘点结束
     @action endCheck = async(callback) => {
         let data = toJS(this.tableList);
+        let newData = [];
+        data.map(item => {
+            newData.push({
+                id: item.id,
+                checkCode: item.checkCode,
+                customerCode: item.customerCode,
+                storehouseCode: item.storehouseCode,
+                storeNums: item.storeNums,
+                firstCheckNums: item.firstCheckNums,
+                secondCheckNums: item.secondCheckNums,
+                thirdCheckNums: item.thirdCheckNums
+            })
+        });
         let params = {
-            checkRecordList: data
+            checkRecordList: newData
         }
         let res = await Service.endCheck(params);
         try{
@@ -87,8 +100,21 @@ class State {
     // 点击保存
     @action saveCheck = async(callback) => {
         let data = toJS(this.tableList);
+        let newData = [];
+        data.map(item => {
+            newData.push({
+                id: item.id,
+                checkCode: item.checkCode,
+                customerCode: item.customerCode,
+                storehouseCode: item.storehouseCode,
+                storeNums: item.storeNums,
+                firstCheckNums: item.firstCheckNums,
+                secondCheckNums: item.secondCheckNums,
+                thirdCheckNums: item.thirdCheckNums
+            })
+        })
         let params = {
-            checkRecordList: data
+            checkRecordList: newData
         }
         let res = await Service.saveCheck(params);
         try{
