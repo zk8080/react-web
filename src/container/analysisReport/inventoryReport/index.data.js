@@ -40,28 +40,40 @@ const colums = [
     {
         title: '商品库存',
         dataIndex: 'availableNums',
-        width: 100
+        width: 100,
+        render: (text, record) => {
+            return <a onClick={State.openModal.bind(this,'availableNums', record)}>{text}</a>;
+        }
     },
     {
         title: '可用库存',
         dataIndex: 'emptyAvailableNums',
-        width: 100
+        width: 100,
+        render: (text, record) => {
+            return <a onClick={State.openModal.bind(this,'emptyAvailableNums', record)}>{text}</a>;
+        }
     },
     {
         title: '占用库存',
         dataIndex: 'usedAvailableNums',
-        width: 100
+        width: 100,
+        render: (text, record) => {
+            return <a onClick={State.openModal.bind(this,'usedAvailableNums', record)}>{text}</a>;
+        }
     },
     {
         title: '总库存量',
         dataIndex: 'totalStoreNums',
-        width: 100
+        width: 100,
+        render: (text, record) => {
+            return <a onClick={State.openModal.bind(this,'totalStoreNums', record)}>{text}</a>;
+        }
     },
-    {
-        title: '不可用库存',
-        dataIndex: 'notUsedStoreNums',
-        width: 100
-    },
+    // {
+    //     title: '不可用库存',
+    //     dataIndex: 'notUsedStoreNums',
+    //     width: 100
+    // },
     {
         title: '出库数量',
         dataIndex: 'outStorehouseNum',

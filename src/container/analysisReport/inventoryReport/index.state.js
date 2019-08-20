@@ -3,6 +3,9 @@ import Service from './index.service';
 import { message } from 'antd';
 import {formUtils} from '@utils';
 
+// 点击字段打开公共的弹窗
+import kuweiModalState from '../components/kuweiModal/index.state';
+
 class State {
 
     // 查询组件数据
@@ -72,6 +75,34 @@ class State {
         catch(e){
             console.log(e);
         }
+    }
+
+
+    // 点击某一列时打开库位信息的详情弹窗
+    @action openModal = (key, record) => {
+        const query = formUtils.formToParams(this.queryForm);
+        let params = {};
+        if(key == 'availableNums'){
+            params={
+                customerCode: query.customerCode,
+                commodityId: record.commodityId
+            }
+        }else if(key == 'emptyAvailableNums'){
+            params={
+                customerCode: query.customerCode,
+                queryType: 2
+            }
+        }else if(key == 'usedAvailableNums'){
+            params={
+                customerCode: query.customerCode,
+                queryType: 3
+            }
+        }else if(key == 'totalStoreNums'){
+            params={
+                customerCode: query.customerCode
+            }
+        }
+        kuweiModalState.openModal(params);
     }
 }
 

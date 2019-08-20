@@ -9,6 +9,7 @@ import {Form} from 'antd';
 import {formUtils} from '@utils';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
+import KuweiModal from '../components/kuweiModal/index.component';
 
 @observer
 class Index extends Component {
@@ -54,6 +55,7 @@ class Index extends Component {
                     getQueryData={State.getTableList}
                     pagination={toJS(State.pageInfo)}
                 />
+                <KuweiModal title='库位信息'/>
             </div>
         );
     }

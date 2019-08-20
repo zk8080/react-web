@@ -2,6 +2,8 @@ import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
 import {formUtils} from '@utils';
+// 点击字段打开公共的弹窗
+import kuweiModalState from '../components/kuweiModal/index.state';
 
 class State {
 
@@ -73,6 +75,28 @@ class State {
         catch(e){
             console.log(e);
         }
+    }
+
+    // 点击某一列时打开库位信息的详情弹窗
+    @action openModal = (key, record) => {
+        const query = formUtils.formToParams(this.queryForm);
+        let params = {};
+        if(key == 'totalStoreNum'){
+            params={
+                customerCode: query.customerCode
+            }
+        }else if(key == 'usedStoreNum'){
+            params={
+                customerCode: query.customerCode,
+                queryType: 1
+            }
+        }else if(key == 'residuleStoreNum'){
+            params={
+                customerCode: query.customerCode,
+                queryType: 2
+            }
+        }
+        kuweiModalState.openModal(params);
     }
 }
 
