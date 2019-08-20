@@ -5,6 +5,9 @@ import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
 import {noFoodColumns, foodColumns} from './index.data';
+import {getLodop} from '@assets/LodopFuncs';
+import {template} from '@assets/inboundTemplate.js';
+import _ from 'lodash';
 const FormItem = Form.Item;
 
 const onFieldsChange = (props, changedFields) => {
@@ -66,7 +69,19 @@ class Index extends Component {
     }
 
     handleClick = () => {
-        window.print();
+        // 模板
+        const htmlStr = _.template(template)({name: '打印名字'})
+
+        const Lodop = getLodop();
+        Lodop.PRINT_INIT("")
+        // Lodop.ADD_PRINT_TEXT(50, 231, 260, 39, "打印内容");
+        
+        Lodop.ADD_PRINT_HTM('5%', '1%', '98%', '94%', htmlStr);
+        Lodop.SET_PRINT_PAGESIZE(2,2100,2970, '');
+        // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+        Lodop.PREVIEW();
+        console.log(htmlStr, 'document')
+        // window.print();
     }
 
     rowSelection = {
