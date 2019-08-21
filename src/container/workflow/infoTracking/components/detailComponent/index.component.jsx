@@ -30,6 +30,14 @@ class Index extends Component {
         };
     }
 
+    onOkClick = () => {
+
+    }
+
+    toggleDisabled = () => {
+        
+    }
+
     
 
     render() {

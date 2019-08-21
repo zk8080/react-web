@@ -130,6 +130,7 @@ class State {
         try{
             if(res.data.code === 0){
                 message.success('手工确认成功');
+                this.toggleVisible();
             }
         }
         catch(e){
