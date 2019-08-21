@@ -11,39 +11,39 @@ export const orderImportColumns: ColumnProps[] = [
 		title: '订单号',
 		dataIndex: 'orderNo',
 		sorter: true,
-		width: '20%'
+		width: 200
 	},{
 		title: '商家名称',
 		dataIndex: 'customerName',
 		sorter: true,
-		width: '20%'
+		width: 200
 	},{
 		title: '收件人',
 		dataIndex: 'reciptName',
 		sorter: true,
-		width: '10%'
+		width: 100
 	},{
 		title: '手机号',
 		dataIndex: 'reciptPhone',
 		sorter: true,
-		width: '10%'
+		width: 150
 	},{
 		title: '地址',
 		dataIndex: 'reciptAddr',
 		sorter: true,
-		width: '30%'
+		width: 300
 	}, {
 		title: '拣货单',
 		dataIndex: 'billState',
-		width: '10%',
+		width: 100,
 		render: ((text, record, index) =>
-			 '正常'
+			'正常'
 		)
 	},
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 200,
+        width: 100,
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>

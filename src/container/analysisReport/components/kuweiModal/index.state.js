@@ -1,7 +1,6 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import {formUtils} from '@utils';
-import { visible } from '_ansi-colors@3.2.4@ansi-colors';
 
 class State {
 

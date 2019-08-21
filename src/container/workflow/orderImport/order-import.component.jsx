@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import { observer } from 'mobx-react';
 import { Table, Button } from 'antd';
 import {toJS} from 'mobx';
-import {Upload, DownLoad} from '@pubComs';
+import {Upload, DownLoad, NewTable} from '@pubComs';
 // import { Table } from '@pubComs';
 
 import { orderImportColumns } from './order-import.columns.config';
@@ -43,7 +43,7 @@ class OrderImportComponent extends Component{
                             title='模板下载'
                         />
                     </div>
-                    <Table
+                    <NewTable
                         loading={OrderImportState.loading}
                         dataSource={OrderImportState.dataList}
                         columns={orderImportColumns}
@@ -51,6 +51,7 @@ class OrderImportComponent extends Component{
                         bordered
                         onChange={OrderImportState.tableChange.bind(OrderImportState)}
                         pagination={OrderImportState.page}
+                        scroll={{x: 1100, y: 500}}
                     />
                     <DetailComponent
                         visible={OrderImportState.visible}
