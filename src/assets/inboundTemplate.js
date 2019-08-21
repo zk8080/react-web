@@ -37,73 +37,99 @@ const template = `<head>
 <div class='form_box'>
     <div class='form_cont'>
         <span>采购单号：</span>
-        <span>12312345465</span>
+        <span>{{purchaseNo}}</span>
     </div>
     <div class='form_cont'>
         <span>商家名称：</span>
-        <span>12312345465</span>
+        <span>{{customerName}}</span>
     </div>
     <div class='form_cont'>
         <span>采购日期：</span>
-        <span>12312345465</span>
+        <span>{{purchaseDate}}</0.0span>
     </div>
 </div>
 <div class='form_box'>
     <div class='form_cont'>
         <span>联系人：</span>
-        <span>12312345465</span>
+        <span>{{contacts}}</span>
     </div>
     <div class='form_cont'>
         <span>联系电话：</span>
-        <span>12312345465</span>
+        <span>{{contactsTel}}</span>
     </div>
     <div class='form_cont'>
         <span>食品：</span>
-        <span>是</span>
+        <span>{{isFood}}</span>
     </div>
     
 </div>
 <div class='form_box'>
     <div class='form_cont'>
         <span>地址：</span>
-        <span>12312345465</span>
+        <span>{{address}}</span>
     </div>
 </div>
-<table border="0" cellspacing="0" cellpadding='0'>
-    <thead>
-        <tr>
-            <th>序号</th>
-            <th>商品名称</th>
-            <th>型号</th>
-            <th>规格</th>
-            <th>单位</th>
-            <th>商品条码</th>
-            <th>体积m³</th>
-            <th>重量KG</th>
-            <th>采购数量</th>
-            <th>到货日期</th>
-            <th>生产日期</th>
-            <th>保质期(天)</th>
-            <th>备注</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-        </tr>
-    </tbody>
-</table>
+
 </body>`;
-export {template};
+const tableTemplate = `
+    <head>
+    <title>打印模板</title>
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th{
+            border: 1px solid #000;
+            border-collapse:collapse
+        }
+        table td{
+            border: 1px solid #000;
+            border-collapse:collapse
+        }
+    </style>
+    </head>
+    <body>
+        <table border="0" cellspacing="0" cellpadding='0'>
+            <thead>
+                <tr>
+                    <th>商品名称</th>
+                    <th>型号</th>
+                    <th>规格</th>
+                    <th>单位</th>
+                    <th>商品条码</th>
+                    <th>体积m³</th>
+                    <th>重量KG</th>
+                    <th>采购数量</th>
+                    <th>到货日期</th>
+                    <th>生产日期</th>
+                    <th>保质期(天)</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.forEach(tableData, function(data){ %>
+                    <tr>
+                        <td>{{data.commodityName}}</td>
+                        <td>{{data.modelNo}}</td>
+                        <td>{{data.spec}}</td>
+                        <td>{{data.unit}}</td>
+                        <td>{{data.barCode}}</td>
+                        <td>{{data.volume}}</td>
+                        <td>{{data.weight}}</td>
+                        <td>{{data.purchaseNums}}</td>
+                        <td>{{data.arrivalDate}}</td>
+                        <td>{{data.productionDate}}</td>
+                        <td>{{data.shilfLife}}</td>
+                        <td>{{data.remark}}</td>
+                    </tr>
+                <% }) %>
+                
+            </tbody>
+        </table>
+    </body>
+`
+export {
+    template,
+    tableTemplate
+};
