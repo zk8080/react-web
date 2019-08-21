@@ -28,9 +28,9 @@ class Index extends Component {
                         setQueryData={State.setQueryForm}
                         getData={State.getTableList}
                         merchantsList={toJS(State.merchantsList)}
-                        getAreaCodeList={State.getAreaCodeList}
-                        setAreaCodeList={State.setAreaCodeList}
                         areaCodeList={toJS(State.areaCodeList)}
+                        commodityIdList={toJS(State.commodityIdList)}
+                        changeCustomerId={State.changeCustomerId}
                     />
                 </Form>
                 <HeadComponent

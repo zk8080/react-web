@@ -60,7 +60,8 @@ class State {
     @action detailClick = records => {
         this.setEditForm(records);
         this.setProductList(records.detailList || []);
-        this.setLogisticsList(records.logisticsInfo || []);
+        // 物流数据需要通过接口获取
+        this.getLogisticsList(0, records);
         this.toggleVisible();
     }
 
@@ -101,10 +102,39 @@ class State {
     @action setLogisticsList = (arr = []) => {
         this.logisticsList = arr;
     }
+    @action getLogisticsList = async(num, record) => {
+        const mailNo = record ? record.mailNo : this.editForm.record.mailNo;
+        const paramsObj = {
+            mailNo: mailNo,
+            type: num
+        };
+        const res = await Service.getLogisticsList(paramsObj);
+        try{
+            if(res.data.code === 0){
+                const data = res.data.data;
+                this.setLogisticsList(data);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 
-    //点击提交
-    @action saveClick = () => {
-
+    //点击手工确定
+    @action confirm = async() => {
+        const mailNo = this.editForm.record.mailNo;
+        const paramsObj = {
+            mailNo: mailNo
+        };
+        const res = await Service.confirm(paramsObj);
+        try{
+            if(res.data.code === 0){
+                message.success('手工确认成功');
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
     }
 }
 

@@ -61,6 +61,8 @@ class Index extends Component {
                     toggleDisabled={State.toggleDisabled}
                     productList={toJS(State.productList)}
                     logisticsList={toJS(State.logisticsList)}
+                    getLogisticsList={State.getLogisticsList}
+                    confirm={State.confirm}
                 />
             </div>
         );

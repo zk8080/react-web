@@ -144,6 +144,10 @@ class Index extends Component {
                     pagination={false}
                 />
                 <h3 className='detail-table'>物流信息</h3>
+                <div>
+                    <Button onClick={()=>{this.props.getLogisticsList(1)}}>物流获取</Button>
+                    <Button onClick={this.props.confirm}>手工确认</Button>
+                </div>
                 <NewTable
                     dataSource={toJS(this.props.logisticsList || [])}
                     columns={columns2}

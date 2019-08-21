@@ -13,6 +13,12 @@ const groundingUrl = '/warehousing/purchaseBill/grounding';
 // 审核url
 const confirmReceiveUrl = '/warehousing/purchaseBill/approve';
 
+// 获取物流信息数据
+const getLogisticsListUrl = '/tracking/getLogisticsInfo';
+
+// 手工确认接口
+const confirmUrl = '/tracking/trackingConfirm';
+
 
 class Service {
 
@@ -72,6 +78,36 @@ class Service {
     confirmReceive = req => {
         return new Promise((resolve, reject) => {
             axios.get(confirmReceiveUrl, {
+                params: req
+            })
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    getLogisticsList = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(getLogisticsListUrl, {
+                params: req
+            })
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    confirm = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(confirmUrl, {
                 params: req
             })
                 .then(res => {

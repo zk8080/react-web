@@ -39,7 +39,7 @@ class Index extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {merchantsList=[], areaCodeList=[]} = this.props;
+        const {merchantsList=[], areaCodeList=[], commodityIdList=[]} = this.props;
         return (
             <div className='query-component'>
                 <Row>
@@ -62,7 +62,7 @@ class Index extends Component {
                                     filterOption={(input, option) =>
                                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
-                                    onChange={this.props.getAreaCodeList}
+                                    onChange={this.props.changeCustomerId}
                                 />
                             )}
                         </FormItem>
@@ -99,13 +99,10 @@ class Index extends Component {
                                 <Select 
                                     placeholder='请选择'
                                     mode="multiple"
-                                    option={merchantsList}
-                                    valueCode='id'
-                                    valueName='customerName'
-                                    showSearch
-                                    filterOption={(input, option) =>
-                                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                    }
+                                    option={[]}
+                                    // option={commodityIdList}
+                                    // valueCode='commodityId'
+                                    // valueName='commodityName'
                                 />
                             )}
                         </FormItem>

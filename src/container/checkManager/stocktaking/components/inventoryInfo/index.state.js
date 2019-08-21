@@ -58,19 +58,60 @@ class State {
                 const data = res.data.data;
                 let newData = [];
                 data.map(item => {
-                    newData.push({
+                    item && newData.push({
                         code: item,
                         name: item
                     });
                 })
                 this.setAreaCodeList(newData);
             }else{
-                console.log(res.data.msg);
+                // console.log(res.data.msg);
             }
         }catch(e){
             console.log(e);
         }
     }
+    
+    // 商品数据
+    @observable commodityIdList = [];
+    @action setCommodityIdList = (arr = []) => {
+        this.commodityIdList = arr;
+    }
+    // 商品是根据商家联动来的
+    @action getCommodityIdList = async (value) => {
+        const params={
+            customerId: value
+        }
+        if(!value){
+            this.setCommodityIdList([]);
+            return;
+        }
+        const res = await Service.getCommodityIdList(params);
+        try{
+            if(res.data.code === 0){
+                const data = res.data.data;
+                // let newData = [];
+                // data.map(item => {
+                //     item && newData.push({
+                //         code: item,
+                //         name: item
+                //     });
+                // })
+                this.setCommodityIdList(data);
+            }else{
+                // console.log(res.data.msg);
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    // 改变商家时
+    @action changeCustomerId = (value) => {
+        this.getAreaCodeList(value);
+        this.getCommodityIdList(value);
+    }
+    
 
     // 表格数据
     @observable tableList = [];
