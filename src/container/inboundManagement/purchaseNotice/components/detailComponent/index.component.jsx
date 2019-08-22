@@ -70,7 +70,7 @@ class Index extends Component {
 
     handleClick = () => {
         // 模板
-        const htmlStr = _.template(template)({...this.props.detailData})
+        const htmlStr = _.template(template)({...this.props.detailData, title: '采购通知单'})
         // 表格模板
         const tableHtmlStr = _.template(tableTemplate)({tableData: this.props.dataSource});
         const Lodop = getLodop();
@@ -78,7 +78,7 @@ class Index extends Component {
         // 条形码
         // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
         // html内容模板
-        Lodop.ADD_PRINT_HTM('15%', '1%', '98%', '20%', htmlStr);
+        Lodop.ADD_PRINT_HTM('15%', '1%', '98%', '94%', htmlStr);
         // 打印方向
         Lodop.SET_PRINT_PAGESIZE(2,'','', 'A4');
         // 打印表格

@@ -2,6 +2,9 @@ import {observable, action, toJS, computed, autorun} from 'mobx';
 import Service from './index.service';
 import Lodash from 'lodash';
 import { message } from 'antd';
+import {template} from '@assets/trackOrder.js'
+import {getLodop} from '@assets/LodopFuncs';
+import _ from 'lodash';
 
 class State {
 
@@ -202,6 +205,23 @@ class State {
             console.log(e);
         }
     };
+
+    // 打印快快递单和包裹清单
+    @action printData = () => {
+        // 模板
+        const htmlStr = _.template(template)({})
+        const Lodop = getLodop();
+        Lodop.PRINT_INIT("");
+        // 条形码
+        // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
+        // html内容模板
+        Lodop.ADD_PRINT_HTM('15%', '1%', '98%', '94%', htmlStr);
+        // 打印表格
+        // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
+        // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+        Lodop.PREVIEW();
+        console.log(htmlStr, 'document')
+    }
     
 }
 export default new State();

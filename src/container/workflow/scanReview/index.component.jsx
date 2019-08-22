@@ -83,7 +83,7 @@ class Index extends Component{
                     </Col>
                     <Col span={6} className='btn-box'> 
                         <Button type='primary' onClick={State.getOmitStore}>打印缺货单</Button>
-                        <Button type='primary' onClick={State.checkFinished}>复检完毕</Button>
+                        <Button type='primary' onClick={State.printData}>复检完毕</Button>
                     </Col>  
                     <Col span={6}>
                         <BarcodeComponent

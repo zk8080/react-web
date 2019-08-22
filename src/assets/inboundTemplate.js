@@ -33,7 +33,7 @@ const template = `<head>
 </style>
 </head>
 <body>
-<h1 class='title'>采购通知单</h1>
+<h1 class='title'>{{title}}</h1>
 <div class='form_box'>
     <div class='form_cont'>
         <span>采购单号：</span>
@@ -124,7 +124,6 @@ const tableTemplate = `
                         <td>{{data.remark}}</td>
                     </tr>
                 <% }) %>
-                
             </tbody>
         </table>
     </body>
