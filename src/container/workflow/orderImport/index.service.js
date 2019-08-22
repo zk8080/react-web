@@ -6,7 +6,8 @@ const editProductUrl = '/order/updateOrder';
 const productListUrl = '/commoditySku/loadGrid';
 // 删除url
 const deleteUrl = '/warehousing/purchaseBill/delete';
-
+// 取消订单
+const cancelOrderUrl = '/order/cancel';
 class Service {
 
     editProduct = req => {
@@ -38,6 +39,21 @@ class Service {
     delete = req => {
         return new Promise((resolve, reject) => {
             axios.get(`${deleteUrl}/${req.id}`, {})
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    cancelOrder = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(cancelOrderUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })

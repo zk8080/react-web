@@ -2,6 +2,7 @@ import React from 'react';
 import { ColumnProps } from 'antd/es/table';
 import { Badge, Tag } from 'antd';
 import BarcodeComponent from '../../../pubComponents/barcode/barcode.component';
+import PickBillState from './picking-bill.state';
 // import BarcodeComponent from '../../../pubComponents/barcode/barcode.component';
 
 /**
@@ -13,30 +14,80 @@ export const pickingBillColumns: ColumnProps[] = [{
 	dataIndex: 'pickNo',
 	sorter: true
 }, {
+	title: '地区',
+	dataIndex: 'areaLevel',
+	render: (text) => {
+        if(text == 'FIRST_AREA'){
+            return <span>上海</span>;
+        }
+        if(text == 'SECOND_AREA'){
+            return <span>江浙皖</span>;
+        }
+        if(text == 'OTHER_AREA'){
+            return <span>全国</span>;
+        }
+    }
+}, {
 	title: '流程状态',
 	dataIndex: 'processStage',
 	sorter: true,
 	render: (text) => {
-		return <Tag color='green'> {text}</Tag>;
+		if(text == 'new_pick'){
+            return <span>新建</span>;
+        }
+        if(text == 'lock'){
+            return <span>锁定</span>;
+        }
+        if(text == 'unlock'){
+            return <span>解锁</span>;
+        }
+        if(text == 'checkClose'){
+            return <span>结束</span>;
+        }
 	}
 }, {
 	title: '单据状态',
 	dataIndex: 'billState',
 	sorter: true,
 	render: (text) => {
-		return <Tag color={text !== 'exception' ? 'green':'yellow'}> {text}</Tag>;
+        if(text == 'picking'){
+            return <span>拣货中</span>;
+        }
+        if(text == 'save'){
+            return <span>新建</span>;
+        }
+        if(text == 'finsih'){
+            return <span>完成</span>;
+        }
+        if(text == 'exception'){
+            return <span>异常</span>;
+        }
+        if(text == 'cancel'){
+            return <span>取消</span>;
+        }
 	}
 }, {
 	title: '打印次数',
 	dataIndex: 'printTimes',
 	sorter: true,
 	render: (value) => {
-		return <Tag color={value > 1 ? 'red' : 'green'}>{value> 1 ? '已打印' : '未打印'}</Tag>;
+		return <span>{(value - 1) || 0}</span>;
 	}
 }, {
 	title: '创建时间',
 	dataIndex: 'createTime',
 	sorter: true
+},
+{
+    title: '操作',
+    dataIndex: 'opreate',
+    width: 100,
+    fixed: 'right',
+    render: (text, record, index) => {
+        return <div className='opreat-right'>
+            <a disabled={record.billState != 'save'} onClick={PickBillState.closePickBill.bind(this, record)}>作废</a>
+        </div>;
+    }
 }];
 
 export const lockPickingBillColumns: ColumnProps[] = [{
@@ -127,4 +178,4 @@ export const invoiceColumns: ColumnProps[] = [{
 }, {
 	title: '零拣库位',
 	dataIndex: 'storeCode'
-}]
+}];

@@ -10,7 +10,7 @@ import {
 	lockPickingBillColumns,
 	pickingBillColumns
 } from './picking-bill.columns.config';
-import { PickingBillState } from './picking-bill.state';
+import PickingBillState from './picking-bill.state';
 import { LoadGridUtil } from '../../../utils/load-serve';
 import BarcodeComponent from '../../../pubComponents/barcode/barcode.component';
 
@@ -26,17 +26,17 @@ class PickingBillComponent extends Component{
 			selectedRowKeys: [],
 			loading: false,
 		};
-		this.pickingBillState = new PickingBillState();
+		// PickingBillState = new PickingBillState();
 	}
 	componentDidMount(): void {
-        this.pickingBillState.loadGrid();
+        PickingBillState.loadGrid();
 	}
 
 	/**
 	 * 生成拣货单
 	 */
 	generatorPickBill() {
-		this.pickingBillState.generatorPickBill();
+		PickingBillState.generatorPickBill();
 	}
 
 	/**
@@ -44,10 +44,10 @@ class PickingBillComponent extends Component{
 	 */
 	printerPickBill() {
 		message.info('功能并未开放');
-		// this.pickingBillState.generatorPickBill();
+		// PickingBillState.generatorPickBill();
 	}
 	tableChange(page: PaginationProps, filter, sorter) {
-		this.pickingBillState.loadGrid(LoadGridUtil.paramsBuild(page, filter, sorter));
+		PickingBillState.loadGrid(LoadGridUtil.paramsBuild(page, filter, sorter));
 		this.setState({selectedRowKeys: []});
 	}
 
@@ -73,12 +73,12 @@ class PickingBillComponent extends Component{
                         <Button type="primary" icon="printer" onClick={this.printerPickBill.bind(this)}>打印拣货单</Button>
                     </Row>
                     <Table
-                        pagination={this.pickingBillState.page}
-                        loading={this.pickingBillState.loading}
+                        pagination={PickingBillState.page}
+                        loading={PickingBillState.loading}
                         rowSelection={rowSelection}
                         columns={pickingBillColumns}
                         bordered
-                        dataSource={this.pickingBillState.dataList}
+                        dataSource={PickingBillState.dataList}
                         onChange={this.tableChange.bind(this)}
                     />
 		</div>;

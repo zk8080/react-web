@@ -8,7 +8,11 @@ import { BaseState } from '../../../deploy/state/base-state';
 /**
  * 拣货单组件状态管理
  */
-export class PickingBillState extends BaseState{
+class PickingBillState extends BaseState{
+    // eslint-disable-next-line no-useless-constructor
+    constructor(...rest){
+        super(...rest);
+    }
 	@observable visible = false;
 
 	@observable pickNo = '';
@@ -39,7 +43,7 @@ export class PickingBillState extends BaseState{
 	 * 加载数据
 	 * @param param
 	 */
-	loadGrid(param: LoadGrid = {}) {
+	loadGrid = (param: LoadGrid = {}) => {
 		this.post('pickBill/loadGrid', param, result => {
 
 			if (result.status === 1) {
@@ -56,7 +60,7 @@ export class PickingBillState extends BaseState{
 	/**
 	 * 关闭拣货单复检功能
 	 */
-	invoiceCheckClose() {
+	invoiceCheckClose = () => {
 
 		if (!this.pickNo) {
 			message.warning('请先锁定件货单号！');
@@ -82,7 +86,7 @@ export class PickingBillState extends BaseState{
 
 	}
 
-	generatorPickBill() {
+	generatorPickBill = () => {
 		// message.info('功能并未开放');
 		this.get('/pickBill/executeGenerator', {}, result => {
 
@@ -93,7 +97,7 @@ export class PickingBillState extends BaseState{
 
 		});
 	}
-	checkCommodity(value) {
+	checkCommodity = (value) => {
 		if (value) {
 			if (!this.pickNo) {
 				message.warning('请先锁定件货单号！');
@@ -115,7 +119,7 @@ export class PickingBillState extends BaseState{
 			}
 		}
 	}
-	lockPickBill(value) {
+	lockPickBill = (value) => {
 
 		if (this.pickNo !== value) {
 			this.pickNo = value;
@@ -126,7 +130,7 @@ export class PickingBillState extends BaseState{
 		}
 
 	}
-	lockPickBillData() {
+	lockPickBillData = () => {
 		this.get('pickBill/lockPickBillData', {pickNo: this.pickNo}, result => {
 
 			if (result.code !== 0) {
@@ -140,7 +144,23 @@ export class PickingBillState extends BaseState{
 
 		});
 	}
-	tipConfirm() {
+	tipConfirm = () => {
 		this.visible = !this.visible;
-	}
+    }
+    
+    // 作废拣货单
+    closePickBill = async (record) => {
+        this.get('pickBill/cancel', {pickNo: record.pickNo}, result => {
+
+			if (result.code == 0) {
+				this.loadGrid();
+			} else {
+				notification.error({
+					message: result.msg
+				});
+			}
+		});
+    }
 }
+
+export default new PickingBillState();

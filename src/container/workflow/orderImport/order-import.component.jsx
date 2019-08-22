@@ -51,7 +51,7 @@ class OrderImportComponent extends Component{
                         bordered
                         onChange={OrderImportState.tableChange.bind(OrderImportState)}
                         pagination={OrderImportState.page}
-                        scroll={{x: 1100, y: 500}}
+                        scroll={{x: 1200, y: 500}}
                     />
                     <DetailComponent
                         visible={OrderImportState.visible}
