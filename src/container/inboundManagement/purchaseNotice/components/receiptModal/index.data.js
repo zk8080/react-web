@@ -182,7 +182,7 @@ const foodColumns = [
         editable: true,
         required: true,
         width: 200,
-        type: 'date'
+        type: 'number'
     },
     {
         title: '备注',
