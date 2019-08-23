@@ -23,7 +23,8 @@ class PickingBillComponent extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			selectedRowKeys: [],
+            selectedRowKeys: [],
+            selectedRows: [],
 			loading: false,
 		};
 		// PickingBillState = new PickingBillState();
@@ -43,8 +44,19 @@ class PickingBillComponent extends Component{
 	 * 打印拣货单
 	 */
 	printerPickBill() {
-		message.info('功能并未开放');
-		// PickingBillState.generatorPickBill();
+		// message.info('功能并未开放');
+        // PickingBillState.generatorPickBill();
+        const selectedRows = this.state.selectedRows;
+        if(selectedRows.length < 1){
+            message.warning('请选择拣货单进行打印！');
+            return;
+        }
+        PickingBillState.queryPickBillDetail(selectedRows, () => {
+            this.setState({
+                selectedRowKeys: [],
+                selectedRows: []
+            });
+        });
 	}
 	tableChange(page: PaginationProps, filter, sorter) {
 		PickingBillState.loadGrid(LoadGridUtil.paramsBuild(page, filter, sorter));
@@ -55,22 +67,29 @@ class PickingBillComponent extends Component{
 		return <Table dataSource={row.packageCommodities} columns={lockBillCommodityColumns} pagination={false}/>;
 	}
 
+    printBarCode = () => {
+        PickingBillState.printBarCode();
+    }
+
 	render(){
         const {selectedRowKeys} = this.state;
 		const rowSelection: TableRowSelection = {
 			selectedRowKeys,
 			onChange: (selectedRowKeys, selectedRows) => {
-				this.setState({selectedRowKeys});
-				console.info(JSON.stringify({selectedRowKeys: selectedRowKeys, selectedRows: selectedRows}));
+				this.setState({
+                    selectedRowKeys, 
+                    selectedRows
+                });
 			},
 			getCheckboxProps: record => ({
-				disabled: record.printTimes > 1
+				// disabled: record.billState != 'save'
 			})
 		};
 		return <div>
 					<Row  className={'header-component'}>
                         <Button type="danger" onClick={this.generatorPickBill.bind(this)}>手动生成拣货单</Button>
                         <Button type="primary" icon="printer" onClick={this.printerPickBill.bind(this)}>打印拣货单</Button>
+                        <Button type="primary" icon="printer" onClick={this.printBarCode.bind(this)}>打印商品条码</Button>
                     </Row>
                     <Table
                         pagination={PickingBillState.page}

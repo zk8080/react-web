@@ -17,21 +17,6 @@ export const orderImportColumns: ColumnProps[] = [
 		dataIndex: 'customerName',
 		sorter: true,
 		width: 200
-	},{
-		title: '收件人',
-		dataIndex: 'reciptName',
-		sorter: true,
-		width: 100
-	},{
-		title: '手机号',
-		dataIndex: 'reciptPhone',
-		sorter: true,
-		width: 150
-	},{
-		title: '地址',
-		dataIndex: 'reciptAddr',
-		sorter: true,
-		width: 300
 	}, {
 		title: '状态',
 		dataIndex: 'billState',
@@ -56,6 +41,34 @@ export const orderImportColumns: ColumnProps[] = [
                 return <span>保存</span>;
             }
         }
+	},{
+		title: '是否拆包',
+		dataIndex: 'isMatched',
+		sorter: true,
+        width: 200,
+        render: (text, record, index) =>{
+            if(text == '0'){
+                return <span>需要拆包</span>;
+            }
+            if(text == '1'){
+                return <span>已拆包</span>;
+            }
+        }
+	},{
+		title: '收件人',
+		dataIndex: 'reciptName',
+		sorter: true,
+		width: 100
+	},{
+		title: '手机号',
+		dataIndex: 'reciptPhone',
+		sorter: true,
+		width: 150
+	},{
+		title: '地址',
+		dataIndex: 'reciptAddr',
+		sorter: true,
+		width: 300
 	},
     {
         title: '操作',

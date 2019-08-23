@@ -59,7 +59,13 @@ const template = `<head>
     </div>
     <div class='form_cont'>
         <span>食品：</span>
-        <span>{{isFood}}</span>
+        <span>
+            <% if(isFood == 0){ %>
+                否
+            <% } else { %>
+                是
+            <% } %>
+        </span>   
     </div>
     
 </div>
@@ -127,7 +133,7 @@ const tableTemplate = `
             </tbody>
         </table>
     </body>
-`
+`;
 export {
     template,
     tableTemplate

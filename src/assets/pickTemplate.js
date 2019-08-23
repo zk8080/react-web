@@ -26,25 +26,25 @@ const template = `<head>
 </style>
 </head>
 <body>
-<h1 class='title'>{{title}}</h1>
+
 <div class='package_info'>
         <div class='info_cont'>
             <span>打印时间：</span>
-            <span>2131231213</span>
+            <span>{{date}}</span>
         </div>
         <div class='info_cont'>
             <span>包裹数量：</span>
-            <span>20</span>
+            <span>{{packageNums}}</span>
         </div>
         <div class='info_cont'>
             <span>配货人：</span>
-            <span>小李</span>
+            <span>{{pickUser}}</span>
         </div>
     </div>
     <div class='package_info'>
         <div class='info_cont'>
             <span>快递公司：</span>
-            <span>邮政</span>
+            <span>{{expressCompany}}</span>
         </div>
     </div>
 
@@ -82,21 +82,21 @@ const tableTemplate = `
                 </tr>
             </thead>
             <tbody>
-                <% _.forEach(tableData, function(data){ %>
+                <% _.forEach(tableData, function(data, index){ %>
                     <tr>
-                        <td>1</td>
-                        <td>123</td>
-                        <td>123</td>
-                        <td>123</td>
-                        <td>123</td>
-                        <td>123</td>
-                        <td>dsa54</td>
+                        <td>{{index + 1}}</td>
+                        <td>{{data.barCode}}</td>
+                        <td>{{data.skuName}}</td>
+                        <td>{{data.modelNo}}</td>
+                        <td>{{data.spec}}</td>
+                        <td>{{data.bayNums}}</td>
+                        <td>{{data.storeCode}}</td>
                     </tr>
                 <% }) %>
             </tbody>
         </table>
     </body>
-`
+`;
 export {
     template,
     tableTemplate

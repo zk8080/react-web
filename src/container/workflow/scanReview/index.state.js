@@ -2,7 +2,8 @@ import {observable, action, toJS, computed, autorun} from 'mobx';
 import Service from './index.service';
 import Lodash from 'lodash';
 import { message } from 'antd';
-import {template} from '@assets/trackOrder.js'
+import {template} from '@assets/trackOrder.js';
+import {packageTemplate} from '@assets/packageTemplate.js';
 import {getLodop} from '@assets/LodopFuncs';
 import _ from 'lodash';
 
@@ -47,6 +48,7 @@ class State {
                     this.setIsAlreadyReview(true);
                 }
                 this.dealPackageArr(data);
+                this.getAllProductData(data);
             }
         }
         catch(e){
@@ -77,8 +79,8 @@ class State {
     dealPackageArr = (arr = []) => {
         const dataArr = [];
         arr.map(item => {
-            const allData = item.packageCommodities && item.packageCommodities.length || 0;
-            const lastData = item.packageCommodities && item.packageCommodities.length || 0;
+            const allData = item.packageCommodities && item.packageCommodities.reduce((sum, cur) => sum += cur.packageNums, 0) || 0;
+            const lastData = allData - item.packageCommodities.reduce((sum, cur) => sum += cur.pickNums, 0);
             dataArr.push({
                 allData,
                 lastData,
@@ -86,6 +88,26 @@ class State {
             });
         });
         this.setPackageList(dataArr);
+    }
+
+    // 全量商品
+    @observable allProductData = [];
+    @action setAllProductData = (arr = []) => {
+        this.allProductData = arr;
+    }
+
+    // 获取全量商品
+    getAllProductData = (arr = []) => {
+        const productArr = arr.map(item => item.packageCommodities).flat();
+        const hash = {};
+        const allProductData = productArr.reduce((all, cur) => {
+            hash[cur.commodityCode]? hash[cur.commodityCode] += cur.packageNums : (hash[cur.commodityCode] = cur.packageNums) && all.push(cur);
+            return all;
+        }, []);
+        allProductData.map(item => {
+            item.packageNums = hash[item.commodityCode];
+        });
+        this.setAllProductData(allProductData);
     }
 
     // 已扫描商品
@@ -96,36 +118,52 @@ class State {
 
     // 扫描商品 修改栏位数据、
     @action dealProductArr = (code) => {
+        // 包裹列表
         const packageList = toJS(this.packageList);
-        const AlreadyPickArr = toJS(this.alreadyPickArr);
-        let isHasProduct = false;
-        for (let i = 0; i < packageList.length; i++) {
-            const item = packageList[i];
-            const productList = item.packageCommodities || [];
-            const productIndx = Lodash.findIndex(productList, prodItem => prodItem.commodityCode == code);
-            if(productIndx >= 0){
-                const curProductInfo = productList[productIndx];
-                AlreadyPickArr.push(curProductInfo.commodityCode);
-                this.setAlreadyPickArr(AlreadyPickArr);
-                item.lastData --;
-                productList.splice(productIndx, 1);
-                this.setCurProductInfo({
-                    ...item,
-                    ...curProductInfo
-                });
-                isHasProduct = true;
-                break;
-            }
-        }
-        if( !isHasProduct ){
-            if(AlreadyPickArr.includes(code)){
-                message.warning('拣货重复！');
+        // 所有商品列表
+        const allProductData = toJS(this.allProductData);
+        const allProductIndx = Lodash.findIndex(allProductData, prodItem => prodItem.commodityCode == code);
+        if(allProductIndx >= 0){
+            const curAllProductInfo = allProductData[allProductIndx];
+            if(curAllProductInfo.pickNums == curAllProductInfo.packageNums){
+                message.warning('该商品已拣完，请勿重复拣货！');
+                return;
             }else{
-                message.warning('该商品不在拣货单内！');
+                curAllProductInfo.pickNums ++;
+                for (let i = 0; i < packageList.length; i++) {
+                    const item = packageList[i];
+                    const productList = item.packageCommodities || [];
+                    const productIndx = Lodash.findIndex(productList, prodItem => prodItem.commodityCode == code && item.lastData > 0);
+                    if(productIndx >= 0){
+                        const curProductInfo = productList[productIndx];
+                        item.lastData --;
+                        item.pickNums ++;
+                        this.setCurProductInfo({
+                            ...item,
+                            ...curProductInfo
+                        });
+                        if( item.lastData == 0 ){
+                            this.curPickPrint(item);
+                        }
+                        break;
+                    }
+                }
+                this.setAllProductData(allProductData);
+                this.setPackageList(packageList);
+                // 判断所有拣货单有没有全部拣完
+                this.isCheckFinished();
             }
+        }else{
+            message.warning('该商品不在拣货单内！');
+            return;
         }
-        this.setPackageList(packageList);
-        this.isCheckFinished();
+        
+    }
+
+    // 判断当前包裹拣货完成，进行打印清单和面单
+    curPickPrint = (obj) => {
+        this.printData(obj);
+        this.printPickData(obj);
     }
 
     // 监听拣货完成
@@ -150,6 +188,7 @@ class State {
                 this.setIsAlreadyReview(false);
                 this.setIsAlreadyPicker(false);
                 this.setReviewList([]);
+                this.setPackageList([]);
             }
         }
         catch(e){
@@ -206,21 +245,42 @@ class State {
         }
     };
 
-    // 打印快快递单和包裹清单
-    @action printData = () => {
+    // 打印快快递单
+    @action printData = (data) => {
+        const Lodop = new getLodop();
         // 模板
-        const htmlStr = _.template(template)({})
-        const Lodop = getLodop();
-        Lodop.PRINT_INIT("");
+        const htmlStr = _.template(template)(data);
+        Lodop.PRINT_INIT('');
+        Lodop.SET_PRINTER_INDEX('123');
         // 条形码
         // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
         // html内容模板
-        Lodop.ADD_PRINT_HTM('15%', '1%', '98%', '94%', htmlStr);
+        Lodop.ADD_PRINT_HTM('1%', '1%', '98%', '94%', htmlStr);
         // 打印表格
         // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
         // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
-        Lodop.PREVIEW();
-        console.log(htmlStr, 'document')
+        // Lodop.PREVIEW();
+        Lodop.PRINT();
+        console.log(htmlStr, 'document');
+    }
+
+    // 打印包裹清单
+    @action printPickData = (data) => {
+        const Lodop = new getLodop();
+        // 模板
+        const htmlStr = _.template(packageTemplate)(data);
+        Lodop.PRINT_INIT('');
+        Lodop.SET_PRINTER_INDEX('456');
+        // 条形码
+        // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
+        // html内容模板
+        Lodop.ADD_PRINT_HTM('1%', '1%', '98%', '94%', htmlStr);
+        // 打印表格
+        // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
+        // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+        // Lodop.PREVIEW();
+        Lodop.PRINT();
+        console.log(htmlStr, 'document231321');
     }
     
 }

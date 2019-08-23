@@ -56,6 +56,7 @@ class Index extends Component{
                 code = '';
                 lastTime = null;
             }else {
+                console.log( e, '-------e------' );
                 if(keycode !== 16){
                     if (!lastTime) {
                         code = String.fromCharCode(keycode);
@@ -85,12 +86,12 @@ class Index extends Component{
                         <Button type='primary' onClick={State.getOmitStore}>打印缺货单</Button>
                         <Button type='primary' onClick={State.printData}>复检完毕</Button>
                     </Col>  
-                    <Col span={6}>
+                    {/* <Col span={6}>
                         <BarcodeComponent
                             code={'201908081127267685'}
                             height={50}
                         />
-                    </Col>
+                    </Col> */}
                 </Row>
             </div>
             
