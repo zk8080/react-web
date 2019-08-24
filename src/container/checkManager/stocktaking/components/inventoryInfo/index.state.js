@@ -47,7 +47,6 @@ class State {
         const params={
             customerId: value
         }
-        console.log(value,'value');
         if(!value){
             this.setAreaCodeList([]);
             return;
@@ -79,7 +78,7 @@ class State {
     }
     // 商品是根据商家联动来的
     @action getCommodityIdList = async (value) => {
-        const params={
+        const params = {
             customerId: value
         }
         if(!value){
@@ -90,13 +89,6 @@ class State {
         try{
             if(res.data.code === 0){
                 const data = res.data.data;
-                // let newData = [];
-                // data.map(item => {
-                //     item && newData.push({
-                //         code: item,
-                //         name: item
-                //     });
-                // })
                 this.setCommodityIdList(data);
             }else{
                 // console.log(res.data.msg);

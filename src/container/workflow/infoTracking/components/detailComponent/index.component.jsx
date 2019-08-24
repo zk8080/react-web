@@ -30,12 +30,10 @@ class Index extends Component {
         };
     }
 
-    onOkClick = () => {
-
-    }
-
-    toggleDisabled = () => {
-        
+    cancelClick = () => {
+        if(this.props.cancelClick){
+            this.props.cancelClick();
+        }
     }
 
     
@@ -48,11 +46,12 @@ class Index extends Component {
                 title='新增'
                 visible={visible}
                 className='detail-customer infoTracking-detail'
-                okText={disabled ? '修改': '确认'}
-                cancelText='取消'
-                onCancel={cancelClick}
+                //okText={disabled ? '修改': '确认'}
+                //cancelText='取消'
+                onCancel={this.cancelClick}
+                footer={null}
                 width='850px'
-                onOk={disabled ? this.toggleDisabled: this.onOkClick}
+                onOk={this.cancelClick}
             >
                 
                 <Form className='query-component'>

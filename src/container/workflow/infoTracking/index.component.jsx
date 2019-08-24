@@ -54,11 +54,7 @@ class Index extends Component {
                 <DetailComponent
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
-                    onOk={this.saveClick}
                     detailData={toJS(State.editForm)}
-                    setDetailData={State.setEditForm}
-                    disabled={State.disabled}
-                    toggleDisabled={State.toggleDisabled}
                     productList={toJS(State.productList)}
                     logisticsList={toJS(State.logisticsList)}
                     getLogisticsList={State.getLogisticsList}

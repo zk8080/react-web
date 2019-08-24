@@ -73,11 +73,6 @@ class State {
         this.visible = !this.visible;
     }
 
-    // 详情弹窗是否可编辑
-    @observable disabled = true;
-    @action toggleDisabled = (bol = false) => {
-        this.disabled = bol;
-    }
 
     // 表单编辑数据
     @observable editForm = {};
@@ -103,7 +98,8 @@ class State {
         this.logisticsList = arr;
     }
     @action getLogisticsList = async(num, record) => {
-        const mailNo = record ? record.mailNo : this.editForm.record.mailNo;
+        console.log(record,'record');
+        const mailNo = record ? record.mailNo : this.editForm.mailNo;
         const paramsObj = {
             mailNo: mailNo,
             type: num
@@ -122,7 +118,7 @@ class State {
 
     //点击手工确定
     @action confirm = async() => {
-        const mailNo = this.editForm.record.mailNo;
+        const mailNo = this.editForm.mailNo;
         const paramsObj = {
             mailNo: mailNo
         };
@@ -131,6 +127,7 @@ class State {
             if(res.data.code === 0){
                 message.success('手工确认成功');
                 this.toggleVisible();
+                this.getTableList();
             }
         }
         catch(e){
