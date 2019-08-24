@@ -41,11 +41,11 @@ const packageTemplate = `<head>
 <div class='package_info'>
     <div class='info_cont'>
         <span>订单号：</span>
-        <span>2131231213</span>
+        <span>{{orderNo}}</span>
     </div>
     <div class='info_cont'>
         <span>收件人：</span>
-        <span>小李</span>
+        <span>{{reciptName}}</span>
     </div>
 </div>
 <table border="0" cellspacing="0" cellpadding='0'>
@@ -59,13 +59,15 @@ const packageTemplate = `<head>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-            <td class="">123</td>
-        </tr>
+        <% _.forEach(packageCommodities, function(data, index){ %>
+            <tr>
+                <td>{{data.commodityCode}}</td>
+                <td>{{data.skuName}}</td>
+                <td>{{data.modelNo}}</td>
+                <td>{{data.spec}}</td>
+                <td>{{data.packageNums}}</td>
+            </tr>
+        <% }) %>
     </tbody>
 </table>
 <div class='sum_box'>
