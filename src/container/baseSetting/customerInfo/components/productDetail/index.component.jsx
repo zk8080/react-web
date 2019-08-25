@@ -32,7 +32,9 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.getData(values);
+                this.props.getData({
+                    search: values
+                });
             }
         });
     };

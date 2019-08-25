@@ -11,12 +11,49 @@ export const orderImportColumns: ColumnProps[] = [
 		title: '订单号',
 		dataIndex: 'orderNo',
 		sorter: true,
-		width: 200
+		width: 300
 	},{
 		title: '商家名称',
 		dataIndex: 'customerName',
 		sorter: true,
 		width: 200
+	}, {
+		title: '状态',
+		dataIndex: 'billState',
+		width: 100,
+		render: (text, record, index) =>{
+            if(text == 'cancel'){
+                return <span>订单取消</span>;
+            }
+            if(text == 'go_out'){
+                return <span>出库</span>;
+            }
+            if(text == 'finished'){
+                return <span>完成</span>;
+            }
+            if(text == 'packing'){
+                return <span>打包中</span>;
+            }
+            if(text == 'picking'){
+                return <span>拣货中</span>;
+            }
+            if(text == 'save'){
+                return <span>保存</span>;
+            }
+        }
+	},{
+		title: '是否拆包',
+		dataIndex: 'isMatched',
+		sorter: true,
+        width: 200,
+        render: (text, record, index) =>{
+            if(text == '0'){
+                return <span>需要拆包</span>;
+            }
+            if(text == '1'){
+                return <span>已拆包</span>;
+            }
+        }
 	},{
 		title: '收件人',
 		dataIndex: 'reciptName',
@@ -32,13 +69,6 @@ export const orderImportColumns: ColumnProps[] = [
 		dataIndex: 'reciptAddr',
 		sorter: true,
 		width: 300
-	}, {
-		title: '拣货单',
-		dataIndex: 'billState',
-		width: 100,
-		render: ((text, record, index) =>
-			'正常'
-		)
 	},
     {
         title: '操作',
@@ -48,6 +78,7 @@ export const orderImportColumns: ColumnProps[] = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <a onClick={orderImportState.lookClick.bind(this, record)}>查看</a>
+                <a disabled={record.billState == 'cancel' || record.billState == 'go_out' || record.billState == 'finished'} onClick={orderImportState.closeOrder.bind(this, record)}>取消</a>
             </div>;
         }
     }

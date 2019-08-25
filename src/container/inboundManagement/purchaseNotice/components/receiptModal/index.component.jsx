@@ -5,6 +5,9 @@ import './index.less';
 import { formUtils } from '@utils/index';
 import moment from 'moment';
 import {noFoodColumns, foodColumns} from './index.data';
+import {getLodop} from '@assets/LodopFuncs';
+import {template, tableTemplate} from '@assets/inboundTemplate.js';
+import _ from 'lodash';
 const FormItem = Form.Item;
 
 const onFieldsChange = (props, changedFields) => {
@@ -43,7 +46,23 @@ class Index extends Component {
     }
 
     handleClick = () => {
-        window.print();
+         // 模板
+         const htmlStr = _.template(template)({...this.props.detailData, title: '收货确认单'})
+         // 表格模板
+         const tableHtmlStr = _.template(tableTemplate)({tableData: this.props.dataSource});
+         const Lodop = getLodop();
+         Lodop.PRINT_INIT("");
+         // 条形码
+         // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
+         // html内容模板
+         Lodop.ADD_PRINT_HTM('15%', '1%', '98%', '20%', htmlStr);
+         // 打印方向
+         Lodop.SET_PRINT_PAGESIZE(2,'','', 'A4');
+         // 打印表格
+         Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
+         // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+         Lodop.PREVIEW();
+         console.log(htmlStr, 'document')
     }
 
     changeFood = (value) => {

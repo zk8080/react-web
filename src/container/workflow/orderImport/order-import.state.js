@@ -33,6 +33,23 @@ class OrderImportState extends BaseState{
             state: toJS(record)
         });
     }
+
+    // 取消订单
+    @action closeOrder = async(record) => {
+        const params = {
+            systemOrderNo: record.systemOrderNo
+        };
+        const res = await Service.cancelOrder(params);
+        try{
+            if(res.data.code == 0){
+                message.success(res.data.msg);
+                this.loadGrid();
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 }
 
 export default new OrderImportState();

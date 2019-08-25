@@ -24,7 +24,7 @@ const colums = [
     },
     {
         title: '库位可用量',
-        dataIndex: 'availableNums',
+        dataIndex: 'availabelNums',
         width: 80
     },
     {

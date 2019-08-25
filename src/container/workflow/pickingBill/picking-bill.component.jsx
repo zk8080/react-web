@@ -10,7 +10,7 @@ import {
 	lockPickingBillColumns,
 	pickingBillColumns
 } from './picking-bill.columns.config';
-import { PickingBillState } from './picking-bill.state';
+import PickingBillState from './picking-bill.state';
 import { LoadGridUtil } from '../../../utils/load-serve';
 import BarcodeComponent from '../../../pubComponents/barcode/barcode.component';
 
@@ -23,31 +23,43 @@ class PickingBillComponent extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			selectedRowKeys: [],
+            selectedRowKeys: [],
+            selectedRows: [],
 			loading: false,
 		};
-		this.pickingBillState = new PickingBillState();
+		// PickingBillState = new PickingBillState();
 	}
 	componentDidMount(): void {
-        this.pickingBillState.loadGrid();
+        PickingBillState.loadGrid();
 	}
 
 	/**
 	 * 生成拣货单
 	 */
 	generatorPickBill() {
-		this.pickingBillState.generatorPickBill();
+		PickingBillState.generatorPickBill();
 	}
 
 	/**
 	 * 打印拣货单
 	 */
 	printerPickBill() {
-		message.info('功能并未开放');
-		// this.pickingBillState.generatorPickBill();
+		// message.info('功能并未开放');
+        // PickingBillState.generatorPickBill();
+        const selectedRows = this.state.selectedRows;
+        if(selectedRows.length < 1){
+            message.warning('请选择拣货单进行打印！');
+            return;
+        }
+        PickingBillState.queryPickBillDetail(selectedRows, () => {
+            this.setState({
+                selectedRowKeys: [],
+                selectedRows: []
+            });
+        });
 	}
 	tableChange(page: PaginationProps, filter, sorter) {
-		this.pickingBillState.loadGrid(LoadGridUtil.paramsBuild(page, filter, sorter));
+		PickingBillState.loadGrid(LoadGridUtil.paramsBuild(page, filter, sorter));
 		this.setState({selectedRowKeys: []});
 	}
 
@@ -55,30 +67,37 @@ class PickingBillComponent extends Component{
 		return <Table dataSource={row.packageCommodities} columns={lockBillCommodityColumns} pagination={false}/>;
 	}
 
+    printBarCode = () => {
+        PickingBillState.printBarCode();
+    }
+
 	render(){
         const {selectedRowKeys} = this.state;
 		const rowSelection: TableRowSelection = {
 			selectedRowKeys,
 			onChange: (selectedRowKeys, selectedRows) => {
-				this.setState({selectedRowKeys});
-				console.info(JSON.stringify({selectedRowKeys: selectedRowKeys, selectedRows: selectedRows}));
+				this.setState({
+                    selectedRowKeys, 
+                    selectedRows
+                });
 			},
 			getCheckboxProps: record => ({
-				disabled: record.printTimes > 1
+				// disabled: record.billState != 'save'
 			})
 		};
 		return <div>
 					<Row  className={'header-component'}>
                         <Button type="danger" onClick={this.generatorPickBill.bind(this)}>手动生成拣货单</Button>
                         <Button type="primary" icon="printer" onClick={this.printerPickBill.bind(this)}>打印拣货单</Button>
+                        <Button type="primary" icon="printer" onClick={this.printBarCode.bind(this)}>打印商品条码</Button>
                     </Row>
                     <Table
-                        pagination={this.pickingBillState.page}
-                        loading={this.pickingBillState.loading}
+                        pagination={PickingBillState.page}
+                        loading={PickingBillState.loading}
                         rowSelection={rowSelection}
                         columns={pickingBillColumns}
                         bordered
-                        dataSource={this.pickingBillState.dataList}
+                        dataSource={PickingBillState.dataList}
                         onChange={this.tableChange.bind(this)}
                     />
 		</div>;
