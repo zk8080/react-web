@@ -86,9 +86,10 @@ class Index extends Component {
         Lodop.SET_PRINT_PAGESIZE(2,'','', 'A4');
         // 打印表格
         Lodop.ADD_PRINT_TABLE('21%', '1%', '98%', '74%', tableHtmlStr);
+        // Lodop.ADD_PRINT_TEXT('21%', '50%', '10%', '20%', '1');
         // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
-        Lodop.PREVIEW();
-        // Lodop.PRINT();
+        // Lodop.PREVIEW();
+        Lodop.PRINT();
         // window.print();
     }
 

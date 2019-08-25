@@ -16,7 +16,7 @@ export const orderImportColumns: ColumnProps[] = [
 		title: '商家名称',
 		dataIndex: 'customerName',
 		sorter: true,
-		width: 200
+		width: 300
 	}, {
 		title: '状态',
 		dataIndex: 'billState',
@@ -73,7 +73,7 @@ export const orderImportColumns: ColumnProps[] = [
     {
         title: '操作',
         dataIndex: 'opreate',
-        width: 100,
+        width: 200,
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
