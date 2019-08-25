@@ -1,15 +1,13 @@
 import axios from 'axios';
 
-// 查询拣货单数据url
-const tableListUrl = '/pickBill/lockPickBillData';
-// 拣货完毕后更新拣货单状态
-const checkFinishedUrl = '/pickBill/invoiceCheckFinished';
+// 查询包裹数据
+const tableListUrl = '/package/details';
+// 称重完成
+const ignoreWeightUrl = '/package/ignore';
 // 漏拣
 const checkOmitUrl = '/pickBill/invoiceCheckOmit';
 // 查询漏拣商品url
 const getOmitStoreUrl = 'pickBill/omitStoke';
-// 解锁拣货单
-const unLockPickUrl = '/pickBill/unlockPick';
 
 class Service {
 
@@ -28,24 +26,9 @@ class Service {
         });
     }
 
-    unLockPick = req => {
+    ignoreWeight = req => {
         return new Promise((resolve, reject) => {
-            axios.get(unLockPickUrl, {
-                params: req
-            })
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
-
-    checkFinished = req => {
-        return new Promise((resolve, reject) => {
-            axios.get(checkFinishedUrl, {
+            axios.get(ignoreWeightUrl, {
                 params: req
             })
                 .then(res => {

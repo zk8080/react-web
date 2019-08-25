@@ -8,8 +8,10 @@ import State from './index.state';
 import { toJS } from 'mobx';
 import {session} from '@utils';
 
-const FormItem = Form.Item;;
-
+const FormItem = Form.Item;
+let lastTime = null;
+let nextTime = null;
+let code = '';
 @Form.create()
 @observer
 class Index extends Component{
@@ -21,52 +23,61 @@ class Index extends Component{
 		};
 	}
 	componentDidMount() {
+        const pathName = this.props.location.pathname;
         this.input.focus();
-        this.bindKeyDown();
+        this.bindKeyDown(pathName);
         this.setState({
             reviewUser: session.getItem('userInfo').name
         });
     }
-    
-    // 绑定keyDown事件
-    bindKeyDown = (ele) => {
-        let lastTime = null;
-        let nextTime = null;
-        let code = '';
-        document.querySelector('#pickNo').addEventListener('keydown', (e) => {
-            const keycode = e.keyCode || e.which || e.charCode;
-            this.props.form.resetFields();
-            nextTime = new Date();
-            if (keycode === 13) {
-                e.preventDefault();
-                code = code.replace(/\s+/g,'');
-                this.props.form.setFieldsValue({
-                    'pickNo': code
-                });
-                //如果没有拣货单数据 则请求数据
-                if( !State.isAlreadyReview ){
-                    State.getTableList(code);
+
+    // keydown事件
+    handleKeyDown = (e) => {
+        const keycode = e.keyCode || e.which || e.charCode;
+        this.props.form.resetFields();
+        nextTime = new Date();
+        if (keycode === 13) {
+            e.preventDefault();
+            
+            code = code.replace(/\s+/g,'');
+            this.props.form.setFieldsValue({
+                'pickNo': code
+            });
+            //如果没有拣货单数据 则请求数据
+            if( !State.isAlreadyReview ){
+                State.getTableList(code);
+            }else{
+                if(!State.isAlreadyPicker){
+                    State.setPickUser(code);
                 }else{
-                    if(!State.isAlreadyPicker){
-                        State.setPickUser(code);
-                    }else{
-                        State.dealProductArr(code);
-                    }
-                }
-                code = '';
-                lastTime = null;
-            }else {
-                console.log( e, '-------e------' );
-                if(keycode !== 16){
-                    if (!lastTime) {
-                        code = String.fromCharCode(keycode);
-                    } else {
-                        code += String.fromCharCode(keycode);
-                    }
-                    lastTime = nextTime;
+                    State.dealProductArr(code);
                 }
             }
-        });
+            code = '';
+            lastTime = null;
+        }else {
+            console.log(e, '----e---');
+            if(keycode !== 16){
+                if (!lastTime) {
+                    code = String.fromCharCode(keycode);
+                } else {
+                    code += String.fromCharCode(keycode);
+                }
+                lastTime = nextTime;
+            }
+        }
+    }
+    
+    // 绑定keyDown事件
+    bindKeyDown = (pathName) => {
+        if(pathName == '/workflow/scanReview'){
+            window.addEventListener('keydown', this.handleKeyDown);    
+        }
+        
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('keydown', this.handleKeyDown);
     }
 
 	render(){

@@ -23,9 +23,6 @@ import {ColumnProps} from 'antd/es/table';
 export const orderWeighDataListColumns: ColumnProps[] = [{
 	title:'快递公司',
 	dataIndex: 'expressKey',
-	render: text => {
-		return text === 'yz' ? '邮政' : '其他';
-	}
 }, {
 	title:'省份',
 	dataIndex: 'prov'

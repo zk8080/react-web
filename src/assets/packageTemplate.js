@@ -72,7 +72,7 @@ const packageTemplate = `<head>
 </table>
 <div class='sum_box'>
     <span>合计：</span>
-    <span>123</span>
+    <span>{{totalCount}}</span>
 </div>
 </body>`;
 

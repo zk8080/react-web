@@ -74,6 +74,9 @@ class Index extends Component {
         // 表格模板
         const tableHtmlStr = _.template(tableTemplate)({tableData: this.props.dataSource});
         const Lodop = getLodop();
+        if(!Lodop.VERSION){
+            return;
+        }
         Lodop.PRINT_INIT('');
         // 条形码
         // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');

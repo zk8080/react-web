@@ -192,6 +192,9 @@ class PickingBillState extends BaseState{
     // 打印拣货单
     printPickBill = (arr = []) => {
         const Lodop = getLodop();
+        if(!Lodop.VERSION){
+            return;
+        }
         arr.map(item => {
             // 模板
             const htmlStr = _.template(template)({...item, date: moment().format('YYYY-MM-DD HH:mm')});
@@ -237,6 +240,9 @@ class PickingBillState extends BaseState{
     @action printBarCode = () => {
         const pickBillData = toJS(this.pickBillDetailArr);
         const Lodop = getLodop();
+        if(!Lodop){
+            return;
+        }
         Lodop.PRINT_INIT('');
         pickBillData.map(item => {
             item.commodities.map((childItem, index) => {

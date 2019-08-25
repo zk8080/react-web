@@ -1,68 +1,91 @@
 import { BaseState } from '../../../deploy/state/base-state';
-import type { LoadGrid } from '../../../utils/load-serve';
 import {notification, message} from 'antd';
+import { observable, action, toJS } from 'mobx';
+import Service from './index.service';
+import {Modal} from '@pubComs';
 
 class OrderWeighState extends BaseState{
 
-	loadGrid(loadGrid: LoadGrid = {pageSize: 10, current: 1}) {
-	 this.post('order/weigh/loadGrid', loadGrid, result => {
-	 	if (result.status === 1) {
-	 		this.loadGridFinished(result.data);
-	 		// this.refreshDataList(result.data.rows);
-	 		// this.refreshPage(result.data);
-		}
-	 });
-	}
+    // 包裹明细
+    @observable tableList = [];
+    @action setTableList = (arr = []) => {
+        this.tableList = arr;
+    }
 
-	confirmWeigh() {
-		if (!this.orderNo) {
-			message.warning('请先锁定快递单号');
-			return;
-		}
+    // 当前包裹
+    @observable curPackageInfo = {};
+    @action setCurPackage = (obj) => {
+        this.curPackageInfo = obj;
+    }
 
-		if (!this.orderWeight) {
-			message.warning('先对比，对比异常确认无误后在点击');
-			return;
-		}
+    // 查询包裹数据
+    @action getTableData = async(mailNo) => {
+        const params = {
+            mailNo
+        };
+        const res = await Service.getTableList(params);
+        try{
+            if(res.data.code == 0){
+                const {data} = res.data;
+                this.setCurPackage(data);
+                const tableData = toJS(this.tableList);
+                if(tableData.some(item => item.mailNo == data.mailNo)){
+                    tableData.map(item => {
+                        if( item.mailNo == data.mailNo ){
+                            item = data;
+                        }
+                    });
+                }else{
+                    tableData.push(data);
+                }
+                this.setTableList(tableData);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 
-		this.get('package/ignore', {mailNo: this.orderNo, realWeight: this.orderWeight}, result => {
-			if (result.code != 0) {
-				notification.warning({
-					message: '称重操作警告',
-					description: result.msg
-				});
-			} else {
-				this.loadGrid();
-			}
-		});
-	}
+    // 称重对比
+    @action diffWeight = (weight) => {
+        const curPackageInfo = toJS(this.curPackageInfo);
+        if( curPackageInfo.presetWeight ){
+            const maxWeight = curPackageInfo.presetWeight * ( 1 + 0.005);
+            const minWeight = curPackageInfo.presetWeight * ( 1 + 0.002);
+            if( weight > maxWeight || weight < minWeight ){
+                Modal.confirm({
+                    title: '称重异常！',
+                    content: '您称重的货物，与包裹重量不匹配！',
+                    okText: '忽略异常',
+                    onOk: () => {this.commitWeight(weight);},
+                    cancelText: '重新称重',
+                    onCancel: () => {}
+                });
+            }else{
+                this.commitWeight(weight);
+            }
+        }   
+    }
+    
+    // 提交重量
+    @action commitWeight = async (weight) => {
+        const mailNo = toJS(this.curPackageInfo).mailNo;
+        const params = {
+            mailNo: mailNo,
+            realWeight:  weight
+        };
+        const res = await Service.ignoreWeight(params);
+        try{
+            if(res.data.code == 0){
+                message.success('称重完成，请扫描下一个包裹！');
+                this.getTableData(mailNo);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 
-	weigh(value: number) {
-		this.orderWeight = value;
 
-		if (this.orderWeight > 0)
-			if (this.orderNo)  {
-				this.get('package/weigh', {mailNo: this.orderNo, realWeight: value}, result => {
-					if (result.code != 0) {
-						notification.warning({
-							message: '称重操作警告',
-							description: result.msg
-						});
-					} else {
-						this.loadGrid();
-					}
-				});
-			} else {
-				message.warning('请先锁定快递单号');
-			}
-	}
-
-	lockOrder(value) {
-
-		if (this.orderNo !== value) {
-			this.orderNo = value;
-		}
-
-	}
 }
-export default OrderWeighState;
+export default new OrderWeighState();

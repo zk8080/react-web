@@ -17,15 +17,12 @@ import { createBrowserHistory } from 'history';
 import {session} from '@utils/index'; 
 import zhCN from 'antd/es/locale-provider/zh_CN';
 import {LocaleProvider} from 'antd';
-import {getLodop} from '@assets/LodopFuncs';
 
 const history = createBrowserHistory();
 const Store = {appStore};
 //全局路由跳转对象
 window.appHistory = history;
 
-// 打印对象
-window.Lodop = new getLodop();
 
 //登录页面
 const Login = loadComponent(() => import('@container/login/index.component'));

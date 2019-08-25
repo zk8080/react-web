@@ -30,7 +30,9 @@ axios.interceptors.response.use(function (response) {
     }else if(response.data.code == '50001'){
         //50001代表在盘点中如果点击开始盘点，当前正在拥有盘点的数据，需要给到用户提示
         message.warning(response.data.msg);
-    }else if(response.data.code != 0 || response.data.code != '00'){
+    }else if(response.data.code == '50012'){
+        // 拣货单锁定
+    } else if(response.data.code != 0 || response.data.code != '00'){
         // 0和00代表接口成功
         message.error(response.data.msg);
     }

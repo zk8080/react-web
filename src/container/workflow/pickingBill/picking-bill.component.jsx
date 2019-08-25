@@ -89,7 +89,7 @@ class PickingBillComponent extends Component{
 					<Row  className={'header-component'}>
                         <Button type="danger" onClick={this.generatorPickBill.bind(this)}>手动生成拣货单</Button>
                         <Button type="primary" icon="printer" onClick={this.printerPickBill.bind(this)}>打印拣货单</Button>
-                        <Button type="primary" icon="printer" onClick={this.printBarCode.bind(this)}>打印商品条码</Button>
+                        {/* <Button type="primary" icon="printer" onClick={this.printBarCode.bind(this)}>打印商品条码</Button> */}
                     </Row>
                     <Table
                         pagination={PickingBillState.page}
