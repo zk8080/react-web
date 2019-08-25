@@ -14,7 +14,7 @@ const getMerchantsListUrl = '/customer/loadGrid';
 const getAreaCodeListUrl = '/check/queryAreaCodeList';
 
 // 根据商家查询商品
-const getCommodityIdListUrl = '/customer/loadCommodities';
+const getCommodityIdListUrl = '/check/queryCusCommdityList';
 
 class Service {
 
@@ -100,9 +100,10 @@ class Service {
 
 
     getCommodityIdList = req => {
-        const url = getCommodityIdListUrl + '/' + req.customerId;
         return new Promise((resolve, reject) => {
-            axios.post(url, req)
+            axios.get(getCommodityIdListUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })

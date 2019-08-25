@@ -7,6 +7,7 @@ const FormItem = Form.Item;
 
 
 const onFieldsChange = (props, changedFields) => {
+    console.log(props,'props', changedFields, 'changedFields');
     if(props.setQueryData){
         props.setQueryData({...props.queryData, ...formUtils.formToObj(changedFields)});
     }
@@ -62,7 +63,15 @@ class Index extends Component {
                                     filterOption={(input, option) =>
                                         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
-                                    onChange={this.props.changeCustomerId}
+                                    onChange={(value)=>{
+                                        // if(!value){
+                                        //     this.props.form.setFiledsVlaue({
+                                        //         areaCode: undefined,
+                                        //         commodityId: undefined
+                                        //     })
+                                        // }
+                                        this.props.changeCustomerId(value);
+                                    }}
                                 />
                             )}
                         </FormItem>
@@ -99,10 +108,9 @@ class Index extends Component {
                                 <Select 
                                     placeholder='请选择'
                                     mode="multiple"
-                                    option={[]}
-                                    // option={commodityIdList}
-                                    // valueCode='commodityId'
-                                    // valueName='commodityName'
+                                    option={commodityIdList}
+                                    valueCode='commodityId'
+                                    valueName='commodityName'
                                 />
                             )}
                         </FormItem>
