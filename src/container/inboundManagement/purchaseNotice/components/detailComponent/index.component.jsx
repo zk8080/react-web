@@ -277,10 +277,13 @@ class Index extends Component {
                                 onClick={this.handleDelete}
                                 disabled={this.props.isLook}
                             >删除行</Button>
-                            <Button
-                                type='primary'
-                                onClick={this.handleClick}
-                            >打印采购单</Button>
+                            {
+                                this.props.isLook && <Button
+                                    type='primary'
+                                    onClick={this.handleClick}
+                                >打印采购单</Button>
+                            }
+                            
                             {/* <Button
                                 type='primary'
                                 onClick={this.props.handleReceipt}

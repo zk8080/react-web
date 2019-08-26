@@ -2,23 +2,27 @@ import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
 import {Select} from '@pubComs';
 import { formUtils } from '@utils/index';
+import {observer} from 'mobx-react';
 const FormItem = Form.Item;
 
 const onFieldsChange = (props, changedFields) => {
-    props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
+    const cityObj = {
+        city: null
+    };
+    const countyObj = {
+        county: null
+    };
+    if( changedFields.prov ){
+        props.setDetailData({...props.detailData,...formUtils.formToObj(changedFields), ...cityObj, ...countyObj});
+    }else if(changedFields.city){
+        props.setDetailData({...props.detailData,...formUtils.formToObj(changedFields), ...countyObj});
+    }else{
+        props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
+    }
+    
 };
 
 const mapPropsToFields = (props) => {
-    // const originData = props.detailData;
-    // const detailData = {
-    //     ...props.detailData
-    // };
-    // if(typeof originData.purchaseDate == 'string'){
-    //     detailData = {
-    //         ...props.detailData,
-    //         purchaseDate: {value: moment(props.detailData.purchaseDate)}
-    //     };
-    // }
     return formUtils.objToForm(props.detailData);
 };
 
@@ -26,6 +30,7 @@ const mapPropsToFields = (props) => {
     mapPropsToFields,
     onFieldsChange
 })
+@observer
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -46,6 +51,12 @@ class Index extends Component {
         // });
         this.props.onCityChange(value);
     }
+
+    
+    componentDidMount() {
+        this.props.setForm(this.props.form);
+    }
+    
 
     render() {
         const {getFieldDecorator} = this.props.form;

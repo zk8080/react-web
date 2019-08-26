@@ -29,9 +29,9 @@ class FormUtils {
         for(const [key,value] of Object.entries(obj)){
             // 判断下如果是moment格式的转化为字符串类型
             let val = value;
-            if(typeof value.value == 'object' && value.value._locale){
+            if(value && typeof value.value == 'object' && value.value._locale){
                 val = moment(value.value).format('YYYY-MM-DD');
-            }else if(value.value){
+            }else if(value && value.value){
                 val = value.value;
             }
             target[key] = val;

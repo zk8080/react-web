@@ -45,13 +45,13 @@ class OrderImportComponent extends Component{
                     </div>
                     <NewTable
                         loading={OrderImportState.loading}
-                        dataSource={OrderImportState.dataList}
+                        dataSource={OrderImportState.tableList}
                         columns={orderImportColumns}
                         rowKey='id'
                         bordered
-                        onChange={OrderImportState.tableChange.bind(OrderImportState)}
-                        pagination={OrderImportState.page}
                         scroll={{x: 1400, y: 500}}
+                        getQueryData={OrderImportState.loadGrid}
+                        pagination={toJS(OrderImportState.pageInfo)}
                     />
                     <DetailComponent
                         visible={OrderImportState.visible}

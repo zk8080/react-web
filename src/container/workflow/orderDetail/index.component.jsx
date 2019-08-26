@@ -19,7 +19,8 @@ class Index extends Component {
         super(props);
         this.state = {
             selectedRowKeys: [],
-            selectedRows: []
+            selectedRows: [],
+            form: null
         };
     }
 
@@ -29,19 +30,11 @@ class Index extends Component {
 
     onOkClick = e => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        this.state.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                const saveData = {
-                    ...values,
-                    purchaseDate: moment(values.purchaseDate).format('YYYY-MM-DD')
-                };
-                this.props.onOk({...this.props.detailData, ...saveData});
+                State.updateOrder();
             }
         });
-    }
-
-    toggleDisabled = () => {
-        this.props.toggleDisabled(false);
     }
 
     componentDidMount(){
@@ -52,8 +45,13 @@ class Index extends Component {
             queryData = session.getItem('orderDetail') || {};
         }
         State.setDetailData(queryData);
-        
         State.getDetailData();
+    }
+
+    setForm = (obj) => {
+        this.setState({
+            form: obj
+        });
     }
 
     componentWillUnmount(){
@@ -73,6 +71,7 @@ class Index extends Component {
                             disabled={State.disabled}
                             onCityChange={State.onCityChange}
                             onProvChange={State.onProvChange}
+                            setForm={this.setForm}
                         />
                     </div>
                     <div className='product-list'>
@@ -117,7 +116,7 @@ class Index extends Component {
                                             </Button>
                                             <Button
                                                 type='primary'
-                                                onClick={State.updateOrder}
+                                                onClick={this.onOkClick}
                                             >
                                                 保存
                                             </Button>

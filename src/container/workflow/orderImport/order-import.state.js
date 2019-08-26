@@ -16,13 +16,33 @@ class OrderImportState extends BaseState{
 		this.orderCommodityData = orderCommodityData;
 	}
 
-	loadGrid = (param: LoadGrid = {}) => {
+    // 表格数据
+    @observable tableList = [];
+    @action setTableList = (arr = []) => {
+        this.tableList = arr;
+    }
+    
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+
+	@action loadGrid = (param = {}) => {
 		this.post('/order/loadGrid', param, result => {
-			if (result.status === 1) {
-				this.loadGridFinished(result.data);
-				// this.refreshDataList(result.data.rows);
-				// this.refreshPage(result.data);
-			}
+            if(result.code === 0){
+                const {rows, current, pageSize, total} = result.data;
+                this.setTableList(rows);
+                this.setPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
+            }
 		});
     }
     

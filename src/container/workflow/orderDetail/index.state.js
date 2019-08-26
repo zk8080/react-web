@@ -44,9 +44,6 @@ class State{
         const curProv = JSONData.filter(item => item.name == value);
         const cityList = curProv[0].children || [];
         this.setCityList(cityList);
-        const detailData = toJS(this.detailData);
-        detailData['city'] = {value:  undefined};
-        this.setDetailData(detailData);
     }
 
     // 修改市
@@ -54,9 +51,7 @@ class State{
         const curCity = toJS(this.cityList).filter(item => item.name == value);
         const countyList = curCity[0].children || [];
         this.setCountyList(countyList);
-        const detailData = toJS(this.detailData);
-        detailData['county'] = {value:  undefined};
-        this.setDetailData(detailData);
+        
     }
 
     // 查询详情数据
@@ -138,7 +133,6 @@ class State{
 
     // 修改订单保存
     @action updateOrder = async () => {
-        console.log( formUtils.formToParams(toJS(this.detailData)), 'formUtils.formToParams(this.queryForm)' );
         const params = {
             ...formUtils.formToParams(toJS(this.detailData))
         };
