@@ -78,6 +78,7 @@ export const orderImportColumns: ColumnProps[] = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <a onClick={orderImportState.lookClick.bind(this, record)}>查看</a>
+				<a disabled={record.isMatched == '1'} onClick={orderImportState.unPackage.bind(this, record)}>跳过拆包</a>
                 <a disabled={record.billState == 'cancel' || record.billState == 'go_out' || record.billState == 'finished'} onClick={orderImportState.closeOrder.bind(this, record)}>取消</a>
             </div>;
         }

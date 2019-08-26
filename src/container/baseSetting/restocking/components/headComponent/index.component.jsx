@@ -18,9 +18,9 @@ class Index extends Component {
             <div className='header-component'>
                 <Button
                     type='primary'
-                    onClick={this.beginCheck}
+                    onClick={this.props.print}
                 >
-                    打印订单
+                    打印补货单
                 </Button>
             </div>
         );

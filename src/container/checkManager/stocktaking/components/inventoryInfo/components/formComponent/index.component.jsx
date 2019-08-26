@@ -7,9 +7,16 @@ const FormItem = Form.Item;
 
 
 const onFieldsChange = (props, changedFields) => {
-    console.log(props,'props', changedFields, 'changedFields');
-    if(props.setQueryData){
-        props.setQueryData({...props.queryData, ...formUtils.formToObj(changedFields)});
+    const clearObj = {
+        areaCode: null, 
+        commodityId: null
+    };
+    if( changedFields.customerId ){
+        props.setQueryData({...props.queryData, ...formUtils.formToObj(changedFields), ...clearObj});
+    }else{
+        if(props.setQueryData){
+            props.setQueryData({...props.queryData, ...formUtils.formToObj(changedFields)});
+        }
     }
 };
 

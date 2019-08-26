@@ -2,6 +2,10 @@ import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
 import {formUtils} from '@utils';
+import {getLodop} from '@assets/LodopFuncs';
+import {template} from '@assets/restockTemplate.js';
+import _ from 'lodash';
+import moment from 'moment';
 
 class State {
 
@@ -175,6 +179,31 @@ class State {
         catch(e){
             console.log(e);
         }
+    }
+
+
+// 打印补货单
+    printData = (selectRow) => {
+        const Lodop = getLodop();
+        if(!Lodop){
+            return;
+        }
+        selectRow.map(item => {
+            // 模板
+            const htmlStr = _.template(template)({...item, date: moment().format('YYYY-MM-DD HH:mm')});
+            Lodop.PRINT_INIT('');
+            Lodop.ADD_PRINT_TEXT('2%','44%','30%','50px',`${item.customerName}补货单`);
+            Lodop.SET_PRINT_STYLEA(1, 'FontSize', 20);
+            Lodop.SET_PRINT_STYLEA(1, 'FontWeight', 600);
+            // html内容模板
+            Lodop.ADD_PRINT_HTM('5%', '1%', '98%', '94%', htmlStr);
+            // 打印方向
+            Lodop.SET_PRINT_PAGESIZE(1,'','', 'A4');
+            // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+            Lodop.PREVIEW();
+            // // 直接打印
+            // Lodop.PRINT();
+        });
     }
 }
 

@@ -8,6 +8,10 @@ const productListUrl = '/commoditySku/loadGrid';
 const deleteUrl = '/warehousing/purchaseBill/delete';
 // 取消订单
 const cancelOrderUrl = '/order/cancel';
+// 拆包规则
+const generateUrl = '/splitRule/generate';
+// 生成包裹
+const splitPackageUrl = '/order/splitPackage';
 class Service {
 
     editProduct = req => {
@@ -52,6 +56,34 @@ class Service {
     cancelOrder = req => {
         return new Promise((resolve, reject) => {
             axios.get(cancelOrderUrl, {
+                params: req
+            })
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    generate = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(generateUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    splitPackage = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(splitPackageUrl, {
                 params: req
             })
                 .then(res => {

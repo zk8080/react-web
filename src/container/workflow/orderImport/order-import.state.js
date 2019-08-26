@@ -70,6 +70,42 @@ class OrderImportState extends BaseState{
             console.log(e);
         }
     }
+
+    // 拆包按钮
+    @action unPackage = async (record) => {
+        const params = {};
+        const res = await Service.generate(params);
+        try{
+            if(res.data.code === 0){
+                console.log(res.data, 'res.data');
+                this.splitPackage(record);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+
+    }
+
+    // 生成包裹
+    @action splitPackage = async (record) => {
+        const { orderNo, customerCode, systemOrderNo } = record;
+        const params = {
+            orderNo,
+            customerCode,
+            systemOrderNo
+        };
+        const res = await Service.splitPackage(params);
+        try{
+            if(res.data.code === 0){
+                message.success(res.data.msg);
+                this.loadGrid()
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
 }
 
 export default new OrderImportState();

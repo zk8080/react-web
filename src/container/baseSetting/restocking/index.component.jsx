@@ -5,7 +5,7 @@ import { NewTable } from '@pubComs';
 import colums from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
-import {Form,Table} from 'antd';
+import {Form,Table, message} from 'antd';
 import FormComponent from './components/formComponent/index.component';
 import HeadComponent from './components/headComponent/index.component';
 import ComfirmRestock from './components/confirmRestock/index.component';
@@ -15,6 +15,8 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectRowKeys: [],
+            selectRows: []
         };
     }
 
@@ -24,12 +26,25 @@ class Index extends Component {
 
     rowSelection = {
         onChange: (selectRowKeys, selectRows) => {
-            console.log(selectRows,'selectRows', selectRowKeys, 'selectRowKeys');
-        }
+            this.setState({
+                selectRowKeys,
+                selectRows
+            })
+        },
+        selectRowKeys: []
     }
 
 
+    printData = () => {
+        if( this.state.selectRowKeys.length < 1 ){
+            message.warning('请选择要打印的补货单！')
+            return;
+        }
+        State.printData(this.state.selectRows);
+    }
+
     render() {
+        this.rowSelection.selectRowKeys = this.state.selectRowKeys;
         return (
             <div className='restocking'>
                 <Form>
@@ -42,9 +57,7 @@ class Index extends Component {
                     />
                 </Form>
                 <HeadComponent
-                    addClick={State.addClick}
-                    {...this.props}
-                    beginCheck={State.beginCheck}
+                    print={this.printData}
                 />
                 <NewTable
                     dataSource={toJS(State.tableList)}
