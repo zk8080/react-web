@@ -74,7 +74,7 @@ class Index extends Component {
         // 表格模板
         const tableHtmlStr = _.template(tableTemplate)({tableData: this.props.dataSource});
         const Lodop = getLodop();
-        if(!Lodop.VERSION){
+        if(!Lodop){
             return;
         }
         Lodop.PRINT_INIT('');

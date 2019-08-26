@@ -192,7 +192,7 @@ class PickingBillState extends BaseState{
     // 打印拣货单
     printPickBill = (arr = []) => {
         const Lodop = getLodop();
-        if(!Lodop.VERSION){
+        if(!Lodop){
             return;
         }
         arr.map(item => {

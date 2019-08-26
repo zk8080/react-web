@@ -319,7 +319,7 @@ class State {
     @action printData = (data) => {
         const newData = this.dealPrintData(data);
         const Lodop = new getLodop();
-        if(!Lodop.VERSION){
+        if(!Lodop){
             return;
         }
         // 模板
@@ -343,7 +343,7 @@ class State {
     @action printPickData = (data) => {
         const newData = this.dealPrintData(data);
         const Lodop = new getLodop();
-        if(!Lodop.VERSION){
+        if(!Lodop){
             return;
         }
         // 模板
@@ -365,7 +365,7 @@ class State {
     // 打印漏检清单
     @action printOmit = (arr) => {
         const Lodop = getLodop();
-        if(!Lodop.VERSION){
+        if(!Lodop){
             return;
         }
     }
