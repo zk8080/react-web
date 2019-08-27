@@ -61,6 +61,7 @@ class Index extends Component {
                     disabled={State.disabled}
                     toggleDisabled={State.toggleDisabled}
                     menuList={toJS(State.menuList)}
+                    curRoleMenu={toJS(State.curRoleMenu)}
                 />
             </div>
         );

@@ -104,6 +104,7 @@ class State {
         this.setEditForm();
         this.setIsAdd(true);
         this.toggleDisabled(false);
+        this.setCurRoleMenu({});
         this.toggleVisible();
     }
 
@@ -207,7 +208,6 @@ class State {
         const res = await Service.getRoleMenu(params);
         try{
             if(res.data.code === 0){
-                console.log( res.data, '-----data-----' );
                 const {data} = res.data;
                 this.setCurRoleMenu(data);
             }

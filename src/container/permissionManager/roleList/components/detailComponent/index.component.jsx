@@ -29,6 +29,9 @@ class Index extends Component {
 
     onCheck = (checkedKeys, e) => {
         const menuKeyList = [...e.halfCheckedKeys, ...checkedKeys];
+        console.log( menuKeyList, '----menuKeyList---' );
+        console.log(e, '---e---');
+        console.log( checkedKeys, '---checkedKeys---' );
         this.setState({ checkedKeys, menuKeyList });
     };
     
@@ -51,7 +54,7 @@ class Index extends Component {
                 // console.log( values, '---values---' );
                 const params = {
                     ...values,
-                    menuKeyList: this.state.menuKeyList
+                    menuKeyList: this.state.checkedKeys
                 };
                 this.props.onOk(params);
             }
@@ -60,6 +63,16 @@ class Index extends Component {
 
     toggleDisabled = () => {
         this.props.toggleDisabled(false);
+    }
+
+    componentDidUpdate(prevProps){
+        if(JSON.stringify(prevProps.curRoleMenu) != JSON.stringify(this.props.curRoleMenu)){
+            const {curRoleMenu} = this.props;
+            const checkedKeys = curRoleMenu.menuInfoList && curRoleMenu.menuInfoList.map(item => item.id) || [];
+            this.setState({
+                checkedKeys
+            });
+        }
     }
 
     render() {
