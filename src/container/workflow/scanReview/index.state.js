@@ -4,6 +4,7 @@ import Lodash from 'lodash';
 import { message } from 'antd';
 import {template} from '@assets/trackOrder.js';
 import {packageTemplate} from '@assets/packageTemplate.js';
+import {omitTemplate} from '@assets/omitTemplate.js';
 import {getLodop} from '@assets/LodopFuncs';
 import _ from 'lodash';
 import {Modal} from '@pubComs';
@@ -226,6 +227,33 @@ class State {
         }
     }
 
+    // 处理漏检单所需信息
+    dealOmitData = () => {
+        const packageList = toJS(this.packageList);
+        const omitStoreObj = toJS(this.omitStoreObj);
+        const omitDataArr = [];
+        packageList.map(item => {
+            if( item.lastData != 0 ){
+                const productList = [];
+                item.packageCommodities && item.packageCommodities.map(prodItem => {
+                    if( prodItem.pickNums != prodItem.packageNums ){
+                        productList.push({
+                            ...prodItem,
+                            storeCode: omitStoreObj[prodItem.commodityCode],
+                            omitNums: prodItem.packageNums - prodItem.pickNums
+                        })
+                    }
+                });
+                omitDataArr.push({
+                    ...item,
+                    totalOmitNums: productList.reduce((sum, cur) => sum += cur.omitNums, 0),
+                    productList
+                })
+            }
+        });
+        return omitDataArr;
+    }
+
     // 漏检
     @action checkOmit = async () => {
         const packageList = toJS(this.packageList);
@@ -256,6 +284,8 @@ class State {
         const res = await Service.checkOmit(params);
         try{
             if(res.data.code == 0){
+                const omitArr = thsi.dealOmitData();
+                this.printOmit(omitArr);
                 message.success('拣货完成，请扫描下一单！');
                 this.setIsAlreadyReview(false);
                 this.setIsAlreadyPicker(false);
@@ -325,7 +355,7 @@ class State {
         // 模板
         const htmlStr = _.template(template)(newData);
         Lodop.PRINT_INIT('');
-        Lodop.SET_PRINTER_INDEX('123');
+        Lodop.SET_PRINTER_INDEX('express_print');
         // 条形码
         Lodop.ADD_PRINT_BARCODE('263px','52px','270px','56px','128A',newData.mailNo);
          // 条形码
@@ -349,7 +379,7 @@ class State {
         // 模板
         const htmlStr = _.template(packageTemplate)(newData);
         Lodop.PRINT_INIT('');
-        Lodop.SET_PRINTER_INDEX('456');
+        Lodop.SET_PRINTER_INDEX('package_print');
         // 条形码
         // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
         // html内容模板
@@ -359,7 +389,6 @@ class State {
         // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
         // Lodop.PREVIEW();
         Lodop.PRINT();
-        console.log(htmlStr, 'document231321');
     }
 
     // 打印漏检清单
@@ -368,6 +397,27 @@ class State {
         if(!Lodop){
             return;
         }
+        arr.map(item => {
+            // 模板
+            const htmlStr = _.template(omitTemplate)(item);
+            Lodop.PRINT_INIT('');
+            Lodop.SET_PRINTER_INDEX('package_print');
+            Lodop.ADD_PRINT_TEXT('2%','44%','30%','50px',`缺货清单`);
+            Lodop.SET_PRINT_STYLEA(1, 'FontSize', 20);
+            Lodop.SET_PRINT_STYLEA(1, 'FontWeight', 600);
+            // 条形码
+            Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A',this.pickNo);
+            // 条形码
+            // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
+            // html内容模板
+            Lodop.ADD_PRINT_HTM('10%', '1%', '98%', '94%', htmlStr);
+            // 打印表格
+            // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
+            // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+            // Lodop.PREVIEW();
+            Lodop.PRINT();
+        })
+        
     }
     
 }
