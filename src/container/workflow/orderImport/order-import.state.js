@@ -71,9 +71,36 @@ class OrderImportState extends BaseState{
         }
     }
 
+    // 查询详情数据
+    @action getDetailData = async (record) => {
+        const { orderNo, customerCode, systemOrderNo } = record;
+        const params = {
+            orderNo,
+            customerCode,
+            systemOrderNo
+        };
+        const res = await Service.queryDetail(params);
+        try{
+            if(res.data.code === 0){
+                // this.setDetailData(obj);
+                const {orderDetails} = res.data.data;
+                this.unPackage(orderDetails, record);
+            }
+        }
+        catch(e){
+            console.log(e);
+        }
+    }
+
     // 拆包按钮
-    @action unPackage = async (record) => {
-        const params = {};
+    @action unPackage = async (productList, record) => {
+        const orderCommodities = productList.map(item => {
+            return {commodityCode: item.barCode, nums: item.numbers};
+        });  
+        const params = {
+            orderCommodities,
+            packageCommodities: {}
+        };
         const res = await Service.generate(params);
         try{
             if(res.data.code === 0){
@@ -99,7 +126,7 @@ class OrderImportState extends BaseState{
         try{
             if(res.data.code === 0){
                 message.success(res.data.msg);
-                this.loadGrid()
+                this.loadGrid();
             }
         }
         catch(e){

@@ -12,11 +12,28 @@ const cancelOrderUrl = '/order/cancel';
 const generateUrl = '/splitRule/generate';
 // 生成包裹
 const splitPackageUrl = '/order/splitPackage';
+// 查询订单详情url
+const queryDetailUrl = '/order/loadDetails';
 class Service {
 
     editProduct = req => {
         return new Promise((resolve, reject) => {
             axios.post(editProductUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
+
+    queryDetail = req => {
+        return new Promise((resolve, reject) => {
+            axios.get(queryDetailUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })
