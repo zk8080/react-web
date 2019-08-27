@@ -98,6 +98,11 @@ const menuData = [
 				title: '订单管理',
 				key: '03-01',
 				url: '/workflow/orderImport'
+            },
+            {
+				title: '合并订单',
+				key: '03-06',
+				url: '/order/mergeOrder'
 			},
 			{
 				title: '拣货单管理',

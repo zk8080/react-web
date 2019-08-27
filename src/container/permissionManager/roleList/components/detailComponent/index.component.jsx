@@ -79,20 +79,6 @@ class Index extends Component {
                     <Form className='query-component'>
                         <Row>
                             <Col span={12}>
-                                <FormItem label='角色编码'>
-                                    {getFieldDecorator('roleCode', {
-                                        rules: [{
-                                            required: true,
-                                            message: '必填'
-                                        }]
-                                    })(
-                                        <Input 
-                                            disabled={disabled}
-                                        />
-                                    )}
-                                </FormItem>
-                            </Col>
-                            <Col span={12}>
                                 <FormItem label='角色名称'>
                                     {getFieldDecorator('roleName', {
                                         rules: [{

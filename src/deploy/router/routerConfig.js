@@ -33,6 +33,7 @@ const PickingBellComponent = loadComponent(/* webpackChunkName: "PickingBellComp
 const OrderWeighComponent = loadComponent(/* webpackChunkName: "OrderWeighComponent" */() => import('@container/workflow/orderWeigh/order-weigh.component'));
 const ScanReviewComponent = loadComponent(/* webpackChunkName: "ScanReviewComponent" */() => import('@container/workflow/scanReview/index.component'));
 const OrderDetailComponent = loadComponent(/* webpackChunkName: "OrderDetailComponent" */() => import('@container/workflow/orderDetail/index.component'));
+const MergeOrderComponent = loadComponent(/* webpackChunkName: "MergeOrderComponent" */() => import('@container/workflow/mergeOrder/index.component'));
 // 信息跟踪
 const InfoTracking = loadComponent(/* webpackChunkName: "InfoTracking" */() => import('@container/workflow/infoTracking/index.component'));
 
@@ -214,6 +215,12 @@ const routers = [
         exact: true,
         component: LocationUsageReport,
         breadcrumbName: '库位使用报表'
+    },
+    {
+        path: '/order/mergeOrder',
+        exact: true,
+        component: MergeOrderComponent,
+        breadcrumbName: '合并订单'
     }
 ];
 

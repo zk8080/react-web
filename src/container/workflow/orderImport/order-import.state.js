@@ -99,7 +99,7 @@ class OrderImportState extends BaseState{
         });  
         const params = {
             orderCommodities,
-            packageCommodities: {}
+            packageCommodities: []
         };
         const res = await Service.generate(params);
         try{
