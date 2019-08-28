@@ -6,7 +6,6 @@ import {Upload, DownLoad, NewTable} from '@pubComs';
 // import { Table } from '@pubComs';
 import './index.less';
 import {formUtils} from '@utils';
-import Qs from 'qs';
 
 import { orderImportColumns } from './order-import.columns.config';
 import OrderImportState from './order-import.state';
