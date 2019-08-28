@@ -39,7 +39,7 @@ class Index extends Component {
                     <Row>
                         <Col span={8}>
                             <FormItem label="角色名" hasFeedback>
-                                {getFieldDecorator('userName', {
+                                {getFieldDecorator('roleName', {
                                     rules: [],
                                 })(<Input />)}
                             </FormItem>

@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
-import {Select} from '@pubComs';
+import {Select, DownLoad} from '@pubComs';
+import { formUtils } from '@utils/index';
 const FormItem = Form.Item;
 
+const onFieldsChange = (props, changedFields) => {
+    props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
+};
+
+const mapPropsToFields = (props) => {
+    return formUtils.objToForm(props.detailData);
+};
 
 @Form.create({
+    mapPropsToFields,
+    onFieldsChange
 })
 class Index extends Component {
     constructor(props) {
@@ -16,6 +26,12 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                if( values.startTime ){
+                    values.startTime = values.startTime.format('YYYY-MM-DD');
+                }
+                if( values.endTime ){
+                    values.endTime = values.endTime.format('YYYY-MM-DD');
+                }
                 this.props.getData({
                     search: values
                 });
@@ -28,32 +44,30 @@ class Index extends Component {
         return (
             <div className='query-component'>
                 <Row>
-                    <Col span={8}>
+                    <Col span={6}>
                         <FormItem label="姓名" hasFeedback>
                             {getFieldDecorator('reciptName', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
-                    <Col span={8}>
+                    <Col span={6}>
                         <FormItem label="电话" hasFeedback>
-                            {getFieldDecorator('commodityName', {
+                            {getFieldDecorator('reciptPhone', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
-                    <Col span={8}>
+                    <Col span={6}>
                         <FormItem label="地址" hasFeedback>
-                            {getFieldDecorator('billState', {
+                            {getFieldDecorator('reciptAddr', {
                                 rules: [],
                             })(<Input />)}
                         </FormItem>
                     </Col>
-                </Row>
-                <Row>
-                    <Col span={8}>
-                        {/* <FormItem label="订单状态" hasFeedback>
-                            {getFieldDecorator('purchaseDate', {
+                    <Col span={6}>
+                        <FormItem label="订单状态" hasFeedback>
+                            {getFieldDecorator('billState', {
                                 rules: [],
                             })(<Select 
                                 option={[
@@ -62,35 +76,48 @@ class Index extends Component {
                                         name: '保存'
                                     },
                                     {
-                                        code: 'recevieing',
-                                        name: '待收货'
+                                        code: 'cancel',
+                                        name: '订单取消'
                                     },
                                     {
-                                        code: 'recevied',
-                                        name: '已收货'
+                                        code: 'go_out',
+                                        name: '出库'
                                     },
                                     {
-                                        code: 'stored',
-                                        name: '已入库'
+                                        code: 'finished',
+                                        name: '完成'
                                     },
                                     {
-                                        code: 'approved',
-                                        name: '已审核'
-                                    }
+                                        code: 'packing',
+                                        name: '打包中'
+                                    },
+                                    {
+                                        code: 'picking',
+                                        name: '拣货中'
+                                    },
                                 ]}
                                 valueCode='code'
                                 valueName='name'
                             />)}
-                        </FormItem> */}
+                        </FormItem>
                     </Col>
-                    <Col span={8}>
-                        {/* <FormItem label="收货日期" hasFeedback>
-                            {getFieldDecorator('receivDate', {
+                </Row>
+                <Row>
+                    <Col span={6}>
+                        <FormItem label="开始日期" hasFeedback>
+                            {getFieldDecorator('startTime', {
                                 rules: [],
                             })(<DatePicker/>)}
-                        </FormItem> */}
+                        </FormItem>
                     </Col>
-                    <Col span={8} className='query-btn'>
+                    <Col span={6}>
+                        <FormItem label="结束日期" hasFeedback>
+                            {getFieldDecorator('endTime', {
+                                rules: [],
+                            })(<DatePicker/>)}
+                        </FormItem>
+                    </Col>
+                    <Col span={12} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}

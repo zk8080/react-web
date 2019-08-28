@@ -62,8 +62,12 @@ const colums = [
     },
     {
         title: '存储库位',
-        dataIndex: 'finalStoreCode',
-        width: 200
+        dataIndex: 'ccStores',
+        width: 200,
+        render: (text, record) => {
+            const storeArr = text && text.map(item => item.storeCode) || [];
+            return storeArr.join(',');
+        }   
     },
     {
         title: '操作',

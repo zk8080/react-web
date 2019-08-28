@@ -59,13 +59,13 @@ const omitTemplate = `<head>
     </thead>
     <tbody>
         <tr>
-            <% _.forEach(packageCommodities, function(data, index){ %>
+            <% _.forEach(productList, function(data, index){ %>
                 <tr>
                     <td>{{data.commodityCode}}</td>
                     <td>{{data.skuName}}</td>
                     <td>{{data.modelNo}}</td>
                     <td>{{data.storeCode}}</td>
-                    <td>{{datra.omitNums}}</td>
+                    <td>{{data.omitNums}}</td>
                 </tr>
             <% }) %>
         </tr>

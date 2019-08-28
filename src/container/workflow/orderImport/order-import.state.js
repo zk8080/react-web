@@ -16,6 +16,12 @@ class OrderImportState extends BaseState{
 		this.orderCommodityData = orderCommodityData;
 	}
 
+    // 表单数据
+    @observable detailData = {};
+    @action setDetailData = (obj) => {
+        this.detailData = obj;
+    }
+
     // 表格数据
     @observable tableList = [];
     @action setTableList = (arr = []) => {

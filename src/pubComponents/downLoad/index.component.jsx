@@ -21,6 +21,7 @@ class Index extends Component {
         this.setState({
             url
         });
+        console.log(url, '----url--');
     }
 
     render() {

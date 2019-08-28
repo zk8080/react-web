@@ -189,8 +189,15 @@ class State {
             return;
         }
         selectRow.map(item => {
+            const data = {...item, date: moment().format('YYYY-MM-DD HH:mm')};
+            if(data.ccStores){
+                const storeArr = data.ccStores.map(item => item.storeCode) || [];
+                data['ccStoreStr'] = storeArr.join(',');
+            }else{
+                data['ccStoreStr'] = '';
+            }
             // 模板
-            const htmlStr = _.template(template)({...item, date: moment().format('YYYY-MM-DD HH:mm')});
+            const htmlStr = _.template(template)(data);
             Lodop.PRINT_INIT('');
             Lodop.ADD_PRINT_TEXT('2%','44%','30%','50px',`${item.customerName}补货单`);
             Lodop.SET_PRINT_STYLEA(1, 'FontSize', 20);

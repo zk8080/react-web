@@ -65,8 +65,8 @@ const template = `<head>
             <th>单位</th>
             <th>数量</th>
             <th>商品条码</th>
-            <th>存储库位</th>
             <th>零拣库位</th>
+            <th>存储库位</th>
         </tr>
     </thead>
     <tbody>
@@ -79,11 +79,7 @@ const template = `<head>
             <td>{{stockoutNums}}</td>
             <td>{{commodityCode}}</td>
             <td>{{storeCode}}</td>
-            
-            <td></td>
-                
-            
-            
+            <td>{{ccStoreStr}}</td>
         </tr>
     </tbody>
 </table>

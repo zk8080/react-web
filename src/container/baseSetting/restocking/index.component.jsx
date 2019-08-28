@@ -29,7 +29,7 @@ class Index extends Component {
             this.setState({
                 selectRowKeys,
                 selectRows
-            })
+            });
         },
         selectRowKeys: []
     }
@@ -37,7 +37,7 @@ class Index extends Component {
 
     printData = () => {
         if( this.state.selectRowKeys.length < 1 ){
-            message.warning('请选择要打印的补货单！')
+            message.warning('请选择要打印的补货单！');
             return;
         }
         State.printData(this.state.selectRows);

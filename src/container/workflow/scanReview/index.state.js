@@ -231,6 +231,7 @@ class State {
     dealOmitData = () => {
         const packageList = toJS(this.packageList);
         const omitStoreObj = toJS(this.omitStoreObj);
+        
         const omitDataArr = [];
         packageList.map(item => {
             if( item.lastData != 0 ){
@@ -241,14 +242,14 @@ class State {
                             ...prodItem,
                             storeCode: omitStoreObj[prodItem.commodityCode],
                             omitNums: prodItem.packageNums - prodItem.pickNums
-                        })
+                        });
                     }
                 });
                 omitDataArr.push({
                     ...item,
                     totalOmitNums: productList.reduce((sum, cur) => sum += cur.omitNums, 0),
                     productList
-                })
+                });
             }
         });
         return omitDataArr;
@@ -284,7 +285,7 @@ class State {
         const res = await Service.checkOmit(params);
         try{
             if(res.data.code == 0){
-                const omitArr = thsi.dealOmitData();
+                const omitArr = this.dealOmitData();
                 this.printOmit(omitArr);
                 message.success('拣货完成，请扫描下一单！');
                 this.setIsAlreadyReview(false);
@@ -355,7 +356,17 @@ class State {
         // 模板
         const htmlStr = _.template(template)(newData);
         Lodop.PRINT_INIT('');
-        Lodop.SET_PRINTER_INDEX('express_print');
+        // Lodop.SET_PRINTER_INDEX('express_print');
+
+        //水印效果begin----
+		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
+		Lodop.SET_PRINT_STYLEA(0,'FontSize',100);
+		Lodop.SET_PRINT_STYLEA(0,'FontColor','#ddd');
+		Lodop.SET_PRINT_STYLEA(0,'ItemType',1);
+		// Lodop.SET_PRINT_STYLEA(0,'Angle',50);
+		// Lodop.SET_PRINT_STYLEA(0,'Repeat',true);
+		//水印效果end-----
+
         // 条形码
         Lodop.ADD_PRINT_BARCODE('263px','52px','270px','56px','128A',newData.mailNo);
          // 条形码
@@ -379,7 +390,14 @@ class State {
         // 模板
         const htmlStr = _.template(packageTemplate)(newData);
         Lodop.PRINT_INIT('');
-        Lodop.SET_PRINTER_INDEX('package_print');
+        // Lodop.SET_PRINTER_INDEX('package_print');
+        //水印效果begin----
+		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
+		Lodop.SET_PRINT_STYLEA(0,'FontSize',100);
+		Lodop.SET_PRINT_STYLEA(0,'FontColor','#ddd');
+		Lodop.SET_PRINT_STYLEA(0,'ItemType',1);
+		// Lodop.SET_PRINT_STYLEA(0,'Repeat',true);
+		//水印效果end-----
         // 条形码
         // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
         // html内容模板
@@ -402,7 +420,7 @@ class State {
             const htmlStr = _.template(omitTemplate)(item);
             Lodop.PRINT_INIT('');
             Lodop.SET_PRINTER_INDEX('package_print');
-            Lodop.ADD_PRINT_TEXT('2%','44%','30%','50px',`缺货清单`);
+            Lodop.ADD_PRINT_TEXT('2%','44%','30%','50px','缺货清单');
             Lodop.SET_PRINT_STYLEA(1, 'FontSize', 20);
             Lodop.SET_PRINT_STYLEA(1, 'FontWeight', 600);
             // 条形码
@@ -416,7 +434,7 @@ class State {
             // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
             // Lodop.PREVIEW();
             Lodop.PRINT();
-        })
+        });
         
     }
     

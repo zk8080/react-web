@@ -4,6 +4,9 @@ import { Table, Button } from 'antd';
 import {toJS} from 'mobx';
 import {Upload, DownLoad, NewTable} from '@pubComs';
 // import { Table } from '@pubComs';
+import './index.less';
+import {formUtils} from '@utils';
+import Qs from 'qs';
 
 import { orderImportColumns } from './order-import.columns.config';
 import OrderImportState from './order-import.state';
@@ -24,11 +27,13 @@ class OrderImportComponent extends Component{
 
 	render() {
 			return (
-                <div>
+                <div className='order_index'>
                     <FormComponent 
                         // queryData={toJS(OrderImportState.queryForm)}
                         // setQueryData={OrderImportState.setQueryForm}
                         getData={OrderImportState.loadGrid}
+                        detailData={toJS(OrderImportState.detailData)}
+                        setDetailData={OrderImportState.setDetailData}
                         // customerList={toJS(OrderImportState.customerList)}
                         // productList={toJS(OrderImportState.allProductList)}
                     />
@@ -41,6 +46,11 @@ class OrderImportComponent extends Component{
                         <DownLoad
                             path='/order/downloadTemplate'
                             title='模板下载'
+                        />
+                        <DownLoad
+                            path={'/order/excelExport'}
+                            params={formUtils.formToParams(toJS(OrderImportState.detailData))}
+                            title='导出'
                         />
                     </div>
                     <NewTable
