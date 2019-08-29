@@ -357,7 +357,14 @@ class State {
         const htmlStr = _.template(template)(newData);
         Lodop.PRINT_INIT('');
         Lodop.SET_PRINTER_INDEX('express_print');
-
+        Lodop.On_Return=function(TaskID,Value){
+            if(Value>=0){
+                message.success('选择成功!'); 
+            }else {
+                message.error('选择失败！');
+            }
+        };
+		Lodop.SELECT_PRINTER();
         //水印效果begin----
 		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
 		Lodop.SET_PRINT_STYLEA(0,'FontSize',100);
