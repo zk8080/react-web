@@ -25,6 +25,8 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        State.getCustomerList();
+        State.getAllProductList();
         State.getTableList();
     }
 

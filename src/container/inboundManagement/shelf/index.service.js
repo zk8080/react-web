@@ -83,6 +83,19 @@ class Service {
                 });
         });
     }
+
+    getProductList = req => {
+        return new Promise((resolve, reject) => {
+            axios.post(productListUrl, req)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    reject(e);
+                    console.log(e);
+                });
+        });
+    }
 }
 
 export default new Service();
