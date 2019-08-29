@@ -188,7 +188,7 @@ class State {
             message.warning('该商品不在拣货单内！');
             return;
         }
-        
+
     }
 
     // 判断当前包裹拣货完成，进行打印清单和面单
@@ -231,7 +231,7 @@ class State {
     dealOmitData = () => {
         const packageList = toJS(this.packageList);
         const omitStoreObj = toJS(this.omitStoreObj);
-        
+
         const omitDataArr = [];
         packageList.map(item => {
             if( item.lastData != 0 ){
@@ -302,7 +302,7 @@ class State {
     @observable omitStoreObj = {};
     @action setOmitStoreObj = (obj = {}) => {
         this.omitStoreObj = obj;
-    } 
+    }
 
     // 获取漏检商品库位
     @action getOmitStore = async() => {
@@ -333,7 +333,7 @@ class State {
     };
 
     // 处理快递单据需要的信息
-    dealPrintData = (obj) => {  
+    dealPrintData = (obj) => {
         const cityArr = obj.city.split(',');
         const cityStr = cityArr[0];
         const county = cityArr[1];
@@ -356,7 +356,7 @@ class State {
         // 模板
         const htmlStr = _.template(template)(newData);
         Lodop.PRINT_INIT('');
-        // Lodop.SET_PRINTER_INDEX('express_print');
+        Lodop.SET_PRINTER_INDEX('express_print');
 
         //水印效果begin----
 		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
@@ -390,7 +390,7 @@ class State {
         // 模板
         const htmlStr = _.template(packageTemplate)(newData);
         Lodop.PRINT_INIT('');
-        // Lodop.SET_PRINTER_INDEX('package_print');
+        Lodop.SET_PRINTER_INDEX('package_print');
         //水印效果begin----
 		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
 		Lodop.SET_PRINT_STYLEA(0,'FontSize',100);
@@ -435,8 +435,8 @@ class State {
             // Lodop.PREVIEW();
             Lodop.PRINT();
         });
-        
+
     }
-    
+
 }
 export default new State();
