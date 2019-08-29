@@ -188,7 +188,6 @@ class State {
             message.warning('该商品不在拣货单内！');
             return;
         }
-
     }
 
     // 判断当前包裹拣货完成，进行打印清单和面单
@@ -225,6 +224,7 @@ class State {
         catch(e){
             console.log(e);
         }
+        return res && res.data;
     }
 
     // 处理漏检单所需信息
@@ -436,6 +436,20 @@ class State {
             Lodop.PRINT();
         });
 
+    }
+
+    // 复检完毕
+    @action allCheckFinished = () => {
+        this.checkFinished()
+            .then(res => {
+                if(res.code == 0){
+                    // 包裹列表
+                    const packageList = toJS(this.packageList);
+                    packageList.map(item => {
+                        this.curPickPrint(item);
+                    });
+                }
+            });
     }
 
 }
