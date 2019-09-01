@@ -97,12 +97,12 @@ class Index extends Component{
                         <Button type='primary' onClick={State.getOmitStore}>打印缺货单</Button>
                         <Button type='primary' onClick={State.allCheckFinished}>复检完毕</Button>
                     </Col>  
-                    <Col span={6}>
+                    {/* <Col span={6}>
                         <BarcodeComponent
                             code={'JH201908282033100927'}
                             height={50}
                         />
-                    </Col>
+                    </Col> */}
                 </Row>
             </div>
             
