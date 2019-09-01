@@ -306,7 +306,12 @@ class State {
 
     // 获取漏检商品库位
     @action getOmitStore = async() => {
+        
         const packageList = toJS(this.packageList);
+        if(packageList.length < 1){
+            message.warning('请扫描拣货单！');
+            return;
+        }
         const allProductData = toJS(this.allProductData);
         const commodityCodes = [];
         allProductData.map(item => {
@@ -357,32 +362,73 @@ class State {
         const htmlStr = _.template(template)(newData);
         Lodop.PRINT_INIT('');
         Lodop.SET_PRINTER_INDEX('express_print');
-        Lodop.On_Return=function(TaskID,Value){
-            if(Value>=0){
-                message.success('选择成功!'); 
-            }else {
-                message.error('选择失败！');
-            }
-        };
-		Lodop.SELECT_PRINTER();
-        //水印效果begin----
-		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
-		Lodop.SET_PRINT_STYLEA(0,'FontSize',100);
-		Lodop.SET_PRINT_STYLEA(0,'FontColor','#ddd');
-		Lodop.SET_PRINT_STYLEA(0,'ItemType',1);
-		// Lodop.SET_PRINT_STYLEA(0,'Angle',50);
-		// Lodop.SET_PRINT_STYLEA(0,'Repeat',true);
-		//水印效果end-----
-
-        // 条形码
-        Lodop.ADD_PRINT_BARCODE('263px','52px','270px','56px','128A',newData.mailNo);
-         // 条形码
-         Lodop.ADD_PRINT_BARCODE('442px','175px','176px','34px','128A',newData.mailNo);
-        // html内容模板
-        Lodop.ADD_PRINT_HTM('1%', '1%', '98%', '94%', htmlStr);
-        // 打印表格
-        // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
-        // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+        // Lodop.On_Return=function(TaskID,Value){
+        //     if(Value>=0){
+        //         message.success('选择成功!'); 
+        //     }else {
+        //         message.error('选择失败！');
+        //     }
+        // };
+        // Lodop.SELECT_PRINTER();
+        Lodop.PRINT_INITA(-1,0,380,570,"邮政快递电子面单打印");
+        Lodop.SET_PRINT_PAGESIZE(1,1000,1500,"");
+        Lodop.ADD_PRINT_BARCODE(9,148,190,60,"128C",newData.mailNo);
+        Lodop.ADD_PRINT_LINE(80,5,79,375,2,1);
+        Lodop.ADD_PRINT_TEXT(88,38,100,30,"快递包裹");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",16);
+        Lodop.SET_PRINT_STYLEA(0,"Bold",1);
+        Lodop.ADD_PRINT_TEXT(88,315,45,30,"2");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",16);
+        Lodop.SET_PRINT_STYLEA(0,"Bold",1);
+        Lodop.ADD_PRINT_LINE(121,5,120,375,2,1);
+        Lodop.ADD_PRINT_TEXT(135,10,30,67,"收件");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",14);
+        Lodop.SET_PRINT_STYLEA(0,"Bold",1);
+        Lodop.ADD_PRINT_TEXT(133,65,70,24,newData.reciptName);
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(133,228,115,24,newData.reciptPhone);
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(158,65,304,35,newData.detailAdress);
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_LINE(210,4,209,374,2,1);
+        Lodop.ADD_PRINT_TEXT(215,10,65,24,"订单号：");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(215,76,100,24,newData.orderNo);
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(215,204,90,24,"收件人签名：");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(238,203,75,24,"签收时间：");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(238,281,20,24,"月");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(238,310,20,24,"日");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(238,339,20,24,"时");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(248,10,100,20,"品名：");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(267,10,346,20,"博客苏打卢克撒娇抵抗力撒娇");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(312,12,90,20,"重量（克）：");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(312,105,65,20,"200");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_TEXT(312,218,135,20,"上海徐汇30局已检视");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",10);
+        Lodop.ADD_PRINT_LINE("90.28mm",5,340,375,2,1);
+        Lodop.ADD_PRINT_BARCODE(362,22,175,50,"128C",newData.mailNo);
+        Lodop.ADD_PRINT_TEXT(420,10,25,45,"收件");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",12);
+        Lodop.SET_PRINT_STYLEA(0,"Bold",1);
+        Lodop.ADD_PRINT_TEXT(419,66,65,20,newData.reciptName);
+        Lodop.ADD_PRINT_TEXT(419,216,100,20,newData.reciptPhone);
+        Lodop.ADD_PRINT_TEXT(438,51,322,20,newData.detailAdress);
+        Lodop.ADD_PRINT_LINE(474,4,475,374,2,1);
+        Lodop.ADD_PRINT_TEXT(491,11,25,55,"寄件");
+        Lodop.SET_PRINT_STYLEA(0,"FontSize",12);
+        Lodop.SET_PRINT_STYLEA(0,"Bold",1);
+        Lodop.ADD_PRINT_TEXT(496,51,100,20,"滨中信息");
+        Lodop.ADD_PRINT_TEXT(518,51,313,20,"上海市浦东新区龙东大道4877号二期大楼2层徐汇邮政");
         // Lodop.PREVIEW();
         Lodop.PRINT();
     }
@@ -401,17 +447,11 @@ class State {
         //水印效果begin----
 		Lodop.ADD_PRINT_TEXT('40%', '40%', 300,300, data.basketNum);
 		Lodop.SET_PRINT_STYLEA(0,'FontSize',100);
-		Lodop.SET_PRINT_STYLEA(0,'FontColor','#ddd');
+		Lodop.SET_PRINT_STYLEA(0,'FontColor','#eee');
 		Lodop.SET_PRINT_STYLEA(0,'ItemType',1);
-		// Lodop.SET_PRINT_STYLEA(0,'Repeat',true);
 		//水印效果end-----
-        // 条形码
-        // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
         // html内容模板
         Lodop.ADD_PRINT_HTM('1%', '1%', '98%', '94%', htmlStr);
-        // 打印表格
-        // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
-        // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
         // Lodop.PREVIEW();
         Lodop.PRINT();
     }
@@ -432,13 +472,8 @@ class State {
             Lodop.SET_PRINT_STYLEA(1, 'FontWeight', 600);
             // 条形码
             Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A',this.pickNo);
-            // 条形码
-            // Lodop.ADD_PRINT_BARCODE('5%','40%','30%','50px','128A','2019082146546');
             // html内容模板
             Lodop.ADD_PRINT_HTM('10%', '1%', '98%', '94%', htmlStr);
-            // 打印表格
-            // Lodop.ADD_PRINT_TABLE('35%', '1%', '98%', '74%', tableHtmlStr);
-            // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
             // Lodop.PREVIEW();
             Lodop.PRINT();
         });
@@ -447,6 +482,11 @@ class State {
 
     // 复检完毕
     @action allCheckFinished = () => {
+        const packageList = toJS(this.packageList);
+        if(packageList.length < 1){
+            message.warning('请扫描拣货单！');
+            return;
+        }
         this.checkFinished()
             .then(res => {
                 if(res.code == 0){
