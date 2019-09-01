@@ -39,7 +39,7 @@ class Index extends React.Component{
                 columns={colums}
                 // rowKey='id'
                 bordered
-                scroll={{x: 900, y: 350}}
+                scroll={{x: 1000, y: 350}}
                 getQueryData={State.getTableList}
                 pagination={toJS(State.pageInfo)}
             />

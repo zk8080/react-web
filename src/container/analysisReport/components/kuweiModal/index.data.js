@@ -44,8 +44,13 @@ const colums = [
         width: 100
     },
     {
-        title: '库存数量',
+        title: '库存容量',
         dataIndex: 'storeNums',
+        width: 100
+    },
+    {
+        title: '可用数量',
+        dataIndex: 'availableNums',
         width: 100
     }
 ];

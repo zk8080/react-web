@@ -62,7 +62,14 @@ class Index extends Component {
                             />)}
                         </FormItem>
                     </Col>
-                    <Col span={8}>
+                    <Col span='8'></Col>
+                    <Col span={8} className='query-btn'>
+                        <Button
+                            type="primary"
+                            onClick={this.handleSubmit}
+                        >查询</Button>
+                    </Col>
+                    {/* <Col span={8}>
                         <FormItem label="起始时间" hasFeedback>
                             {getFieldDecorator('startDate', {
                                 rules: [
@@ -85,16 +92,16 @@ class Index extends Component {
                                 ],
                             })(<DatePicker/>)}
                         </FormItem>
-                    </Col>
+                    </Col> */}
                 </Row>
-                <Row>
+                {/* <Row>
                     <Col span={24} className='query-btn'>
                         <Button
                             type="primary"
                             onClick={this.handleSubmit}
                         >查询</Button>
                     </Col>
-                </Row>
+                </Row> */}
             </div>
         );
     }

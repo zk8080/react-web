@@ -74,16 +74,16 @@ const colums = [
     //     dataIndex: 'notUsedStoreNums',
     //     width: 100
     // },
-    {
-        title: '出库数量',
-        dataIndex: 'outStorehouseNum',
-        width: 100
-    },
-    {
-        title: '库位可用天数',
-        dataIndex: 'availableDay',
-        width: 100
-    }
+    // {
+    //     title: '出库数量',
+    //     dataIndex: 'outStorehouseNum',
+    //     width: 100
+    // },
+    // {
+    //     title: '库位可用天数',
+    //     dataIndex: 'availableDay',
+    //     width: 100
+    // }
 ];
 
 export {
