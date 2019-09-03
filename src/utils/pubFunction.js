@@ -22,6 +22,12 @@ class pubFunction {
             console.log(e);
         }
     }
+
+    // 获取当前登录用户
+    getCurUser = () => {
+        const userInfo = session.getItem('userInfo');
+        return userInfo.name || '';
+    }
 }
 
 export default new pubFunction();

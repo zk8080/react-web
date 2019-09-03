@@ -2,6 +2,11 @@ import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
 import beginCheckState from '../beginCheck/index.state';
+import {getLodop} from '@assets/LodopFuncs';
+import {template} from '@assets/checkTemplate.js';
+import _ from 'lodash';
+import {formUtils, pubFunction} from '@utils';
+import moment from 'moment';
 
 class State {
 
@@ -155,6 +160,7 @@ class State {
             // code为1代表接口成功，Code为50001代表当前正有数据处于盘点中状态
             if(res.data.code == 0 || res.data.code == 50001){
                 beginCheckState.setTableList(res.data.data);
+                this.printCheckData(res.data.data)
                 if(callback){
                     callback();
                 }
@@ -163,6 +169,30 @@ class State {
         catch(e){
             console.log(e);
         }
+    }
+
+    // 打印盘点表
+    printCheckData = (arr) => {
+        const Lodop = getLodop();
+        if(!Lodop){
+            return;
+        }
+        const data = {date: moment().format('YYYY-MM-DD'), user: pubFunction.getCurUser(), tableList: arr};
+        const customerName = arr.length> 0? arr[0].customerName: ''
+        // 模板
+        const htmlStr = _.template(template)(data);
+        Lodop.PRINT_INIT('');
+        Lodop.ADD_PRINT_TEXT('2%','44%','30%','50px',`${customerName}盘点表`);
+        Lodop.SET_PRINT_STYLEA(1, 'FontSize', 20);
+        Lodop.SET_PRINT_STYLEA(1, 'FontWeight', 600);
+        // html内容模板
+        Lodop.ADD_PRINT_HTM('5%', '1%', '98%', '94%', htmlStr);
+        // 打印方向
+        Lodop.SET_PRINT_PAGESIZE(1,'','', 'A4');
+        // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
+        // Lodop.PREVIEW();
+        // // 直接打印
+        Lodop.PRINT();
     }
 
     // 组件销毁是重置state

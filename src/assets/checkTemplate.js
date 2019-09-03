@@ -2,7 +2,7 @@ import _ from 'lodash';
 _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 const template = `<head>
 <meta charset="UTF-8">
-<title>补货单列表</title>
+<title>盘点表</title>
 <style>
     h1{
         display: flex;
@@ -42,51 +42,41 @@ const template = `<head>
 </head>
 <body>
 <div class='package_info'>
-    <div class='info_cont info_no'>
-        <span>补货单号：</span>
-        <span>{{replenishmentNo}}</span>
+    <div class='info_cont'>
+        <span>盘点日期：</span>
+        <span>{{date}}</span>
     </div>
     <div class='info_cont'>
-        <span>日期：</span>
-        <span>{{createTime}}</span>
-    </div>
-    <div class='info_cont'>
-        <span>补货人：</span>
+        <span>盘点人：</span>
         <span>{{user}}</span>
     </div>
 </div>
 <table border="0" cellspacing="0" cellpadding='0'>
     <thead>
         <tr>
-            <th>序号</th>
             <th>商品名称</th>
+            <th>商品条码</th>
             <th>型号</th>
             <th>规格</th>
-            <th>单位</th>
-            <th>数量</th>
-            <th>商品条码</th>
-            <th>零拣库位</th>
-            <th>存储库位</th>
+            <th>库位类型</th>
+            <th>库位编号</th>
+            <th>库存数量</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>{{1}}</td>
-            <td>{{skuName}}</td>
-            <td>{{modelNo}}</td>
-            <td>{{spec}}</td>
-            <td>{{singleUnit}}</td>
-            <td>{{stockoutNums}}</td>
-            <td>{{commodityCode}}</td>
-            <td>{{storeCode}}</td>
-            <td>{{ccStoreStr}}</td>
-        </tr>
+        <% _.forEach(tableList, function(data, index){ %>
+            <tr>
+                <td>{{data.skuName}}</td>
+                <td>{{data.commodityCode}}</td>
+                <td>{{data.modelNo}}</td>
+                <td>{{data.spec}}</td>
+                <td>{{data.storehouseType}}</td>
+                <td>{{data.storehouseCode}}</td>
+                <td>{{data.storeNums}}</td>
+            </tr>
+        <% }) %>
     </tbody>
 </table>
-<div class='sum_box'>
-    <span>打印时间：</span>
-    <span>{{date}}</span>
-</div>
 </body>`;
 
 export {

@@ -1,7 +1,7 @@
 import {observable, action, toJS} from 'mobx';
 import Service from './index.service';
 import { message } from 'antd';
-import {formUtils} from '@utils';
+import {formUtils, pubFunction} from '@utils';
 import {getLodop} from '@assets/LodopFuncs';
 import {template} from '@assets/restockTemplate.js';
 import _ from 'lodash';
@@ -33,7 +33,6 @@ class State {
     @action setCurrent = (num = 1) => {
         this.pageInfo.current = num;
     }
-
     
     // 表格数据
     @observable tableList = [];
@@ -189,7 +188,7 @@ class State {
             return;
         }
         selectRow.map(item => {
-            const data = {...item, date: moment().format('YYYY-MM-DD HH:mm')};
+            const data = {...item, date: moment().format('YYYY-MM-DD HH:mm'), user: pubFunction.getCurUser()};
             if(data.ccStores){
                 const storeArr = data.ccStores.map(item => item.storeCode) || [];
                 data['ccStoreStr'] = storeArr.join(',');
@@ -207,9 +206,9 @@ class State {
             // 打印方向
             Lodop.SET_PRINT_PAGESIZE(1,'','', 'A4');
             // Lodop.SET_PRINT_STYLEA(0,"AngleOfPageInside",-90);
-            Lodop.PREVIEW();
+            // Lodop.PREVIEW();
             // // 直接打印
-            // Lodop.PRINT();
+            Lodop.PRINT();
         });
     }
 }
