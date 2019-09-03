@@ -13,13 +13,8 @@ class State {
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
-                appStore.setGlobalUserData(data);
-                appStore.setIsAuthority(true);
-                session.setItem('isAuthority', {login: true});
-                session.setItem('userInfo', data);
-                this.getAllDict(); 
+                this.getUserMenuInfo(data.id);
                 session.setCookie('Wms-Token', data.token);
-                window.appHistory.push('/');
             }else{
                 message.error(res.data.msg);
             }
@@ -58,6 +53,28 @@ class State {
         }
         catch(e){
             console.log(e);
+        }
+    }
+
+    // 查询用户信息
+    @action getUserMenuInfo = async (id) => {
+        const params = {
+            userKey: id
+        };
+        const res =  await Service.getUserMenuInfo(params);
+        try{
+            if(res.data.code === 0){
+                const {data} = res.data;
+                appStore.setGlobalUserData(data);
+                appStore.setIsAuthority(true);
+                session.setItem('isAuthority', {login: true});
+                session.setItem('userInfo', data);
+                this.getAllDict(); 
+                window.appHistory.push('/');
+            }
+        }
+        catch(e){
+            message.error(res.data.msg);
         }
     }
 

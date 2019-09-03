@@ -54,7 +54,7 @@ class Index extends Component {
                 // console.log( values, '---values---' );
                 const params = {
                     ...values,
-                    menuKeyList: this.state.checkedKeys
+                    menuKeyList: ['1', ...this.state.menuKeyList]
                 };
                 this.props.onOk(params);
             }
@@ -70,7 +70,8 @@ class Index extends Component {
             const {curRoleMenu} = this.props;
             const checkedKeys = curRoleMenu.menuInfoList && curRoleMenu.menuInfoList.map(item => item.id) || [];
             this.setState({
-                checkedKeys
+                checkedKeys,
+                menuKeyList: checkedKeys
             });
         }
     }

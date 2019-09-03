@@ -82,7 +82,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='角色'>
-                                    {getFieldDecorator('roleKey', {
+                                    {getFieldDecorator('roleKeyList', {
                                         rules: [
                                             {
                                                 required: true,

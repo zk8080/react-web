@@ -186,7 +186,9 @@ class State {
         try{
             if(res.data.code === 0){
                 const {data} = res.data;
-                this.setMenuList(data);
+                // 处理菜单列表
+                const menuList = data[0].childMenu;
+                this.setMenuList(menuList);
             }
         }
         catch(e){

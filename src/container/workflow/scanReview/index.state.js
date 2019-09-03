@@ -224,7 +224,6 @@ class State {
         catch(e){
             console.log(e);
         }
-        return res && res.data;
     }
 
     // 处理漏检单所需信息
@@ -487,16 +486,10 @@ class State {
             message.warning('请扫描拣货单！');
             return;
         }
-        this.checkFinished()
-            .then(res => {
-                if(res.code == 0){
-                    // 包裹列表
-                    const packageList = toJS(this.packageList);
-                    packageList.map(item => {
-                        this.curPickPrint(item);
-                    });
-                }
-            });
+        packageList.map(item => {
+            this.curPickPrint(item);
+        });
+        this.checkFinished();
     }
 
 }

@@ -117,8 +117,8 @@ class State {
         const res = await Service.getUserRoleInfo(params);
         if(res.data.code === 0){
             const {data} = res.data;
-            const roleKey = data.roleList.map(item => String(item.id));
-            const editData = {...data, roleKey};
+            const roleKeyList = data.roleList.map(item => String(item.id));
+            const editData = {...data, roleKeyList};
             this.setEditForm(editData);
             this.toggleDisabled(true);
             this.setIsAdd(false);
@@ -133,7 +133,7 @@ class State {
         const params = {
             ...record,
             userKey: record.id,
-            state: 1
+            state: 0
         };
         const res = await Service.editUserInfo(params);
         try{
@@ -157,7 +157,7 @@ class State {
         }else{
             const params = {
                 ...obj,
-                state: 0
+                state: 1
             };
             res = await Service.editUserInfo(params);
         }
