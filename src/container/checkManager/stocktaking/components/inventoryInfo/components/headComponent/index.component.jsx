@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
-import {DownLoad} from '@pubComs';
+import {DownLoad, AuthButton} from '@pubComs';
 import stocktakingState from '../../../../index.state';
 import approveState from '../../../approve/index.state';
 
@@ -14,7 +14,7 @@ class Index extends Component {
         if(this.props.beginCheck){
             this.props.beginCheck(()=>{
                 stocktakingState.setShow(2);
-            })
+            });
         }
     }
 
@@ -26,18 +26,27 @@ class Index extends Component {
     render() {
         return (
             <div className='header-component'>
-                <Button
-                    type='primary'
-                    onClick={this.beginCheck}
+                <AuthButton
+                    menuCode='CheckIngStart'  
                 >
-                    开始盘点
-                </Button>
-                <Button
-                    type='primary'
-                    onClick={this.approve}
+                    <Button
+                        type='primary'
+                        onClick={this.beginCheck}
+                    >
+                        开始盘点
+                    </Button>
+                </AuthButton>
+                <AuthButton
+                    menuCode='CheckIngApprove'
                 >
-                    审批
-                </Button>
+                    <Button
+                        type='primary'
+                        onClick={this.approve}
+                    >
+                        审批
+                    </Button>
+                </AuthButton>
+                
             </div>
         );
     }

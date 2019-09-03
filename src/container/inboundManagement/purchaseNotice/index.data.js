@@ -1,5 +1,6 @@
 import React from 'react';
 import State from './index.state';
+import {AuthButton} from '@pubComs';
 
 const colums = [
     {
@@ -79,11 +80,33 @@ const colums = [
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <a onClick={State.lookClick.bind(this, record)}>查看</a>
-                <a disabled={record.billState != 'save'} onClick={State.editClick.bind(this, record)}>修改</a>
-                <a disabled={record.billState != 'save'} onClick={State.okClick.bind(this, record)}>确认</a>
-                <a disabled={record.billState != 'confirm'} onClick={State.receiptClick.bind(this, record)}>收货</a>
-                <a disabled={record.billState != 'save'} onClick={State.deleteClick.bind(this, record)}>删除</a>
+                <AuthButton
+                    menuCode='PurchaseInformDownload'
+                    tableBtn={true}
+                >
+                    <a onClick={State.lookClick.bind(this, record)}>查看</a>
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformDownload'
+                    tableBtn={true}
+                >
+                    <a disabled={record.billState != 'save'} onClick={State.editClick.bind(this, record)}>修改</a>
+                </AuthButton><AuthButton
+                    menuCode='PurchaseInformDownload'
+                    tableBtn={true}
+                >
+                    <a disabled={record.billState != 'save'} onClick={State.okClick.bind(this, record)}>确认</a>
+                </AuthButton><AuthButton
+                    menuCode='PurchaseInformDownload'
+                    tableBtn={true}
+                >
+                    <a disabled={record.billState != 'confirm'} onClick={State.receiptClick.bind(this, record)}>收货</a>
+                </AuthButton><AuthButton
+                    menuCode='PurchaseInformDelete'
+                    tableBtn={true}
+                >
+                    <a disabled={record.billState != 'save'} onClick={State.deleteClick.bind(this, record)}>删除</a>
+                </AuthButton>
             </div>;
         }
     }

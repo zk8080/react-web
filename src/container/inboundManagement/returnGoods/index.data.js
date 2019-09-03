@@ -18,6 +18,11 @@ const colums = [
         width: 150
     },
     {
+        title: '商品条码',
+        dataIndex: 'commodityCode',
+        width: 150
+    },
+    {
         title: '商家规格',
         dataIndex: 'spec',
         width: 150

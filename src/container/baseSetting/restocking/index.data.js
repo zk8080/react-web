@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import State from './index.state';
+import {AuthButton} from '@pubComs';
+
 const colums = [
     {
         title: '补货单号',
@@ -75,7 +77,12 @@ const colums = [
         width: 100,
         fixed: 'right',
         render: (text, record, index) => {
-            return <a disabled={record.isFinally == 1} onClick={State.confirmRestock.bind(this, record)}>确认补货</a>;
+            return <AuthButton
+                menuCode='ReplenishProdcutAffirm'
+                tableBtn={true}
+            >
+                <a disabled={record.isFinally == 1} onClick={State.confirmRestock.bind(this, record)}>确认补货</a>;
+            </AuthButton>;
         }
     }
 ];

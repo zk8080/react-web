@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
-import {DownLoad} from '@pubComs';
+import {DownLoad, AuthButton} from '@pubComs';
 
 
 class Index extends Component {
@@ -16,12 +16,17 @@ class Index extends Component {
     render() {
         return (
             <div className='header-component'>
-                <Button
-                    type='primary'
-                    onClick={this.props.print}
+                <AuthButton
+                    menuCode='ReplenishProdcutPrint'
                 >
-                    打印补货单
-                </Button>
+                    <Button
+                        type='primary'
+                        onClick={this.props.print}
+                    >
+                        打印补货单
+                    </Button>
+                </AuthButton>
+                
             </div>
         );
     }

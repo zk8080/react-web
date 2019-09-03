@@ -1,5 +1,6 @@
 import React from 'react';
 import State from './index.state';
+import {AuthButton} from '@pubComs';
 
 const colums = [
     {
@@ -66,9 +67,24 @@ const colums = [
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <a onClick={State.detailClick.bind(this, record)}>查看</a>
-                <a disabled={(record.detail && record.detail.billState) != 'recevied'} onClick={State.shelfModal.bind(this, record)}>上架</a>
-                <a disabled={(record.detail && record.detail.billState) != 'stored'} onClick={State.auditClick.bind(this, record)}>审核</a>
+                <AuthButton
+                    menuCode='PurchaseInformDetail'
+                    tableBtn={true}
+                >
+                    <a onClick={State.detailClick.bind(this, record)}>查看</a>
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformUpLine'
+                    tableBtn={true}
+                >
+                    <a disabled={(record.detail && record.detail.billState) != 'recevied'} onClick={State.shelfModal.bind(this, record)}>上架</a>  
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformApprove'
+                    tableBtn={true}
+                >
+                    <a disabled={(record.detail && record.detail.billState) != 'stored'} onClick={State.auditClick.bind(this, record)}>审核</a>
+                </AuthButton>
             </div>;
         }
     }

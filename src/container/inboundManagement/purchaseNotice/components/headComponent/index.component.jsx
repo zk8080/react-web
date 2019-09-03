@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
-import {DownLoad, Upload} from '@pubComs';
+import {DownLoad, Upload, AuthButton} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {
@@ -35,21 +35,33 @@ class Index extends Component {
     render() {
         return (
             <div className='header-component'>
-                <Button
-                    type='primary'
-                    onClick={this.props.addClick}
+                <AuthButton
+                    menuCode='PurchaseInformAdd'
                 >
-                    新增
-                </Button>
-                <Upload
-                    action='/wms/warehousing/purchaseBill/import'
-                    successCbk={this.props.successCbk}
-                />
-                <DownLoad
-                    path='/warehousing/purchaseBill/downloadTemplate'
-                    params={{isFood: true}}
-                    title='模板下载'
-                />
+                    <Button
+                        type='primary'
+                        onClick={this.props.addClick}
+                    >
+                        新增
+                    </Button>
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformImport'
+                >
+                    <Upload
+                        action='/wms/warehousing/purchaseBill/import'
+                        successCbk={this.props.successCbk}
+                    />
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformDownload'
+                >
+                    <DownLoad
+                        path='/warehousing/purchaseBill/downloadTemplate'
+                        params={{isFood: true}}
+                        title='模板下载'
+                    />
+                </AuthButton>
             </div>
         );
     }
