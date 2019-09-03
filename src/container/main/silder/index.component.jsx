@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './index.less';
 import { Menu, Icon } from 'antd';
 import {Link, withRouter} from 'react-router-dom';
-import MenuData from './index.data';
+// import MenuData from './index.data';
 import {inject, observer} from 'mobx-react';
+import {session} from '@utils';
 
 const SubMenu = Menu.SubMenu;
 
@@ -14,17 +15,20 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            MenuData: [],
+            rootSubmenuKeys: [],
             openKeys: ['00'],
             selectedKeys: ['00']
         };
     }
 
-    rootSubmenuKeys = ['00', '01', '02', '03', '04', '05', '06', '07']
+    // rootSubmenuKeys = ['00', '01', '02', '03', '04', '05', '06', '07']
 
     //  打开时回调
     onOpenChange = (openKeys) => {
+        const {rootSubmenuKeys} = this.state;
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-        if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
             this.setState({ openKeys });
         } else {
             this.setState({
@@ -36,13 +40,13 @@ class Index extends Component {
     // 渲染父菜单
     renderMenu = (arr) => {
         return arr.map( item => {
-            if( item.children ){
-                return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
-                    {item.children && this.renderChildMenu(item.children)}
+            if( item.childMenu && item.menuGrade == '2' ){
+                return <SubMenu key={item.menuCode} title={<span><Icon type={item.icon} /><span>{item.menuName}</span></span>}>
+                    {item.childMenu && this.renderChildMenu(item.childMenu)}
                 </SubMenu>;
             }else{
                 return <Menu.Item 
-                    key={item.key}
+                    key={item.menuCode}
                     className='first-menu'
                 >
                     <span>
@@ -50,7 +54,7 @@ class Index extends Component {
                             type='home'
                         />
                         <span>
-                            <Link to={item.url}>{item.title}</Link>
+                            <Link to={item.routeUrl}>{item.menuName}</Link>
                         </span>
                     </span>
                 </Menu.Item>;
@@ -62,7 +66,7 @@ class Index extends Component {
     // 渲染子菜单
     renderChildMenu = (arr) => {
         return arr.map( item => {
-            return <Menu.Item key={item.key}><Link to={item.url}>{item.title}</Link></Menu.Item>;
+            return <Menu.Item key={item.menuCode}><Link to={item.routeUrl}>{item.menuName}</Link></Menu.Item>;
         } );
     }
 
@@ -76,26 +80,27 @@ class Index extends Component {
     // 获取当前路径 设置selectKey
     getCurSelectKeys = () => {
         const {pathname} = this.props.location;
+        const {MenuData} = this.state;
         // 循环菜单路由数据，拿到当前路径对应的key
         for (let i = 0; i < MenuData.length; i++) {
             const element = MenuData[i];
-            if( element.children ){
-                const childArr = element.children;
+            if( element.childMenu ){
+                const childArr = element.childMenu;
                 for (let j = 0; j < childArr.length; j++) {
-                    if( childArr[j].url === pathname ){
+                    if( childArr[j].routeUrl === pathname ){
                         return {
-                            selectedKeys: childArr[j].key,
-                            openKeys: element.key,
-                            title: childArr[j].title
+                            selectedKeys: childArr[j].menuCode,
+                            openKeys: element.menuCode,
+                            title: childArr[j].menuName
                         };
                     }
                 }
             }else{
                 if( element.url === pathname ){
                     return {
-                        selectedKeys: element.key,
-                        openKeys: element.key,
-                        title: element.title
+                        selectedKeys: element.menuCode,
+                        openKeys: element.menuCode,
+                        title: element.menuName
                     };
                 }
             }   
@@ -116,7 +121,14 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        
+        const userInfo = session.getItem('userInfo');
+        const allPermissionData = userInfo.menuList;
+        const MenuData = allPermissionData[0].childMenu;
+        const rootSubmenuKeys = MenuData.map(item => item.menuCode);
+        this.setState({
+            MenuData,
+            rootSubmenuKeys
+        });
     }
 
     componentDidUpdate(prevProps, prevState){
@@ -141,6 +153,7 @@ class Index extends Component {
 
     render() {
         const {appStore} = this.props;
+        const {MenuData} = this.state;
         return (
             <div
                 className={!appStore.collapsed ? 'silder collapsed' : 'silder'}

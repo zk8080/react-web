@@ -1,6 +1,6 @@
 import React from 'react';
 import State from './index.state';
-
+import {AuthButton} from '@pubComs';
 const colums = [
     {
         title: '仓库区',
@@ -36,9 +36,24 @@ const colums = [
         width: '15%',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                { record.state == 1 &&  <span onClick={State.stopClick.bind(this, record)}>停用</span> }
-                { record.state == 3 &&  <span onClick={State.deleteClick.bind(this, record)}>激活</span> }
-                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
+                <AuthButton
+                    menuCode='strorehouseRecordStop'
+                    tableBtn={true}
+                >
+                    { record.state == 1 &&  <a onClick={State.stopClick.bind(this, record)}>停用</a> }
+                </AuthButton>
+                <AuthButton
+                    menuCode='strorehouseRecordDelete'
+                    tableBtn={true}
+                >
+                    { record.state == 3 &&  <a onClick={State.deleteClick.bind(this, record)}>激活</a> }
+                </AuthButton>
+                <AuthButton
+                    menuCode='strorehouseRecordDelete'
+                    tableBtn={true}
+                >
+                    <a onClick={State.deleteClick.bind(this, record)}>删除</a>
+                </AuthButton>
             </div>;
         }
     }

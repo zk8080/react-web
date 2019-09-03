@@ -7,6 +7,7 @@ import BarcodeComponent from './barcode/barcode.component';
 import Upload from './Upload/index.component';
 import ProductSelect from './ProductSelect/index.component';
 import NewTable from './newTable/index.component';
+import AuthButton from './AuthButton/index.component';
 
 export {
     Table,
@@ -17,5 +18,6 @@ export {
     BarcodeComponent,
     Upload,
     ProductSelect,
-    NewTable
+    NewTable,
+    AuthButton
 };

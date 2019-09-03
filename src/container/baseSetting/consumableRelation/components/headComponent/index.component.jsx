@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
-
+import {AuthButton} from '@pubComs';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -33,13 +33,18 @@ class Index extends Component {
 
     render() {
         return (
-            <div className='header-component'>
-                <Button
-                    type='primary'
-                    onClick={this.props.addClick}
+            <div className='header-component'>  
+                <AuthButton
+                    menuCode='consumablesAdd'
                 >
-                    新增
-                </Button>
+                    <Button
+                        type='primary'
+                        onClick={this.props.addClick}
+                    >
+                        新增
+                    </Button>
+                </AuthButton>
+                
             </div>
         );
     }

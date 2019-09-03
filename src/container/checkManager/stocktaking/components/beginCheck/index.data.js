@@ -31,7 +31,7 @@ const colums = [
     },
     {
         title: '库位编码',
-        dataIndex: 'storeCode',
+        dataIndex: 'storehouseCode',
         width: 100
     },
     {
