@@ -1,5 +1,6 @@
 import React from 'react';
 import State from './index.state';
+import {AuthButton} from '@pubComs';
 
 const colums = [
     {
@@ -33,7 +34,12 @@ const colums = [
         width: 100,
         fixed: 'right',
         render: (text, record, index) => {
-            return <a onClick={State.deleteClick.bind(this, record)}>删除</a>;
+            return <AuthButton
+                menuCode='WarningRuleDelete'
+                tableBtn={true}
+            >
+                <a onClick={State.deleteClick.bind(this, record)}>删除</a>
+            </AuthButton>;
         }
     }
     

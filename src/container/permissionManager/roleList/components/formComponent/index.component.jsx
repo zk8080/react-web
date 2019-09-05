@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
 import {formUtils} from '@utils';
+import {AuthButton} from '@pubComs';
 const FormItem = Form.Item;
-
 
 const onFieldsChange = (props, changedFields) => {
     props.setQueryData({...props.queryData, ...formUtils.formToObj(changedFields)});
@@ -48,10 +48,14 @@ class Index extends Component {
                         
                         </Col>
                         <Col span={8} className='query-btn'>
-                            <Button
-                                type="primary"
-                                onClick={this.handleSubmit}
-                            >查询</Button>
+                            <AuthButton
+                                menuCode='RoleManageQuery'
+                            >
+                                <Button
+                                    type="primary"
+                                    onClick={this.handleSubmit}
+                                >查询</Button>
+                            </AuthButton>
                         </Col>
                     </Row>
                 </Form>

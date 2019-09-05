@@ -1,6 +1,7 @@
 import React from 'react';
 import State from './index.state';
 import moment from 'moment';
+import {AuthButton} from '@pubComs';
 
 const colums = [
     {
@@ -77,7 +78,13 @@ const colums = [
         fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <a onClick={State.detailClick.bind(this, record)}>查看</a>
+                <AuthButton
+                    menuCode='ScanReviewDetail'
+                    tableBtn={true}
+                >
+                    <a onClick={State.detailClick.bind(this, record)}>查看</a>
+                </AuthButton>
+                
             </div>;
         }
     }

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { DownLoad } from '@pubComs'
+import React, { Component } from 'react';
+import { DownLoad, AuthButton } from '@pubComs';
 
 class Index extends Component{
     constructor(props){
@@ -8,8 +8,13 @@ class Index extends Component{
 
     render(){
         return (
-            <DownLoad path='/statistics/export/storeUsedExcel' params={this.props.queryData}/>
-        )
+            <AuthButton
+                menuCode='StorehouseUseringReposrtExport'
+            >
+                <DownLoad path='/statistics/export/storeUsedExcel' params={this.props.queryData}/>
+            </AuthButton>
+            
+        );
     }
 }
 

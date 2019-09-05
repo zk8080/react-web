@@ -81,27 +81,30 @@ const colums = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <AuthButton
-                    menuCode='PurchaseInformDownload'
+                    menuCode='PurchaseInformDetail'
                     tableBtn={true}
                 >
                     <a onClick={State.lookClick.bind(this, record)}>查看</a>
                 </AuthButton>
                 <AuthButton
-                    menuCode='PurchaseInformDownload'
+                    menuCode='PurchaseInformUpdate'
                     tableBtn={true}
                 >
                     <a disabled={record.billState != 'save'} onClick={State.editClick.bind(this, record)}>修改</a>
-                </AuthButton><AuthButton
-                    menuCode='PurchaseInformDownload'
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformAffirm'
                     tableBtn={true}
                 >
                     <a disabled={record.billState != 'save'} onClick={State.okClick.bind(this, record)}>确认</a>
-                </AuthButton><AuthButton
-                    menuCode='PurchaseInformDownload'
+                </AuthButton>
+                <AuthButton
+                    menuCode='PurchaseInformReceiving'
                     tableBtn={true}
                 >
                     <a disabled={record.billState != 'confirm'} onClick={State.receiptClick.bind(this, record)}>收货</a>
-                </AuthButton><AuthButton
+                </AuthButton>
+                <AuthButton
                     menuCode='PurchaseInformDelete'
                     tableBtn={true}
                 >

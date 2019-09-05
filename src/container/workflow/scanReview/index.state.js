@@ -193,7 +193,7 @@ class State {
     // 判断当前包裹拣货完成，进行打印清单和面单
     curPickPrint = (obj) => {
         this.printData(obj);
-        this.printPickData(obj);
+        // this.printPickData(obj);
     }
 
     // 监听拣货完成
@@ -358,7 +358,7 @@ class State {
             return;
         }
         // 模板
-        const htmlStr = _.template(template)(newData);
+        // const htmlStr = _.template(template)(newData);
         Lodop.PRINT_INIT('');
         Lodop.SET_PRINTER_INDEX('express_print');
         // Lodop.On_Return=function(TaskID,Value){
@@ -376,7 +376,7 @@ class State {
         Lodop.ADD_PRINT_TEXT(88,38,100,30,'快递包裹');
         Lodop.SET_PRINT_STYLEA(0,'FontSize',16);
         Lodop.SET_PRINT_STYLEA(0,'Bold',1);
-        Lodop.ADD_PRINT_TEXT(88,315,45,30,'2');
+        Lodop.ADD_PRINT_TEXT(88,315,45,30,newData.basketNum);
         Lodop.SET_PRINT_STYLEA(0,'FontSize',16);
         Lodop.SET_PRINT_STYLEA(0,'Bold',1);
         Lodop.ADD_PRINT_LINE(121,5,120,375,2,1);
@@ -406,11 +406,17 @@ class State {
         Lodop.SET_PRINT_STYLEA(0,'FontSize',10);
         Lodop.ADD_PRINT_TEXT(248,10,100,20,'品名：');
         Lodop.SET_PRINT_STYLEA(0,'FontSize',10);
-        Lodop.ADD_PRINT_TEXT(267,10,346,20,'博客苏打卢克撒娇抵抗力撒娇');
+        const skuNameArr = [];
+        // 循环商品名称
+        newData.packageCommodities && newData.packageCommodities.map(item => {
+            skuNameArr.push(`${item.skuName}*${item.packageNums}${String.fromCharCode(13)}`);
+        });
+        const skuNameStr = skuNameArr.join('');
+        Lodop.ADD_PRINT_TEXT(267,10,346,20, skuNameStr);
         Lodop.SET_PRINT_STYLEA(0,'FontSize',10);
         Lodop.ADD_PRINT_TEXT(312,12,90,20,'重量（克）：');
         Lodop.SET_PRINT_STYLEA(0,'FontSize',10);
-        Lodop.ADD_PRINT_TEXT(312,105,65,20,'200');
+        Lodop.ADD_PRINT_TEXT(312,105,65,20, newData.presetWeight * 1000);
         Lodop.SET_PRINT_STYLEA(0,'FontSize',10);
         Lodop.ADD_PRINT_TEXT(312,218,135,20,'上海徐汇30局已检视');
         Lodop.SET_PRINT_STYLEA(0,'FontSize',10);

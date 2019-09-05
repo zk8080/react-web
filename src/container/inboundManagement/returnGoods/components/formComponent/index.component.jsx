@@ -111,7 +111,7 @@ class Index extends Component {
                 <Row>
                     <Col span={24} className='query-btn'>
                         <AuthButton
-                            menuCode='PurchaseInformQuery'
+                            menuCode='SendBackProdcutQuery'
                         >
                             <Button
                                 type="primary"

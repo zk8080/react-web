@@ -43,7 +43,7 @@ const colums = [
                     { record.state == 1 &&  <a onClick={State.stopClick.bind(this, record)}>停用</a> }
                 </AuthButton>
                 <AuthButton
-                    menuCode='strorehouseRecordDelete'
+                    menuCode='strorehouseRecordActivate'
                     tableBtn={true}
                 >
                     { record.state == 3 &&  <a onClick={State.deleteClick.bind(this, record)}>激活</a> }

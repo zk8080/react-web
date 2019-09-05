@@ -84,7 +84,7 @@ class Index extends Component {
         // 循环菜单路由数据，拿到当前路径对应的key
         for (let i = 0; i < MenuData.length; i++) {
             const element = MenuData[i];
-            if( element.childMenu ){
+            if( element.childMenu.length > 0 ){
                 const childArr = element.childMenu;
                 for (let j = 0; j < childArr.length; j++) {
                     if( childArr[j].routeUrl === pathname ){
@@ -96,7 +96,7 @@ class Index extends Component {
                     }
                 }
             }else{
-                if( element.url === pathname ){
+                if( element.routeUrl === pathname ){
                     return {
                         selectedKeys: element.menuCode,
                         openKeys: element.menuCode,
@@ -105,11 +105,13 @@ class Index extends Component {
                 }
             }   
         }
+        
         return {};
     }
 
     componentWillMount() {
         const keyObj = this.getCurSelectKeys();
+        console.log(keyObj, '---keyObj---');
         if(keyObj){
             this.setState({
                 selectedKeys: [keyObj.selectedKeys],

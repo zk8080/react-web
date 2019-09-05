@@ -18,6 +18,10 @@ class Index extends Component {
         inventoryInfoState.getMerchantsList();
     }
 
+    componentWillUnmount(){
+        State.setShow(1);
+    }
+
     render() {
         return (
             <React.Fragment>

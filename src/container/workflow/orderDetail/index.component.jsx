@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import {toJS} from 'mobx';
-import { Table } from '@pubComs';
+import { Table, AuthButton } from '@pubComs';
 import { Form, Row, Col, Input, Button } from 'antd';
 import './index.less';
 import moment from 'moment';
@@ -101,12 +101,17 @@ class Index extends Component {
                             {
                                 State.detailData.isLock != 1 ?
                                     State.disabled ?
-                                        <Button
-                                            type='primary'
-                                            onClick={State.editOrder}
+                                        <AuthButton
+                                            menuCode='ShipmentsOrderDetailUpdate'
                                         >
-                                            修改
-                                        </Button>
+                                            <Button
+                                                type='primary'
+                                                onClick={State.editOrder}
+                                            >
+                                                修改
+                                            </Button>
+                                        </AuthButton>
+                                        
                                         : <React.Fragment>
                                             <Button
                                                 type='primary'
@@ -123,12 +128,16 @@ class Index extends Component {
                                     </React.Fragment>
                                 : null
                             }
-                            <Button
-                                type='primary'
-                                onClick={State.unPackageClick}
+                            <AuthButton
+                                menuCode='ShipmentsOrderDetailChaibao'
                             >
-                                拆包
-                            </Button>
+                                <Button
+                                    type='primary'
+                                    onClick={State.unPackageClick}
+                                >
+                                    拆包
+                                </Button>
+                            </AuthButton>
                         </div>
                     }
                     

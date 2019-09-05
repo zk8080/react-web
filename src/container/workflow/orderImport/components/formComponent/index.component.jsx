@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
-import {Select, DownLoad} from '@pubComs';
+import {Select, DownLoad, AuthButton} from '@pubComs';
 import { formUtils } from '@utils/index';
 const FormItem = Form.Item;
 
@@ -118,10 +118,14 @@ class Index extends Component {
                         </FormItem>
                     </Col>
                     <Col span={12} className='query-btn'>
-                        <Button
-                            type="primary"
-                            onClick={this.handleSubmit}
-                        >查询</Button>
+                        <AuthButton
+                            menuCode='ShipmentsOrderQuery'
+                        >
+                            <Button
+                                type="primary"
+                                onClick={this.handleSubmit}
+                            >查询</Button>
+                        </AuthButton>
                     </Col>
                 </Row>
             </div>

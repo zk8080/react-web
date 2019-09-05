@@ -68,19 +68,19 @@ const colums = [
         render: (text, record, index) => {
             return <div className='opreat-right'>
                 <AuthButton
-                    menuCode='PurchaseInformDetail'
+                    menuCode='PutawayDetail'
                     tableBtn={true}
                 >
                     <a onClick={State.detailClick.bind(this, record)}>查看</a>
                 </AuthButton>
                 <AuthButton
-                    menuCode='PurchaseInformUpLine'
+                    menuCode='PutawayUpLine'
                     tableBtn={true}
                 >
                     <a disabled={(record.detail && record.detail.billState) != 'recevied'} onClick={State.shelfModal.bind(this, record)}>上架</a>  
                 </AuthButton>
                 <AuthButton
-                    menuCode='PurchaseInformApprove'
+                    menuCode='PutawayApprove'
                     tableBtn={true}
                 >
                     <a disabled={(record.detail && record.detail.billState) != 'stored'} onClick={State.auditClick.bind(this, record)}>审核</a>

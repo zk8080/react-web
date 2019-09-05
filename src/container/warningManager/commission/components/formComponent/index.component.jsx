@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button, DatePicker} from 'antd';
 import {formUtils} from '@utils';
-import {Select} from '@pubComs'; 
+import {Select, AuthButton} from '@pubComs'; 
 
 const FormItem = Form.Item;
 
@@ -97,10 +97,14 @@ class Index extends Component {
                         </FormItem>
                     </Col>
                     <Col span={6} className='query-btn'>
-                        <Button
-                            type="primary"
-                            onClick={this.handleSubmit}
-                        >查询</Button>
+                        <AuthButton
+                            menuCode='WarningManageQuery'
+                        >
+                            <Button
+                                type="primary"
+                                onClick={this.handleSubmit}
+                            >查询</Button>
+                        </AuthButton>
                     </Col>
                 </Row>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import State from './index.state';
-import {Table} from '@pubComs';
+import {Table, AuthButton} from '@pubComs';
 import {colums} from './index.data';
 import './index.less';
 import { toJS } from 'mobx';
@@ -73,12 +73,17 @@ class Index extends Component {
         return (
             <div className='merge_order'> 
                 <div className='head_btn'>
-                    <Button
-                        type='primary'
-                        onClick={this.mergeOrder}
+                    <AuthButton
+                        menuCode='mergePackage'
                     >
-                        合包
-                    </Button>
+                        <Button
+                            type='primary'
+                            onClick={this.mergeOrder}
+                        >
+                            合包
+                        </Button>
+                    </AuthButton>
+                    
                 </div>
                 <Table
                     dataSource={toJS(State.tableList)}

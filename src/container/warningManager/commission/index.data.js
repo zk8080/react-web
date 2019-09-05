@@ -1,5 +1,6 @@
 import React from 'react';
 import State from './index.state';
+import {AuthButton} from '@pubComs';
 
 const colums = [
     {
@@ -36,7 +37,14 @@ const colums = [
         width: 100,
         fixed: 'right',
         render: (text, record, index) => {
-            return <a disabled={record.agentState == 1} onClick={State.dealClick.bind(this, record)}>处理</a>;
+
+            return <AuthButton
+                    menuCode='WarningManageDispose'
+                    tableBtn={true}
+                >
+                    <a disabled={record.agentState == 1} onClick={State.dealClick.bind(this, record)}>处理</a>
+                </AuthButton>;
+             
         }
     }
     

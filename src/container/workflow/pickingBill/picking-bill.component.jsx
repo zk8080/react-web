@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Button, Row, Table, Tabs, Input, Icon, Col, Modal, message } from 'antd';
 import { PaginationProps } from 'antd/es/pagination';
 import { TableRowSelection } from 'antd/es/table';
+import {AuthButton} from '@pubComs';
 
 import {
 	invoiceColumns,
@@ -87,8 +88,16 @@ class PickingBillComponent extends Component{
 		};
 		return <div>
 					<Row  className={'header-component'}>
-                        <Button type="danger" onClick={this.generatorPickBill.bind(this)}>手动生成拣货单</Button>
-                        <Button type="primary" icon="printer" onClick={this.printerPickBill.bind(this)}>打印拣货单</Button>
+                        <AuthButton
+                            menuCode='BuildPickingProductHand'
+                        >
+                            <Button type="danger" onClick={this.generatorPickBill.bind(this)}>手动生成拣货单</Button>   
+                        </AuthButton>
+                        <AuthButton
+                            menuCode='BuildPickingProductPrint'
+                        >
+                            <Button type="primary" icon="printer" onClick={this.printerPickBill.bind(this)}>打印拣货单</Button>   
+                        </AuthButton>
                         {/* <Button type="primary" icon="printer" onClick={this.printBarCode.bind(this)}>打印商品条码</Button> */}
                     </Row>
                     <Table

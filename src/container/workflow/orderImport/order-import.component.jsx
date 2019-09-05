@@ -2,7 +2,8 @@ import React, { Component }  from 'react';
 import { observer } from 'mobx-react';
 import { Table, Button } from 'antd';
 import {toJS} from 'mobx';
-import {Upload, DownLoad, NewTable} from '@pubComs';
+import {Upload, DownLoad, NewTable, AuthButton} from '@pubComs';
+
 // import { Table } from '@pubComs';
 import './index.less';
 import {formUtils} from '@utils';
@@ -37,20 +38,32 @@ class OrderImportComponent extends Component{
                         // productList={toJS(OrderImportState.allProductList)}
                     />
                     <div className='header-component'>
-                        <Upload
-                            action='/wms/order/excelImport'
-                            successCbk={OrderImportState.loadGrid}
-                            name='excelOrders'
-                        />
-                        <DownLoad
-                            path='/order/downloadTemplate'
-                            title='模板下载'
-                        />
-                        <DownLoad
-                            path={'/order/excelExport'}
-                            params={formUtils.formToParams(toJS(OrderImportState.detailData))}
-                            title='导出'
-                        />
+                        <AuthButton
+                            menuCode='ShipmentsOrderImport'
+                        >
+                            <Upload
+                                action='/wms/order/excelImport'
+                                successCbk={OrderImportState.loadGrid}
+                                name='excelOrders'
+                            />
+                        </AuthButton>
+                        <AuthButton
+                            menuCode='ShipmentsOrderDownload'
+                        >
+                            <DownLoad
+                                path='/order/downloadTemplate'
+                                title='模板下载'
+                            />
+                        </AuthButton>
+                        <AuthButton
+                            menuCode='ShipmentsOrderExoprt'
+                        >
+                            <DownLoad
+                                path={'/order/excelExport'}
+                                params={formUtils.formToParams(toJS(OrderImportState.detailData))}
+                                title='导出'
+                            />
+                        </AuthButton>
                     </div>
                     <NewTable
                         loading={OrderImportState.loading}

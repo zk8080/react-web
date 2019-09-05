@@ -1,5 +1,6 @@
 import React from 'react';
 import State from './index.state';
+import {AuthButton} from '@pubComs';
 
 const colums = [
     {
@@ -19,8 +20,18 @@ const colums = [
         // fixed: 'right',
         render: (text, record, index) => {
             return <div className='opreat-right'>
-                <span onClick={State.editClick.bind(this, record)}>修改</span>
-                <span onClick={State.deleteClick.bind(this, record)}>删除</span>
+                <AuthButton
+                    menuCode='RoleManageUpdate'
+                    tableBtn={true}
+                >
+                    <a onClick={State.editClick.bind(this, record)}>修改</a>
+                </AuthButton>
+                <AuthButton
+                    menuCode='RoleManageDelete'
+                    tableBtn={true}
+                >
+                    <a onClick={State.deleteClick.bind(this, record)}>删除</a>
+                </AuthButton>
             </div>;
         }
     }
