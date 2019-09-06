@@ -84,7 +84,7 @@ class Index extends Component {
         // 循环菜单路由数据，拿到当前路径对应的key
         for (let i = 0; i < MenuData.length; i++) {
             const element = MenuData[i];
-            if( element.childMenu.length > 0 ){
+            if( element.childMenu.length > 0 && element.menuGrade == '2' ){
                 const childArr = element.childMenu;
                 for (let j = 0; j < childArr.length; j++) {
                     if( childArr[j].routeUrl === pathname ){

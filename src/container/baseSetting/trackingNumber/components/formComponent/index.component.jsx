@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Row, Col, Input, Button} from 'antd';
 import {formUtils, pubFunction} from '@utils';
-import {Select} from '@pubComs';
+import {AuthButton} from '@pubComs';
 
 const FormItem = Form.Item;
 
@@ -23,21 +23,17 @@ class Index extends Component {
         this.state={};
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.getData({
+                    search: values,
+                    current: 1
+                });
+            }
+        });
+    };
 
     render() {
         const {getFieldDecorator} = this.props.form;
@@ -46,20 +42,24 @@ class Index extends Component {
                 <Row>
                     <Col span={8}>
                         <FormItem label="快递单号" hasFeedback>
-                            {getFieldDecorator('houseName', {
+                            {getFieldDecorator('expressNum', {
                                 rules: [],
                             })(<Input/>)}
                         </FormItem>
                     </Col>
+                    <Col span={8}></Col>
                     <Col span={8} className='query-btn'>
-                        <Button
-                            type="primary"
-                        >查询</Button>
+                        <AuthButton 
+                            menuCode='uploadMailNoQeruy'
+                        >
+                            <Button
+                                type="primary"
+                                onClick={this.handleSubmit}
+                            >查询</Button>
+                        </AuthButton>
+                        
                     </Col>
                 </Row>
-                {/* <div className='query-btn'>
-                    
-                </div> */}
             </div>
         );
     }

@@ -1,12 +1,12 @@
 const colums = [
     {
         title: '快递单号',
-        dataIndex: 'houseName',
+        dataIndex: 'expressNum',
         width: 100
     },
     {
-        title: '状态',
-        dataIndex: 'areaCode',
+        title: '使用次数',
+        dataIndex: 'useTimes',
         width: 100
     }
 ];

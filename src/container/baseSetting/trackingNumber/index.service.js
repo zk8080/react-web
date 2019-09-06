@@ -1,14 +1,11 @@
 import axios from 'axios';
 
-// 查询仓库信息url
-const getQueryDataList = '/storehouse/loadGrid';
-// 新增库位信息url
-const addHouseUrl = '/storehouse/add';
-// 修改仓库信息url
-const editHouseUrl = '/storehouse/update';
-// 删除仓库信息
-const deleteHouseUrl = '/storehouse/delete';
-
+// 查询快递单号url
+const getQueryDataList = '/expressNumber/loadGrid';
+// 新增快递单号url
+const addExpressUrl = '/expressNumber/batchAdd';
+// 查询可用量
+const getExpressNumsUrl = '/expressNumber/available';
 
 class Service {
 
@@ -25,34 +22,24 @@ class Service {
         });
     }
 
-    addHouse = req => {
+    addExpress = req => {
         return new Promise((resolve, reject) => {
-            axios.post(addHouseUrl, req)
+            axios.get(addExpressUrl, {
+                params: req
+            })
                 .then(res => {
                     resolve(res);
                 })
                 .catch(e => {
                     reject(e);
-                    console.log(e);
-                });
-        });
-    }
-    editHouse = req => {
-        return new Promise((resolve, reject) => {
-            axios.post(editHouseUrl, req)
-                .then(res => {
-                    resolve(res);
-                })
-                .catch(e => {
-                    reject(e);
-                    console.log(e);
-                });
-        });
-    }
 
-    deleteHouse = req => {
+                    console.log(e);
+                });
+        });
+    }
+    getExpressNums = req => {
         return new Promise((resolve, reject) => {
-            axios.get(deleteHouseUrl, {
+            axios.get(getExpressNumsUrl, {
                 params: req
             })
                 .then(res => {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'antd';
+import {AuthButton} from '@pubComs';
 
 class Index extends Component {
     constructor(props) {
@@ -7,39 +8,24 @@ class Index extends Component {
         this.state = {};
     }
 
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
-    componentWillUnmount() {
-
-    }
 
     render() {
         return (
             <div className='header-component'>
-                <Button
-                    type='primary'
-                    onClick={this.props.addClick}
+                <AuthButton
+                    menuCode='uploadMailNoAdd'
                 >
-                    新增
-                </Button>
+                    <Button
+                        type='primary'
+                        onClick={this.props.addClick}
+                    >
+                        新增
+                    </Button>
+                </AuthButton>
+                <div className='nums'>
+                    <span>可用单量：</span>
+                    <span>{this.props.expressNums}</span>
+                </div>
             </div>
         );
     }

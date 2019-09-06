@@ -24,6 +24,7 @@ class Index extends Component {
 
     componentDidMount() {
         State.getQueryData();
+        State.getExpressNums();
     }
 
     saveClick = (obj) => {
@@ -36,19 +37,22 @@ class Index extends Component {
 
     render() {
         return (
-            <div>
+            <div className='track_cont'>
                 <Form>
                     <FormComponent 
                         queryData={toJS(State.queryForm)}
                         setQueryData={State.setQueryForm}
-                        getData={State.getProductList}
+                        getData={State.getQueryData}
                     />
                 </Form>
                 <HeadComponent
                     addClick={State.addClick}
+                    expressNums={State.expressNums}
                 />
                 <Table
                     dataSource={toJS(State.tableList)}
+                    getQueryData={State.getQueryData}
+                    pagination={toJS(State.pageInfo)}
                     columns={colums}
                     rowKey='id'
                 />
@@ -56,10 +60,6 @@ class Index extends Component {
                     visible={State.visible}
                     cancelClick={State.toggleVisible}
                     onOk={this.saveClick}
-                    detailData={toJS(State.editForm)}
-                    setDetailData={State.setEditForm}
-                    disabled={State.disabled}
-                    toggleDisabled={State.toggleDisabled}
                 />
             </div>
         );

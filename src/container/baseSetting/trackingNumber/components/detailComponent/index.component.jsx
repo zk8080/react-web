@@ -6,17 +6,8 @@ import { formUtils } from '@utils/index';
 
 const FormItem = Form.Item;
 
-const onFieldsChange = (props, changedFields) => {
-    props.setDetailData({...props.detailData, ...formUtils.formToObj(changedFields)});
-};
-
-const mapPropsToFields = (props) => {
-    return formUtils.objToForm(props.detailData);
-};
-
 @Form.create({
-    mapPropsToFields,
-    onFieldsChange
+
 })
 class Index extends Component {
 
@@ -24,7 +15,7 @@ class Index extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onOk({...this.props.detailData, ...values});
+                this.props.onOk({...values});
             }
         });
     }
@@ -52,7 +43,7 @@ class Index extends Component {
                         <Row>
                             <Col span={24}>
                                 <FormItem label='开始单号'>
-                                    {getFieldDecorator('houseName', {
+                                    {getFieldDecorator('startNumber', {
                                         rules: [{
                                             required: true,
                                             message: '必填'
@@ -66,7 +57,7 @@ class Index extends Component {
                             </Col>
                             <Col span={24}>
                                 <FormItem label='结束单号'>
-                                    {getFieldDecorator('areaCode', {
+                                    {getFieldDecorator('endNumber', {
                                         rules: [
                                             {
                                                 required: true,

@@ -17,26 +17,38 @@ class State {
         this.tableList = arr;
     }
 
+    // 分页数据
+    @observable pageInfo = {
+        current: 1,
+        pageSize: 15,
+        total: 15
+    }
+    @action setPageInfo = (obj = {}) => {
+        this.pageInfo = obj;
+    }
+
     //获取表格数据
-    @action getQueryData = async (params = {}) => {
-        const res = await Service.getQueryData(params);
+    @action getQueryData = async (page) => {
+        const res = await Service.getQueryData({
+            ...this.pageInfo,
+            ...page
+        });
         try{
             if(res.data.code === 0){
-                const {rows} = res.data.data;
+                const {rows, current, pageSize, total} = res.data.data;
                 this.setTableList(rows);
+                this.setPageInfo({
+                    current,
+                    pageSize,
+                    total
+                });
             }else{
-                console.log(res.data.msg);
+                // message.error(res.data.msg);
             }
         }
         catch(e){
             console.log(e);
         }
-    }
-
-    // 表单编辑数据
-    @observable editForm = {};
-    @action setEditForm = (obj = {}) => {
-        this.editForm = obj;
     }
 
     // 编辑弹窗显示标识
@@ -45,49 +57,28 @@ class State {
         this.visible = !this.visible;
     }
 
-    // 弹窗状态标识，从新增进入还是修改进入 新增： true; 修改：false;
-    @observable isAdd = false;
-    @action setIsAdd = (bol = false) => {
-        this.isAdd = bol;
-    }
-
-    // 详情弹窗是否可编辑
-    @observable disabled = true;
-    @action toggleDisabled = (bol = false) => {
-        this.disabled = bol;
-    }
 
     // 新增按钮
     @action addClick = () => {
-        this.setEditForm();
-        this.setIsAdd(true);
-        this.toggleDisabled(false);
         this.toggleVisible();
     }
 
-    // 点击修改
-    @action editClick = (record) => {
-        this.toggleDisabled(true);
-        this.setIsAdd(false);
-        this.setEditForm(record);
-        this.toggleVisible();
+    // 可用量
+    @observable expressNums = null;
+    @action setExpressNums = (num) => {
+        this.expressNums = num;
     }
 
-    // 保存
-    @action saveData = async (obj) => {
-        let res;
-        if(this.isAdd){
-            res = await Service.addHouse(obj);
-        }else{
-            res = await Service.editHouse(obj);
-        }
+    // 查询快递单可用量
+    @action getExpressNums = async () => {
+        const res = await Service.getExpressNums({});
         try{
             if(res.data.code === 0){
-                message.success(res.data.msg);
-                this.toggleVisible();
-                this.getQueryData();
+                // const {rows} = res.data.data;
+                // this.setTableList(rows);
+                this.setExpressNums(res.data.data);
             }else{
-                message.error(res.data.msg);
+                // message.error(res.data.msg);
             }
         }
         catch(e){
@@ -95,24 +86,23 @@ class State {
         }
     }
 
-    // 删除
-    @action deleteClick = async(record) => {
-        const params = {
-            id: record.id
-        };
-        const res = await Service.deleteHouse(params);
+    // 新增快递单号
+    @action saveData = async(obj) => {
+        const res = await Service.addExpress(obj);
         try{
             if(res.data.code === 0){
-                message.success(res.data.msg);
+                // const {rows} = res.data.data;
+                // this.setTableList(rows);
+                message.success('新增成功！');
                 this.getQueryData();
+                this.getExpressNums();
             }else{
-                message.error(res.data.msg);
+                // message.error(res.data.msg);
             }
         }
         catch(e){
             console.log(e);
         }
-
     }
 }
 
