@@ -359,8 +359,8 @@ class State {
         }
         // 模板
         // const htmlStr = _.template(template)(newData);
-        Lodop.PRINT_INIT('');
-        Lodop.SET_PRINTER_INDEX('express_print');
+        Lodop.PRINT_INITA(-1,0,380,570,'邮政快递电子面单打印');
+        Lodop.SET_PRINTER_INDEX('Microsoft XPS Document Writer');
         // Lodop.On_Return=function(TaskID,Value){
         //     if(Value>=0){
         //         message.success('选择成功!'); 
@@ -369,7 +369,6 @@ class State {
         //     }
         // };
         // Lodop.SELECT_PRINTER();
-        Lodop.PRINT_INITA(-1,0,380,570,'邮政快递电子面单打印');
         Lodop.SET_PRINT_PAGESIZE(1,1000,1500,'');
         Lodop.ADD_PRINT_BARCODE(9,148,190,60,'128C',newData.mailNo);
         Lodop.ADD_PRINT_LINE(80,5,79,375,2,1);
@@ -495,7 +494,7 @@ class State {
         packageList.map(item => {
             this.curPickPrint(item);
         });
-        this.checkFinished();
+        // this.checkFinished();
     }
 
 }
