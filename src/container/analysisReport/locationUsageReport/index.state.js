@@ -83,16 +83,19 @@ class State {
         let params = {};
         if(key == 'totalStoreNum'){
             params={
-                customerCode: query.customerCode
+                customerCode: query.customerCode,
+                houseCode: record.houseCode
             }
         }else if(key == 'usedStoreNum'){
             params={
                 customerCode: query.customerCode,
+                houseCode: record.houseCode,
                 queryType: 1
             }
         }else if(key == 'residuleStoreNum'){
             params={
                 customerCode: query.customerCode,
+                houseCode: record.houseCode,
                 queryType: 2
             }
         }

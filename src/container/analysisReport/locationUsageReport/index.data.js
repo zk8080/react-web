@@ -14,7 +14,7 @@ const colums = [
     },
     {
         title: '库位类型',
-        dataIndex: 'houseCode',
+        dataIndex: 'storeTypeName',
         width: 150
     },
     {
